@@ -9,13 +9,13 @@ export let Logo = ({ color , message }) => {
   if(!message){
     return(
       <div style={{"padding":"0"}}>
-        <h1 style={{"color": color}}><b>S K I P</b></h1>
+        <h1 style={{"color": color , margin:0}}><b>S K I P</b></h1>
       </div>
     )
   }
   return(
     <fragment style={LogoStyle}>
-      <h1><b>S K I P</b></h1>
+      <h1 style={{marginTop:0}}><b>S K I P</b></h1>
       <p style={{"color":"#4D4F5C"}}>{message}</p>
     </fragment>
   )

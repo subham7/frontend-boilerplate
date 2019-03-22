@@ -3,13 +3,12 @@ import Logo  from '../logoWithMsg';
 
 const ElemHeader = ({ logo, title }) => {
   let ElemHeaderStyle = {
-    height: "50px",
+    height: "40px",
     backgroundColor: "#030D34",
-    borderRadius: "4px",
     paddingTop:"4px",
     paddingLeft:"30px",
     overflow:"hidden",
-    fontSize:"15px"
+    fontSize:"12px"
   }
 
   if(logo==="enabled") {
@@ -19,14 +18,14 @@ const ElemHeader = ({ logo, title }) => {
           <Logo color="#CCCCCC" />
         </div>
         <div style={{"textAlign":"center"}}>
-          <h1 style={{"color":"#FFFFFF"}}>{title}</h1>
+          <h1 style={{"color":"#FFFFFF", margin:0}}>{title}</h1>
         </div>
       </div>
     )
   }
   return(
     <div style={ElemHeaderStyle}>
-      <div style={{"textAlign":"left", "fontSize":"15px"}}>
+      <div style={{"textAlign":"left", "fontSize":"12px"}}>
         <h1 style={{"color":"#FFFFFF"}}>{title}</h1>
       </div>
     </div>

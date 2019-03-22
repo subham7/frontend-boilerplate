@@ -11,7 +11,7 @@ const Login = (props) => {
             <ElementHeader logo="enabled" title="Business Details" />
             </div>
             <div className="background">      
-                <BackGroundCover width="100%" top="50px"/>
+                <BackGroundCover width="100%" top="40px"/>
                 <div className="content">
                     <BusinessDetails/>
                 </div>

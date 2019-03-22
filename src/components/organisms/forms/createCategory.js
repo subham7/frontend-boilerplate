@@ -26,10 +26,10 @@ export class F6 extends Component {
       <div className="App">
       <Form getApi={this.setFormApi}>
       <Text field="Category name" style={{marginBottom:15}} placeholder="Category name" />
-      <div style={{display:"inline-block"}}>
+      {/* <div style={{display:"inline-block"}}>
             <Button  style={{float:"left",width:192}}>Cancel</Button>
             <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-         </div>
+         </div> */}
       </Form>
    </div>
     );

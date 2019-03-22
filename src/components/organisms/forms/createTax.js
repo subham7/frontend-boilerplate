@@ -42,10 +42,10 @@ export class F5 extends Component {
           <div style={{marginBottom:15}}><label>Kolkata</label><Checkbox   style={{float:"right"}} field="Kolkata" /></div>
           <div style={{marginBottom:15}}><label>Bhubaneswar</label><Checkbox style={{float:"right"}} field="Bhubaneswar"/></div>
         
-        <div style={{display:"inline-block"}}>
+        {/* <div style={{display:"inline-block"}}>
             <Button  style={{float:"left",width:192}}>Cancel</Button>
             <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-       </div>
+       </div> */}
        </Form>
       </div>
     );

@@ -9,42 +9,6 @@
   ],
   "./index.less": [
     {
-      "id": "./node_modules/antd/lib/icon/style/index.less",
-      "name": "./node_modules/antd/lib/icon/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/menu/style/index.less",
-      "name": "./node_modules/antd/lib/menu/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/modal/style/index.less",
-      "name": "./node_modules/antd/lib/modal/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/grid/style/index.less",
-      "name": "./node_modules/antd/lib/grid/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/button/style/index.less",
-      "name": "./node_modules/antd/lib/button/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/select/style/index.less",
-      "name": "./node_modules/antd/lib/select/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
       "id": "./node_modules/antd/lib/empty/style/index.less",
       "name": "./node_modules/antd/lib/empty/style/index.less",
       "file": "static/chunks/styles.js",
@@ -57,8 +21,68 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
+      "id": "./node_modules/antd/lib/menu/style/index.less",
+      "name": "./node_modules/antd/lib/menu/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/spin/style/index.less",
+      "name": "./node_modules/antd/lib/spin/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/button/style/index.less",
+      "name": "./node_modules/antd/lib/button/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/modal/style/index.less",
+      "name": "./node_modules/antd/lib/modal/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/select/style/index.less",
+      "name": "./node_modules/antd/lib/select/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/pagination/style/index.less",
+      "name": "./node_modules/antd/lib/pagination/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/checkbox/style/index.less",
+      "name": "./node_modules/antd/lib/checkbox/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/radio/style/index.less",
+      "name": "./node_modules/antd/lib/radio/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
       "id": "./node_modules/antd/lib/input/style/index.less",
       "name": "./node_modules/antd/lib/input/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/grid/style/index.less",
+      "name": "./node_modules/antd/lib/grid/style/index.less",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": "./node_modules/antd/lib/icon/style/index.less",
+      "name": "./node_modules/antd/lib/icon/style/index.less",
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
     },
@@ -75,32 +99,8 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": "./node_modules/antd/lib/radio/style/index.less",
-      "name": "./node_modules/antd/lib/radio/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/checkbox/style/index.less",
-      "name": "./node_modules/antd/lib/checkbox/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
       "id": "./node_modules/antd/lib/dropdown/style/index.less",
       "name": "./node_modules/antd/lib/dropdown/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/spin/style/index.less",
-      "name": "./node_modules/antd/lib/spin/style/index.less",
-      "file": "static/chunks/styles.js",
-      "publicPath": "static/chunks/styles.js"
-    },
-    {
-      "id": "./node_modules/antd/lib/pagination/style/index.less",
-      "name": "./node_modules/antd/lib/pagination/style/index.less",
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
     },
@@ -143,7 +143,7 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": 3,
+      "id": 21,
       "name": null,
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
@@ -185,7 +185,7 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": 20,
+      "id": 4,
       "name": null,
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
@@ -197,7 +197,7 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": 4,
+      "id": 8,
       "name": null,
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
@@ -209,7 +209,7 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": 8,
+      "id": 3,
       "name": null,
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
@@ -221,7 +221,7 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": 21,
+      "id": 9,
       "name": null,
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
@@ -233,7 +233,7 @@
       "publicPath": "static/chunks/styles.js"
     },
     {
-      "id": 9,
+      "id": 20,
       "name": null,
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"

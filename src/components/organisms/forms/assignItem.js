@@ -36,10 +36,10 @@ export class F3 extends Component {
               return <div style={{marginBottom:15}}><label>{item}</label><Checkbox style={{float:"right"}} value={item} /></div>
             })}
       </Form>
-      <div style={{display:"inline-block"}}>
+      {/* <div style={{display:"inline-block"}}>
           <Button  style={{float:"left",width:192}}>Cancel</Button>
           <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-       </div>
+       </div> */}
       </div>
     );
   }

@@ -23,8 +23,9 @@ const ButtonIcon = (props) => {
             style={props.style}
             size={props.size}
             ghost={props.ghost}
-            onClick={confirm}
-        />
+            onClick={confirm}>
+        {props.value}
+        </Button>
     )
 }
 

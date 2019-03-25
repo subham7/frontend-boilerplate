@@ -42,10 +42,10 @@ export class CreateLocation extends Component {
         <h3>Business Hours</h3>
         <h3>Branding</h3>
         <button type="primary">Upload</button>
-        <div style={{display:"inline-block"}}>
+        {/* <div style={{display:"inline-block"}}>
             <Button  style={{float:"left",width:192}}>Cancel</Button>
             <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-         </div>
+         </div> */}
       </Form>
    </div>
     );

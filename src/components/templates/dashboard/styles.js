@@ -3,7 +3,7 @@ import css from 'styled-jsx/css';
 export default css `
 
 
-.heading{
+.header{
     position:fixed;
     top:0;
     left:0;
@@ -15,7 +15,6 @@ export default css `
 .content {
     position:absolute;
     top:40px;
-    left:240px;
+    left:250px;
 }
-
 `

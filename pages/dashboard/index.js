@@ -4,13 +4,14 @@ import {itemData} from './item.data.js';
 import {taxesData} from './taxes.data'
 import {employeeColumns, employeeColumnData} from './employee.data'
 import {locationColumns, locationColumnData} from './location.data'
-
+import {itemPurchaseData} from './purchase.data'
 import {categoryData} from './categories.data'
 
 import Items from "../../src/components/organisms/items"
 import Taxes from "../../src/components/organisms/taxes"
 import Modifiers from "../../src/components/organisms/modifiers"
 import Categories from "../../src/components/organisms/categories"
+import Purchase from '../../src/components/organisms/ItemPurchase'
 import { Tabs } from 'antd';
 
 import Employees from "../../src/components/templates/emplolyee"
@@ -59,6 +60,8 @@ return (
           return <Employees rowSelection={{}} columns={employeeColumns} columnData={employeeColumnData}/>
         case 'locations':
           return <Locations rowSelection={{}} columns={locationColumns} columnData={locationColumnData} />
+        case 'purchase':
+          return <Purchase rowSelection={{}} columns={itemPurchaseData.itemPurchaseColumns} columnData={itemPurchaseData.itemPurchaseColumnData} cascaderData={itemPurchaseData.cascaderData} />
         default:
           return <h1>Error: 404</h1>
       }

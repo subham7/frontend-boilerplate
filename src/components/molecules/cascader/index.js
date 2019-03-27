@@ -24,7 +24,7 @@ function filterOptions(input, option) {
 }
 
 const Cascader = (props) => {
-    console.log(props)
+    // console.log(props)
     return(
         <Select
             showArrow allowClear

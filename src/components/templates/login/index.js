@@ -15,7 +15,8 @@ const Login = (props) => {
                 <LogoHeading text="Welcome back! Please login to your account." />
                 </div>
                 <div className= "content">
-                    <LoginForm/>
+                    <LoginForm getFormData={props.getFormData}/>
+                  
                 </div>
                 <div className= "footer">
                 </div>

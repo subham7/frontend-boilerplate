@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Form,Checkbox,Text,TextArea} from '../../../utils/xinformed';
 import { Button } from 'antd';
-
+import Link from "next/link"
 
 
 const validate = value => {
@@ -15,7 +15,7 @@ export class F extends Component {
         this.setFormApi = this.setFormApi.bind(this);
     }
     handleClick() {
-        console.log(this.formAPi.getState());
+      this.props.getFormData(this.formAPi.getState())
     }
     setFormApi(formAPi){
         this.formAPi = formAPi;
@@ -25,18 +25,18 @@ export class F extends Component {
       <div>
         <Form getApi={this.setFormApi}>
         <div style={{display:"inline-block",marginBottom:15, width:"100%"}}>
-            <div style={{float:"left",width:"48%"}}><Text field="p2"  placeholder="First_name"/></div>
-            <div style={{float:"right", width:"48%"}}><Text  field="p3"  placeholder="Last_name"/></div> 
+            <div style={{float:"left",width:"48%"}}><Text field="firstname"  placeholder="First Name"/></div>
+            <div style={{float:"right", width:"48%"}}><Text  field="lastname"  placeholder="Last Name"/></div> 
         </div>
-        <Text field="User_name" style={{marginBottom:15}} placeholder="User_name" />
-        <Text field="email" style={{marginBottom:15}}  placeholder="Email:" />   
-        <Text field="Phone" style={{marginBottom:15}} placeholder="Phone" />
-        <Text field="Password" style={{marginBottom:15}} placeholder="Password" />
-        <Text field="C" style={{marginBottom:15}} placeholder="Confirm-Password" />
+        {/* <Text field="User_name" style={{marginBottom:15}} placeholder="User_name" /> */}
+        <Text field="email" style={{marginBottom:15}}  placeholder="Email" />   
+        <Text field="phone" style={{marginBottom:15}} placeholder="Phone" />
+        {/* <Text field="Password" style={{marginBottom:15}} placeholder="Password" /> */}
+        {/* <Text field="C" style={{marginBottom:15}} placeholder="Confirm-Password" /> */}
          <div style={{margin:10, marginLeft: 2}}><Checkbox/><label style={{marginLeft:10}}>I agree with terms and conditions</label></div>
         <div style={{marginLeft: "18%"}}>
           <Button  style={{width:150,marginLeft:100}}  type="primary" onClick={this.handleClick}>Log-in</Button>
-          <h4 style={{marginLeft:75,marginTop:25}} >Already have an account? Sign_in</h4> 
+          <h4 style={{marginLeft:75,marginTop:25}} >Already have an account?</h4> <Link to="/" ><a>Sign_in</a></Link>
         </div>
         </Form>
       </div>

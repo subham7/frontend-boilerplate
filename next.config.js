@@ -1,4 +1,5 @@
 const antdLessLoader = require("next-antd-aza-less")
+const withTM = require('next-transpile-modules');
 // const modifyVars = require("./your/custom/vars")
 const withCSS = require('@zeit/next-css')
 if (typeof require !== 'undefined') {
@@ -6,7 +7,14 @@ if (typeof require !== 'undefined') {
 }
 
 /* Without CSS Modules, with PostCSS */
-module.exports =  withCSS(antdLessLoader({
+module.exports =   (withCSS(antdLessLoader({
+  // exportPathMap: function() {
+  //   return {
+  //     '/': { page: '/' },
+  //     '/dashboard'
+  //   }
+  // },
+    // transpileModules: ['antd'],
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 1,
@@ -15,4 +23,4 @@ module.exports =  withCSS(antdLessLoader({
     lessLoaderOptions: {
       javascriptEnabled: true,
     }
-}));
+})));

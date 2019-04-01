@@ -1,8 +1,8 @@
 import React from 'react';
 import {Tag} from 'antd';
-import stockTag from "../../src/components/atoms/stockTag"
-import ButtonIcon from '../../src/components/atoms/tableButton';
-import Cascader from "../../src/components/molecules/cascader"
+import stockTag from "../src/components/atoms/stockTag"
+import ButtonIcon from '../src/components/atoms/tableButton';
+import Cascader from "../src/components/molecules/cascader"
 
 var taxesColumns =[
     {

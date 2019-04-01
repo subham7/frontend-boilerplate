@@ -7,7 +7,9 @@
     "dev": "node server.js",
     "build": "next build",
     "start": "next start",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "export": "next export",
+    "deploy": "npm run build && npm run export"
   },
   "author": "Ankit",
   "license": "ISC",
@@ -22,6 +24,8 @@
     "less": "^3.9.0",
     "next": "^8.0.3",
     "next-antd-aza-less": "^1.0.0",
+    "next-transpile-modules": "^2.2.0",
+    "pkg-dir": "^4.0.0",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.1",

@@ -35,7 +35,7 @@ export class F extends Component {
         {/* <Text field="C" style={{marginBottom:15}} placeholder="Confirm-Password" /> */}
          <div style={{margin:10, marginLeft: 2}}><Checkbox/><label style={{marginLeft:10}}>I agree with terms and conditions</label></div>
         <div style={{marginLeft: "18%"}}>
-          <Button  style={{width:150,marginLeft:100}}  type="primary" onClick={this.handleClick}>Log-in</Button>
+          <Button  style={{width:150,marginLeft:100}}  type="primary" onClick={(e) => this.handleClick(e)}>Log-in</Button>
           <h4 style={{marginLeft:75,marginTop:25}} >Already have an account?</h4> <Link to="/" ><a>Sign_in</a></Link>
         </div>
         </Form>

@@ -51,6 +51,7 @@ function reduxHelper(actionName, fn) {
     const action = function() {
       console.log("working on action")
       const args = arguments
+      // console.log(typeof args, args);
       return dispatch => {
         dispatch({
           type: actionRequest

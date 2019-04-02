@@ -10,7 +10,8 @@ export class BusinessDetails extends Component {
         this.setFormApi = this.setFormApi.bind(this);
     }
     handleClick() {
-        console.log(this.formAPi.getState());
+      this.props.getFormData(this.formAPi.getState());
+      // console.log(this.formAPi.getState());
     }
     setFormApi(formAPi){
         this.formAPi = formAPi;
@@ -43,7 +44,7 @@ export class BusinessDetails extends Component {
          <p>Your brand infomration applie to the look and feel of appointments,booking and marketing.</p>
          <div style={{display:"inline-block"}}>
             <Button  style={{float:"left",width:192}}>Cancel</Button>
-            <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
+            <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={(e) => this.handleClick(e)}>Save</Button>
          </div>
       </Form>
    </div>

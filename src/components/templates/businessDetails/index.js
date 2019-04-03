@@ -13,7 +13,7 @@ const Login = (props) => {
             <div className="background">      
                 <BackGroundCover width="100%" top="40px"/>
                 <div className="content">
-                    <BusinessDetails/>
+                    <BusinessDetails getFormData={props.getFormData}/>
                 </div>
             </div>
             <style jsx>{styles}</style>

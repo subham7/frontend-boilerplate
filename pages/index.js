@@ -19,7 +19,7 @@ class App extends React.Component {
 
   componentDidMount () {
    
-   //// Add redux api here
+   // Add redux api here
     // this.props.loginDispatch({uid:"b216008", pwd:"Ankit16@19"}).then(res=>{
     //   console.log(res)
     // }).catch(err =>{

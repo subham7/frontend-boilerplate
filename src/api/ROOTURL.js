@@ -1,4 +1,4 @@
 let ROOTURL
 // Server Url
 // export default (ROOTURL = "http://koyofea.com/api")
-export default (ROOTURL = "http://14.139.198.171/api/hibi")
+export default (ROOTURL = "http://127.0.0.1:3600")

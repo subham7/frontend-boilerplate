@@ -25,7 +25,7 @@ class ModalButton extends React.Component {
   handleCancel = () => {
     this.setState({ visible: false });
   }
-
+ 
   render() {
     const { visible, loading } = this.state;
     return (

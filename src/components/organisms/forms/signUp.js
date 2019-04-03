@@ -25,14 +25,14 @@ export class F extends Component {
       <div>
         <Form getApi={this.setFormApi}>
         <div style={{display:"inline-block",marginBottom:15, width:"100%"}}>
-            <div style={{float:"left",width:"48%"}}><Text field="firstname"  placeholder="First Name"/></div>
-            <div style={{float:"right", width:"48%"}}><Text  field="lastname"  placeholder="Last Name"/></div> 
+            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name"/></div>
+            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name"/></div> 
         </div>
-        {/* <Text field="User_name" style={{marginBottom:15}} placeholder="User_name" /> */}
+        <Text field="userName" style={{marginBottom:15}} placeholder="User Name" />
         <Text field="email" style={{marginBottom:15}}  placeholder="Email" />   
         <Text field="phone" style={{marginBottom:15}} placeholder="Phone" />
-        {/* <Text field="Password" style={{marginBottom:15}} placeholder="Password" /> */}
-        {/* <Text field="C" style={{marginBottom:15}} placeholder="Confirm-Password" /> */}
+        <Text field="password" style={{marginBottom:15}} placeholder="Password" />
+        <Text field="c_password" style={{marginBottom:15}} placeholder="Confirm-Password" />
          <div style={{margin:10, marginLeft: 2}}><Checkbox/><label style={{marginLeft:10}}>I agree with terms and conditions</label></div>
         <div style={{marginLeft: "18%"}}>
           <Button  style={{width:150,marginLeft:100}}  type="primary" onClick={(e) => this.handleClick(e)}>Log-in</Button>

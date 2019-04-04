@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import Template from '../../src/components/templates/signup';
 import { signup } from '../../src/reduxHelper'
+import Router from "next/router"
 const uuidv4 = require('uuid/v4')
 
 class App extends React.Component {
@@ -18,7 +19,7 @@ class App extends React.Component {
     this.props.signupDispatch(dispatchData).then(res => {
       // confirm if user was created 
       console.log(res)
-      window.location.replace(`/`)
+      Router.push(`/`)
     }).catch(err => {
       console.log(err)
     })

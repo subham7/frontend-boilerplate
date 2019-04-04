@@ -6,6 +6,7 @@ const uuidv4 = require('uuid/v4')
 
 class App extends React.Component {
 
+  // Add function to handle exist for username, (only unique username is allowed, precheck that)
   handleFormData(data) {
     // delete comfirm passwrod property, before dispatching
     delete data.values.c_password
@@ -15,15 +16,19 @@ class App extends React.Component {
     let dispatchData = data.values
     
     this.props.signupDispatch(dispatchData).then(res => {
+      // confirm if user was created 
       console.log(res)
+      window.location.replace(`/`)
+    }).catch(err => {
+      console.log(err)
     })
-      .catch(err => {
-        console.log(err)
-      })
+      
   }
   render() {
+    // Add loading if data loading
     return (
       <div>
+        {/* Add getFieldData for exist funtionality*/}
         <Template getFormData={(data) => this.handleFormData(data)} />
       </div>
     );

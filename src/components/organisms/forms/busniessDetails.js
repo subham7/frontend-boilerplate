@@ -21,20 +21,20 @@ export class BusinessDetails extends Component {
       <div className="App">
         <Form getApi={this.setFormApi}>
           <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="first"  placeholder="Business" /></div>
-            <div style={{float:"left"}}><Text style={{width:195}} field="second"  placeholder="Type of Business" /></div> 
+            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="name"  placeholder="Business" /></div>
+            <div style={{float:"left"}}><Text style={{width:195}} field="businesstype"  placeholder="Type of Business" /></div> 
           </div>
-          <Text field="third"  placeholder="Website" style={{marginBottom:15}}/>
-          <Text field="fourth" placeholder="Address Line 1" style={{marginBottom:15}}/>  
+          <Text field="website"  placeholder="Website" style={{marginBottom:15}}/>
+          <Text field="address" placeholder="Address Line 1" style={{marginBottom:15}}/>  
           <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="fourth"  placeholder="City" /></div>
-            <div style={{float:"left"}}><Text style={{width:195}} field="fifth"  placeholder="State"/></div> 
+            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="city"  placeholder="City" /></div>
+            <div style={{float:"left"}}><Text style={{width:195}} field="state"  placeholder="State"/></div> 
           </div>
           <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="p5"  placeholder="Pin Code" /></div>
-            <div style={{float:"left"}}><Text style={{width:195}} field="p6"  placeholder="Country"/></div> 
+            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="pincode"  placeholder="Pin Code" /></div>
+            <div style={{float:"left"}}><Text style={{width:195}} field="country"  placeholder="Country"/></div> 
           </div>
-         <TextArea rows="3" style={{marginBottom:15}} placeholder="Business Bio"/> 
+         <TextArea rows="3" field="bio" style={{marginBottom:15}} placeholder="Business Bio"/> 
          <h5>Do you accept cards?</h5>
          <div style={{display:"inline-block"}}> 
             <div style={{float:"left"}}><Checkbox style={{margin:10}}field="Yes"/><label>Yes</label></div>

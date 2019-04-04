@@ -28,9 +28,23 @@ class App extends React.Component {
   }
 
   handleFormData(data) {
+    // TODO: check later , wher id is coming from in formstate
     let formData = data.values
-      this.props.loginDispatch({uid:formData.username, pwd:formData.password}).then(res=>{
-      console.log(res)
+    this.props.loginDispatch(formData).then(res=>{
+      console.log("response", res)
+    // login was successful
+    if(res.status){
+      if(!res.data.data1){
+        window.location.replace("/business-details")
+      }else if (!res.data.data2){
+        window.location.replace("/master-data")
+      }else{
+        window.location.replace("/dashboard")
+      }
+    }else{
+      alert("Login Failed")
+    }
+      
     }).catch(err =>{
       console.log(err)
     })

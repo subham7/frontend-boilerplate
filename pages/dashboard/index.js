@@ -15,9 +15,12 @@ import Purchase from '../../src/components/organisms/ItemPurchase'
 import { Tabs } from 'antd';
 
 import Employees from "../../src/components/templates/emplolyee"
-import Locations from "../../src/components/templates/locations"
+import Locations from "./.locations"
 
 import {withRouter} from 'next/router'
+
+
+import init from "../../src/utils/wrappers"
 
 
 const TabPane = Tabs.TabPane;
@@ -43,36 +46,38 @@ const ItemsContent = (props) => {
     
 }
 
-const SwitchHandler = ({switchItem, tab})=> {
+class SwitchHandler extends React.Component {
 
-return (
-  <div>
-     {(() => {
+
+  render(){
     
-      switch(switchItem) {  
-        case 'home':
-          return <h1>Home page</h1>
-        case 'items':{
-          console.log("item selected")
-          return <ItemsContent selectedTab={tab} itemData={itemData} taxesData={taxesData} categoryData={categoryData}></ItemsContent>
-        }
-        case 'employees':
-          return <Employees rowSelection={{}} columns={employeeColumns} columnData={employeeColumnData}/>
-        case 'locations':
-          return <Locations rowSelection={{}} columns={locationColumns} columnData={locationColumnData} />
-        case 'purchase':
-          return <Purchase rowSelection={{}} columns={itemPurchaseData.itemPurchaseColumns} columnData={itemPurchaseData.itemPurchaseColumnData} cascaderData={itemPurchaseData.cascaderData} />
-        default:
-          return <h1>Error: 404</h1>
-      }
-    })()}
-  </div>
-)
+    return (
+      <div>
+         {(() => {
+        
+          switch(this.props.switchItem) {  
+            case 'home':
+              return <h1>Home page</h1>
+            case 'items':
+              return <ItemsContent selectedTab={this.props.tab} itemData={itemData} taxesData={taxesData} categoryData={categoryData}></ItemsContent>
+            case 'employees':
+              return <Employees rowSelection={{}} columns={employeeColumns} columnData={employeeColumnData}/>
+            case 'locations':
+              return <Locations/>
+            case 'purchase':
+              return <Purchase rowSelection={{}} columns={itemPurchaseData.itemPurchaseColumns} columnData={itemPurchaseData.itemPurchaseColumnData} cascaderData={itemPurchaseData.cascaderData} />
+            default:
+              return <h1>Error: 404</h1>
+          }
+        })()}
+      </div>
+    )
+  }
+
 }
 class App extends React.Component {
 
  render() {
-
     return (
       <div> 
         <Template sidebarTab={this.props.router.query.page}>        
@@ -84,4 +89,4 @@ class App extends React.Component {
     );
   }
 }
-export default withRouter(App);
+export default withRouter(init(App));

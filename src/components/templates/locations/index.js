@@ -10,6 +10,8 @@ import { Row,Col } from 'antd';
 
 
 const LocationTemplate = (props) => {
+
+ 
     return(
         <div>
             <Row type="flex">
@@ -22,7 +24,7 @@ const LocationTemplate = (props) => {
             </Row>
             {/* <br/> */}
             <ProductTable rowSelection={props.rowSelection} columns={props.columns} data={props.columnData} />
-            <Model form={<CreateLocation/>} title="Create Location" buttonValue="Create"/>
+            <Model form={CreateLocation} title="Create Location" buttonValue="Create" onSubmit={props.onCreate} handleSubmitOk={props.handleSubmitOk}/>
         </div>
     )
 }

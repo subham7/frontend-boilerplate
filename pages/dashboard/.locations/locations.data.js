@@ -1,8 +1,9 @@
 import React from 'react';
 import {Tag} from 'antd';
-import stockTag from '../src/components/atoms/stockTag'
-import ButtonIcon from '../src/components/atoms/tableButton';
-import Cascader from '../src/components/molecules/cascader'
+
+import stockTag from '../../../src/components/atoms/stockTag'
+import ButtonIcon from '../../../src/components/atoms/tableButton';
+// import Cascader from '../src/components/molecules/cascader'
 
 var locationColumns =[
     {
@@ -19,7 +20,7 @@ var locationColumns =[
         title: 'LOCATION',
         dataIndex: 'address',
         key: 'address',
-        render: location => (<span>{stockTag(location)}</span>)
+     
     },
     {
         title: 'Email',

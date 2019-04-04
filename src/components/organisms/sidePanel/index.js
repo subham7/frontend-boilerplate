@@ -25,7 +25,7 @@ let SidePanel = (props) => {
           </Link>
         </Menu.Item>
         <Menu.Item key="employees">
-        <Link as={`/dashboard/employees`} href={`/dashboard/employees`}>
+        <Link as={`/dashboard/employees`} href={`/dashboard?page=employees`}>
           <a> EMPLOYEES</a>
           </Link>
          
@@ -41,7 +41,7 @@ let SidePanel = (props) => {
         </SubMenu>
         <SubMenu key="business" title={<span><span>BUSINESS</span></span>}>
           <Menu.Item key="locations">
-            <Link as={`/dashboard/locations`} href={`/dashboard/locations`}>
+            <Link as={`/dashboard/locations`} href={`/dashboard?page=locations`}>
               LOCATIONS
             </Link>
           </Menu.Item>

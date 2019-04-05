@@ -17,4 +17,8 @@ export default css `
     top:40px;
     left:250px;
 }
+
+.main {
+    
+}
 `

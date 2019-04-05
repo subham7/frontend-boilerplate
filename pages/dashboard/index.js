@@ -8,7 +8,7 @@ import {itemPurchaseData} from '../../pagesData/purchase.data'
 import {categoryData} from '../../pagesData/categories.data'
 
 import Items from "../../src/components/organisms/items"
-import Taxes from "../../src/components/organisms/taxes"
+
 import Modifiers from "../../src/components/organisms/modifiers"
 import Categories from "../../src/components/organisms/categories"
 import Purchase from '../../src/components/organisms/ItemPurchase'
@@ -16,7 +16,8 @@ import { Tabs } from 'antd';
 
 import Employees from "../../src/components/templates/emplolyee"
 import Locations from "./.locations"
-
+import Taxes from "./.taxes"
+import Products from "./.products"
 import {withRouter} from 'next/router'
 
 
@@ -34,12 +35,12 @@ const ItemsContent = (props) => {
   return (
     <div>
       <Tabs defaultActiveKey={props.selectedTab} onChange={callback}>
-        <TabPane tab="Items" key="1"><Items cardData={props.itemData.cardData} cascaderData={props.itemData.cascaderData} columns={props.itemData.productColumns} columnData={props.itemData.productColumnData}/></TabPane>
-        <TabPane tab="Modifiers" key="2"><Modifiers cascaderData={props.itemData.cascaderData} columns={props.itemData.productColumns} columnData={props.itemData.productColumnData}/>/></TabPane>
+        <TabPane tab="Items" key="1"></TabPane>
+        <TabPane tab="Modifiers" key="2">/></TabPane>
         <TabPane tab="Categories" key="3"><Categories cardData={props.categoryData.cardData} cascaderData={props.categoryData.cascaderData} columns={props.categoryData.categoryColumns} columnData={props.categoryData.categoryColumnData}/></TabPane>
         <TabPane tab="Sub-Categories" key="4">Content of Tab Pane 4</TabPane>
         <TabPane tab="Discount" key="5">Content of Tab Pane 5</TabPane>
-        <TabPane tab="Taxes" key="6"><Taxes cascaderData={props.itemData.cascaderData} columns={props.taxesData.taxesColumns} columnData={props.taxesData.taxesColumnData}/></TabPane>
+        <TabPane tab="Taxes" key="6"></TabPane>
       </Tabs>
     </div>
   )
@@ -58,14 +59,20 @@ class SwitchHandler extends React.Component {
           switch(this.props.switchItem) {  
             case 'home':
               return <h1>Home page</h1>
-            case 'items':
-              return <ItemsContent selectedTab={this.props.tab} itemData={itemData} taxesData={taxesData} categoryData={categoryData}></ItemsContent>
             case 'employees':
               return <Employees rowSelection={{}} columns={employeeColumns} columnData={employeeColumnData}/>
             case 'locations':
               return <Locations/>
             case 'purchase':
               return <Purchase rowSelection={{}} columns={itemPurchaseData.itemPurchaseColumns} columnData={itemPurchaseData.itemPurchaseColumnData} cascaderData={itemPurchaseData.cascaderData} />
+            case 'taxes':
+              return <Taxes cascaderData={itemData.cascaderData} columns={taxesData.taxesColumns} columnData={taxesData.taxesColumnData}/>
+            case 'products':
+              return <Products/>
+            case 'discounts':
+              return <h1>Empty</h1>
+            case 'modifiers':
+              return  <Modifiers cascaderData={itemData.cascaderData} columns={itemData.productColumns} columnData={itemData.productColumnData}/>
             default:
               return <h1>Error: 404</h1>
           }

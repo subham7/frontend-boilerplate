@@ -7,7 +7,7 @@ import Cascader from "../src/components/molecules/cascader"
 var taxesColumns =[
     {
         title: 'Name',
-        dataIndex: 'product'
+        dataIndex: 'name'
     },
     {
         title: 'Locations',
@@ -41,42 +41,42 @@ var taxesColumns =[
 
  const taxesColumnData =[
      {
-         product: 'Test Name',
+         name: 'Test Name',
          locations: ['BBSR'],
          percentage: 5,
          taxCode: 'GST1234',
          cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
      },
      {
-        product: 'Test Name',
+        name: 'Test Name',
         locations: ['BBSR'],
         percentage: 5,
         taxCode: 'GST1234',
         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
     {
-        product: 'Test Name',
+        name: 'Test Name',
         locations: ['BBSR'],
         percentage: 5,
         taxCode: 'GST1234',
         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
     {
-        product: 'Test Name',
+        name: 'Test Name',
         locations: ['BBSR'],
         percentage: 5,
         taxCode: 'GST1234',
         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
     {
-       product: 'Test Name',
+       name: 'Test Name',
        locations: ['BBSR'],
        percentage: 5,
        taxCode: 'GST1234',
        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
    {
-       product: 'Test Name',
+       name: 'Test Name',
        locations: ['BBSR'],
        percentage: 5,
        taxCode: 'GST1234',

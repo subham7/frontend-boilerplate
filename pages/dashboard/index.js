@@ -30,8 +30,6 @@ import init from "../../src/utils/wrappers"
 
 const TabPane = Tabs.TabPane
 
-const TabPane = Tabs.TabPane
-
 // refactor code
 const ItemsContent = props => {
   function callback(key) {

@@ -26,6 +26,7 @@ export default css`
     top: 50px;
     width: 210px;
     height: calc(100vh - 50px);
+    overflow-y: scroll;
   }
 
   .content {

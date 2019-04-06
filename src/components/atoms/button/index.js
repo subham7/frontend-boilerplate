@@ -1,38 +1,34 @@
-import React from 'react';
-import { Button } from 'antd';
+import React from "react"
+import { Button } from "antd"
 
-const ButtonOne = ({ color, value, onClick, loading}) => {
-  
+const ButtonOne = ({ color, value, onClick, loading }) => {
   let ButtonStyle = {
     backgroundColor: color,
-    borderWidth: '0px',
-    padding: "0.2em 3.3em",
+    borderWidth: "0px",
+    //padding: "0.2em 3.3em",
     borderRadius: "4px"
   }
   if (loading) {
-    return(
+    return (
       <Button
         type="primary"
         style={ButtonStyle}
         onClick={onClick}
-        loading={loading}>
-
-      {value}
+        loading={loading}
+      >
+        {value}
       </Button>
     )
   }
-  return(
-    <Button
-      type="primary"
-      style={ButtonStyle}
-      onClick={onClick}>
-    {value}
+  return (
+    <Button type="primary" style={ButtonStyle} onClick={onClick}>
+      {value}
     </Button>
   )
 }
 ButtonOne.defaultProps = {
   color: "#030D34",
-  value: "Click Me",
+  value: "Click Me"
 }
 
-export default ButtonOne;
+export default ButtonOne

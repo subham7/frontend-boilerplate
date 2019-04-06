@@ -1,5 +1,5 @@
 import React from 'react';
-import Template from '../../../src/components/templates/masterData';
+import Template from '../../src/components/templates/masterData';
 
 class App extends React.Component {
  render() {

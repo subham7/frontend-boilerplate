@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import Template from '../src/components/templates/login';
 
 import { login } from "../src/reduxHelper"
-
+import Router from 'next/router'
 class App extends React.Component {
   constructor(props){
     super(props)
@@ -33,20 +33,26 @@ class App extends React.Component {
     this.props.loginDispatch(formData).then(res=>{
       console.log("response", res)
     // login was successful
-    if(res.status){
-      if(!res.data.data1){
-        window.location.replace("/business-details")
-      }else if (!res.data.data2){
-        window.location.replace("/master-data")
-      }else{
-        window.location.replace("/dashboard")
-      }
-    }else{
-      alert("Login Failed")
-    }
-      
-    }).catch(err =>{
+      // check if account is blocked
+      if(res.data.isblocked){
+        alert("You account is not active")
+      }else {
+        if(!res.data.data1){
+          Router.push("/business-details")
+        }else if (!res.data.data2){
+          Router.push("/master-data")
+        }else{
+          Router.push("/dashboard")
+        }
+      }  
+    }).catch(err =>{     
       console.log(err)
+      if(err.reponse && (err.response.status = 401)){
+        alert("Login Failed")
+      }else {
+        alert("Something bad happend at our end")
+      }
+      console.log("error", err)
     })
   }
 

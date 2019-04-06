@@ -15,18 +15,23 @@ class ModalButton extends React.Component {
     });
   }
 
-  handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  }
 
   handleCancel = () => {
     this.setState({ visible: false });
   }
  
+  handleSubmit(data){
+    this.props.onSubmit(data, (data) => {
+      if(data.status){
+        alert(data.message)
+        this.setState({ visible: false });
+      }else{
+        alert(data.message)
+      }
+    })
+  }
   render() {
+  
     const { visible, loading } = this.state;
     return (
       <div>
@@ -36,14 +41,11 @@ class ModalButton extends React.Component {
           onOk={this.handleOk}
           title={this.props.title}
           onCancel={this.handleCancel}
-          footer={[
-            <ButtonOne value="Return" onClick={this.handleCancel} />,
-            <ButtonOne value="Submit" loading={loading} onClick={this.handleOk} />
-          ]}
+          footer={null}
         >
         
         <div style={{"marginTop":"10px", "marginBottom":"10px"}}>
-          {this.props.form}
+          <this.props.form onSubmit={(data) => this.handleSubmit(data)} onCancel={this.handleCancel}/>
         </div>
         </Modal>
         

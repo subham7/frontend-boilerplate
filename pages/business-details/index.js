@@ -3,7 +3,7 @@ import Template from '../../src/components/templates/businessDetails';
 const uuidv4 = require('uuid/v4')
 import { businessSignup, user } from '../../src/reduxHelper'
 import { connect } from 'react-redux';
-
+import Router from "next/router"
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -16,7 +16,7 @@ class App extends React.Component {
     this.props.businessSignupDispatch(dispatchData).then(res => {
       console.log(res)
       if(res.status){
-        windows.location.replace("/dashboard")
+        Router.push("/dashboard")
       }else{
         alert("Cannot add business, check console for error")
       }
@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
 componentDidMount() {
-  this.props.getUserDispatch("082afffa-f3ca-4ca0-8668-611d7840ec0f").then(data=> {
+  this.props.getUserDispatch("6bb05804-ac94-4f82-ba2a-d1792812ffca").then(data=> {
 
   })
 }

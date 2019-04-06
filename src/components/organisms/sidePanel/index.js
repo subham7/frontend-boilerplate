@@ -26,16 +26,44 @@ let SidePanel = props => {
             <a>HOME</a>
           </Link>
         </Menu.Item>
-        <Menu.Item key="items">
-          <Link
-            as={`/dashboard/items/tabs/1`}
-            href={`/dashboard?page=items&tab=1`}
-          >
-            <a>ITEMS</a>
-          </Link>
-        </Menu.Item>
+        <SubMenu
+          key="masterData"
+          title={
+            <span>
+              <span>MASTER DATA</span>
+            </span>
+          }
+        >
+          <Menu.Item key="prodcuts">
+            <Link as={`/dashboard/products`} href={`/dashboard?page=products`}>
+              PRODUCTS
+            </Link>
+          </Menu.Item>
+
+          <Menu.Item key="taxes">
+            <Link as={`/dashboard/taxes`} href={`/dashboard?page=taxes`}>
+              TAXES
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="modifiers">
+            <Link
+              as={`/dashboard/modifiers`}
+              href={`/dashboard?page=modifiers`}
+            >
+              MODIFIERS
+            </Link>
+          </Menu.Item>
+          <Menu.Item key="discounts">
+            <Link
+              as={`/dashboard/discounts`}
+              href={`/dashboard?page=discounts`}
+            >
+              DISCOUNTS
+            </Link>
+          </Menu.Item>
+        </SubMenu>
         <Menu.Item key="employees">
-          <Link as={`/dashboard/employees`} href={`/dashboard/employees`}>
+          <Link as={`/dashboard/employees`} href={`/dashboard?page=employees`}>
             <a> EMPLOYEES</a>
           </Link>
         </Menu.Item>
@@ -62,7 +90,10 @@ let SidePanel = props => {
           }
         >
           <Menu.Item key="locations">
-            <Link as={`/dashboard/locations`} href={`/dashboard/locations`}>
+            <Link
+              as={`/dashboard/locations`}
+              href={`/dashboard?page=locations`}
+            >
               LOCATIONS
             </Link>
           </Menu.Item>

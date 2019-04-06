@@ -7,24 +7,24 @@ import Cascader from '../src/components/molecules/cascader'
 var locationColumns =[
     {
         title: 'Name',
-        dataIndex: 'product',
-        key: 'product'
+        dataIndex: 'name',
+        key: 'name'
     },
     {
-        title: 'ADDRESS',
-        dataIndex: 'code',
-        key: 'code'
+        title: 'Manager',
+        dataIndex: 'pocname',
+        key: 'pocname'
     },
     {
         title: 'LOCATION',
-        dataIndex: 'location',
-        key: 'location',
+        dataIndex: 'address',
+        key: 'address',
         render: location => (<span>{stockTag(location)}</span>)
     },
     {
         title: 'Email',
-        dataIndex: 'category',
-        key: 'category',
+        dataIndex: 'email',
+        key: 'email',
         render: (category)=> <a href="#" >{category}</a>
     },
     {

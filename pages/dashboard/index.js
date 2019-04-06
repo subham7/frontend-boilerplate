@@ -66,7 +66,7 @@ class SwitchHandler extends React.Component {
             case 'purchase':
               return <Purchase rowSelection={{}} columns={itemPurchaseData.itemPurchaseColumns} columnData={itemPurchaseData.itemPurchaseColumnData} cascaderData={itemPurchaseData.cascaderData} />
             case 'taxes':
-              return <Taxes cascaderData={itemData.cascaderData} columns={taxesData.taxesColumns} columnData={taxesData.taxesColumnData}/>
+              return <Taxes/>
             case 'products':
               return <Products/>
             case 'discounts':

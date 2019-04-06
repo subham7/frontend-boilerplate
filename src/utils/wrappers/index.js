@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from 'react-redux'
-import { user, getBusinesses} from "../../reduxHelper";
+import { user, businesses} from "../../reduxHelper";
 
 export default function init(WrappedComponent){
     
@@ -49,7 +49,7 @@ export default function init(WrappedComponent){
       
     const mapDispatchToProps = dispatch => ({
     getUser: (ID) => dispatch(user.action(ID)),
-    getBusiness: (userID) => dispatch(getBusinesses.action(userID))
+    getBusiness: (userID) => dispatch(businesses.action(userID))
     })
     return connect(mapStateToProps,mapDispatchToProps)(App);
 }

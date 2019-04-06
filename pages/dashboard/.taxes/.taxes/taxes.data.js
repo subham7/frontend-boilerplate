@@ -1,27 +1,23 @@
 import React from 'react';
 import {Tag} from 'antd';
-import stockTag from "../../../src/components/atoms/stockTag"
-import ButtonIcon from '../../../src/components/atoms/tableButton';
-import Cascader from "../../../src/components/molecules/cascader"
+import stockTag from "../../../../src/components/atoms/stockTag"
+import ButtonIcon from '../../../../src/components/atoms/tableButton';
+import Cascader from "../../../../src/components/molecules/cascader"
 
-var taxesColumns =[
+var taxesColumns = [
     {
         title: 'Name',
-        dataIndex: 'product'
+        dataIndex: 'name'
     },
     {
-        title: 'Locations',
-        dataIndex: 'locations',
-        render: location => (<span>{stockTag(location)}</span>)
+        title: 'Tax Category',
+        dataIndex: 'taxCategory',
+        render: taxCategory => (<span>{stockTag(taxCategory)}</span>)
     },
     {
         title: 'Percentage',
         dataIndex: 'percentage',
         render: percentage => (<b>{percentage}%</b>)
-    },
-    {
-        title: 'Tax Code',
-        dataIndex: 'taxCode'
     },
     {
         title:'Edit',

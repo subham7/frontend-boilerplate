@@ -1,7 +1,7 @@
 import React from 'react';
 import Template from '../../src/components/templates/businessDetails';
 const uuidv4 = require('uuid/v4')
-import { businessSignup, user } from '../../src/reduxHelper'
+import { addBusiness, user } from '../../src/reduxHelper'
 import { connect } from 'react-redux';
 import Router from "next/router"
 class App extends React.Component {
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  businessSignupDispatch: (businessSignupData) => dispatch(businessSignup.action(businessSignupData)),
+  businessSignupDispatch: (businessSignupData) => dispatch(addBusiness.action(businessSignupData)),
   getUserDispatch: (userID) => dispatch(user.action(userID))
 })
 

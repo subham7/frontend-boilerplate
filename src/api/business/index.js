@@ -1,7 +1,7 @@
 import ROOTURL from "../ROOTURL"
 import axios from "axios"
 // API call for logging in of user:
-export const url = ROOTURL + "/businesses"
-export default data => axios.post(url, data)
+const url = ROOTURL + "/businesses"
+export const addBusiness = (data) => axios.post(url, data)
 
-export const getBusinesses = userID => axios.get(`${ROOTURL}/users/${userID}/businesses`)
+export const businesses = userID => axios.get(`${ROOTURL}/users/${userID}/businesses`)

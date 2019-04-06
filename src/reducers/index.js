@@ -1,21 +1,12 @@
 import { combineReducers } from "redux"
 
-import { 
-    login,
-    businessSignup, 
-    signup, 
-    user,
-    getLocations,
-    getBusinesses,
-    addLocation } from "../reduxHelper"
+import * as helperFunctions from "../reduxHelper"
 
-export default combineReducers({
 
-    login: login.reducer,
-    businessSignup: businessSignup.reducer,
-    signup: signup.reducer,
-    user: user.reducer,
-    locations:getLocations.reducer,
-    addLocation: addLocation.reducer,
-    businesses: getBusinesses.reducer
+let reducers = {}
+Object.keys(helperFunctions).map(functionName =>{
+    reducers[functionName] = helperFunctions[functionName].reducer
 })
+
+
+export default combineReducers(reducers)

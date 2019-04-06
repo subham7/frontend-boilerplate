@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import {getLocations, addLocation} from "../../../src/reduxHelper"
+import {locations, addLocation} from "../../../src/reduxHelper"
 import Locations from "../../../src/components/templates/locations"
 
 import {locationColumns, locationColumnData} from './locations.data'
@@ -17,7 +17,6 @@ class App extends React.Component {
     }
 
     componentDidMount(){
-      console.log("mount")
       this.loadLocationData()
     }
 
@@ -36,7 +35,6 @@ class App extends React.Component {
       }
 
     render() {
-      console.log('rerender')
       if(this.props.locations.isLoaded){
         return (
             <div> 
@@ -68,15 +66,12 @@ class App extends React.Component {
       object.email = data.pocEmail
       temp.push(object)
       }
-      console.log("inside create columns, temp: ", temp)
       return temp;
   }
 
   loadLocationData(){
-    console.log("loading")
     let businessID = this.props.business.response.data.businessID
       this.props.getLocations(businessID).then(res => {
-        console.log(this._createLocationColumns(res) + "est")
         this.setState({locationTableData: this._createLocationColumns(res)})  
       }).catch(err => {
         console.log(err)
@@ -92,7 +87,7 @@ const mapStateToProps = state => ({
   })
   // Example Syntax for writing dispatch
   const mapDispatchToProps = dispatch => ({
-    getLocations: (businessID) => dispatch(getLocations.action(businessID)),
+    getLocations: (businessID) => dispatch(locations.action(businessID)),
     addLocation: (businessID, object) => dispatch(addLocation.action(businessID, object))
   })
   export default connect(mapStateToProps,mapDispatchToProps)(App);

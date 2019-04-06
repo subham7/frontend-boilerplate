@@ -70,36 +70,17 @@ class SwitchHandler extends React.Component {
           switch (this.props.switchItem) {
             case "home":
               return <h1>Home page</h1>
-            case "employees":
-              return (
-                <Employees
-                  rowSelection={{}}
-                  columns={employeeColumns}
-                  columnData={employeeColumnData}
-                />
-              )
-            case "locations":
-              return <Locations />
-            case "purchase":
-              return (
-                <Purchase
-                  rowSelection={{}}
-                  columns={itemPurchaseData.itemPurchaseColumns}
-                  columnData={itemPurchaseData.itemPurchaseColumnData}
-                  cascaderData={itemPurchaseData.cascaderData}
-                />
-              )
-            case "taxes":
-              return (
-                <Taxes
-                  cascaderData={itemData.cascaderData}
-                  columns={taxesData.taxesColumns}
-                  columnData={taxesData.taxesColumnData}
-                />
-              )
-            case "products":
-              return <Products />
-            case "discounts":
+            case 'employees':
+              return <Employees rowSelection={{}} columns={employeeColumns} columnData={employeeColumnData}/>
+            case 'locations':
+              return <Locations/>
+            case 'purchase':
+              return <Purchase rowSelection={{}} columns={itemPurchaseData.itemPurchaseColumns} columnData={itemPurchaseData.itemPurchaseColumnData} cascaderData={itemPurchaseData.cascaderData} />
+            case 'taxes':
+              return <Taxes/>
+            case 'products':
+              return <Products/>
+            case 'discounts':
               return <h1>Empty</h1>
             case "modifiers":
               return (

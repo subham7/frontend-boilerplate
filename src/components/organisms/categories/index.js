@@ -4,7 +4,7 @@ import CascaderAndSearch from "../cascaderAndSearch";
 import StockCard from "../stockCadRow";
 import ProductTable from "../productTable";
 import Model from "../../molecules/modelButton"
-import CreateItem from "../../organisms/forms/createItem"
+import createCategory from "../../organisms/forms/createCategory"
 import { Row,Col } from 'antd';
 //Code
 let ItemCategory = (props) => {
@@ -17,7 +17,7 @@ let ItemCategory = (props) => {
     <ProductTable columns={props.columns} data={props.columnData} />
     <Row >
       <Col span={3} push={20}>
-      <Model form={<CreateItem/>} title="Create Item" buttonValue="Create"/>
+      <Model form={createCategory} title="Create Item" buttonValue="Create" onSubmit={props.onCreate} />
       </Col>
     </Row>
     </div>

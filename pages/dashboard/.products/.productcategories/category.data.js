@@ -1,8 +1,8 @@
 import React from 'react';
-import stockTag from "../../../src/components/atoms/stockTag"
-import ButtonIcon from '../../../src/components/atoms/tableButton';
-import Model from "../../../src/components/molecules/modelButton"
-import AssignItem from "../../../src/components/organisms/forms/assignItem"
+import stockTag from "../../../../src/components/atoms/stockTag"
+import ButtonIcon from '../../../../src/components/atoms/tableButton';
+import Model from "../../../../src/components/molecules/modelButton"
+import AssignItem from "../../../../src/components/organisms/forms/assignItem"
 
 var cardData = [
     {

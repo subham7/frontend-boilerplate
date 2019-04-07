@@ -1,5 +1,5 @@
 import React from 'react';
-import stockTag from "../../../src/components/atoms/stockTag";
+import stockTag from "../../../../src/components/atoms/stockTag";
 
 var cardData = [
     {

@@ -72,13 +72,7 @@ class SwitchHandler extends React.Component {
             case "home":
               return <h1>Home page</h1>
             case "employees":
-              return (
-                <Employees
-                  rowSelection={{}}
-                  columns={employeeColumns}
-                  columnData={employeeColumnData}
-                />
-              )
+              return <Employees />
             case "locations":
               return <Locations />
             case "purchase":

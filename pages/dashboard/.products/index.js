@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 // import {getproductss, addproducts} from "../../../src/reduxHelper"
-import Products from './.products'
+import Products from './.products/index'
 import Categories from "./.productcategories"
 
 import uuidv4 from "uuid/v4"
@@ -34,7 +34,7 @@ class App extends React.Component {
               <div>
                 <Tabs defaultActiveKey={"1"} onChange={this.callback}>
                   <TabPane tab="Product Categories" key="1"><Categories/></TabPane>
-                  <TabPane tab="Products" key="2">kdnjksn</TabPane>
+                  <TabPane tab="Products" key="2"><Products /></TabPane>
                 </Tabs>
               </div>
           );

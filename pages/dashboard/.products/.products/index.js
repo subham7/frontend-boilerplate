@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux'
 
 import {products, addProduct} from "../../../../src/reduxHelper"
+import Products from '../../../../src/components/organisms/items'
 
+import {itemData} from './product.data'
 import uuidv4 from "uuid/v4"
 
 
@@ -15,7 +17,7 @@ class App extends React.Component {
     }
 
     componentDidMount(){
-      console.log("mount")
+      // console.log("mount")
       // this.loadproductsData()
     }
 
@@ -38,7 +40,7 @@ class App extends React.Component {
         // console.log(key);
        }
     render() {
-      console.log('rerender')
+      // console.log('rerender')
       if(true){
         return (
               <div>
@@ -84,7 +86,7 @@ class App extends React.Component {
   loadproductsData(){
     console.log("loading")
     let businessID = this.props.business.response.data.businessID
-      this.props.getproductss(businessID).then(res => {
+      this.props.getproducts(businessID).then(res => {
         console.log(this._createproductsColumns(res) + "est")
         this.setState({productsTableData: this._createproductsColumns(res)})  
       }).catch(err => {

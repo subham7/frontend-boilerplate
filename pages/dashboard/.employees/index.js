@@ -18,8 +18,7 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.employees.isLoaded) {
-      console.log(this.state.employeesTableData)
+    if (this.props.employees.isLoaded)
       return (
         <Employees
           rowSelection={{}}
@@ -27,7 +26,7 @@ class App extends Component {
           columnData={this.state.employeesTableData}
         />
       )
-    } else return <h1>Loading...</h1>
+    else return <h1>Loading...</h1>
   }
 
   _createEmployeeColumns(data) {
@@ -45,7 +44,6 @@ class App extends Component {
           "Permission"
         ]
         temp.push(object)
-        console.log(object)
       })
     } else {
       let object = {}

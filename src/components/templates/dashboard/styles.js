@@ -21,14 +21,6 @@ export default css`
     width: 100%;
   }
 
-  .sidebar {
-    position: fixed;
-    top: 50px;
-    width: 210px;
-    height: calc(100vh - 50px);
-    overflow-y: scroll;
-  }
-
   .content {
     position: absolute;
     right: 0;
@@ -36,5 +28,38 @@ export default css`
     min-height: calc(100vh - 50px);
     display: inline-block;
     padding: 10px 20px;
+  }
+
+  /*** Sidebar CSS ***/
+  .sidebar {
+    position: fixed;
+    top: 50px;
+    width: 210px;
+    height: calc(100vh - 50px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 3px 3px 8px #ddd;
+  }
+
+  /* width */
+  .sidebar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  /* Track */
+  .sidebar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #fff;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #fff;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: #fff;
   }
 `

@@ -1,12 +1,14 @@
 import React from "react"
 import { Menu, Icon, Divider } from "antd"
 import Link from "next/link"
+import styles from "./styles"
+
 let SubMenu = Menu.SubMenu
 
 let style = {
   height: "calc(100vh - 50px)",
   width: "210px",
-  padding: "20px 0 0 10px "
+  padding: "20px 0 0 0"
 }
 
 let SidePanel = props => {
@@ -18,31 +20,35 @@ let SidePanel = props => {
         mode="inline"
         defaultSelectedKeys={[props.selected]}
       >
-        <div style={{ padding: "5px" }}>
+        <div style={{ margin: "25px 0 50px 24px" }}>
           <h1>Hi Ankit!</h1>
         </div>
         <Menu.Item key="home">
           <Link as={`/dashboard/home`} href={`/dashboard?page=home`}>
-            <a>HOME</a>
+            <a>
+              <p className="sidebar-option">HOME</p>
+            </a>
           </Link>
         </Menu.Item>
         <SubMenu
           key="masterData"
           title={
             <span>
-              <span>MASTER DATA</span>
+              <span>
+                <p className="sidebar-option">MASTER DATA</p>
+              </span>
             </span>
           }
         >
           <Menu.Item key="prodcuts">
             <Link as={`/dashboard/products`} href={`/dashboard?page=products`}>
-              PRODUCTS
+              <p className="sidebar-option">PRODUCTS</p>
             </Link>
           </Menu.Item>
 
           <Menu.Item key="taxes">
             <Link as={`/dashboard/taxes`} href={`/dashboard?page=taxes`}>
-              TAXES
+              <p className="sidebar-option">TAXES</p>
             </Link>
           </Menu.Item>
           <Menu.Item key="modifiers">
@@ -50,7 +56,7 @@ let SidePanel = props => {
               as={`/dashboard/modifiers`}
               href={`/dashboard?page=modifiers`}
             >
-              MODIFIERS
+              <p className="sidebar-option">MODIFIERS</p>
             </Link>
           </Menu.Item>
           <Menu.Item key="discounts">
@@ -58,34 +64,48 @@ let SidePanel = props => {
               as={`/dashboard/discounts`}
               href={`/dashboard?page=discounts`}
             >
-              DISCOUNTS
+              <p className="sidebar-option">DISCOUNTS</p>
             </Link>
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="employees">
           <Link as={`/dashboard/employees`} href={`/dashboard?page=employees`}>
-            <a> EMPLOYEES</a>
+            <a>
+              <p className="sidebar-option">EMPLOYEES</p>
+            </a>
           </Link>
         </Menu.Item>
-        <Menu.Item key="cutomers">CUSTOMERS</Menu.Item>
+        <Menu.Item key="cutomers">
+          <p className="sidebar-option">CUSTOMERS</p>
+        </Menu.Item>
         <Divider />
         <SubMenu
           key="setting"
           title={
             <span>
-              <span>SETTING</span>
+              <span>
+                <p className="sidebar-option">SETTING</p>
+              </span>
             </span>
           }
         >
-          <Menu.Item key="account">ACCOUNT</Menu.Item>
-          <Menu.Item key="personal_info">PERSONAL INFO</Menu.Item>
-          <Menu.Item key="email_notif">EMAIL NOTIFICATION</Menu.Item>
+          <Menu.Item key="account">
+            <p className="sidebar-option">ACCOUNT</p>
+          </Menu.Item>
+          <Menu.Item key="personal_info">
+            <p className="sidebar-option">PERSONAL INFO</p>
+          </Menu.Item>
+          <Menu.Item key="email_notif">
+            <p className="sidebar-option">EMAIL NOTIFICATION</p>
+          </Menu.Item>
         </SubMenu>
         <SubMenu
           key="business"
           title={
             <span>
-              <span>BUSINESS</span>
+              <span>
+                <p className="sidebar-option">BUSINESS</p>
+              </span>
             </span>
           }
         >
@@ -94,16 +114,25 @@ let SidePanel = props => {
               as={`/dashboard/locations`}
               href={`/dashboard?page=locations`}
             >
-              LOCATIONS
+              <p className="sidebar-option">LOCATIONS</p>
             </Link>
           </Menu.Item>
-          <Menu.Item key="permissions">PERMISSIONS</Menu.Item>
-          <Menu.Item key="receipts">RECEIPTS</Menu.Item>
-          <Menu.Item key="devices">DEVICES</Menu.Item>
+          <Menu.Item key="permissions">
+            <p className="sidebar-option">PERMISSIONS</p>
+          </Menu.Item>
+          <Menu.Item key="receipts">
+            <p className="sidebar-option">RECEIPTS</p>
+          </Menu.Item>
+          <Menu.Item key="devices">
+            <p className="sidebar-option">DEVICES</p>
+          </Menu.Item>
         </SubMenu>
         <Divider />
-        <Menu.Item key="settings">SUPPORT</Menu.Item>
+        <Menu.Item key="settings">
+          <p className="sidebar-option">SUPPORT</p>
+        </Menu.Item>
       </Menu>
+      <style jsx>{styles}</style>
     </div>
   )
 }

@@ -15,7 +15,7 @@ export class F5 extends Component {
         this.setFormApi = this.setFormApi.bind(this);
     }
     handleClick() {
-        console.log(this.formAPi.getState());
+        this.props.onSubmit(this.formAPi.getState())
     }
     setFormApi(formAPi){
         this.formAPi = formAPi;
@@ -25,10 +25,12 @@ export class F5 extends Component {
       <div className="App">
         <Form getApi={this.setFormApi}>
           <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="first"  placeholder="Tax Name" /></div>
-            <div style={{float:"left"}}><Text style={{width:195}} field="second"  placeholder="Percentage" /></div> 
+            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="name"  placeholder="Tax Name" /></div>
+            <div style={{float:"left"}}><Text style={{width:195}} field="percentage"  placeholder="Percentage" /></div> 
           </div>
-          <h5>Include in MRP:</h5>
+          <div style={{marginBottom:15}}><Text style={{width:195}} field="taxcategory"  placeholder="Tax Category" /></div>
+          
+          {/* <h5>Include in MRP:</h5>
           <div style={{display:"inline-block"}}> 
             <div style={{float:"left"}}><Checkbox style={{margin:10}}field="Yes"/><label>Yes</label></div>
             <div style={{float:"left"}}><Checkbox style={{margin:10}}field="No" /><label>No</label></div>
@@ -40,12 +42,12 @@ export class F5 extends Component {
           <div style={{marginBottom:15}}><label>Bangalore</label><Checkbox style={{float:"right"}} field="Bangalore" /></div>
           <div style={{marginBottom:15}}><label>Hyderabad</label><Checkbox style={{float:"right"}} field="Hyderabad" /></div>
           <div style={{marginBottom:15}}><label>Kolkata</label><Checkbox   style={{float:"right"}} field="Kolkata" /></div>
-          <div style={{marginBottom:15}}><label>Bhubaneswar</label><Checkbox style={{float:"right"}} field="Bhubaneswar"/></div>
+          <div style={{marginBottom:15}}><label>Bhubaneswar</label><Checkbox style={{float:"right"}} field="Bhubaneswar"/></div> */}
         
-        {/* <div style={{display:"inline-block"}}>
+        <div style={{display:"inline-block"}}>
             <Button  style={{float:"left",width:192}}>Cancel</Button>
             <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-       </div> */}
+       </div>
        </Form>
       </div>
     );

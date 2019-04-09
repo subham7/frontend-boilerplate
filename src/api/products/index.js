@@ -4,8 +4,8 @@ import axios from "axios"
 
 export const products = (businessID) => axios.get(`${ROOTURL}/businesses/${businessID}/products`)
 
-export const addProduct = (businessID, object) => axios.post(`${ROOTURL}/businesses/${businessID}/products`, object)
+export const addProduct = (object) => axios.post(`${ROOTURL}/products`, object)
 
-export const productCategories = (object) => axios.get(``)
+export const productCategories = (urlParams) => axios.get(`${ROOTURL}/businesses/${urlParams.businessID}/productcategories`)
 
-export const addProductCategory = (object) => axios.post(``,object)
+export const addProductCategory = (object) => axios.post(`${ROOTURL}/productcategories`,object)

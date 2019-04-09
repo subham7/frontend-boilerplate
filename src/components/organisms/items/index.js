@@ -40,9 +40,10 @@ let ItemTemplate = props => {
           </Col>
           <Col span={3} push={12}>
             <Model
-              form={<CreateItem />}
+              form={CreateItem}
               title="Create Item"
               buttonValue="Create"
+              onSubmit={props.onCreate}
             />
           </Col>
         </Row>

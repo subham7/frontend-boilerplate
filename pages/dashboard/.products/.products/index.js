@@ -1,8 +1,11 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { products, addProduct } from "../../../../src/reduxHelper"
+import {products, addProduct} from "../../../../src/reduxHelper"
+import Products from '../../../../src/components/organisms/items'
 
+
+import {itemData} from './product.data'
 import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
@@ -10,6 +13,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       productsTableData: []
+
     }
   }
 
@@ -34,27 +38,31 @@ class App extends React.Component {
       })
   }
 
+
   callback(key) {
     // console.log(key);
   }
-  render() {
-    console.log("rerender")
-    if (true) {
-      return (
-        <div>
-          <Products
-            rowSelection={{}}
-            cardData={itemData.cardData}
-            cascaderData={itemData.cascaderData}
-            columns={itemData.productColumns}
-            columnData={this.state.productsTableData}
-            onCreate={(data, cb) => this.handleCreateproducts(data, cb)}
-          />
-        </div>
-      )
-    } else {
-      return <h1>Loading</h1>
-    }
+
+
+    render() {
+      // console.log('rerender')
+      if(true){
+        return (
+              <div>
+                <Products 
+                  rowSelection={{}} 
+                  cardData={itemData.cardData} 
+                  cascaderData={itemData.cascaderData} 
+                  columns={itemData.productColumns} 
+                  columnData={this.state.productsTableData} 
+                  onCreate={(data,cb) => this.handleCreateproducts(data,cb)}
+                 />
+              </div>
+          );
+      }else {
+          return <h1>Loading</h1>
+      }
+        
   }
 
   _createproductsColumns(data) {
@@ -81,9 +89,8 @@ class App extends React.Component {
   loadproductsData() {
     console.log("loading")
     let businessID = this.props.business.response.data.businessID
-    this.props
-      .getproductss(businessID)
-      .then(res => {
+
+      this.props.getproducts(businessID).then(res => {
         console.log(this._createproductsColumns(res) + "est")
         this.setState({ productsTableData: this._createproductsColumns(res) })
       })

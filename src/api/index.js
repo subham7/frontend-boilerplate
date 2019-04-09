@@ -4,7 +4,9 @@ import * as business from "./business"
 import * as users from "./users"
 import * as login from "./login"
 import * as signup from "./signup"
+
 import * as employees from "./employees"
+import * as products from './products'
 
 module.exports = {
   taxes,
@@ -13,5 +15,7 @@ module.exports = {
   signup,
   login,
   users,
-  employees
+  employees,
+  products
 }
+

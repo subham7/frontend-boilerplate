@@ -29,7 +29,8 @@ export class F2 extends Component {
         this.setFormApi = this.setFormApi.bind(this);
     }
     handleClick() {
-        console.log(this.formAPi.getState());
+        // console.log(this.formAPi.getState());
+        this.props.onSubmit(this.formAPi.getState())
     }
     setFormApi(formAPi){
         this.formAPi = formAPi;
@@ -103,10 +104,10 @@ export class F2 extends Component {
             <div style={{float:"left"}}><Text style={{width:195}} field="p9"  placeholder="Low Stock Alert Count"/></div> 
           </div>
           <Button style={{marginBottom:10}} type="primary">Upload</Button>
-          {/* <div style={{display:"inline-block"}}>
+          <div style={{display:"inline-block"}}>
             <Button  style={{float:"left",width:192}}>Cancel</Button>
             <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-         </div> */}
+         </div>
       </Form>
    </div>
     );

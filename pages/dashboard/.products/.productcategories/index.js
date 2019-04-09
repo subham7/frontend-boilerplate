@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import {products, addProduct} from "../../../../src/reduxHelper"
+import {productCategories, addProductCategory} from "../../../../src/reduxHelper"
 import Categories from "../../../../src/components/organisms/categories"
 
 import {categoryData} from "./category.data"
@@ -10,22 +10,23 @@ import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
     constructor(props){
-        super(props)
-        this.state = {
-          productsTableData :[]
-        }
+      super(props)
+      this.state ={
+        productsTableData: []
+      }
     }
+    
+      
 
     componentDidMount(){
-      console.log("mount")
-      // this.loadproductsData()
+      this.loadProductCategoryData()
     }
 
     handleCreateProductCategory(data, cb){
       console.log(data);
-      data.values.blocationID = uuidv4()
-      // let businessID = this.props.response.data.businessID
-      this.props.addProductCategory(businessID, data.values).then(res => {
+      data.values.productcategoryID = uuidv4()
+      data.values.business = this.props.business.response.data.businessID
+      this.props.addProductCategory(data.values).then(res => {
         this.loadProductCategoryData()
         cb({status: true, message: "Product category added"})
       }). catch(err => {
@@ -38,7 +39,7 @@ class App extends React.Component {
         // console.log(key);
        }
     render() {
-      console.log('rerender');
+      // console.log('rerender');
       if(true){
         return (
               <div>
@@ -61,24 +62,27 @@ class App extends React.Component {
     if(Array.isArray(data)){
       data.map(item => {
         let object = {}
-        // object.product = data.product,
-        // object.code = data.code,
-        // object.category = data.category
+        //map array data here
+        object.name = item.name,
+        // object.inventory = [50],
         temp.push(object)
       })
     } else {
       let object = {}
-
+      //map data here
+      object.name = data.name,
       temp.push(object)
     }
     return temp;
   }
   
   loadProductCategoryData = () => {
-    businessID = this.props.business.data.businessID
-    this.props.getProducts(businessID).then(res => {
+    let urlParams = {}
+    urlParams.businessID = this.props.business.response.data.businessID
+    this.props.getProductCategory(urlParams).then(res=>{
       this.setState({productsTableData: this._createProductCategory(res)})
-    }).catch(err => {
+    })
+    .catch(err => {
       console.log(err)
     })
   }
@@ -87,12 +91,12 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
     business: state.businesses,
-    products: state.products,
-    addProduct: state.addProduct
+    productCategories: state.productCategories,
+    addProductCategory: state.addProductCategory
   })
   // Example Syntax for writing dispatch
   const mapDispatchToProps = dispatch => ({
-    getProducts: (businessID) => dispatch(products.action(businessID)),
-    addLocation: (businessID, object) => dispatch(addProduct.action(businessID, object))
+    getProductCategory: (businessID) => dispatch(productCategories.action(businessID)),
+    addProductCategory: (businessID, object) => dispatch(addProductCategory.action(businessID, object))
    })
   export default connect(mapStateToProps,mapDispatchToProps)(App);

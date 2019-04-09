@@ -46,9 +46,9 @@ var cascaderData =[
 
 var productColumns =[
     {
-        title: 'PRODUCT',
-        dataIndex: 'product',
-        key: 'product'
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name'
     },
     {
         title: 'CODE',
@@ -56,21 +56,26 @@ var productColumns =[
         key: 'code'
     },
     {
+        title: 'BARCODE',
+        dataIndex: 'barcode',
+        key: 'barcode'
+    },
+    {
         title: 'CATEGORY',
         dataIndex: 'category',
         key: 'category'
     },
-    {
-        title: 'LOCATION',
-        dataIndex: 'location',
-        key: 'location'
-    },
-    {
-        title: 'INVENTORY',
-        dataIndex: 'inventory',
-        key: 'inventory',
-        render: inventory => (<span>{stockTag(inventory)}</span>)
-    },
+    // {
+    //     title: 'LOCATION',
+    //     dataIndex: 'location',
+    //     key: 'location'
+    // },
+    // {
+    //     title: 'INVENTORY',
+    //     dataIndex: 'inventory',
+    //     key: 'inventory',
+    //     render: inventory => (<span>{stockTag(inventory)}</span>)
+    // },
     {
         title: 'PRICE',
         key: 'price',

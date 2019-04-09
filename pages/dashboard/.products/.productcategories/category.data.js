@@ -49,19 +49,19 @@ var cascaderData =[
 
 var categoryColumns =[
     {
-        title: 'Name',
+        title: 'Category',
         dataIndex: 'name'
     },
-    {
-        title: 'Inventory',
-        dataIndex: 'inventory',
-        render: inventory => (<span>{stockTag(inventory)}</span>)
-    },
-    {
-        title: 'Assign',
-        dataIndex: 'assign',
-    render: () => <Model form={<AssignItem/>} title="Assign Items" buttonValue="Assign"/>
-    },
+    // {
+    //     title: 'Inventory',
+    //     dataIndex: 'inventory',
+    //     render: inventory => (<span>{stockTag(inventory)}</span>)
+    // },
+    // {
+    //     title: 'Assign',
+    //     dataIndex: 'assign',
+    // render: () => <Model form={<AssignItem/>} title="Assign Items" buttonValue="Assign" onSubmit={props.onCreate} handleSubmitOk={props.handleSubmitOk}/>
+    // },
     {
         title: 'Rename',
         dataIndex: 'rename',

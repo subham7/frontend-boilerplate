@@ -47,6 +47,7 @@ var cascaderData = [
   }
 ]
 
+<<<<<<< HEAD
 var categoryColumns = [
   {
     title: "Name",
@@ -90,6 +91,33 @@ var categoryColumns = [
       />
     )
   }
+=======
+var categoryColumns =[
+    {
+        title: 'Category',
+        dataIndex: 'name'
+    },
+    // {
+    //     title: 'Inventory',
+    //     dataIndex: 'inventory',
+    //     render: inventory => (<span>{stockTag(inventory)}</span>)
+    // },
+    // {
+    //     title: 'Assign',
+    //     dataIndex: 'assign',
+    // render: () => <Model form={<AssignItem/>} title="Assign Items" buttonValue="Assign" onSubmit={props.onCreate} handleSubmitOk={props.handleSubmitOk}/>
+    // },
+    {
+        title: 'Rename',
+        dataIndex: 'rename',
+        render: ()=> <ButtonIcon icon="form" style={{"marginRight":"30px"}} shape="circle" type="primary" size="small" ghost />
+    },
+    {
+        title: '',
+        dataIndex:'',
+        render: ()=> <ButtonIcon icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+    }
+>>>>>>> 273f9b15bd6c1622503ac452cb8b3cca07a680b4
 ]
 
 const categoryColumnData = [

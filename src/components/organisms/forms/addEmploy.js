@@ -17,7 +17,7 @@ export class F4 extends Component {
         this.setFormApi = this.setFormApi.bind(this);
     }
     handleClick() {
-        console.log(this.formAPi.getState());
+      this.props.onSubmit(this.formAPi.getState())
     }
     setFormApi(formAPi){
         this.formAPi = formAPi;
@@ -26,10 +26,15 @@ export class F4 extends Component {
     return (
       <div className="App">
        <Form getApi={this.setFormApi}>
-          <Text field="email" style={{marginBottom:15}}  placeholder="Email:" />
-          <Text field="position" style={{marginBottom:15}} placeholder="Position" />   
-          <Text field="user-id" style={{marginBottom:15}} placeholder="User Id" />
-          <h5>Passcode</h5>
+          <div style={{display:"inline-block",marginBottom:15, width:"100%"}}>
+            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name"/></div>
+            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name"/></div> 
+          </div>
+          <Text field="userName" style={{marginBottom:15}} placeholder="User Name" />
+          <Text field="email" style={{marginBottom:15}}  placeholder="Email" />   
+          <Text field="phone" style={{marginBottom:15}} placeholder="Phone" />
+          <Text field="password" style={{marginBottom:15}} placeholder="Password" />
+          {/* <h5>Passcode</h5>
           <div style={{display:"inline-block",marginBottom:15}}>
              <div className="pass"><Text size="large" field="p1"/></div>
              <div className="pass"><Text size="large" field="p2"/></div>
@@ -38,11 +43,11 @@ export class F4 extends Component {
            </div>
           {items.map(item => {
               return <div style={{marginBottom:15}}><label>{item}</label><Checkbox style={{float:"right"}} value={item} /></div>
-            })}
+            })} */}
             
       </Form>
       <div style={{display:"inline-block"}}>
-          <Button  style={{float:"left",width:190}}>Cancel</Button>
+          <Button  style={{float:"left",width:190}} onClick={this.props.onCancel}>Cancel</Button>
           <Button  style={{float:"left",width:190,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
        </div>
       </div>

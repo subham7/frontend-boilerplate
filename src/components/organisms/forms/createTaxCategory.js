@@ -24,11 +24,11 @@ export class F5 extends Component {
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
-          <div style={{display:"inline-block",marginBottom:15}}>
+          {/* <div style={{display:"inline-block",marginBottom:15}}>
             <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="name"  placeholder="Tax Name" /></div>
             <div style={{float:"left"}}><Text style={{width:195}} field="percentage"  placeholder="Percentage" /></div> 
-          </div>
-          <div style={{marginBottom:15}}><Text style={{width:195}} field="taxcategory"  placeholder="Tax Category" /></div>
+          </div> */}
+          <div style={{marginBottom:15}}><Text style={{width:195}} field="name"  placeholder="Name" /></div>
           
           {/* <h5>Include in MRP:</h5>
           <div style={{display:"inline-block"}}> 

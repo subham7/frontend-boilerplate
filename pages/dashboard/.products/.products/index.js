@@ -19,15 +19,15 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log("mount")
-    // this.loadproductsData()
+    this.loadproductsData()
   }
 
   handleCreateproducts(data, cb) {
     console.log("producttttt", data)
-    data.values.bproductsID = uuidv4()
-    let businessID = this.props.business.response.data.businessID
+    data.values.productID = uuidv4()
+    data.values.business = this.props.business.response.data.businessID
     this.props
-      .addProduct(businessID, data.values)
+      .addProduct(data.values)
       .then(res => {
         this.loadproductsData()
         cb({ status: true, message: "products created successful" })
@@ -46,7 +46,7 @@ class App extends React.Component {
 
     render() {
       // console.log('rerender')
-      if(true){
+      if(this.props.products.isLoaded){
         return (
               <div>
                 <Products 
@@ -70,16 +70,20 @@ class App extends React.Component {
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
-        ;(object.pocname = item.pocName), (object.name = item.name)
-        object.address = item.address
-        object.email = item.pocEmail
+        object.name = item.name
+        object.code = item.code
+        object.barcode = item.barcode
+        object.category = item.productcategory
+        object.price = item.price
         temp.push(object)
       })
     } else {
       let object = {}
-      ;(object.pocname = data.pocName), (object.name = data.name)
-      object.address = data.address
-      object.email = data.pocEmail
+      object.name = data.name
+      object.code = data.code
+      object.barcode = data.barcode
+      object.category = data.productcategory
+      object.price = data.price
       temp.push(object)
     }
     console.log("inside create columns, temp: ", temp)

@@ -22,6 +22,7 @@ class App extends React.Component {
     this.loadProductCategoryData()
   }
 
+<<<<<<< HEAD
   handleCreateProductCategory(data, cb) {
     console.log(data)
     data.values.categooryID = uuidv4()
@@ -30,6 +31,13 @@ class App extends React.Component {
     this.props
       .addProductCategory(businessID, data.values)
       .then(res => {
+=======
+    handleCreateProductCategory(data, cb){
+      console.log(data);
+      data.values.productcategoryID = uuidv4()
+      data.values.business = this.props.business.response.data.businessID
+      this.props.addProductCategory(data.values).then(res => {
+>>>>>>> 273f9b15bd6c1622503ac452cb8b3cca07a680b4
         this.loadProductCategoryData()
         cb({ status: true, message: "Product category added" })
       })
@@ -66,19 +74,27 @@ class App extends React.Component {
       data.map(item => {
         let object = {}
         //map array data here
+<<<<<<< HEAD
         ;(object.name = item.username),
           (object.inventory = [50]),
           temp.push(object)
+=======
+        object.name = item.name,
+        // object.inventory = [50],
+        temp.push(object)
+>>>>>>> 273f9b15bd6c1622503ac452cb8b3cca07a680b4
       })
     } else {
       let object = {}
       //map data here
+      object.name = data.name,
       temp.push(object)
     }
     return temp
   }
 
   loadProductCategoryData = () => {
+<<<<<<< HEAD
     const businessID = this.props.business.response.data.businessID
     this.props
       .getProductCategory(businessID)
@@ -90,6 +106,16 @@ class App extends React.Component {
       .catch(err => {
         console.log(err)
       })
+=======
+    let urlParams = {}
+    urlParams.businessID = this.props.business.response.data.businessID
+    this.props.getProductCategory(urlParams).then(res=>{
+      this.setState({productsTableData: this._createProductCategory(res)})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+>>>>>>> 273f9b15bd6c1622503ac452cb8b3cca07a680b4
   }
 }
 

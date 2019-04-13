@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { taxCategory } from "../../../../src/reduxHelper"
+import { taxCategories, addTaxCategory } from "../../../../src/reduxHelper"
 import TaxCategory from "../../../../src/components/organisms/taxCategory"
 import { taxCategoryColumns } from "./taxCategory.data"
 
@@ -17,13 +17,26 @@ class App extends Component {
     this.loadTaxCategoryData()
   }
 
+  handleCreateTaxes(data, cb) {
+    data.values.taxcategoryID = uuid()
+    data.values.business = this.props.business.response.data.businessID
+      this.props.addTaxCategory(data.values).then(res =>{
+        this.loadTaxCategoryData()
+        cb({status:true, message: "Taxes created successful"})
+      }).catch(err => {
+        console.log(err)
+        cb({status:false, message: "SomeError occured"})
+      })
+    }
+
   render() {
-    if (this.props.taxCategory.isLoaded)
+    if (true)
       return (
         <TaxCategory
           rowSelection={{}}
           columns={taxCategoryColumns}
           columnData={this.state.taxCategoryTableData}
+          onCreate={(data,cb) => this.handleCreateTaxes(data,cb)}
         />
       )
     else return <h1>Loading...</h1>
@@ -34,14 +47,14 @@ class App extends Component {
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
-        object.name = item.title
-        object.taxCode = item.id
+        object.name = item.name
+        object.taxCode = item.taxcategoryID
         temp.push(object)
       })
     } else {
       let object = {}
-      object.name = item.title
-      object.taxCode = item.id
+      object.name = item.name
+      object.taxCode = item.taxcategoryID
       temp.push(object)
     }
     return temp
@@ -49,13 +62,14 @@ class App extends Component {
 
   // Integrated with test api
   loadTaxCategoryData() {
-    let businessID = this.props.business.response.data.businessID
+    let urlParams = {}
+    urlParams.businessID = this.props.business.response.data.businessID
     this.props
-      .getTaxCategory()
+      .getTaxCategories(urlParams)
       .then(res => {
         this.setState({
           taxCategoryTableData: this._createTaxCategoryColoumns(
-            this.props.taxCategory.response.data
+            this.props.taxCategories.response.data
           )
         })
       })
@@ -65,11 +79,12 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  taxCategory: state.taxCategory
+  taxCategories: state.taxCategories
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTaxCategory: object => dispatch(taxCategory.action(object))
+  getTaxCategories: object => dispatch(taxCategories.action(object)),
+  addTaxCategory: object => dispatch(addTaxCategory.action(object))
 })
 
 export default connect(

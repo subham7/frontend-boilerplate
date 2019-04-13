@@ -37,6 +37,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({})
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({})
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

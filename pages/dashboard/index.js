@@ -1,19 +1,14 @@
 import React from "react"
 import Template from "../../src/components/templates/dashboard"
 import { itemData } from "../../pagesData/item.data.js"
-import { taxesData } from "../../pagesData/taxes.data"
+
 import {
   employeeColumns,
   employeeColumnData
 } from "../../pagesData/employee.data"
-import {
-  locationColumns,
-  locationColumnData
-} from "../../pagesData/location.data"
-import { itemPurchaseData } from "../../pagesData/purchase.data"
-import { categoryData } from "../../pagesData/categories.data"
 
-import Items from "../../src/components/organisms/items"
+import { itemPurchaseData } from "../../pagesData/purchase.data"
+
 
 import Modifiers from "../../src/components/organisms/modifiers"
 import Categories from "../../src/components/organisms/categories"

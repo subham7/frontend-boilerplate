@@ -861,6 +861,46 @@ module.exports = _interopRequireDefault;
 
 /***/ }),
 
+/***/ "./node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Object$getOwnPropertyDescriptor = __webpack_require__(/*! ../core-js/object/get-own-property-descriptor */ "./node_modules/@babel/runtime-corejs2/core-js/object/get-own-property-descriptor.js");
+
+var _Object$defineProperty = __webpack_require__(/*! ../core-js/object/define-property */ "./node_modules/@babel/runtime-corejs2/core-js/object/define-property.js");
+
+function _interopRequireWildcard(obj) {
+  if (obj && obj.__esModule) {
+    return obj;
+  } else {
+    var newObj = {};
+
+    if (obj != null) {
+      for (var key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          var desc = _Object$defineProperty && _Object$getOwnPropertyDescriptor ? _Object$getOwnPropertyDescriptor(obj, key) : {};
+
+          if (desc.get || desc.set) {
+            _Object$defineProperty(newObj, key, desc);
+          } else {
+            newObj[key] = obj[key];
+          }
+        }
+      }
+    }
+
+    newObj.default = obj;
+    return newObj;
+  }
+}
+
+module.exports = _interopRequireWildcard;
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime-corejs2/helpers/possibleConstructorReturn.js":
 /*!**********************************************************************************!*\
   !*** ./node_modules/@babel/runtime-corejs2/helpers/possibleConstructorReturn.js ***!
@@ -14540,12 +14580,13 @@ var ROOTURL; // Server Url
 /*!***********************************!*\
   !*** ./src/api/business/index.js ***!
   \***********************************/
-/*! exports provided: url, default */
+/*! exports provided: addBusiness, businesses */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "url", function() { return url; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addBusiness", function() { return addBusiness; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "businesses", function() { return businesses; });
 /* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
@@ -14553,9 +14594,111 @@ __webpack_require__.r(__webpack_exports__);
  // API call for logging in of user:
 
 var url = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/businesses";
-/* harmony default export */ __webpack_exports__["default"] = (function (data) {
+var addBusiness = function addBusiness(data) {
   return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, data);
-});
+};
+var businesses = function businesses(userID) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/users/").concat(userID, "/businesses"));
+};
+
+/***/ }),
+
+/***/ "./src/api/employees/index.js":
+/*!************************************!*\
+  !*** ./src/api/employees/index.js ***!
+  \************************************/
+/*! exports provided: employees, addEmployee, employeelocations, addEmployeeLocation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "employees", function() { return employees; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEmployee", function() { return addEmployee; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "employeelocations", function() { return employeelocations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addEmployeeLocation", function() { return addEmployeeLocation; });
+/* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var employees = function employees(urlParams) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(urlParams.businessID, "/users"));
+};
+var addEmployee = function addEmployee(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/users"), object);
+};
+var employeelocations = function employeelocations(urlParams) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/user/").concat(urlParams.userID, "/userslocations"));
+};
+var addEmployeeLocation = function addEmployeeLocation(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/userslocations"), object);
+};
+
+/***/ }),
+
+/***/ "./src/api/index.js":
+/*!**************************!*\
+  !*** ./src/api/index.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireWildcard */ "./node_modules/@babel/runtime-corejs2/helpers/interopRequireWildcard.js");
+
+var taxes = _interopRequireWildcard(__webpack_require__(/*! ./taxes */ "./src/api/taxes/index.js"));
+
+var locations = _interopRequireWildcard(__webpack_require__(/*! ./locations */ "./src/api/locations/index.js"));
+
+var business = _interopRequireWildcard(__webpack_require__(/*! ./business */ "./src/api/business/index.js"));
+
+var users = _interopRequireWildcard(__webpack_require__(/*! ./users */ "./src/api/users/index.js"));
+
+var login = _interopRequireWildcard(__webpack_require__(/*! ./login */ "./src/api/login/index.js"));
+
+var signup = _interopRequireWildcard(__webpack_require__(/*! ./signup */ "./src/api/signup/index.js"));
+
+var employees = _interopRequireWildcard(__webpack_require__(/*! ./employees */ "./src/api/employees/index.js"));
+
+var products = _interopRequireWildcard(__webpack_require__(/*! ./products */ "./src/api/products/index.js"));
+
+module.exports = {
+  taxes: taxes,
+  locations: locations,
+  business: business,
+  signup: signup,
+  login: login,
+  users: users,
+  employees: employees,
+  products: products
+};
+
+/***/ }),
+
+/***/ "./src/api/locations/index.js":
+/*!************************************!*\
+  !*** ./src/api/locations/index.js ***!
+  \************************************/
+/*! exports provided: locations, addLocation */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "locations", function() { return locations; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addLocation", function() { return addLocation; });
+/* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var locations = function locations(businessID) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(businessID, "/blocations"));
+};
+var addLocation = function addLocation(businessID, object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(businessID, "/blocations"), object);
+};
 
 /***/ }),
 
@@ -14563,12 +14706,12 @@ var url = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/businesses";
 /*!********************************!*\
   !*** ./src/api/login/index.js ***!
   \********************************/
-/*! exports provided: loginUrl, default */
+/*! exports provided: login */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loginUrl", function() { return loginUrl; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
@@ -14576,9 +14719,42 @@ __webpack_require__.r(__webpack_exports__);
  // API call for logging in of user:
 
 var loginUrl = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/login";
-/* harmony default export */ __webpack_exports__["default"] = (function (userData) {
-  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(loginUrl, userData);
-});
+var login = function login(data) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(loginUrl, data);
+};
+
+/***/ }),
+
+/***/ "./src/api/products/index.js":
+/*!***********************************!*\
+  !*** ./src/api/products/index.js ***!
+  \***********************************/
+/*! exports provided: products, addProduct, productCategories, addProductCategory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "products", function() { return products; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProduct", function() { return addProduct; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "productCategories", function() { return productCategories; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProductCategory", function() { return addProductCategory; });
+/* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var products = function products(businessID) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(businessID, "/products"));
+};
+var addProduct = function addProduct(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/products"), object);
+};
+var productCategories = function productCategories(urlParams) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(urlParams.businessID, "/productcategories"));
+};
+var addProductCategory = function addProductCategory(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/productcategories"), object);
+};
 
 /***/ }),
 
@@ -14586,12 +14762,12 @@ var loginUrl = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/login";
 /*!*********************************!*\
   !*** ./src/api/signup/index.js ***!
   \*********************************/
-/*! exports provided: signupURL, default */
+/*! exports provided: signup */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signupURL", function() { return signupURL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
 /* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
@@ -14599,9 +14775,42 @@ __webpack_require__.r(__webpack_exports__);
  // API call for signingup of user
 
 var signupURL = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/users";
-/* harmony default export */ __webpack_exports__["default"] = (function (userData) {
+var signup = function signup(userData) {
   return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(signupURL, userData);
-});
+};
+
+/***/ }),
+
+/***/ "./src/api/taxes/index.js":
+/*!********************************!*\
+  !*** ./src/api/taxes/index.js ***!
+  \********************************/
+/*! exports provided: taxes, addTax, taxCategories, addTaxCategory */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "taxes", function() { return taxes; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTax", function() { return addTax; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "taxCategories", function() { return taxCategories; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTaxCategory", function() { return addTaxCategory; });
+/* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var taxes = function taxes(businessID) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(businessID, "/taxes"));
+};
+var addTax = function addTax(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/taxes"), object);
+};
+var taxCategories = function taxCategories(urlParams) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/businesses/").concat(urlParams.businessID, "/taxcategories"));
+};
+var addTaxCategory = function addTaxCategory(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/taxcategories"), object);
+};
 
 /***/ }),
 
@@ -14609,20 +14818,19 @@ var signupURL = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/users";
 /*!********************************!*\
   !*** ./src/api/users/index.js ***!
   \********************************/
-/*! exports provided: getUserUrl, getUser */
+/*! exports provided: user */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserUrl", function() { return getUserUrl; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUser", function() { return getUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
 /* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
 
 var getUserUrl = _ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"] + "/users/";
-var getUser = function getUser(userID) {
+var user = function user(userID) {
   return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(getUserUrl + userID);
 };
 
@@ -14769,16 +14977,21 @@ function getOrCreateStore(initialState) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
-/* harmony import */ var _reduxHelper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../reduxHelper */ "./src/reduxHelper/index.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js");
+/* harmony import */ var _babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _reduxHelper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../reduxHelper */ "./src/reduxHelper/index.js");
+/* harmony import */ var _reduxHelper__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_reduxHelper__WEBPACK_IMPORTED_MODULE_2__);
 
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  login: _reduxHelper__WEBPACK_IMPORTED_MODULE_1__["login"].reducer,
-  businessSignup: _reduxHelper__WEBPACK_IMPORTED_MODULE_1__["businessSignup"].reducer,
-  signup: _reduxHelper__WEBPACK_IMPORTED_MODULE_1__["signup"].reducer,
-  user: _reduxHelper__WEBPACK_IMPORTED_MODULE_1__["user"].reducer
-}));
+
+var reducers = {};
+
+_babel_runtime_corejs2_core_js_object_keys__WEBPACK_IMPORTED_MODULE_0___default()(_reduxHelper__WEBPACK_IMPORTED_MODULE_2__).map(function (functionName) {
+  reducers[functionName] = _reduxHelper__WEBPACK_IMPORTED_MODULE_2__[functionName].reducer;
+});
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_1__["combineReducers"])(reducers));
 
 /***/ }),
 
@@ -14786,30 +14999,27 @@ __webpack_require__.r(__webpack_exports__);
 /*!**********************************!*\
   !*** ./src/reduxHelper/index.js ***!
   \**********************************/
-/*! exports provided: login, businessSignup, signup, user */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "businessSignup", function() { return businessSignup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "signup", function() { return signup; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "user", function() { return user; });
-/* harmony import */ var _utils_reduxCodeGenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/reduxCodeGenerator */ "./src/utils/reduxCodeGenerator/index.js");
-/* harmony import */ var _api_login__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../api/login */ "./src/api/login/index.js");
-/* harmony import */ var _api_business__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../api/business */ "./src/api/business/index.js");
-/* harmony import */ var _api_signup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api/signup */ "./src/api/signup/index.js");
-/* harmony import */ var _api_users__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api/users */ "./src/api/users/index.js");
- // Use case
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime-corejs2/helpers/interopRequireDefault */ "./node_modules/@babel/runtime-corejs2/helpers/interopRequireDefault.js");
 
+var _keys = _interopRequireDefault(__webpack_require__(/*! @babel/runtime-corejs2/core-js/object/keys */ "./node_modules/@babel/runtime-corejs2/core-js/object/keys.js"));
 
+var _reduxCodeGenerator = _interopRequireDefault(__webpack_require__(/*! ../utils/reduxCodeGenerator */ "./src/utils/reduxCodeGenerator/index.js"));
 
-var login = Object(_utils_reduxCodeGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])("login", _api_login__WEBPACK_IMPORTED_MODULE_1__["default"]);
-var businessSignup = Object(_utils_reduxCodeGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])("bussinessSignup", _api_business__WEBPACK_IMPORTED_MODULE_2__["default"]);
-var signup = Object(_utils_reduxCodeGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])("signup", _api_signup__WEBPACK_IMPORTED_MODULE_3__["default"]);
-var user = Object(_utils_reduxCodeGenerator__WEBPACK_IMPORTED_MODULE_0__["default"])("user", _api_users__WEBPACK_IMPORTED_MODULE_4__["getUser"]);
+var _api = _interopRequireDefault(__webpack_require__(/*! ../api */ "./src/api/index.js"));
+
+var tempObject = {};
+(0, _keys.default)(_api.default).map(function (expName) {
+  (0, _keys.default)(_api.default[expName]).map(function (childexportName) {
+    tempObject[childexportName] = (0, _reduxCodeGenerator.default)(childexportName, _api.default[expName][childexportName]);
+  });
+});
+module.exports = tempObject;
 
 /***/ }),
 

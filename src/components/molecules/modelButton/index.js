@@ -1,38 +1,36 @@
-import React from 'react';
-import { Modal, Button } from 'antd';
-import ButtonOne from '../../atoms/button';
-import ElemHeader from '../elementHeader';
+import React from "react"
+import { Modal, Button } from "antd"
+import ButtonOne from "../../atoms/button"
+import ElemHeader from "../elementHeader"
 
 class ModalButton extends React.Component {
   state = {
     loading: false,
-    visible: false,
+    visible: false
   }
 
   showModal = () => {
     this.setState({
-      visible: true,
-    });
+      visible: true
+    })
   }
-
 
   handleCancel = () => {
-    this.setState({ visible: false });
+    this.setState({ visible: false })
   }
- 
-  handleSubmit(data){
-    this.props.onSubmit(data, (data) => {
-      if(data.status){
+
+  handleSubmit(data) {
+    this.props.onSubmit(data, data => {
+      if (data.status) {
         alert(data.message)
-        this.setState({ visible: false });
-      }else{
+        this.setState({ visible: false })
+      } else {
         alert(data.message)
       }
     })
   }
   render() {
-  
-    const { visible, loading } = this.state;
+    const { visible, loading } = this.state
     return (
       <div>
         <ButtonOne value={this.props.buttonValue} onClick={this.showModal} />
@@ -43,22 +41,22 @@ class ModalButton extends React.Component {
           onCancel={this.handleCancel}
           footer={null}
         >
-        
-        <div style={{"marginTop":"10px", "marginBottom":"10px"}}>
-          <this.props.form onSubmit={(data) => this.handleSubmit(data)} onCancel={this.handleCancel}/>
-        </div>
+          <div style={{ marginTop: "10px", marginBottom: "10px" }}>
+            <this.props.form
+              autofillData={this.props.autofillData}
+              onSubmit={data => this.handleSubmit(data)}
+              onCancel={this.handleCancel}
+            />
+          </div>
         </Modal>
-        
-            <style jsx>{`
-            .ant-modal-header{
-                padding:0 !important;
-            }
-            `}</style>
-        
-        
-        
+
+        <style jsx>{`
+          .ant-modal-header {
+            padding: 0 !important;
+          }
+        `}</style>
       </div>
-    );
+    )
   }
 }
-export default ModalButton;
+export default ModalButton

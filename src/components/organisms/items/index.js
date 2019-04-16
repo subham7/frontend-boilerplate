@@ -41,6 +41,7 @@ let ItemTemplate = props => {
           <Col span={3} push={12}>
             <Model
               form={CreateItem}
+              autofillData={props.autofillData}
               title="Create Item"
               buttonValue="Create"
               onSubmit={props.onCreate}

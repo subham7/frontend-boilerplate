@@ -1,150 +1,181 @@
-import React from 'react';
-import { Form, asField } from 'informed';
-import { Input, Select, Radio, Checkbox } from 'antd';
+import React from "react"
+import { Form, asField, Select, Option } from "informed"
+import { Input, Radio, Checkbox } from "antd"
 // import 'antd/dist/antd.css';
+
+const selectStyle = {
+  backgroundColor: "#fff",
+  border: "1px solid #d9d9d9",
+  height: "32px",
+  borderRadius: "4px"
+}
+
 const Text_type1 = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
-  const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
+  const { value } = fieldState
+  const { setValue, setTouched } = fieldApi
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props
   return (
     <Input
       {...rest}
       ref={forwardedRef}
       onChange={e => {
-        setValue(e.target.value);
-        console.log(value);
+        setValue(e.target.value)
+        console.log(value)
         if (onChange) {
-          onChange(e);
+          onChange(e)
         }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched()
         if (onBlur) {
-          onBlur(e);
+          onBlur(e)
         }
       }}
     />
-  );
-});
+  )
+})
 
-const Search = Input.Search;
+const Search = Input.Search
 export class Asearch extends React.Component {
-  render(){
-    return( 
-    <div>
+  render() {
+    return (
+      <div>
         {/* pass on search from props */}
-     <Search  placeholder={this.props.placeholder} style={{width:360}} onSearch={value => console.log(value)} enterButton/>
-    </div>
-      )
-    }
- }
+        <Search
+          placeholder={this.props.placeholder}
+          style={{ width: 360 }}
+          onSearch={value => console.log(value)}
+          enterButton
+        />
+      </div>
+    )
+  }
+}
 
 //  Not required we gonna use from .... bootstrap
-const RG = Radio.Group;
+const RG = Radio.Group
 const R = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
-  const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
+  const { value } = fieldState
+  const { setValue, setTouched } = fieldApi
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props
   return (
     <Radio
-    type="radio"
+      type="radio"
       {...rest}
       ref={forwardedRef}
       onChange={e => {
-        setValue(e.target.value);
-        console.log(value);
+        setValue(e.target.value)
+        console.log(value)
         if (onChange) {
-          onChange(e);
+          onChange(e)
         }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched()
         if (onBlur) {
-          onBlur(e);
+          onBlur(e)
         }
       }}
     />
-  );
-});
+  )
+})
 
 //  Not required we gonna use from .... bootstrap
 const Check = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
-  const { setValue, setTouched } = fieldApi;
+  const { value } = fieldState
+  const { setValue, setTouched } = fieldApi
   props.field = props.name
-  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props
   return (
     <Checkbox
       {...rest}
       ref={forwardedRef}
       onChange={e => {
-        setValue(e.target.value);
-        console.log(`checked = ${e.target.checked}`);
+        setValue(e.target.value)
+        console.log(`checked = ${e.target.checked}`)
         if (onChange) {
-          onChange(e);
-        } 
+          onChange(e)
+        }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched()
         if (onBlur) {
-          onBlur(e);
+          onBlur(e)
         }
       }}
     />
-  );
-});
+  )
+})
 
-
-const { TextArea } = Input;
+const { TextArea } = Input
 
 const Tarea = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
-  const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
+  const { value } = fieldState
+  const { setValue, setTouched } = fieldApi
+  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props
   return (
     <TextArea
       {...rest}
       ref={forwardedRef}
       onChange={e => {
-        setValue(e.target.value);
-        console.log(value);
+        setValue(e.target.value)
+        console.log(value)
         if (onChange) {
-          onChange(e);
+          onChange(e)
         }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched()
         if (onBlur) {
-          onBlur(e);
+          onBlur(e)
         }
       }}
     />
-  );
-});
+  )
+})
 
-const O = Select.Option;
+const O = Select.Option
 
 const Sel = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState;
-  const { setValue, setTouched } = fieldApi;
-  const { onChange, onBlur, initialValue, forwardedRef, ...rest } = props;
+  const { value } = fieldState
+  const { setValue, setTouched } = fieldApi
+  const {
+    onChange,
+    onBlur,
+    initialValue,
+    forwardedRef,
+    option,
+    ...rest
+  } = props
+
+  let style = { ...rest.style, ...selectStyle }
+  delete rest.style
+
   return (
     <Select
       {...rest}
+      style={style}
+      className="select"
       ref={forwardedRef}
-      onChange={e => {     
+      onChange={e => {
         if (onChange) {
-          onChange(e);
+          onChange(e)
         }
       }}
       onBlur={e => {
-        setTouched();
+        setTouched()
         if (onBlur) {
-          onBlur(e);
+          onBlur(e)
         }
       }}
-    />
-  );
-});
+    >
+      {option.map((data, index) => (
+        <Option key={index} value={data.value}>
+          {data.name}
+        </Option>
+      ))}
+    </Select>
+  )
+})
 
-export {Form,Text_type1,Check,Tarea,Sel,O,R,RG};
+export { Form, Text_type1, Check, O, Tarea, Sel, R, RG }

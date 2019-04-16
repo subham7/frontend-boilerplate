@@ -7,13 +7,14 @@ COPY package*.json ./
 
 RUN npm install
 
+RUN npm install -g pm2
+
 # Bundle app source 
 COPY . .
 
 #RUN mv ./Dockersupport/worker.js ./node_modules/next/dist/export/worker.js
 
 #RUN npm install mkdirp-then
-RUN npm install -g pm2
 
 RUN npm run build
 

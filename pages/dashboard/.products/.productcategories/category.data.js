@@ -52,16 +52,6 @@ var categoryColumns =[
         title: 'Category',
         dataIndex: 'name'
     },
-    // {
-    //     title: 'Inventory',
-    //     dataIndex: 'inventory',
-    //     render: inventory => (<span>{stockTag(inventory)}</span>)
-    // },
-    // {
-    //     title: 'Assign',
-    //     dataIndex: 'assign',
-    // render: () => <Model form={<AssignItem/>} title="Assign Items" buttonValue="Assign" onSubmit={props.onCreate} handleSubmitOk={props.handleSubmitOk}/>
-    // },
     {
         title: 'Rename',
         dataIndex: 'rename',
@@ -70,7 +60,11 @@ var categoryColumns =[
     {
         title: '',
         dataIndex:'',
-        render: ()=> <ButtonIcon icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+        render: (object)=> {
+            return (
+                <ButtonIcon  icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+            )
+        }
     }
 ]
 

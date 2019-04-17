@@ -1,5 +1,6 @@
 import React from 'react';
 import stockTag from "../../../../src/components/atoms/stockTag";
+import ButtonIcon from '../../../../src/components/atoms/tableButton';
 
 var cardData = [
     {
@@ -44,45 +45,54 @@ var cascaderData =[
     }
 ]
 
-var productColumns =[
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name'
-    },
-    {
-        title: 'CODE',
-        dataIndex: 'code',
-        key: 'code'
-    },
-    {
-        title: 'BARCODE',
-        dataIndex: 'barcode',
-        key: 'barcode'
-    },
-    {
-        title: 'CATEGORY',
-        dataIndex: 'category',
-        key: 'category'
-    },
-    // {
-    //     title: 'LOCATION',
-    //     dataIndex: 'location',
-    //     key: 'location'
-    // },
-    // {
-    //     title: 'INVENTORY',
-    //     dataIndex: 'inventory',
-    //     key: 'inventory',
-    //     render: inventory => (<span>{stockTag(inventory)}</span>)
-    // },
-    {
-        title: 'PRICE',
-        key: 'price',
-        dataIndex: 'price',
-        render: price => <span><b>INR {price}</b></span>
-    }
-]
+// var productColumns =[
+//     {
+//         title: 'Name',
+//         dataIndex: 'name',
+//         key: 'name'
+//     },
+//     {
+//         title: 'CODE',
+//         dataIndex: 'code',
+//         key: 'code'
+//     },
+//     {
+//         title: 'BARCODE',
+//         dataIndex: 'barcode',
+//         key: 'barcode'
+//     },
+//     {
+//         title: 'CATEGORY',
+//         dataIndex: 'category',
+//         key: 'category'
+//     },
+//     // {
+//     //     title: 'LOCATION',
+//     //     dataIndex: 'location',
+//     //     key: 'location'
+//     // },
+//     // {
+//     //     title: 'INVENTORY',
+//     //     dataIndex: 'inventory',
+//     //     key: 'inventory',
+//     //     render: inventory => (<span>{stockTag(inventory)}</span>)
+//     // },
+//     {
+//         title: 'PRICE',
+//         key: 'price',
+//         dataIndex: 'price',
+//         render: price => <span><b>INR {price}</b></span>
+//     },
+//     {
+//         title: '',
+//         dataIndex:'',
+//         render: (object)=> {
+//             return (
+//                 <ButtonIcon  icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+//             )
+//         }
+//     }
+// ]
 
  const productColumnData =[
      {

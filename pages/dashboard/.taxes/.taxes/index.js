@@ -45,7 +45,7 @@ class App extends React.Component {
       return (
         <div>
           <Taxes
-            autofillData={this.createSelectData(
+            formData={this.createSelectData(
               this.props.taxCategories.response.data
             )}
             rowSelection={{}}

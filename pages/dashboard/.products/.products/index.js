@@ -47,7 +47,7 @@ class App extends React.Component {
       return (
         <div>
           <Products
-            autofillData={this.createSelectData(
+            formData={this.createSelectData(
               this.props.productCategories.response.data
             )}
             rowSelection={{}}

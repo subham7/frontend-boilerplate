@@ -155,19 +155,19 @@ const Sel = asField(({ fieldState, fieldApi, ...props }) => {
     <Select
       {...rest}
       style={style}
-      className="select"
-      ref={forwardedRef}
-      onChange={e => {
-        if (onChange) {
-          onChange(e)
-        }
-      }}
-      onBlur={e => {
-        setTouched()
-        if (onBlur) {
-          onBlur(e)
-        }
-      }}
+      // className="select"
+      // ref={forwardedRef}
+      // onChange={e => {
+      //   if (onChange) {
+      //     onChange(e)
+      //   }
+      // }}
+      // onBlur={e => {
+      //   setTouched()
+      //   if (onBlur) {
+      //     onBlur(e)
+      //   }
+      // }}
     >
       {option.map((data, index) => (
         <Option key={index} value={data.value}>

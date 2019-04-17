@@ -71,7 +71,7 @@ export class F2 extends Component {
               <Select
                 style={{ width: 195 }}
                 field="productcategory"
-                option={this.props.autofillData}
+                option={this.props.formData}
               />
             </div>
           </div>

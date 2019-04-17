@@ -6,7 +6,7 @@ import CreateTaxes from "../../organisms/forms/createTax"
 import { Row, Col } from "antd"
 
 const TaxesTemplate = props => {
-  console.log("ORG TAX: " + props.autofillData)
+  console.log("ORG TAX: " + props.formData)
 
   return (
     <div>
@@ -20,7 +20,7 @@ const TaxesTemplate = props => {
         <Col span={3} push={12}>
           <Model
             form={CreateTaxes}
-            autofillData={props.autofillData}
+            formData={props.formData}
             title="Create Tax"
             buttonValue="Create"
             onSubmit={props.onCreate}

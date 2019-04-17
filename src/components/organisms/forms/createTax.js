@@ -46,7 +46,7 @@ export class F5 extends Component {
             <Select
               field="taxcategory"
               style={{ width: 195 }}
-              option={this.props.autofillData}
+              option={this.props.formData}
             />
           </div>
 

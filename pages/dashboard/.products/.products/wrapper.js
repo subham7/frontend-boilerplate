@@ -17,7 +17,8 @@ export default function init(WrappedComponent) {
     }
 
     render() {
-      if (this.props.productCategories.isLoaded) return <WrappedComponent />
+      if (this.props.productCategories.isLoaded)
+        return <WrappedComponent {...this.props} />
       else return <h1>Loading... </h1>
     }
   }

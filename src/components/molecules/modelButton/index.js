@@ -50,7 +50,7 @@ class ModalButton extends React.Component {
         >
         
         <div style={{"marginTop":"10px", "marginBottom":"10px"}}>
-          <this.props.form onSubmit={(data) => this.handleSubmit(data)} onCancel={this.handleCancel}/>
+          <this.props.form onSubmit={(data) => this.handleSubmit(data)} onCancel={this.handleCancel} prefilledValues={this.props.prefilledValues} />
         </div>
         </Modal>
         

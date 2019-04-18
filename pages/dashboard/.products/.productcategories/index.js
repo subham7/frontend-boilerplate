@@ -140,7 +140,7 @@ const mapStateToProps = state => ({
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getProductCategory: (businessID) => dispatch(productCategories.action(businessID)),
-  addProductCategory: (businessID, object) => { dispatch(addProductCategory.action(businessID, object)) },
+  addProductCategory: (businessID, object) => dispatch(addProductCategory.action(businessID, object)),
   deleteProductCategory: (productcategoryID) => dispatch(deleteProductCategory.action(productcategoryID)),
   updateProductCategory: (productcategoryID, object) => dispatch(updateProductCategory.action(productcategoryID, object))
 })

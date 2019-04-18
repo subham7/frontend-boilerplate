@@ -2,7 +2,6 @@ import React from 'react';
 import stockTag from "../../../../src/components/atoms/stockTag"
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Model from "../../../../src/components/molecules/modelButton"
-import AssignItem from "../../../../src/components/organisms/forms/assignItem"
 import createCategory from "../../../../src/components/organisms/forms/createCategory"
 
 var cardData = [
@@ -57,10 +56,12 @@ var categoryColumns = [
         title: 'Rename',
         dataIndex: '',
         render: (object) => {
+            console.log("inside data", object)
             return (
                 <Model visible form={createCategory}
                     title="Create Item" isTableModal={true}
                     buttonValue="Create"
+                    prefilledValues={object}
                     onSubmit={(data, cb) => object.handleFeatures.editProductCategory(data, object.productcategoryID, cb)}
                 />
             )

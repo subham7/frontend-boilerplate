@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { employees, addEmployee, employeelocations, addEmployeeLocation} from "../../../src/reduxHelper"
+import { employees, addEmployee, employeelocations, addEmployeeLocation ,deleteEmployee, updateEmployee} from "../../../src/reduxHelper"
 import Employees from "./../../../src/components/templates/employee"
 import { employeeColumns, employeeColumnData } from "./employees.data"
 
@@ -65,6 +65,7 @@ class App extends Component {
       data.map(item => {
         let object = {}
         object.name = item.firstName + " " + item.LastName
+        object.userID = item.userID
         object.userName = item.userName
         object.email = item.email
         object.phone = item.phone
@@ -73,6 +74,25 @@ class App extends Component {
           data.values.user = item.userID
           this.handleAssignUserLocation(data,cb) 
         }}
+        object.handleFeatures = {
+          handleDelete: (id) => {
+            // let businessID = this.props.business.response.data.businessID;
+            this.props.deleteEmployee(id).then(res => {
+              this.loadEmployeeData();
+            }).catch(err => {
+              console.log(err);
+            })
+          },
+          handleUpdate: (data, id, cb) => {
+            this.props.updateEmployee(id, data.values).then(res => {
+              this.loadEmployeeData()
+              cb({ status: true, message: "Employee data updated" })
+            }).catch(err => {
+              console.log(err)
+              cb({ status: false, message: "Some Error occured while updating" })
+            })
+          }
+        }
         temp.push(object)
       })
     } else {
@@ -86,6 +106,25 @@ class App extends Component {
         data.values.user = item.userID
         this.handleAssignUserLocation(data,cb) 
       }}
+      object.handleFeatures = {
+        handleDelete: (id) => {
+          // let businessID = this.props.business.response.data.businessID;
+          this.props.deleteEmployee(id).then(res => {
+            this.loadEmployeeData();
+          }).catch(err => {
+            console.log(err);
+          })
+        },
+        handleUpdate: (data, id, cb) => {
+          this.props.updateEmployee(id, data.values).then(res => {
+            this.loadEmployeeData()
+            cb({ status: true, message: "Employee data updated" })
+          }).catch(err => {
+            console.log(err)
+            cb({ status: false, message: "Some Error occured while updating" })
+          })
+        }
+      }
       temp.push(object)
     }
     return temp
@@ -98,6 +137,7 @@ class App extends Component {
     this.props
       .getEmployees(urlParams)
       .then(res => {
+        // console.log(res)
         this.setState({
           employeesTableData: this._createEmployeeColumns(
             this.props.employees.response.data
@@ -110,13 +150,18 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  employees: state.employees
+  employees: state.employees,
+  addEmployee: state.addEmployee,
+  updateEmployee: state.updateEmployee,
+  deleteEmployee: state.deleteEmployee
 })
 
 const mapDispatchToProps = dispatch => ({
   getEmployees: (object) => dispatch(employees.action(object)),
   addEmployee: (object) => dispatch(addEmployee.action(object)),
-  addEmployeeLocation: (object) => dispatch(addEmployeeLocation.action(object))
+  addEmployeeLocation: (object) => dispatch(addEmployeeLocation.action(object)),
+  deleteEmployee: (employeeID) => dispatch(deleteEmployee.action(employeeID)),
+  updateEmployee: (employeeID, object) => dispatch(updateEmployee.action(employeeID, object))
 })
 
 export default connect(

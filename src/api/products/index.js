@@ -13,7 +13,7 @@ export const updateProduct = (productID, object) => axios.patch(`${ROOTURL}/prod
 //Product Category APIs
 export const productCategories = (urlParams) => axios.get(`${ROOTURL}/businesses/${urlParams.businessID}/productcategories`)
 
-export const addProductCategory = (object, abcd) => axios.post(`jsonplaceholder.typicode.com/posts`,object)
+export const addProductCategory = (object) => axios.post(`${ROOTURL}/productcategories`,object)
 
 export const deleteProductCategory = (productcategoryID) => axios.delete(`${ROOTURL}/productcategories/${productcategoryID}`)
 

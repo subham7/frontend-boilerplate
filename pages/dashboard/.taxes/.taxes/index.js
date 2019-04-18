@@ -43,7 +43,13 @@ class App extends React.Component {
       if(true){
         return (
               <div>
-                <Taxes rowSelection={{}} cascaderData={itemData.cascaderData} columns={taxesColumns} columnData={this.state.taxesTableData} onCreate={(data,cb) => this.handleCreateTaxes(data,cb)} />
+                <Taxes 
+                  rowSelection={{}} 
+                  cascaderData={itemData.cascaderData} 
+                  columns={taxesColumns} 
+                  columnData={this.state.taxesTableData} 
+                  onCreate={(data,cb) => this.handleCreateTaxes(data,cb)} 
+                />
               </div>
           );
       }else {

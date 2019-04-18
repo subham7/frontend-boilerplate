@@ -1,7 +1,8 @@
 import React from 'react';
 import stockTag from "../../../../src/components/atoms/stockTag";
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
-
+import Model from "../../../../src/components/molecules/modelButton"
+import createProduct from "../../../../src/components/organisms/forms/createItem"
 var cardData = [
     {
         iconType:'bank',
@@ -84,11 +85,25 @@ var productColumns =[
         render: price => <span><b>INR {price}</b></span>
     },
     {
+        title: 'Rename',
+        dataIndex: '',
+        render: (object) => {
+            return (
+                <Model visible form={createProduct}
+                    title="Create Item" isTableModal={true}
+                    buttonValue="Create"
+                    onSubmit={(data, cb) => object.handleFeatures.editProduct(data, object.productID, cb)}
+                />
+                
+            )
+        }
+    },
+    {
         title: '',
         dataIndex:'',
         render: (object)=> {
             return (
-                <ButtonIcon  icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+                <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
             )
         }
     }

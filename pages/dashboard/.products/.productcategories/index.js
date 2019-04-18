@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
-import { productCategories, addProductCategory, deleteProductCategory } from "../../../../src/reduxHelper"
+import { productCategories, addProductCategory, deleteProductCategory, updateProductCategory } from "../../../../src/reduxHelper"
 import Categories from "../../../../src/components/organisms/categories"
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Model from "../../../../src/components/molecules/modelButton"
 import createCategory from "../../../../src/components/organisms/forms/createCategory"
 
-import { categoryData } from "./category.data"
+import { categoryData, categoryColumns } from "./category.data"
 import { Button } from 'antd';
 import uuidv4 from "uuid/v4"
 
@@ -18,64 +18,22 @@ class App extends React.Component {
     this.state = {
       productsTableData: []
     }
-    this.categoryColumns = [
-      {
-        title: 'Category',
-        dataIndex: 'name'
-      },
-      {
-        title: 'Rename',
-        dataIndex: 'rename',
-        render: (object) => {
-          return (
-            <Model visible form={createCategory} title="Create Item" isTableModal={true}
-              buttonValue="Create"
-              onSubmit={(data, cb) => this.editProductCategory(data, cb)} />
-          )
-        }
-      },
-      {
-        title: '',
-        dataIndex: '',
-        render: (object) => {
-          return (
-            <ButtonIcon onSubmit={() => this.handleDelete(object.productcategoryID)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
-          )
-        }
-      }
-    ]
-  }
-
-  handleDelete = (id) => {
-    console.log(id)
-    let businessID = this.props.business.response.data.businessID;
-    this.props.deleteProductCategory(businessID, id).then(res => {
-      this.loadProductCategoryData();
-    }).catch(err => {
-      console.log(err);
-    })
-  }
-
-  editProductCategory = (data, cb) => {
-    console.log("clicked", data)
-    //call API function here and pass data
-    cb({ status: true, message: "Product category edited" })
   }
 
   componentDidMount() {
     this.loadProductCategoryData()
   }
 
-  handleCreateProductCategory(data, cb) {
+  handleCreateProductCategory(data, cb){
     console.log(data);
     data.values.productcategoryID = uuidv4()
     data.values.business = this.props.business.response.data.businessID
     this.props.addProductCategory(data.values).then(res => {
       this.loadProductCategoryData()
-      cb({ status: true, message: "Product category added" })
-    }).catch(err => {
+      cb({status: true, message: "Product category added"})
+    }). catch(err => {
       console.log(err);
-      cb({ status: false, message: "Some Error occured" })
+      cb({status: false, message: "Some Error occured"})
     })
   }
 
@@ -89,7 +47,7 @@ class App extends React.Component {
           <Categories
             cardData={categoryData.cardData}
             cascaderData={categoryData.cascaderData}
-            columns={this.categoryColumns}
+            columns={categoryData.categoryColumns}
             columnData={this.state.productsTableData}
             onCreate={(data, cb) => this.handleCreateProductCategory(data, cb)}
           />
@@ -109,13 +67,52 @@ class App extends React.Component {
         object.name = item.name,
           object.productcategoryID = item.productcategoryID,
           // object.inventory = [50],
-          temp.push(object)
+          object.handleFeatures = {
+            handleDelete: (id) => {
+              // let businessID = this.props.business.response.data.businessID;
+              this.props.deleteProductCategory(id).then(res => {
+                this.loadProductCategoryData();
+              }).catch(err => {
+                console.log(err);
+              })
+            },
+            editProductCategory: (data, id, cb) => {
+              // console.log("clicked", data, id, cb)
+              this.props.updateProductCategory(id, data.values).then(res => {
+                this.loadProductCategoryData()
+                cb({ status: true, message: "Product category updated" })
+              }).catch(err => {
+                console.log(err)
+                cb({ status: false, message: "Some Error while updating" })
+              })
+            }
+          }
+        temp.push(object)
       })
     } else {
       let object = {}
       object.name = data.name,
         object.productcategoryID = data.productcategoryID,
-        temp.push(object)
+        object.handleFeatures = {
+          handleDelete: (id) => {
+            // let businessID = this.props.business.response.data.businessID;
+            this.props.deleteProductCategory(id).then(res => {
+              this.loadProductCategoryData();
+            }).catch(err => {
+              console.log(err);
+            })
+          },
+          editProductCategory: (data, id, cb) => {
+            this.props.updateProductCategory(id, data.values).then(res => {
+              this.loadProductCategoryData()
+              cb({ status: true, message: "Product category updated" })
+            }).catch(err => {
+              console.log(err)
+              cb({ status: false, message: "Some Error occured while updating" })
+            })
+          }
+        }
+      temp.push(object)
     }
     return temp;
   }
@@ -137,12 +134,14 @@ const mapStateToProps = state => ({
   business: state.businesses,
   productCategories: state.productCategories,
   addProductCategory: state.addProductCategory,
-  deleteProductCategory: state.deleteProductCategory
+  deleteProductCategory: state.deleteProductCategory,
+  updateProductCategory: state.updateProductCategory
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getProductCategory: (businessID) => dispatch(productCategories.action(businessID)),
   addProductCategory: (businessID, object) => { dispatch(addProductCategory.action(businessID, object)) },
-  deleteProductCategory: (businessID, productcategoryID) => dispatch(deleteProductCategory.action(businessID, productcategoryID))
+  deleteProductCategory: (productcategoryID) => dispatch(deleteProductCategory.action(productcategoryID)),
+  updateProductCategory: (productcategoryID, object) => dispatch(updateProductCategory.action(productcategoryID, object))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App);

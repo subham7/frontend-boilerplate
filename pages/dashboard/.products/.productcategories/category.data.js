@@ -3,28 +3,29 @@ import stockTag from "../../../../src/components/atoms/stockTag"
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Model from "../../../../src/components/molecules/modelButton"
 import AssignItem from "../../../../src/components/organisms/forms/assignItem"
+import createCategory from "../../../../src/components/organisms/forms/createCategory"
 
 var cardData = [
     {
-        iconType:'bank',
-        iconStyle: {fontSize: "30px", marginTop: '30%', color: '#F88998'},
+        iconType: 'bank',
+        iconStyle: { fontSize: "30px", marginTop: '30%', color: '#F88998' },
         title: '25',
         description: 'Items Out of Stock'
     },
     {
-        iconType:'shopping-cart',
-        iconStyle: {fontSize: "30px", marginTop: '30%', color: '#FFB353'},
+        iconType: 'shopping-cart',
+        iconStyle: { fontSize: "30px", marginTop: '30%', color: '#FFB353' },
         title: '25',
         description: 'Items Out of Stock'
     },
     {
-        iconType:'rise',
-        iconStyle: {fontSize: "30px", marginTop: '30%', color: '#69E4A6'},
+        iconType: 'rise',
+        iconStyle: { fontSize: "30px", marginTop: '30%', color: '#69E4A6' },
         title: '25',
         description: 'Items Out of Stock'
     }
 ]
-var cascaderData =[
+var cascaderData = [
     {
         placeholder: 'All Categories',
         optionArray: ['Biscuits', 'Chips', 'Drinks', 'Fries', 'Breads']
@@ -47,31 +48,39 @@ var cascaderData =[
     }
 ]
 
-var categoryColumns =[
+var categoryColumns = [
     {
         title: 'Category',
         dataIndex: 'name'
     },
     {
         title: 'Rename',
-        dataIndex: 'rename',
-        render: ()=> <ButtonIcon icon="form" style={{"marginRight":"30px"}} shape="circle" type="primary" size="small" ghost />
+        dataIndex: '',
+        render: (object) => {
+            return (
+                <Model visible form={createCategory}
+                    title="Create Item" isTableModal={true}
+                    buttonValue="Create"
+                    onSubmit={(data, cb) => object.handleFeatures.editProductCategory(data, object.productcategoryID, cb)}
+                />
+            )
+        }
     },
     {
         title: '',
-        dataIndex:'',
-        render: (object)=> {
+        dataIndex: '',
+        render: (object) => {
             return (
-                <ButtonIcon  icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+                <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object.productcategoryID)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
             )
         }
     }
 ]
 
- const categoryColumnData =[
-     {
-         name: 'Test Name',
-         inventory: [30]     
+const categoryColumnData = [
+    {
+        name: 'Test Name',
+        inventory: [30]
     },
     {
         name: 'Test Name',
@@ -86,20 +95,20 @@ var categoryColumns =[
         inventory: [30]
     },
     {
-       name: 'Test Name',
-       inventory: [250]
+        name: 'Test Name',
+        inventory: [250]
     },
-   {
-       name: 'Test Name',
-       inventory: [5]
+    {
+        name: 'Test Name',
+        inventory: [5]
 
-   }
- ]
+    }
+]
 
 
 export const categoryData = {
-    categoryColumns, 
+    categoryColumns,
     categoryColumnData,
-    cardData, 
+    cardData,
     cascaderData
 }

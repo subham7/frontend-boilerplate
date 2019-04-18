@@ -1,18 +1,21 @@
 import ROOTURL from "../ROOTURL";
 import axios from "axios"
 
-
+//Products APIs
 export const products = (businessID) => axios.get(`${ROOTURL}/businesses/${businessID}/products`)
 
 export const addProduct = (object) => axios.post(`${ROOTURL}/products`, object)
 
-export const productCategories = (urlParams) => axios.get(`${ROOTURL}/businesses/${urlParams.businessID}/productcategories`)
-
-export const addProductCategory = (object) => axios.post(`${ROOTURL}/productcategories`,object)
-
 export const deleteProduct = (urlParams) => axios.delete(`${ROOTURL}/products/${urlParams.productID}`)
 
-//change deleteProductCategory API
-export const deleteProductCategory = (urlParams) => axios.delete(`https://jsonplaceholder.typicode.com/posts/1`)
+export const updateProduct = (productID, object) => axios.patch(`${ROOTURL}/products/${productID}`, object)
 
-//edit product and productCategory API
+//Product Category APIs
+export const productCategories = (urlParams) => axios.get(`${ROOTURL}/businesses/${urlParams.businessID}/productcategories`)
+
+export const addProductCategory = (object, abcd) => axios.post(`jsonplaceholder.typicode.com/posts`,object)
+
+export const deleteProductCategory = (productcategoryID) => axios.delete(`${ROOTURL}/productcategories/${productcategoryID}`)
+
+export const updateProductCategory = (productcategoryID, object) => axios.patch(`${ROOTURL}/productcategories/${productcategoryID}`, object)
+

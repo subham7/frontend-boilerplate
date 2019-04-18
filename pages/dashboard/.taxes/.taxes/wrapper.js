@@ -10,7 +10,6 @@ export default function init(WrappedComponent) {
 
     componentDidMount() {
       // load taxCategories if not in state
-      this._isMounted = true
       if (!this.props.taxCategories.response) {
         let urlParams = {}
         urlParams.businessID = this.props.businesses.response.data.businessID

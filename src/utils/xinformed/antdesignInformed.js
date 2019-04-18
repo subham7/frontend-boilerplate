@@ -136,46 +136,17 @@ const Tarea = asField(({ fieldState, fieldApi, ...props }) => {
 
 const O = Select.Option
 
-const Sel = asField(({ fieldState, fieldApi, ...props }) => {
-  const { value } = fieldState
-  const { setValue, setTouched } = fieldApi
-  const {
-    onChange,
-    onBlur,
-    initialValue,
-    forwardedRef,
-    option,
-    ...rest
-  } = props
-
-  let style = { ...rest.style, ...selectStyle }
-  delete rest.style
-
+const Sel = props => {
+  let style = { ...props.style, ...selectStyle }
   return (
-    <Select
-      {...rest}
-      style={style}
-      // className="select"
-      // ref={forwardedRef}
-      // onChange={e => {
-      //   if (onChange) {
-      //     onChange(e)
-      //   }
-      // }}
-      // onBlur={e => {
-      //   setTouched()
-      //   if (onBlur) {
-      //     onBlur(e)
-      //   }
-      // }}
-    >
-      {option.map((data, index) => (
+    <Select field={props.field} style={style}>
+      {props.option.map((data, index) => (
         <Option key={index} value={data.value}>
           {data.name}
         </Option>
       ))}
     </Select>
   )
-})
+}
 
 export { Form, Text_type1, Check, O, Tarea, Sel, R, RG }

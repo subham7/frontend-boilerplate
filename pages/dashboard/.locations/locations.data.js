@@ -38,7 +38,7 @@ var locationColumns =[
                 <Model visible form={createLocation}
                     title="Create Item" isTableModal={true}
                     buttonValue="Create"
-                    prefilledValues={object}
+                    prefilledValues={object.prefilledValues}
                     onSubmit={(data, cb) => object.handleFeatures.handleUpdate(data, object.blocationID, cb)}
                 />
             )

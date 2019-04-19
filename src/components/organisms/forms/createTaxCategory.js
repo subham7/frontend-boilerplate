@@ -23,7 +23,7 @@ export class F5 extends Component {
   render() {
     var values;
     this.props.prefilledValues ? values=this.props.prefilledValues : values={}
-    console.log(values)
+    // console.log(values)
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
@@ -31,7 +31,7 @@ export class F5 extends Component {
             <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="name"  placeholder="Tax Name" /></div>
             <div style={{float:"left"}}><Text style={{width:195}} field="percentage"  placeholder="Percentage" /></div> 
           </div> */}
-          <div style={{marginBottom:15}}><Text style={{width:195}} field="name"  placeholder="Name" value={values.name} /></div>
+          <div style={{marginBottom:15}}><Text style={{width:195}} field="name"  placeholder="Name" defaultValue={values.name} /></div>
           
           {/* <h5>Include in MRP:</h5>
           <div style={{display:"inline-block"}}> 

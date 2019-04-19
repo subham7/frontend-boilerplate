@@ -30,7 +30,7 @@ export class F6 extends Component {
             field="name"
             style={{ marginBottom: 15 }}
             placeholder="Category name"
-            value={values.name}
+            defaultValue={values.name}
           />
           <div style={{ display: "inline-block" }}>
             <Button

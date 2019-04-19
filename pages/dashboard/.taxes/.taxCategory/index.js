@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { taxCategories, addTaxCategory } from "../../../../src/reduxHelper"
+import { taxCategories, addTaxCategory, deleteTaxCategory, updateTaxCategory } from "../../../../src/reduxHelper"
 import TaxCategory from "../../../../src/components/organisms/taxCategory"
 import { taxCategoryColumns } from "./taxCategory.data"
 
@@ -49,12 +49,52 @@ class App extends Component {
         let object = {}
         object.name = item.name
         object.taxCode = item.taxcategoryID
+        object.handleFeatures = {
+          handleDelete: (id) => {
+            console.log(id)
+            this.props.deleteTaxCategory(id).then(res => {
+              this.loadTaxCategoryData();
+            }).catch(err => {
+              console.log(err);
+            })
+          },
+          handleUpdate: (data, id, cb) => {
+            // console.log("clicked", data, id, cb)
+            this.props.updateTaxCategory(id, data.values).then(res => {
+              this.loadTaxCategoryData()
+              cb({ status: true, message: "Tax category updated" })
+            }).catch(err => {
+              console.log(err)
+              cb({ status: false, message: "Some Error while updating" })
+            })
+          }
+        }
         temp.push(object)
       })
     } else {
       let object = {}
       object.name = item.name
       object.taxCode = item.taxcategoryID
+      object.handleFeatures = {
+        handleDelete: (id) => {
+          console.log(id)
+          this.props.deleteTaxCategory(id).then(res => {
+            this.loadTaxCategoryData();
+          }).catch(err => {
+            console.log(err);
+          })
+        },
+        handleUpdate: (data, id, cb) => {
+          // console.log("clicked", data, id, cb)
+          this.props.updateTaxCategory(id, data.values).then(res => {
+            this.loadTaxCategoryData()
+            cb({ status: true, message: "Tax category updated" })
+          }).catch(err => {
+            console.log(err)
+            cb({ status: false, message: "Some Error while updating" })
+          })
+        }
+      }
       temp.push(object)
     }
     return temp
@@ -79,12 +119,16 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  taxCategories: state.taxCategories
+  taxCategories: state.taxCategories,
+  deleteTaxCategory: state.deleteTaxCategory,
+  updateTaxCategory: state.updateTaxCategory
 })
 
 const mapDispatchToProps = dispatch => ({
   getTaxCategories: object => dispatch(taxCategories.action(object)),
-  addTaxCategory: object => dispatch(addTaxCategory.action(object))
+  addTaxCategory: object => dispatch(addTaxCategory.action(object)),
+  deleteTaxCategory: (taxcategoryID) => dispatch(deleteTaxCategory.action(taxcategoryID)),
+  updateTaxCategory: (taxcategoryID, object) => dispatch(updateTaxCategory.action(taxcategoryID, object))
 })
 
 export default connect(

@@ -3,6 +3,8 @@ import {Tag} from 'antd';
 
 import stockTag from '../../../src/components/atoms/stockTag'
 import ButtonIcon from '../../../src/components/atoms/tableButton';
+import Model from "../../../src/components/molecules/modelButton"
+import createLocation from "../../../src/components/organisms/forms/createLocation"
 // import Cascader from '../src/components/molecules/cascader'
 
 var locationColumns =[
@@ -29,15 +31,25 @@ var locationColumns =[
         render: (category)=> <a href="#" >{category}</a>
     },
     {
-        title:'Edit',
-        key: 'edit',
-        dataIndex: 'edit',
-        render: (code) => {
+        title: 'Rename',
+        dataIndex: '',
+        render: (object) => {
             return (
-            <span>
-            <ButtonIcon icon="form" style={{"marginRight":"30px"}} shape="circle" type="primary" size="small" ghost />
-            <ButtonIcon icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
-            </span>
+                <Model visible form={createLocation}
+                    title="Create Item" isTableModal={true}
+                    buttonValue="Create"
+                    prefilledValues={object}
+                    onSubmit={(data, cb) => object.handleFeatures.handleUpdate(data, object.blocationID, cb)}
+                />
+            )
+        }
+    },
+    {
+        title: '',
+        dataIndex: '',
+        render: (object) => {
+            return (
+                <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object.blocationID)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
             )
         }
     }

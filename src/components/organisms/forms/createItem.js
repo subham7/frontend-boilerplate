@@ -38,7 +38,7 @@ export class F2 extends Component {
   }
   handleClick() {
     console.log(this.formAPi.getState())
-    //this.props.onSubmit(this.formAPi.getState())
+    this.props.onSubmit(this.formAPi.getState())
   }
   setFormApi(formAPi) {
     this.formAPi = formAPi

@@ -5,7 +5,7 @@ import ButtonIcon from "../../../src/components/atoms/tableButton"
 import Cascader from "../../../src/components/molecules/cascader"
 import AssignItem from "../../../src/components/organisms/forms/assignItem"
 import Model from "../../../src/components/molecules/modelButton"
-
+import createCategory from "../../../src/components/organisms/forms/addEmploy"
 
 var employeeColumns = [
   {
@@ -29,10 +29,10 @@ var employeeColumns = [
     key: "phone"
   },
   {
-      title: 'Assign',
-      dataIndex: 'assign',
-      key: 'assign',
-      render: (assign) => <Model form={AssignItem} title="Assign Items" buttonValue="Assign" onSubmit={assign.onCreate} />
+    title: 'Assign',
+    dataIndex: 'assign',
+    key: 'assign',
+    render: (assign) => <Model form={AssignItem} title="Assign Items" buttonValue="Assign" onSubmit={assign.onCreate} />
   },
   // {
   //   title: "Permissions",
@@ -49,27 +49,24 @@ var employeeColumns = [
   //   render: role => <Tag color="green">{role}</Tag>
   // },
   {
-    title: "Edit",
-    key: "edit",
-    dataIndex: "edit",
-    render: code => {
+    title: 'Rename',
+    dataIndex: '',
+    render: (object) => {
       return (
-        <span>
-          <ButtonIcon
-            style={{ marginRight: "30px" }}
-            icon="form"
-            shape="circle"
-            type="primary"
-            size="small"
-            ghost
-          />
-          <ButtonIcon
-            icon="delete"
-            shape="round"
-            size="small"
-            style={{ backgroundColor: "#F84D65", color: "white" }}
-          />
-        </span>
+        <Model visible form={createCategory}
+          title="Create Item" isTableModal={true}
+          buttonValue="Create"
+          onSubmit={(data, cb) => object.handleFeatures.handleUpdate(data, object.userID, cb)}
+        />
+      )
+    }
+  },
+  {
+    title: '',
+    dataIndex: '',
+    render: (object) => {
+      return (
+        <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object.userID)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
       )
     }
   }

@@ -23,12 +23,17 @@ export class F4 extends Component {
         this.formAPi = formAPi;
     } 
   render() {
+    var values;
+    this.props.prefilledValues ? values=this.props.prefilledValues : values={}
+    console.log(values)
+    // value={values.name.substr(0,values.name.indexOf(' '))}
+    // value={values.name.substr(values.name.indexOf(' '))}
     return (
       <div className="App">
        <Form getApi={this.setFormApi}>
           <div style={{display:"inline-block",marginBottom:15, width:"100%"}}>
-            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name"/></div>
-            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name"/></div> 
+            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name" /></div>
+            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name" /></div> 
           </div>
           <Text field="userName" style={{marginBottom:15}} placeholder="User Name" />
           <Text field="email" style={{marginBottom:15}}  placeholder="Email" />   

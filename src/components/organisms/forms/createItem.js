@@ -1,48 +1,60 @@
-import React, { Component } from 'react';
-import {Form,Text,TextArea,Select,Option,RadioGroup,Radio} from '../../../utils/xinformed';
-import { Button } from 'antd';
-
-
+import React, { Component } from "react"
+import {
+  Form,
+  Text,
+  TextArea,
+  Select,
+  Option,
+  RadioGroup,
+  Radio
+} from "../../../utils/xinformed"
+import { Button } from "antd"
 
 const validate = value => {
-  return !value || value.length < 5 ? 'Field must be at least five characters' : undefined;
+  return !value || value.length < 5
+    ? "Field must be at least five characters"
+    : undefined
 }
 
 function handleChange(value) {
-  console.log(`selected ${value}`);
+  console.log(`selected ${value}`)
 }
 
 export class F2 extends Component {
   state = {
-    value: 1,
+    value: 1
   }
 
-  onChange = (e) => {
-    console.log('radio checked', e.target.value);
+  onChange = e => {
+    console.log("radio checked", e.target.value)
     this.setState({
-      value: e.target.value,
-    });
-  }  
-  constructor(props){
-        super(props);
-        this.handleClick = this.handleClick.bind(this);
-        this.setFormApi = this.setFormApi.bind(this);
-    }
-    handleClick() {
-        // console.log(this.formAPi.getState());
-        this.props.onSubmit(this.formAPi.getState())
-    }
-    setFormApi(formAPi){
-        this.formAPi = formAPi;
-    }     
+      value: e.target.value
+    })
+  }
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+    this.setFormApi = this.setFormApi.bind(this)
+  }
+  handleClick() {
+    console.log(this.formAPi.getState())
+    this.props.onSubmit(this.formAPi.getState())
+  }
+  setFormApi(formAPi) {
+    this.formAPi = formAPi
+  }
   render() {
     return (
       <div className="App">
-      <Form getApi={this.setFormApi}>
-      <div style={{display:"inline-block",marginBottom:15}}>
-          <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="name"  placeholder="Name" /></div>
-          <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="code"  placeholder="Code" /></div>
-          {/* <div style={{float:"left"}}>
+        <Form getApi={this.setFormApi}>
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text style={{ width: 195 }} field="name" placeholder="Name" />
+            </div>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text style={{ width: 195 }} field="code" placeholder="Code" />
+            </div>
+            {/* <div style={{float:"left"}}>
               <Select defaultValue="Category" style={{ width: 195 }}>
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -50,9 +62,19 @@ export class F2 extends Component {
                 <Option value="Yiminghe">yiminghe</Option>
               </Select>
           </div>  */}
-          <div style={{float:"left",marginRight:8}}> <Text style={{width:195}} field="productcategory"  placeholder="Product Category" /></div>
-         
-    </div>
+            <div style={{ float: "left", marginRight: 8 }}>
+              {/*<Text
+                style={{ width: 195 }}
+                field="productcategory"
+                placeholder="Product Category"
+              />*/}
+              <Select
+                style={{ width: 195 }}
+                field="productcategory"
+                option={this.props.formData}
+              />
+            </div>
+          </div>
           {/* <div style={{display:"inline-block",marginBottom:15}}>
             <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="p2"  placeholder=" Manufacturer Name" /></div>
             <div style={{float:"left"}}> 
@@ -64,12 +86,24 @@ export class F2 extends Component {
               </Select>
             </div> 
           </div> */}
-          
-          <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="barcode"  placeholder=" Barcode" /></div>
+
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text
+                style={{ width: 195 }}
+                field="barcode"
+                placeholder=" Barcode"
+              />
+            </div>
           </div>
-          <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="hsncode"  placeholder="Hsn Code" /></div>
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text
+                style={{ width: 195 }}
+                field="hsncode"
+                placeholder="Hsn Code"
+              />
+            </div>
             {/* <div style={{float:"left"}}>
               <Select defaultValue="Taxes" style={{ width: 195 }}>
                 <Option value="G">Gst</Option>
@@ -78,8 +112,10 @@ export class F2 extends Component {
                 <Option value="A">Amnesty</Option>
               </Select></div>  */}
           </div>
-          <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="price"  placeholder="Price" /></div>
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text style={{ width: 195 }} field="price" placeholder="Price" />
+            </div>
             {/* <div style={{float:"left"}}> 
               <Select defaultValue="Units" style={{ width: 195 }}>
                 <Option value="T">Ten</Option>
@@ -88,7 +124,12 @@ export class F2 extends Component {
                 <Option value="Th">Thousand</Option>
               </Select></div>  */}
           </div>
-          <TextArea field="description" rows="3" style={{marginBottom:15}} placeholder="Item Description:"/> 
+          <TextArea
+            field="description"
+            rows="3"
+            style={{ marginBottom: 15 }}
+            placeholder="Item Description:"
+          />
           {/* <h5>Include Taxes</h5>
           <div style={{display:"inline-block"}}> 
             <div style={{float:"left"}}>
@@ -101,14 +142,27 @@ export class F2 extends Component {
             <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="p8"  placeholder="Current Quantity" /></div>
             <div style={{float:"left"}}><Text style={{width:195}} field="p9"  placeholder="Low Stock Alert Count"/></div> 
           </div> */}
-          <Button style={{marginBottom:10}} type="primary">Upload</Button>
-          <div style={{display:"inline-block"}}>
-            <Button  style={{float:"left",width:192}} onClick={this.props.onCancel}>Cancel</Button>
-            <Button  style={{float:"left",width:192,marginLeft:15}}  type="primary" onClick={this.handleClick}>Save</Button>
-         </div>
-      </Form>
-   </div>
-    );
+          <Button style={{ marginBottom: 10 }} type="primary">
+            Upload
+          </Button>
+          <div style={{ display: "inline-block" }}>
+            <Button
+              style={{ float: "left", width: 192 }}
+              onClick={this.props.onCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{ float: "left", width: 192, marginLeft: 15 }}
+              type="primary"
+              onClick={this.handleClick}
+            >
+              Save
+            </Button>
+          </div>
+        </Form>
+      </div>
+    )
   }
 }
 

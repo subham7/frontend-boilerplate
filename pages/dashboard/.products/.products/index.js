@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { products, addProduct, deleteProduct, updateProduct } from "../../../../src/reduxHelper"
 import Products from '../../../../src/components/organisms/items'
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
-
+import wrapper from "./wrapper"
 import { itemData } from './product.data'
 import uuidv4 from "uuid/v4"
 
@@ -35,17 +35,18 @@ class App extends React.Component {
       })
   }
 
-
   callback(key) {
     // console.log(key);
   }
-
 
   render() {
     if (this.props.products.isLoaded) {
       return (
         <div>
           <Products
+            formData={this.createSelectData(
+              this.props.productCategories.response.data
+            )}
             rowSelection={{}}
             cardData={itemData.cardData}
             cascaderData={itemData.cascaderData}
@@ -54,11 +55,10 @@ class App extends React.Component {
             onCreate={(data, cb) => this.handleCreateproducts(data, cb)}
           />
         </div>
-      );
+      )
     } else {
       return <h1>Loading</h1>
     }
-
   }
 
   _createproductsColumns(data) {
@@ -139,6 +139,13 @@ class App extends React.Component {
           console.log(err)
         })
     }
+    createSelectData(data) {
+      let selectData = data.map(item => ({
+        name: item.name,
+        value: item.productcategoryID
+      }))
+      return selectData
+    }
   }
 
   const mapStateToProps = state => ({
@@ -163,7 +170,9 @@ class App extends React.Component {
     updateProduct: (productID, object) =>
       dispatch(updateProduct.action(productID, object))
   })
-  export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
+  export default wrapper(
+    connect(
+      mapStateToProps,
+      mapDispatchToProps
+    )(App)
+  )

@@ -73,7 +73,7 @@ class App extends React.Component {
             })
           },
           handleUpdate: (data, id, cb) => {
-            console.log("clicked", data, id, cb)
+            // console.log("clicked", data, id, cb)
             this.props.updateLocation(id, data.values).then(res => {
               this.loadLocationData()
               cb({ status: true, message: "Location updated" })

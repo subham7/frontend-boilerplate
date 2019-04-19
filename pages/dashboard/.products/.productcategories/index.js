@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React from "react"
+import { connect } from "react-redux"
 
 import { productCategories, addProductCategory, deleteProductCategory, updateProductCategory } from "../../../../src/reduxHelper"
 import Categories from "../../../../src/components/organisms/categories"
@@ -10,7 +10,6 @@ import createCategory from "../../../../src/components/organisms/forms/createCat
 import { categoryData, categoryColumns } from "./category.data"
 import { Button } from 'antd';
 import uuidv4 from "uuid/v4"
-
 
 class App extends React.Component {
   constructor(props) {
@@ -24,17 +23,20 @@ class App extends React.Component {
     this.loadProductCategoryData()
   }
 
-  handleCreateProductCategory(data, cb){
-    console.log(data);
+  handleCreateProductCategory(data, cb) {
+    console.log(data)
     data.values.productcategoryID = uuidv4()
     data.values.business = this.props.business.response.data.businessID
-    this.props.addProductCategory(data.values).then(res => {
-      this.loadProductCategoryData()
-      cb({status: true, message: "Product category added"})
-    }). catch(err => {
-      console.log(err);
-      cb({status: false, message: "Some Error occured"})
-    })
+    this.props
+      .addProductCategory(data.values)
+      .then(res => {
+        this.loadProductCategoryData()
+        cb({ status: true, message: "Product category added" })
+      })
+      .catch(err => {
+        console.log(err)
+        cb({ status: false, message: "Some Error occured" })
+      })
   }
 
   callback(key) {
@@ -52,14 +54,12 @@ class App extends React.Component {
             onCreate={(data, cb) => this.handleCreateProductCategory(data, cb)}
           />
         </div>
-      );
+      )
     } else {
       return <h1>Loading</h1>
     }
-
   }
-
-  _createProductCategory = (data) => {
+  _createProductCategory = data => {
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {
@@ -114,21 +114,22 @@ class App extends React.Component {
         }
       temp.push(object)
     }
-    return temp;
+    return temp
   }
 
   loadProductCategoryData = () => {
     let urlParams = {}
     urlParams.businessID = this.props.business.response.data.businessID
-    this.props.getProductCategory(urlParams).then(res => {
-      this.setState({ productsTableData: this._createProductCategory(res) })
-    })
+    this.props
+      .getProductCategory(urlParams)
+      .then(res => {
+        this.setState({ productsTableData: this._createProductCategory(res) })
+      })
       .catch(err => {
         console.log(err)
       })
   }
 }
-
 
 const mapStateToProps = state => ({
   business: state.businesses,

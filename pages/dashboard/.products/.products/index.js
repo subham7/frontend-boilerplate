@@ -72,6 +72,7 @@ class App extends React.Component {
         object.barcode = item.barcode
         object.category = item.productcategory
         object.price = item.price
+        object.selectData = this.createSelectData(this.props.productCategories.response.data)
         object.handleFeatures = {
           handleDelete: urlParams => {
             urlParams.businessID = this.props.business.response.data.businessID;
@@ -153,7 +154,7 @@ class App extends React.Component {
     products: state.products,
     taxcategories: state.taxcategories,
     addProduct: state.addProduct,
-    deleteProduct: state.deleteProduct,
+    // deleteProduct: state.deleteProduct,
     updateProduct: state.updateProduct
   })
   // Example Syntax for writing dispatch

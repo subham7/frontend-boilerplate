@@ -90,7 +90,8 @@ var productColumns =[
         render: (object) => {
             return (
                 <Model visible form={createProduct}
-                    title="Create Item" isTableModal={true}
+                    formData = {object.selectData}
+                    title="Edit Product" isTableModal={true}
                     buttonValue="Create"
                     onSubmit={(data, cb) => object.handleFeatures.editProduct(data, object.productID, cb)}
                 />

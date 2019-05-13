@@ -9,7 +9,7 @@ import {
 
 import { itemPurchaseData } from "../../pagesData/purchase.data"
 
-
+// import CustomerDirectory from '../../src/components/templates/CustomerDirectory'
 import Modifiers from "../../src/components/organisms/modifiers"
 import Categories from "../../src/components/organisms/categories"
 import Purchase from "../../src/components/organisms/ItemPurchase"
@@ -20,6 +20,7 @@ import Employees from "./.employees"
 import Locations from "./.locations"
 import Taxes from "./.taxes"
 import Products from "./.products"
+import Customers from './.customers'
 import { withRouter } from "next/router"
 
 import init from "../../src/utils/wrappers"
@@ -85,6 +86,8 @@ class SwitchHandler extends React.Component {
               return <Products />
             case "discounts":
               return <h1>Empty</h1>
+            case "customers":
+                return <Customers />
             case "modifiers":
               return (
                 <Modifiers

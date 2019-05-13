@@ -23,16 +23,19 @@ export class F4 extends Component {
         this.formAPi = formAPi;
     } 
   render() {
+    var values;
+    this.props.prefilledValues ? values=this.props.prefilledValues : values={}
+    // console.log(values)
     return (
       <div className="App">
        <Form getApi={this.setFormApi}>
           <div style={{display:"inline-block",marginBottom:15, width:"100%"}}>
-            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name"/></div>
-            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name"/></div> 
+            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name" defaultValue={values.name.substr(0,values.name.indexOf(' '))} /></div>
+            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name" defaultValue={values.name.substr(values.name.indexOf(' '))} /></div> 
           </div>
-          <Text field="userName" style={{marginBottom:15}} placeholder="User Name" />
-          <Text field="email" style={{marginBottom:15}}  placeholder="Email" />   
-          <Text field="phone" style={{marginBottom:15}} placeholder="Phone" />
+          <Text field="userName" style={{marginBottom:15}} placeholder="User Name" defaultValue={values.userName} />
+          <Text field="email" style={{marginBottom:15}}  placeholder="Email" defaultValue={values.email} />   
+          <Text field="phone" style={{marginBottom:15}} placeholder="Phone" defaultValue={values.phone} />
           <Text field="password" style={{marginBottom:15}} placeholder="Password" />
           {/* <h5>Passcode</h5>
           <div style={{display:"inline-block",marginBottom:15}}>

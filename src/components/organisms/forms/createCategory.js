@@ -21,6 +21,8 @@ export class F6 extends Component {
     this.formAPi = formAPi
   }
   render() {
+    var values;
+    this.props.prefilledValues ? values=this.props.prefilledValues : values={}
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
@@ -28,6 +30,7 @@ export class F6 extends Component {
             field="name"
             style={{ marginBottom: 15 }}
             placeholder="Category name"
+            defaultValue={values.name}
           />
           <div style={{ display: "inline-block" }}>
             <Button

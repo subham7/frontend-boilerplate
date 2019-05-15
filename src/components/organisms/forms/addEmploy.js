@@ -30,8 +30,8 @@ export class F4 extends Component {
       <div className="App">
        <Form getApi={this.setFormApi}>
           <div style={{display:"inline-block",marginBottom:15, width:"100%"}}>
-            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name" defaultValue={values.name.substr(0,values.name.indexOf(' '))} /></div>
-            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name" defaultValue={values.name.substr(values.name.indexOf(' '))} /></div> 
+            <div style={{float:"left",width:"48%"}}><Text field="firstName"  placeholder="First Name" defaultValue={values.firstName} /></div>
+            <div style={{float:"right", width:"48%"}}><Text  field="lastName"  placeholder="Last Name" defaultValue={values.LastName} /></div> 
           </div>
           <Text field="userName" style={{marginBottom:15}} placeholder="User Name" defaultValue={values.userName} />
           <Text field="email" style={{marginBottom:15}}  placeholder="Email" defaultValue={values.email} />   

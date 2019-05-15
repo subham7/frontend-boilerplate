@@ -69,6 +69,7 @@ class App extends Component {
         object.userName = item.userName
         object.email = item.email
         object.phone = item.phone
+        object.prefilledValues = item
         object.assign = {
           onCreate: (data,cb) => {
           data.values.user = item.userID

@@ -2,7 +2,7 @@ import React from 'react';
 import {Tag} from 'antd'; 
 
 export default function stockTag(inventory){
-    console.log("inside of stockcard", inventory)
+    // console.log("inside of stockcard", inventory)
     var tag = inventory.map(tag => {
         let color=''
         if(tag>=0 && tag<=10){

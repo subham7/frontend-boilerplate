@@ -56,7 +56,7 @@ var employeeColumns = [
         <Model visible form={createCategory}
           title="Create Item" isTableModal={true}
           buttonValue="Create"
-          prefilledValues={object}
+          prefilledValues={object.prefilledValues}
           onSubmit={(data, cb) => object.handleFeatures.handleUpdate(data, object.userID, cb)}
         />
       )

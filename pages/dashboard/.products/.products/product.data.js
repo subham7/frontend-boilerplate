@@ -5,25 +5,25 @@ import Model from "../../../../src/components/molecules/modelButton"
 import createProduct from "../../../../src/components/organisms/forms/createItem"
 var cardData = [
     {
-        iconType:'bank',
-        iconStyle: {fontSize: "30px", marginTop: '30%', color: '#F88998'},
+        iconType: 'bank',
+        iconStyle: { fontSize: "30px", marginTop: '30%', color: '#F88998' },
         title: '25',
         description: 'Items Out of Stock'
     },
     {
-        iconType:'shopping-cart',
-        iconStyle: {fontSize: "30px", marginTop: '30%', color: '#FFB353'},
+        iconType: 'shopping-cart',
+        iconStyle: { fontSize: "30px", marginTop: '30%', color: '#FFB353' },
         title: '25',
         description: 'Items Out of Stock'
     },
     {
-        iconType:'rise',
-        iconStyle: {fontSize: "30px", marginTop: '30%', color: '#69E4A6'},
+        iconType: 'rise',
+        iconStyle: { fontSize: "30px", marginTop: '30%', color: '#69E4A6' },
         title: '25',
         description: 'Items Out of Stock'
     }
 ]
-var cascaderData =[
+var cascaderData = [
     {
         placeholder: 'All Categories',
         optionArray: ['Biscuits', 'Chips', 'Drinks', 'Fries', 'Breads']
@@ -46,7 +46,7 @@ var cascaderData =[
     }
 ]
 
-var productColumns =[
+var productColumns = [
     {
         title: 'Name',
         dataIndex: 'name',
@@ -89,20 +89,22 @@ var productColumns =[
         dataIndex: '',
         render: (object) => {
             return (
-                <Model visible form={createProduct}
-                    formData = {object.selectData}
+                <Model 
+                    visible form={createProduct}
+                    prefilledValues = {object.prefilledValues}
+                    formData={object.selectData}
                     title="Edit Product" isTableModal={true}
                     buttonValue="Create"
                     onSubmit={(data, cb) => object.handleFeatures.editProduct(data, object.productID, cb)}
                 />
-                
+
             )
         }
     },
     {
         title: '',
-        dataIndex:'',
-        render: (object)=> {
+        dataIndex: '',
+        render: (object) => {
             return (
                 <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
             )
@@ -110,16 +112,16 @@ var productColumns =[
     }
 ]
 
- const productColumnData =[
-     {
-         product: 'Parle G',
-         code: '1X2X3X4X5',
-         category: 'Biscuits',
-         location: 'BBSR',
-         inventory: [20],
-         price: 10
-     },
-     {
+const productColumnData = [
+    {
+        product: 'Parle G',
+        code: '1X2X3X4X5',
+        category: 'Biscuits',
+        location: 'BBSR',
+        inventory: [20],
+        price: 10
+    },
+    {
         product: 'Hide & Seek',
         code: '1X2X3X4X5',
         category: 'Biscuits',
@@ -144,22 +146,22 @@ var productColumns =[
         price: 10
     },
     {
-       product: 'Hide & Seek',
-       code: '1X2X3X4X5',
-       category: 'Biscuits',
-       location: 'BBSR',
-       inventory: [200],
-       price: 30
-   },
-   {
-       product: 'Parle G',
-       code: '1X2X3X4X5',
-       category: 'Biscuits',
-       location: 'BBSR',
-       inventory: [2],
-       price: 10
-   }
- ]
+        product: 'Hide & Seek',
+        code: '1X2X3X4X5',
+        category: 'Biscuits',
+        location: 'BBSR',
+        inventory: [200],
+        price: 30
+    },
+    {
+        product: 'Parle G',
+        code: '1X2X3X4X5',
+        category: 'Biscuits',
+        location: 'BBSR',
+        inventory: [2],
+        price: 10
+    }
+]
 
 export const itemData = {
     cardData, cascaderData, productColumns, productColumnData

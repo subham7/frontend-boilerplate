@@ -48,6 +48,7 @@ class App extends React.Component {
               this.props.productCategories.response.data
             )}
             rowSelection={{}}
+            
             cardData={itemData.cardData}
             cascaderData={itemData.cascaderData}
             columns={itemData.productColumns}
@@ -72,6 +73,7 @@ class App extends React.Component {
         object.barcode = item.barcode
         object.category = item.productcategory
         object.price = item.price
+        object.prefilledValues = item
         object.selectData = this.createSelectData(this.props.productCategories.response.data)
         object.handleFeatures = {
           handleDelete: urlParams => {
@@ -149,14 +151,16 @@ class App extends React.Component {
     }
   }
 
-  const mapStateToProps = state => ({
+  const mapStateToProps = state => {
+    // console.log("apnaaaaaaaa stateeeee", state)
+    return({
     business: state.businesses,
     products: state.products,
     taxcategories: state.taxcategories,
-    addProduct: state.addProduct,
+    // addProduct: state.addProduct,
     // deleteProduct: state.deleteProduct,
-    updateProduct: state.updateProduct
-  })
+    // updateProduct: state.updateProduct
+  })}
   // Example Syntax for writing dispatch
   const mapDispatchToProps = dispatch => ({
     getproducts: businessID => dispatch(products.action(businessID)),

@@ -4,7 +4,7 @@ import * as business from "./business"
 import * as users from "./users"
 import * as login from "./login"
 import * as signup from "./signup"
-
+import * as modifiers from "./modifiers"
 import * as employees from "./employees"
 import * as products from './products'
 
@@ -16,6 +16,7 @@ module.exports = {
   login,
   users,
   employees,
-  products
+  products,
+  modifiers
 }
 

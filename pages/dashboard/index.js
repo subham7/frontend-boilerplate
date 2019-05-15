@@ -10,7 +10,7 @@ import {
 import { itemPurchaseData } from "../../pagesData/purchase.data"
 
 // import CustomerDirectory from '../../src/components/templates/CustomerDirectory'
-import Modifiers from "../../src/components/organisms/modifiers"
+import Modifiers from "./.modifiers"
 import Categories from "../../src/components/organisms/categories"
 import Purchase from "../../src/components/organisms/ItemPurchase"
 import { Tabs } from "antd"
@@ -90,11 +90,7 @@ class SwitchHandler extends React.Component {
                 return <Customers />
             case "modifiers":
               return (
-                <Modifiers
-                  cascaderData={itemData.cascaderData}
-                  columns={itemData.productColumns}
-                  columnData={itemData.productColumnData}
-                />
+                <Modifiers/>
               )
             default:
               return <h1>Error: 404</h1>

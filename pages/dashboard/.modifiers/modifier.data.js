@@ -1,5 +1,8 @@
 import React from 'react';
 import stockTag from "../../../src/components/atoms/stockTag";
+import ButtonIcon from "../../../src/components/atoms/tableButton"
+import ButtonOne from "../../../src/components/atoms/button"
+import Model from "../../../src/components/molecules/modelButton"
 
 var cardData = [
     {
@@ -46,86 +49,84 @@ var cascaderData =[
 
 var productColumns =[
     {
-        title: 'PRODUCT',
-        dataIndex: 'product',
+        title: 'SET NAME',
+        dataIndex: 'name',
         key: 'product'
-    },
-    {
-        title: 'CODE',
-        dataIndex: 'code',
-        key: 'code'
-    },
-    {
-        title: 'CATEGORY',
-        dataIndex: 'category',
-        key: 'category'
     },
     {
         title: 'LOCATION',
         dataIndex: 'location',
-        key: 'location'
+        key: 'location',
+        render: location => (<span>{stockTag(location)}</span>)
     },
     {
-        title: 'INVENTORY',
-        dataIndex: 'inventory',
-        key: 'inventory',
-        render: inventory => (<span>{stockTag(inventory)}</span>)
+        title: 'OPTIONS',
+        dataIndex: 'options',
+        key: 'options'
     },
     {
-        title: 'PRICE',
-        key: 'price',
-        dataIndex: 'price',
-        render: price => <span><b>INR {price}</b></span>
+        title: 'Apply',
+        dataIndex: 'apply',
+        render: object =><ButtonOne value={"Apply to Items"} color="#2699FB" />
+    },
+    {
+        title: '',
+        dataIndex: '',
+        render: object => <ButtonIcon onClick={{}} icon="form" style={{ "marginRight": "30px" }} shape="circle" type="primary" size="small" ghost />
+    },
+    {
+        title: '',
+        dataIndex: '',
+        render: (object) => {
+            return (
+                <ButtonIcon onSubmit={{}} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
+            )
+        }
     }
 ]
 
  const productColumnData =[
      {
-         product: 'Parle G',
+         name: 'Parle G',
          code: '1X2X3X4X5',
-         category: 'Biscuits',
-         location: 'BBSR',
-         inventory: [20],
+         options: 'No cheese, Extra',
+         location: ['BBSR'],
          price: 10
      },
      {
-        product: 'Hide & Seek',
+        name: 'Hide & Seek',
         code: '1X2X3X4X5',
-        category: 'Biscuits',
-        location: 'BBSR',
-        inventory: [200],
+        options: 'No cheese, Extra',
+        location: ['BBSR'],
         price: 30
     },
     {
-        product: 'Parle G',
+        name: 'Parle G',
         code: '1X2X3X4X5',
-        category: 'Biscuits',
-        location: 'BBSR',
-        inventory: [2],
+        options: 'No cheese, Extra',
+        location: ['BBSR'],
         price: 10
     },
     {
-        product: 'Parle G',
+        name: 'Parle G',
         code: '1X2X3X4X5',
-        category: 'Biscuits',
-        location: 'BBSR',
-        inventory: [20],
+        options: 'No cheese, Extra',
+        location: ['BBSR'],
         price: 10
     },
     {
-       product: 'Hide & Seek',
+       name: 'Hide & Seek',
        code: '1X2X3X4X5',
-       category: 'Biscuits',
-       location: 'BBSR',
-       inventory: [200],
+       options: 'No cheese, Extra',
+       location: ['BBSR'],
+    
        price: 30
    },
    {
-       product: 'Parle G',
+       name: 'Parle G',
        code: '1X2X3X4X5',
-       category: 'Biscuits',
-       location: 'BBSR',
-       inventory: [2],
+       options: 'No cheese, Extra',
+       location: ['BBSR'],
        price: 10
    }
  ]

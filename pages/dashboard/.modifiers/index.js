@@ -1,10 +1,10 @@
-import React, {Component} from "react"
+import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { getProducts, modifieruse  } from "../../../src/reduxHelper"
+import { getProductById, modifieruse, getBusinessById } from "../../../src/reduxHelper"
 import Modifiers from '../../../src/components/organisms/modifiers'
 
-import {itemData} from './modifier.data'
+import { itemData } from './modifier.data'
 import uuidv4 from "uuid/v4"
 
 class App extends Component {
@@ -21,30 +21,58 @@ class App extends Component {
     }
 
     render() {
-        return(
+        console.log("in render state", this.state)
+        return (
             <div>
                 <Modifiers
-                  cascaderData={itemData.cascaderData}
-                  columns={itemData.productColumns}
-                  columnData={itemData.productColumnData}
+                    cascaderData={itemData.cascaderData}
+                    columns={itemData.productColumns}
+                    columnData={this.state.modifierItemData}
                 />
             </div>
         )
     }
 
-    loadModifierData() {
-        let businessID = this.props.business.response.data.businessID
-        this.props.getModifieruse()
-        .then(modifiers => {
-            modifiers.map(item => {
-                this.props.getProducts(businessID).then(rs => {
-                    console.log("qqqqqqqqqqq", res)
-                })
+    _createModifierColumns(data, businessData) {
+        let temp = []
+        console.log(Array.isArray(data), JSON.stringify(data))
+        if (Array.isArray(data)) {
+            data.map(item => {
+                let object = {}
+                object.name = item.name
+                object.options = "not mapped"
+                object.location = businessData.city
+                temp.push(object)
             })
-        })
-        .catch(err => {
-            console.log(err)
-        })
+        } else {
+            let object = {}
+            object.name = data.name
+            object.options = "not mapped"
+            object.location = businessData.city
+            temp.push(object)
+        }
+        return temp
+    }
+
+    loadModifierData() {
+        let businessData = this.props.business.response.data
+        this.props.getModifieruse()
+            .then(modifiers => {
+                // let array = []
+                // var abc = modifiers.map(item => {
+                //     this.props.getProductById(item.product).then(res => {
+                //         array.push(res)
+                //     })
+                // })
+                // Promise.all(abc).then((results) => {
+                //     console.log("jjjjjjjj", this._createModifierColumns(array, businessData))
+                //     this.setState({ modifierItemData: this._createproductsColumns(array) })
+                //     console.log("finalllll state", this.state.modifierItemData)
+                // })
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 }
 
@@ -56,7 +84,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getModifieruse: () => dispatch(modifieruse.action()),
-    getproducts: businessID => dispatch(products.action(businessID)),
+    getProductById: productID => dispatch(getProductById.action(productID)),
+    getBusinessById: businessID => dispatch(getBusinessById.action(businessID))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -10,6 +10,8 @@ export const deleteProduct = (urlParams) => axios.delete(`${ROOTURL}/products/${
 
 export const updateProduct = (productID, object) => axios.patch(`${ROOTURL}/products/${productID}`, object)
 
+export const getProductById = (productID) => axios.get(`${ROOTURL}/products/${productID}`)
+
 //Product Category APIs
 export const productCategories = (urlParams) => axios.get(`${ROOTURL}/businesses/${urlParams.businessID}/productcategories`)
 

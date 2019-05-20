@@ -21,8 +21,8 @@ const taxCategoryColumns = [
     render: (object) => {
         return (
             <Model visible form={createTaxCategory}
-                title="Create Item" isTableModal={true}
-                buttonValue="Create"
+                title="Create Item" 
+                isTableModal
                 prefilledValues={object}
                 onSubmit={(data, cb) => object.handleFeatures.handleUpdate(data, object.taxCode, cb)}
             />

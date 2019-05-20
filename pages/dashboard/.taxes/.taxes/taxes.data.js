@@ -9,11 +9,14 @@ var taxesColumns = [
         title: 'Name',
         dataIndex: 'name'
     },
-    {
-        title: 'Tax Category',
-        dataIndex: 'taxCategory',
-        render: taxCategory => (<span>{stockTag(taxCategory)}</span>)
-    },
+    // {
+    //     title: 'Tax Category',
+    //     dataIndex: 'percentage',
+    //     render: percentage => {
+    //         console.log("kahiiiiiiito ", percentage)
+    //         return (<span>{stockTag(percentage)}</span>)
+    //     }
+    // },
     {
         title: 'Percentage',
         dataIndex: 'percentage',
@@ -22,13 +25,13 @@ var taxesColumns = [
     {
         title:'Edit',
         key: 'edit',
-        dataIndex: 'cascaderData',
-        render: (cascaderData) => {
+        dataIndex: '',
+        render: (object) => {
             return (
             <span>
             <ButtonIcon icon="form" style={{"marginRight":"30px"}} shape="circle" type="primary" size="small" ghost />
-            <Cascader placeholder='Actions' style={{width: 120, "marginRight":"30px"}} optionArray={cascaderData} />
-            <ButtonIcon icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
+            <Cascader placeholder='Actions' style={{width: 120, "marginRight":"30px"}} optionArray={object.cascaderData} />
+            <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
             </span>
             )
         }
@@ -38,42 +41,42 @@ var taxesColumns = [
  const taxesColumnData =[
      {
          product: 'Test Name',
-         locations: ['BBSR'],
+         location: ['BBSR'],
          percentage: 5,
          taxCode: 'GST1234',
          cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
      },
      {
         product: 'Test Name',
-        locations: ['BBSR'],
+        location: ['BBSR'],
         percentage: 5,
         taxCode: 'GST1234',
         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
     {
         product: 'Test Name',
-        locations: ['BBSR'],
+        location: ['BBSR'],
         percentage: 5,
         taxCode: 'GST1234',
         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
     {
         product: 'Test Name',
-        locations: ['BBSR'],
+        location: ['BBSR'],
         percentage: 5,
         taxCode: 'GST1234',
         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
     {
        product: 'Test Name',
-       locations: ['BBSR'],
+       location: ['BBSR'],
        percentage: 5,
        taxCode: 'GST1234',
        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
     },
    {
        product: 'Test Name',
-       locations: ['BBSR'],
+       location: ['BBSR'],
        percentage: 5,
        taxCode: 'GST1234',
        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']

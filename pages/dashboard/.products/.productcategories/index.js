@@ -24,7 +24,7 @@ class App extends React.Component {
   }
 
   handleCreateProductCategory(data, cb) {
-    console.log(data)
+    // console.log(data)
     data.values.productcategoryID = uuidv4()
     data.values.business = this.props.business.response.data.businessID
     this.props
@@ -141,8 +141,12 @@ const mapStateToProps = state => ({
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getProductCategory: (businessID) => dispatch(productCategories.action(businessID)),
-  addProductCategory: (businessID, object) => dispatch(addProductCategory.action(businessID, object)),
+  addProductCategory: (businessID, object) => {
+    console.log("heeeeeee", businessID)
+    return(dispatch(addProductCategory.action(businessID, object)))},
   deleteProductCategory: (productcategoryID) => dispatch(deleteProductCategory.action(productcategoryID)),
-  updateProductCategory: (productcategoryID, object) => dispatch(updateProductCategory.action(productcategoryID, object))
+  updateProductCategory: (productcategoryID, object) => {
+    console.log("heeeeeee", productcategoryID, object)
+    return(dispatch(updateProductCategory.action(productcategoryID, object)))}
 })
 export default connect(mapStateToProps, mapDispatchToProps)(App);

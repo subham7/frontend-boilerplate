@@ -44,15 +44,17 @@ export class F2 extends Component {
     this.formAPi = formAPi
   }
   render() {
+    var values;
+    this.props.prefilledValues ? values=this.props.prefilledValues : values={}
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
           <div style={{ display: "inline-block", marginBottom: 15 }}>
             <div style={{ float: "left", marginRight: 8 }}>
-              <Text style={{ width: 195 }} field="name" placeholder="Name" />
+              <Text style={{ width: 195 }} field="name" placeholder="Name" defaultValue={values.name} />
             </div>
             <div style={{ float: "left", marginRight: 8 }}>
-              <Text style={{ width: 195 }} field="code" placeholder="Code" />
+              <Text style={{ width: 195 }} field="code" placeholder="Code" defaultValue={values.code} />
             </div>
             {/* <div style={{float:"left"}}>
               <Select defaultValue="Category" style={{ width: 195 }}>
@@ -72,6 +74,7 @@ export class F2 extends Component {
                 style={{ width: 195 }}
                 field="productcategory"
                 option={this.props.formData}
+                defaultValue={values.productcategory}
               />
             </div>
           </div>
@@ -93,6 +96,7 @@ export class F2 extends Component {
                 style={{ width: 195 }}
                 field="barcode"
                 placeholder=" Barcode"
+                defaultValue={values.barcode}
               />
             </div>
           </div>
@@ -102,6 +106,7 @@ export class F2 extends Component {
                 style={{ width: 195 }}
                 field="hsncode"
                 placeholder="Hsn Code"
+                defaultValue={values.hsncode}
               />
             </div>
             {/* <div style={{float:"left"}}>
@@ -114,7 +119,7 @@ export class F2 extends Component {
           </div>
           <div style={{ display: "inline-block", marginBottom: 15 }}>
             <div style={{ float: "left", marginRight: 8 }}>
-              <Text style={{ width: 195 }} field="price" placeholder="Price" />
+              <Text style={{ width: 195 }} field="price" placeholder="Price" defaultValue={values.price} />
             </div>
             {/* <div style={{float:"left"}}> 
               <Select defaultValue="Units" style={{ width: 195 }}>
@@ -129,6 +134,7 @@ export class F2 extends Component {
             rows="3"
             style={{ marginBottom: 15 }}
             placeholder="Item Description:"
+            defaultValue={values.description}
           />
           {/* <h5>Include Taxes</h5>
           <div style={{display:"inline-block"}}> 

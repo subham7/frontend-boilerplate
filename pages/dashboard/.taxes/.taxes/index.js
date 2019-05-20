@@ -5,7 +5,7 @@ import Taxes from "../../../../src/components/organisms/taxes"
 
 import { taxesColumns, taxesColumnData } from "./taxes.data"
 import { itemData } from "../../../../pagesData/item.data"
-import { addTax, taxes, getTaxCategories } from "../../../../src/reduxHelper"
+import { addTax, taxes, getTaxCategories, deleteTax } from "../../../../src/reduxHelper"
 import wrapper from "./wrapper"
 import uuidv4 from "uuid/v4"
 
@@ -67,13 +67,25 @@ class App extends React.Component {
       data.map(item => {
         let object = {}
         object.name = item.name
+        object.taxID = item.taxID
         object.taxCategory = item.taxcategory
         object.percentage = item.percentage
+        object.handleFeatures = {
+          handleDelete: urlParams => {
+            console.log("here", urlParams)
+            this.props.deleteTax(urlParams.taxID).then(res => {
+              this.loadTaxesData();
+            }).catch(err => {
+              console.log(err);
+            })
+          }
+        }
         temp.push(object)
       })
     } else {
       let object = {}
       object.name = item.name
+      object.taxID = item.taxID
       object.taxCategory = item.taxcategory
       object.percentage = item.percentage
       temp.push(object)
@@ -106,12 +118,13 @@ const mapStateToProps = state => ({
   business: state.businesses,
   taxes: state.taxes,
   taxCategories: state.taxCategories,
-  Tax: state.addTax
+  Tax: state.addTax,
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getTaxes: businessID => dispatch(taxes.action(businessID)),
   addTax: object => dispatch(addTax.action(object)),
+  deleteTax: taxID => dispatch(deleteTax.action(taxID)),
   getTaxCategories: businessID => dispatch(getTaxCategories.action(businessID))
 })
 export default wrapper(

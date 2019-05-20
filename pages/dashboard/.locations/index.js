@@ -62,7 +62,8 @@ class App extends React.Component {
         object.name = item.name
         object.blocationID = item.blocationID
         object.address = item.address
-        object.email = item.pocEmail
+        object.email = item.pocEmail,
+        object.prefilledValues=item
         object.handleFeatures = {
           handleDelete: (id) => {
             console.log(id)

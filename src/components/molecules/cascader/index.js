@@ -36,7 +36,7 @@ const Cascader = (props) => {
             onBlur={props.handleBlur}
             filterOption={props.filterOptions}
         >
-        {props.optionArray.length !=0  ? (
+        {props.optionArray ? (
             props.optionArray.map((data, index) => {
                 return <Option value={data}>{data}</Option>
             })

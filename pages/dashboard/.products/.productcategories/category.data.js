@@ -60,7 +60,7 @@ var categoryColumns = [
         <Model
           visible
           form={createCategory}
-          title="Create Item"
+          title="Edit Product Category"
           isTableModal={true}
           buttonValue="Create"
           prefilledValues={object}

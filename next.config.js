@@ -5,7 +5,7 @@ const withCSS = require('@zeit/next-css')
 
 if (typeof require !== 'undefined') {
   require.extensions['.less'] = (file) => {}
-  require.extensions['.css'] = file => {} 
+//  require.extensions['.css'] = file => {} 
 }
 
 /* Without CSS Modules, with PostCSS */

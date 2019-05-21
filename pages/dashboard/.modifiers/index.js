@@ -6,6 +6,7 @@ import Modifiers from '../../../src/components/organisms/modifiers'
 
 import { itemData } from './modifier.data'
 import uuidv4 from "uuid/v4"
+import axios from 'axios';
 
 class App extends Component {
     constructor(props) {
@@ -21,7 +22,6 @@ class App extends Component {
     }
 
     render() {
-        console.log("in render state", this.state)
         return (
             <div>
                 <Modifiers
@@ -35,7 +35,6 @@ class App extends Component {
 
     _createModifierColumns(data, businessData) {
         let temp = []
-        console.log(Array.isArray(data), JSON.stringify(data))
         if (Array.isArray(data)) {
             data.map(item => {
                 let object = {}
@@ -58,17 +57,18 @@ class App extends Component {
         let businessData = this.props.business.response.data
         this.props.getModifieruse()
             .then(modifiers => {
-                // let array = []
-                // var abc = modifiers.map(item => {
-                //     this.props.getProductById(item.product).then(res => {
-                //         array.push(res)
-                //     })
-                // })
-                // Promise.all(abc).then((results) => {
-                //     console.log("jjjjjjjj", this._createModifierColumns(array, businessData))
-                //     this.setState({ modifierItemData: this._createproductsColumns(array) })
-                //     console.log("finalllll state", this.state.modifierItemData)
-                // })
+               axios.all(modifiers.map((item) => {
+                   return this.props.getProductById(item.product)
+                   .then((res) => {
+                    //    console.log(res);
+                       return res;
+                   })
+               }))
+               .then((lista) => {
+                //    console.log("listaaaa", JSON.stringify(lista))
+                   this.setState({ modifierItemData: this._createModifierColumns(lista, businessData) })
+                    // console.log("finalll", this.state)
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -78,7 +78,6 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     business: state.businesses,
-    // products: state.products,
     modifieruse: state.modifieruse
 })
 

@@ -134,9 +134,9 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   business: state.businesses,
   productCategories: state.productCategories,
-  addProductCategory: state.addProductCategory,
-  deleteProductCategory: state.deleteProductCategory,
-  updateProductCategory: state.updateProductCategory
+  // addProductCategory: state.addProductCategory,
+  // deleteProductCategory: state.deleteProductCategory,
+  // updateProductCategory: state.updateProductCategory
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({

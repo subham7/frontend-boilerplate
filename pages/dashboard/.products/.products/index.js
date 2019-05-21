@@ -62,7 +62,7 @@ class App extends React.Component {
     }
   }
 
-  _createproductsColumns(data) {
+  createproductsColumns(data) {
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {

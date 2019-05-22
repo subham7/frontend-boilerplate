@@ -1,12 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { getProductById, modifieruse, getBusinessById } from "../../../src/reduxHelper"
+import { products, modifieruse, getBusinessById } from "../../../src/reduxHelper"
 import Modifiers from '../../../src/components/organisms/modifiers'
 
 import { itemData } from './modifier.data'
 import uuidv4 from "uuid/v4"
-import axios from 'axios';
 
 class App extends Component {
     constructor(props) {
@@ -17,7 +16,9 @@ class App extends Component {
     }
 
     componentDidMount() {
-        console.log("ho gya  load", this.props.business.response.data.businessID)
+        console.log("ho gya  load", this.props.products)
+        let businessID = this.props.business.response.data.businessID
+        this.props.getProducts(businessID)
         this.loadModifierData()
     }
 
@@ -33,42 +34,31 @@ class App extends Component {
         )
     }
 
-    _createModifierColumns(data, businessData) {
+    _createModifierColumns(data) {
         let temp = []
         if (Array.isArray(data)) {
             data.map(item => {
                 let object = {}
-                object.name = item.name
+                object.name = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)].name
                 object.options = "not mapped"
-                object.location = businessData.city
+                object.location = this.props.business.response.data.city
                 temp.push(object)
             })
         } else {
             let object = {}
-            object.name = data.name
+            object.name = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)].name
             object.options = "not mapped"
-            object.location = businessData.city
+            object.location = this.props.business.response.data.city
             temp.push(object)
         }
         return temp
     }
 
     loadModifierData() {
-        let businessData = this.props.business.response.data
         this.props.getModifieruse()
             .then(modifiers => {
-               axios.all(modifiers.map((item) => {
-                   return this.props.getProductById(item.product)
-                   .then((res) => {
-                    //    console.log(res);
-                       return res;
-                   })
-               }))
-               .then((lista) => {
-                //    console.log("listaaaa", JSON.stringify(lista))
-                   this.setState({ modifierItemData: this._createModifierColumns(lista, businessData) })
-                    // console.log("finalll", this.state)
-                })
+                this.setState({ modifierItemData: this._createModifierColumns(modifiers) })
+                // console.log("finalll", this.state)
             })
             .catch(err => {
                 console.log(err)
@@ -78,12 +68,13 @@ class App extends Component {
 
 const mapStateToProps = state => ({
     business: state.businesses,
-    modifieruse: state.modifieruse
+    modifieruse: state.modifieruse,
+    products: state.products
 })
 
 const mapDispatchToProps = dispatch => ({
     getModifieruse: () => dispatch(modifieruse.action()),
-    getProductById: productID => dispatch(getProductById.action(productID)),
+    getProducts: businessID => dispatch(products.action(businessID)),
     getBusinessById: businessID => dispatch(getBusinessById.action(businessID))
 })
 

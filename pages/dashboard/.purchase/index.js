@@ -5,23 +5,19 @@ import Purchase from '../../../src/components/organisms/ItemPurchase'
 import { stockdiary, products, getLocationByID } from "../../../src/reduxHelper"
 
 import { itemPurchaseData } from './purchase.data'
+import wrapper from './wrapper'
 import uuidv4 from "uuid/v4"
 
 class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            purchaseItemTableData: [],
-            blocations: []
+            purchaseItemTableData: []
         }
     }
 
     componentDidMount() {
-        let businessID = this.props.business.response.data.businessID
-        this.props.getLocationByID(businessID).then(res => {
-            this.setState({ blocations: res })
-        })
-        this.props.getproducts(businessID)
+        console.log("purchase state", this.props)
         this.loadPurchaseData()
     }
 
@@ -45,7 +41,7 @@ class App extends Component {
                 let object = {}
                 object.purchaseItemID = item.id
                 object.quantity = item.units
-                object.location = this.state.blocations[this.state.blocations.findIndex(id => id.blocationID == item.location)].name
+                object.location = this.props.blocations.response.data[this.props.blocations.response.data.findIndex(id => id.blocationID == item.location)].name
                 object.productsData = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)]
                 temp.push(object)
             })
@@ -53,7 +49,7 @@ class App extends Component {
             let object = {}
             object.purchaseItemID = item.id
             object.quantity = item.units
-            object.location = item.location
+            object.location = this.props.blocations.response.data[this.props.blocations.response.data.findIndex(id => id.blocationID == item.location)].name
             object.productsData = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)]
             temp.push(object)
         }
@@ -71,17 +67,13 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        business: state.businesses,
         stockdiary: state.stockdiary,
-        products: state.products,
-        blocations: state.locations
+        blocations: state.getLocationByID
     }
 }
 
 const mapDispatchToProps = dispatch => ({
-    getproducts: businessID => dispatch(products.action(businessID)),
     stockdiary: () => dispatch(stockdiary.action()),
-    getLocationByID: (businessID) => dispatch(getLocationByID.action(businessID))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default wrapper(connect(mapStateToProps, mapDispatchToProps)(App))

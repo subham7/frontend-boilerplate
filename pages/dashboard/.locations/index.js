@@ -22,16 +22,17 @@ class App extends React.Component {
 
   handleCreateLocation(data, cb) {
     data.values.blocationID = uuidv4()
+    data.values.business = this.props.business.response.data.businessID
     let businessID = this.props.business.response.data.businessID
     this.props
-      .addLocation(businessID, data.values)
+      .addLocation(data.values)
       .then(res => {
         this.loadLocationData()
-        cb({ status: true, message: "Location created successful" })
+        cb({ status: true, message: "Location created successfully" })
       })
       .catch(err => {
         console.log(err)
-        cb({ status: false, message: "SomeError occured" })
+        cb({ status: false, message: "Some Error occured" })
       })
   }
 
@@ -63,7 +64,7 @@ class App extends React.Component {
         object.blocationID = item.blocationID
         object.address = item.address
         object.email = item.pocEmail,
-        object.prefilledValues=item
+          object.prefilledValues = item
         object.handleFeatures = {
           handleDelete: (id) => {
             console.log(id)
@@ -88,10 +89,30 @@ class App extends React.Component {
       })
     } else {
       let object = {}
-        ;(object.pocname = item.pocName), (object.name = item.name)
+        ; (object.pocname = item.pocName), (object.name = item.name)
       object.blocationID = item.blocationID
       object.address = data.address
       object.email = data.pocEmail
+      object.prefilledValues = item
+      object.handleFeatures = {
+        handleDelete: (id) => {
+          console.log(id)
+          this.props.deleteLocation(id).then(res => {
+            this.loadLocationData();
+          }).catch(err => {
+            console.log(err);
+          })
+        },
+        handleUpdate: (data, id, cb) => {
+          this.props.updateLocation(id, data.values).then(res => {
+            this.loadLocationData()
+            cb({ status: true, message: "Location updated" })
+          }).catch(err => {
+            console.log(err)
+            cb({ status: false, message: "Some Error while updating" })
+          })
+        }
+      }
       temp.push(object)
     }
     return temp
@@ -120,10 +141,10 @@ const mapStateToProps = state => ({
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getLocations: businessID => dispatch(locations.action(businessID)),
-  addLocation: (businessID, object) => dispatch(addLocation.action(businessID, object)),
+  addLocation: (object) => dispatch(addLocation.action(object)),
   deleteLocation: (blocationID) => dispatch(deleteLocation.action(blocationID)),
-  updateLocation: (blocationID, object) => dispatch(updateLocation.action(blocationID, object)),  
-  })
+  updateLocation: (blocationID, object) => dispatch(updateLocation.action(blocationID, object)),
+})
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -11,7 +11,7 @@ const CustomerDirectory = props => {
     return (
         <Row gutter={8}>
             <Col span={10}>
-                <ContactList heading='CONTACT LIST' data={props.data} customerId='xx12xx' />
+                <ContactList onClick={props.onClick} heading='CONTACT LIST' data={props.listData} customerId='xx12xx' />
             </Col>
             <Col span={14} >
                 <Row gutter={4}>
@@ -26,13 +26,14 @@ const CustomerDirectory = props => {
                         <ButtonOne value='Create' width='100%' />
                     </Col>
                 </Row>
-                <br/>
-                <ContactDetails 
-                    customerData={props.customerData}
-                    actionData={props.actionData}
-                    date={props.date}
-                    receiptCardData={props.receiptCardData} 
-                />
+                <br />
+                {Object.keys(props.customerData).length !== 0 ? (
+                    <ContactDetails
+                        customerData={props.customerData}
+                        actionData={props.actionData}
+                        date={props.date}
+                        receiptCardData={props.receiptCardData}
+                    />) : (<div></div>)}
             </Col>
         </Row>
     )

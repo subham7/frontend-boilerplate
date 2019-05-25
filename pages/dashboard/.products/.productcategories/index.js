@@ -51,6 +51,7 @@ class App extends React.Component {
             cascaderData={categoryData.cascaderData}
             columns={categoryData.categoryColumns}
             columnData={this.state.productsTableData}
+            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateProductCategory(data, cb)}
           />
         </div>

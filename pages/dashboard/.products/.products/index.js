@@ -48,7 +48,7 @@ class App extends React.Component {
               this.props.productCategories.response.data
             )}
             rowSelection={{}}
-            
+            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
             cardData={itemData.cardData}
             cascaderData={itemData.cascaderData}
             columns={itemData.productColumns}

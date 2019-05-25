@@ -52,6 +52,7 @@ class App extends React.Component {
             cascaderData={itemData.cascaderData}
             columns={taxesColumns}
             columnData={this.state.taxesTableData}
+            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
           />
         </div>

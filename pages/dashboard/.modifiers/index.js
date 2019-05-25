@@ -29,6 +29,7 @@ class App extends Component {
                     cascaderData={itemData.cascaderData}
                     columns={itemData.productColumns}
                     columnData={this.state.modifierItemData}
+                    pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
                 />
             </div>
         )

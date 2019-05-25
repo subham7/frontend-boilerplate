@@ -20,7 +20,7 @@ let ModifierTemplate = (props) => {
         </Col>
       </Row>
       <br />
-      <ProductTable columns={props.columns} data={props.columnData} />
+      <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
       <Row>
         <Col span={6} push={19}>
           <ButtonOne value="Create"/>

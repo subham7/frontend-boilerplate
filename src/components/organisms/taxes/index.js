@@ -15,6 +15,7 @@ const TaxesTemplate = props => {
         rowSelection={props.rowSelection}
         columns={props.columns}
         data={props.columnData}
+        pagination={{...props.pagination}}
       />
       <Row>
         <Col span={3} push={12}>

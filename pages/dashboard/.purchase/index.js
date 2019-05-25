@@ -29,6 +29,7 @@ class App extends Component {
                     columns={itemPurchaseData.itemPurchaseColumns}
                     columnData={this.state.purchaseItemTableData}
                     cascaderData={itemPurchaseData.cascaderData}
+                    pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
                 />
             </div>
         )

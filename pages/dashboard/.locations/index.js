@@ -12,7 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      locationTableData: []
+      locationTableData: [],
+      originalTableData: []
     }
   }
 
@@ -36,6 +37,22 @@ class App extends React.Component {
       })
   }
 
+  handleSearch(e) {
+    // console.log(e.target.value, "valllll")
+    let value = e.target.value;
+    if (value == '') {
+      this.setState({ locationTableData: this.state.originalTableData })
+    } else {
+      const filteredEvents = this.state.locationTableData.filter(function (data) {
+        let lowerCaseName = data.nama;
+        lowerCaseName = data.name.toLowerCase();
+        return lowerCaseName.includes(value)
+      })
+      // console.log(filteredEvents, "filterrrrr")
+      this.setState({locationTableData: filteredEvents })
+    }
+  }
+
   render() {
     if (this.props.locations.isLoaded) {
       // console.log(this.state.locationTableData)
@@ -45,7 +62,9 @@ class App extends React.Component {
             rowSelection={{}}
             columns={locationColumns}
             columnData={this.state.locationTableData}
+            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateLocation(data, cb)}
+            onSearch={(value) => this.handleSearch(value)}
           />
         </div>
       )
@@ -75,7 +94,6 @@ class App extends React.Component {
             })
           },
           handleUpdate: (data, id, cb) => {
-            // console.log("clicked", data, id, cb)
             this.props.updateLocation(id, data.values).then(res => {
               this.loadLocationData()
               cb({ status: true, message: "Location updated" })
@@ -123,7 +141,8 @@ class App extends React.Component {
     this.props
       .getLocations(businessID)
       .then(res => {
-        this.setState({ locationTableData: this._createLocationColumns(res) })
+        this.setState({ locationTableData: this._createLocationColumns(res)})
+        this.setState({originalTableData: this.state.locationTableData})
       })
       .catch(err => {
         console.log(err)
@@ -134,9 +153,6 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   business: state.businesses,
   locations: state.locations,
-  // addLocation: state.addLocation,
-  // deleteLocation: state.deleteLocation,
-  // updateLocation: state.updateLocation
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({

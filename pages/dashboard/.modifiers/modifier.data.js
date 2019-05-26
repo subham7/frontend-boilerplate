@@ -85,52 +85,6 @@ var productColumns =[
     }
 ]
 
- const productColumnData =[
-     {
-         name: 'Parle G',
-         code: '1X2X3X4X5',
-         options: 'No cheese, Extra',
-         location: ['BBSR'],
-         price: 10
-     },
-     {
-        name: 'Hide & Seek',
-        code: '1X2X3X4X5',
-        options: 'No cheese, Extra',
-        location: ['BBSR'],
-        price: 30
-    },
-    {
-        name: 'Parle G',
-        code: '1X2X3X4X5',
-        options: 'No cheese, Extra',
-        location: ['BBSR'],
-        price: 10
-    },
-    {
-        name: 'Parle G',
-        code: '1X2X3X4X5',
-        options: 'No cheese, Extra',
-        location: ['BBSR'],
-        price: 10
-    },
-    {
-       name: 'Hide & Seek',
-       code: '1X2X3X4X5',
-       options: 'No cheese, Extra',
-       location: ['BBSR'],
-    
-       price: 30
-   },
-   {
-       name: 'Parle G',
-       code: '1X2X3X4X5',
-       options: 'No cheese, Extra',
-       location: ['BBSR'],
-       price: 10
-   }
- ]
-
 export const itemData = {
-    cardData, cascaderData, productColumns, productColumnData
+    cardData, cascaderData, productColumns, 
 }

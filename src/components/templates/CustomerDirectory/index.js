@@ -15,7 +15,7 @@ const CustomerDirectory = props => {
             </Col>
             <Col span={14} >
                 <Row gutter={4}>
-                    <Col span={8}><SearchBar value='Search Name' /></Col>
+                    <Col span={8}><SearchBar handleSearch={props.onSearch} value='Search Name' /></Col>
                     <Col span={4}>
                         <Cascader optionArray={props.filterArry} placeholder='Filter' />
                     </Col>

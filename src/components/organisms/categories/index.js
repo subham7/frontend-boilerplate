@@ -15,6 +15,8 @@ let ItemCategory = props => {
       <CascaderAndSearch
         dataArray={props.cascaderData}
         buttonValue="Quick Upload"
+        onSearch={props.onSearch}
+        placeholder="Search Category"
       />
       <br />
       <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />

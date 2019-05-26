@@ -29,7 +29,7 @@ const ItemPurchase = (props) => {
             </Row>
             <Row gutter={12}>
                 <Col span={6}>
-                    <SearchBar />
+                    <SearchBar handleSearch={props.onSearch} value="Search Product Name" />
                 </Col>
                 <Col span={6}>
                     <SearchBar type="enter"/>

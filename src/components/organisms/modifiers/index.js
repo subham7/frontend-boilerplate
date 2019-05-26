@@ -13,7 +13,7 @@ let ModifierTemplate = (props) => {
           <Cascader optionArray={props.cascaderData[0].optionArray} />
         </Col>
         <Col span={6}>
-          <SearchBar />
+          <SearchBar handleSearch={props.onSearch} value="Search" />
         </Col>
         <Col span={3} push={9}>
           <ButtonOne value="Create Modifier Set"/>

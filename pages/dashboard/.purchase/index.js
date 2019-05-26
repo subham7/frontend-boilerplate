@@ -12,7 +12,8 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            purchaseItemTableData: []
+            purchaseItemTableData: [],
+            filteredTableData: []
         }
     }
 
@@ -21,15 +22,24 @@ class App extends Component {
         this.loadPurchaseData()
     }
 
+    handleSearch(e) {
+        const filteredEvents = this.state.purchaseItemTableData.filter(function (data) {
+            var pattern = new RegExp(e.target.value, "i")
+            return data.name.match(pattern)
+        })
+        this.setState({ filteredTableData: filteredEvents })
+    }
+
     render() {
         return (
             <div>
                 <Purchase
                     rowSelection={{}}
                     columns={itemPurchaseData.itemPurchaseColumns}
-                    columnData={this.state.purchaseItemTableData}
+                    columnData={this.state.filteredTableData}
                     cascaderData={itemPurchaseData.cascaderData}
-                    pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
+                    pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
+                    onSearch={(value) => this.handleSearch(value)}
                 />
             </div>
         )
@@ -41,6 +51,7 @@ class App extends Component {
             data.map(item => {
                 let object = {}
                 object.purchaseItemID = item.id
+                object.name = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)].name
                 object.quantity = item.units
                 object.location = this.props.blocations.response.data[this.props.blocations.response.data.findIndex(id => id.blocationID == item.location)].name
                 object.productsData = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)]
@@ -49,6 +60,7 @@ class App extends Component {
         } else {
             let object = {}
             object.purchaseItemID = item.id
+            object.name = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)].name
             object.quantity = item.units
             object.location = this.props.blocations.response.data[this.props.blocations.response.data.findIndex(id => id.blocationID == item.location)].name
             object.productsData = this.props.products.response.data[this.props.products.response.data.findIndex(id => id.productID == item.product)]
@@ -62,6 +74,7 @@ class App extends Component {
             .then(data => {
                 console.log("gibberish", data)
                 this.setState({ purchaseItemTableData: this.createpurchasecolumns(data) })
+                this.setState({ filteredTableData: this.state.purchaseItemTableData })
             })
     }
 }

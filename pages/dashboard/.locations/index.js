@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import { locations, addLocation, deleteLocation, updateLocation } from "../../../src/reduxHelper"
 import Locations from "../../../src/components/templates/locations"
 
-import { locationColumns, locationColumnData } from "./locations.data"
+import { locationColumns } from "./locations.data"
 
 import uuidv4 from "uuid/v4"
 
@@ -12,8 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      locationTableData: [],
-      originalTableData: []
+      filteredTableData: [],
+      locationTableData: []
     }
   }
 
@@ -38,31 +38,26 @@ class App extends React.Component {
   }
 
   handleSearch(e) {
-    // console.log(e.target.value, "valllll")
     let value = e.target.value;
-    if (value == '') {
-      this.setState({ locationTableData: this.state.originalTableData })
-    } else {
-      const filteredEvents = this.state.locationTableData.filter(function (data) {
-        let lowerCaseName = data.nama;
-        lowerCaseName = data.name.toLowerCase();
-        return lowerCaseName.includes(value)
-      })
-      // console.log(filteredEvents, "filterrrrr")
-      this.setState({locationTableData: filteredEvents })
-    }
+    const filteredEvents = this.state.locationTableData.filter(function (data) {
+      var pattern = new RegExp(value, "i")
+      // console.log((pattern), "patttttttern")
+      return data.name.match(pattern)
+      // return data.name.includes(value)
+    })
+    console.log(filteredEvents, "filterrrr")
+    this.setState({ filteredTableData: filteredEvents })
   }
 
   render() {
     if (this.props.locations.isLoaded) {
-      // console.log(this.state.locationTableData)
       return (
         <div>
           <Locations
             rowSelection={{}}
             columns={locationColumns}
-            columnData={this.state.locationTableData}
-            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
+            columnData={this.state.filteredTableData}
+            pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateLocation(data, cb)}
             onSearch={(value) => this.handleSearch(value)}
           />
@@ -141,8 +136,8 @@ class App extends React.Component {
     this.props
       .getLocations(businessID)
       .then(res => {
-        this.setState({ locationTableData: this._createLocationColumns(res)})
-        this.setState({originalTableData: this.state.locationTableData})
+        this.setState({ locationTableData: this._createLocationColumns(res) })
+        this.setState({ filteredTableData: this.state.locationTableData })
       })
       .catch(err => {
         console.log(err)

@@ -6,11 +6,9 @@ import CreateTaxes from "../../organisms/forms/createTax"
 import { Row, Col } from "antd"
 
 const TaxesTemplate = props => {
-  console.log("ORG TAX: " + props.formData)
-
   return (
     <div>
-      <CascaderAndSearch dataArray={props.cascaderData} />
+      <CascaderAndSearch onSearch={props.onSearch} placeholder="Search Name" dataArray={props.cascaderData} />
       <ProductTable
         rowSelection={props.rowSelection}
         columns={props.columns}

@@ -21,11 +21,12 @@ let ItemTemplate = props => {
         <CascaderAndSearch
           dataArray={props.cascaderData}
           buttonValue="Quick Upload"
+          onSearch={props.onSearch}
+          placeholder="Search Name"
         />
       </div>
 
       <div className="row-container">
-        {console.log({...props.pagination}, "proppppppppp")}
         <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
       </div>
 

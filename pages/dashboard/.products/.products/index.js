@@ -12,7 +12,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      productsTableData: []
+      productsTableData: [],
+      filteredTableData: []
     }
   }
 
@@ -35,8 +36,12 @@ class App extends React.Component {
       })
   }
 
-  callback(key) {
-    // console.log(key);
+  handleSearch(e) {
+    const filteredEvents = this.state.productsTableData.filter(function (data) {
+      var pattern = new RegExp(e.target.value, "i")
+      return data.name.match(pattern)
+    })
+    this.setState({ filteredTableData: filteredEvents })
   }
 
   render() {
@@ -48,12 +53,13 @@ class App extends React.Component {
               this.props.productCategories.response.data
             )}
             rowSelection={{}}
-            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
+            pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
             cardData={itemData.cardData}
             cascaderData={itemData.cascaderData}
             columns={itemData.productColumns}
-            columnData={this.state.productsTableData}
+            columnData={this.state.filteredTableData}
             onCreate={(data, cb) => this.handleCreateproducts(data, cb)}
+            onSearch={(value) => this.handleSearch(value)}
           />
         </div>
       )
@@ -137,6 +143,7 @@ class App extends React.Component {
       let businessID = this.props.business.response.data.businessID
       this.props.getproducts(businessID).then(res => {
         this.setState({ productsTableData: this._createproductsColumns(res) })
+        this.setState({ filteredTableData: this.state.productsTableData })
       })
         .catch(err => {
           console.log(err)

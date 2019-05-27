@@ -13,12 +13,12 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      taxesTableData: []
+      taxesTableData: [],
+      filteredTableData: []
     }
   }
 
   componentDidMount() {
-    // Loding all taxes in database
     this.loadTaxesData()
   }
 
@@ -36,9 +36,14 @@ class App extends React.Component {
       })
   }
 
-  callback(key) {
-    // console.log(key);
+  handleSearch(e) {
+    const filteredEvents = this.state.taxesTableData.filter(function (data) {
+      var pattern = new RegExp(e.target.value, "i")
+      return data.name.match(pattern)
+    })
+    this.setState({ filteredTableData: filteredEvents })
   }
+
   render() {
     // will not render under taxcategory loaded
     if (true) {
@@ -51,8 +56,10 @@ class App extends React.Component {
             rowSelection={{}}
             cascaderData={itemData.cascaderData}
             columns={taxesColumns}
-            columnData={this.state.taxesTableData}
+            columnData={this.state.filteredTableData}
+            pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
+            onSearch={(value) => this.handleSearch(value)}
           />
         </div>
       )
@@ -85,10 +92,10 @@ class App extends React.Component {
             console.log("allll", data, taxID)
             this.props.updateTax(taxID, data.values).then(res => {
               this.loadTaxesData();
-              cb({status: true, message: "Tax updated successfully"})
+              cb({ status: true, message: "Tax updated successfully" })
             }).catch(err => {
               console.log(err);
-              cb({status: false, message: "Some error occured while updating"});
+              cb({ status: false, message: "Some error occured while updating" });
             })
           }
         }
@@ -111,6 +118,7 @@ class App extends React.Component {
       .getTaxes(businessID)
       .then(res => {
         this.setState({ taxesTableData: this._createTaxesColumns(res) })
+        this.setState({ filteredTableData: this.state.taxesTableData })
       })
       .catch(err => {
         console.log(err)

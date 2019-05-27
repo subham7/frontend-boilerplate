@@ -38,6 +38,16 @@ var taxesColumns = [
                 title="Edit Tax" isTableModal
                 onSubmit={(data, cb) => object.handleFeatures.handleEdit(data, object.taxID, cb)}
             />
+            </span>
+            )
+        }
+    },
+    {
+        title:'',
+        dataIndex: '',
+        render: (object) => {
+            return (
+            <span>
             <Cascader placeholder='Actions' style={{width: 120, "marginRight":"30px"}} optionArray={object.cascaderData} />
             <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
             </span>

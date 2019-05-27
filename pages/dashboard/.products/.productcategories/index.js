@@ -15,7 +15,8 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      productsTableData: []
+      productsTableData: [],
+      filteredTableData: []
     }
   }
 
@@ -39,19 +40,26 @@ class App extends React.Component {
       })
   }
 
-  callback(key) {
-    // console.log(key);
+  handleSearch(e) {
+    const filteredEvents = this.state.productsTableData.filter(function (data) {
+      var pattern = new RegExp(e.target.value, "i")
+      return data.name.match(pattern)
+    })
+    this.setState({ filteredTableData: filteredEvents })
   }
+
   render() {
     if (true) {
       return (
-        <div>
+        <div> 
           <Categories
             cardData={categoryData.cardData}
             cascaderData={categoryData.cascaderData}
             columns={categoryData.categoryColumns}
-            columnData={this.state.productsTableData}
+            columnData={this.state.filteredTableData}
+            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateProductCategory(data, cb)}
+            onSearch={(value) => this.handleSearch(value)}
           />
         </div>
       )
@@ -124,6 +132,7 @@ class App extends React.Component {
       .getProductCategory(urlParams)
       .then(res => {
         this.setState({ productsTableData: this._createProductCategory(res) })
+        this.setState({ filteredTableData: this.state.productsTableData })
       })
       .catch(err => {
         console.log(err)

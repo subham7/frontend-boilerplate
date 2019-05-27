@@ -11,7 +11,8 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            modifierItemData: []
+            modifierItemData: [],
+            filteredTableData: []
         }
     }
 
@@ -22,13 +23,24 @@ class App extends Component {
         this.loadModifierData()
     }
 
+    handleSearch(e) {
+        console.log(e.target.value)
+        const filteredEvents = this.state.modifierItemData.filter(function (data) {
+          var pattern = new RegExp(e.target.value, "i")
+          return data.name.match(pattern)
+        }) 
+        this.setState({ filteredTableData: filteredEvents })
+      }
+
     render() {
         return (
             <div>
                 <Modifiers
                     cascaderData={itemData.cascaderData}
                     columns={itemData.productColumns}
-                    columnData={this.state.modifierItemData}
+                    columnData={this.state.filteredTableData}
+                    pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
+                    onSearch={(value) => this.handleSearch(value)}  
                 />
             </div>
         )
@@ -57,8 +69,8 @@ class App extends Component {
     loadModifierData() {
         this.props.getModifieruse()
             .then(modifiers => {
-                this.setState({ modifierItemData: this._createModifierColumns(modifiers) })
-                // console.log("finalll", this.state)
+                this.setState({ modifierItemData: this._createModifierColumns(modifiers)})
+                this.setState({ filteredTableData: this.state.modifierItemData})
             })
             .catch(err => {
                 console.log(err)

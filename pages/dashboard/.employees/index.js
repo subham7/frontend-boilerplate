@@ -53,6 +53,7 @@ class App extends Component {
           rowSelection={{}}
           columns={employeeColumns}
           columnData={this.state.employeesTableData}
+          pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
           onCreate={(data, cb) => this.handleCreateLocation(data, cb)}
         />
       )

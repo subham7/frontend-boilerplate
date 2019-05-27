@@ -20,7 +20,7 @@ const CascaderAndSearch = props => {
         </Col>
       ))}
       <Col span={5}>
-        <Search type="search" />
+        <Search handleSearch={props.onSearch} value={props.placeholder} type="search" />
       </Col>
       <Col span={3} key={6}>
         <ButtonOne value={props.buttonValue} color="#2699FB" />

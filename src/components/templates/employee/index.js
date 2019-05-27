@@ -19,7 +19,7 @@ const Employee = (props) => {
                 </Col>
             </Row>
             {/* <br/> */}
-            <ProductTable rowSelection={props.rowSelection} columns={props.columns} data={props.columnData} />
+            <ProductTable pagination={{...props.pagination}} rowSelection={props.rowSelection} columns={props.columns} data={props.columnData} />
             <Model form={CreateEmployee} title="Create Employee" buttonValue="Create"  onSubmit={props.onCreate} handleSubmitOk={props.handleSubmitOk}/>
         </div>
     )

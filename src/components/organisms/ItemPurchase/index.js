@@ -29,14 +29,14 @@ const ItemPurchase = (props) => {
             </Row>
             <Row gutter={12}>
                 <Col span={6}>
-                    <SearchBar />
+                    <SearchBar handleSearch={props.onSearch} value="Search Product Name" />
                 </Col>
                 <Col span={6}>
                     <SearchBar type="enter"/>
                 </Col>
             </Row>
             {/* <br/> */}
-            <ProductTable rowSelection={{}} columns={props.columns} data={props.columnData} />
+            <ProductTable rowSelection={{}} columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
             <Row>
                 <Col span={6} push={19}>
                 <ButtonOne value="Review Purchase"/>

@@ -1,14 +1,15 @@
 import React from 'react';
 import { Input , Icon } from 'antd';
 let Search = Input.Search;
-let SearchBar = ({type , value, width}) => {
+let SearchBar = ({type , value, width, ...props}) => {
+  // console.log("searchhhh",props)
   if (type == "search") {
     return (
       <div>
         <Search
           style={{"maxWidth":width}}
           placeholder={value}
-          onSearch={value => console.log(value)}
+          onChange={(e) => props.handleSearch(e)}
           enterButton
         />
       </div>
@@ -16,7 +17,7 @@ let SearchBar = ({type , value, width}) => {
   }
   return (
     <div>
-      <Input style={{"maxWidth":width}} addonAfter={<Icon type="arrow-right" />} defaultValue={value} />
+      <Input style={{"maxWidth":width}} addonAfter={<Icon type="arrow-right" />} placeholder={value} />
     </div>
   )
 }

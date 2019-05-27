@@ -35,7 +35,9 @@ var itemPurchaseColumns =[
     },
     {
         title: 'QTY',
-        dataIndex: 'quantity'
+        dataIndex: 'quantity',
+        align: 'center',
+        render: (quantity) =>  (<span>{stockTag(quantity)}</span>)
     },
     {
         title: 'MRP',

@@ -64,8 +64,11 @@ var productColumns = [
     },
     {
         title: 'CATEGORY',
-        dataIndex: 'category',
-        key: 'category'
+        dataIndex: '',
+        render: object => {
+            var categoryIndex = object.selectData.findIndex(id => id.value == object.category)
+            return <p>{stockTag(object.selectData[categoryIndex].name)}</p>
+        }
     },
     // {
     //     title: 'LOCATION',

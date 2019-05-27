@@ -1,26 +1,15 @@
 import React from "react"
+
 import Template from "../../src/components/templates/dashboard"
-import { itemData } from "../../pagesData/item.data.js"
-
-import {
-  employeeColumns,
-  employeeColumnData
-} from "../../pagesData/employee.data"
-
-import { itemPurchaseData } from "../../pagesData/purchase.data"
-
-// import CustomerDirectory from '../../src/components/templates/CustomerDirectory'
 import Modifiers from "./.modifiers"
 import Categories from "../../src/components/organisms/categories"
-import Purchase from "../../src/components/organisms/ItemPurchase"
-import { Tabs } from "antd"
-
-// import Employees from "../../src/components/templates/emplolyee"
+import Purchase from "./.purchase"
 import Employees from "./.employees"
 import Locations from "./.locations"
 import Taxes from "./.taxes"
 import Products from "./.products"
 import Customers from './.customers'
+import { Tabs } from "antd"
 import { withRouter } from "next/router"
 
 import init from "../../src/utils/wrappers"
@@ -72,14 +61,7 @@ class SwitchHandler extends React.Component {
             case "locations":
               return <Locations />
             case "purchase":
-              return (
-                <Purchase
-                  rowSelection={{}}
-                  columns={itemPurchaseData.itemPurchaseColumns}
-                  columnData={itemPurchaseData.itemPurchaseColumnData}
-                  cascaderData={itemPurchaseData.cascaderData}
-                />
-              )
+              return <Purchase/>
             case "taxes":
               return <Taxes />
             case "products":

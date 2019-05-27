@@ -152,9 +152,9 @@ class App extends Component {
 const mapStateToProps = state => ({
   business: state.businesses,
   employees: state.employees,
-  addEmployee: state.addEmployee,
-  updateEmployee: state.updateEmployee,
-  deleteEmployee: state.deleteEmployee
+  // addEmployee: state.addEmployee,
+  // updateEmployee: state.updateEmployee,
+  // deleteEmployee: state.deleteEmployee
 })
 
 const mapDispatchToProps = dispatch => ({

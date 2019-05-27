@@ -21,6 +21,8 @@ export class F5 extends Component {
     this.formAPi = formAPi
   }
   render() {
+    var values;
+    this.props.prefilledValues ? values = this.props.prefilledValues : values = {}
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
@@ -30,6 +32,7 @@ export class F5 extends Component {
                 style={{ width: 195 }}
                 field="name"
                 placeholder="Tax Name"
+                defaultValue={values.name}
               />
             </div>
             <div style={{ float: "left" }}>
@@ -37,6 +40,7 @@ export class F5 extends Component {
                 style={{ width: 195 }}
                 field="percentage"
                 placeholder="Percentage"
+                defaultValue={values.percentage}
               />
             </div>
           </div>
@@ -47,6 +51,7 @@ export class F5 extends Component {
               field="taxcategory"
               style={{ width: 195 }}
               option={this.props.formData}
+              defaultValue={values.taxcategory}
             />
           </div>
 

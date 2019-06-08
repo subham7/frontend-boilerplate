@@ -13,6 +13,7 @@ const validate = value => {
 export class F3 extends Component {
   constructor(props) {
     super(props)
+    this.state = { location: [] }
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
   }
@@ -22,7 +23,13 @@ export class F3 extends Component {
       .employeeLocation({
         userID: this.props.formData.employeeID
       })
-      .then(res => console.log(res))
+      .then(res => {
+        let location = []
+        res.map(item => {
+          location.push(JSON.parse(item.locationunfold))
+        })
+        this.setState({ location: location })
+      })
       .catch(err => console.log(err))
   }
 
@@ -35,10 +42,16 @@ export class F3 extends Component {
   }
 
   render() {
-    console.log(this.props.formData)
-
     return (
       <div className="App">
+        <div style={{ marginBottom: "20px" }}>
+          <h2 style={{ marginBottom: "2px" }}>Locations Assigned</h2>
+          <div>
+            {this.state.location.map(item => (
+              <p style={{ marginBottom: "2px" }}>{item.name}</p>
+            ))}
+          </div>
+        </div>
         <Form getApi={this.setFormApi}>
           <Select
             field="location"

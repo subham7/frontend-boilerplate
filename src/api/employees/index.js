@@ -13,7 +13,11 @@ export const updateEmployee = (employeeID, object) =>
   axios.patch(`${ROOTURL}/users/${employeeID}`, object)
 
 export const employeelocations = urlParams =>
-  axios.get(`${ROOTURL}/users/${urlParams.userID}/userslocations`)
+  axios.get(
+    `${ROOTURL}/users/${
+      urlParams.userID
+    }/userslocations?_unfold={"location":["name"]}`
+  )
 
 export const addEmployeeLocation = object =>
   axios.post(`${ROOTURL}/userslocations`, object)

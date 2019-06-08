@@ -26,7 +26,7 @@ class App extends Component {
   }
   handleCreateLocation(data, cb) {
     data.values.userID = uuid()
-    data.values.business = this.props.business.response.data.businessID
+    data.values.business = this.props.business.response.data[0].businessID
     data.values.usertype = "8a0930f9-5aab-11e9-9666-f8cab8258ec4"
     this.props
       .addEmployee(data.values)
@@ -98,7 +98,7 @@ class App extends Component {
         }
         object.handleFeatures = {
           handleDelete: id => {
-            // let businessID = this.props.business.response.data.businessID;
+            // let businessID = this.props.business.response.data[0].businessID;
             this.props
               .deleteEmployee(id)
               .then(res => {
@@ -142,7 +142,7 @@ class App extends Component {
       }
       object.handleFeatures = {
         handleDelete: id => {
-          // let businessID = this.props.business.response.data.businessID;
+          // let businessID = this.props.business.response.data[0].businessID;
           this.props
             .deleteEmployee(id)
             .then(res => {
@@ -176,7 +176,7 @@ class App extends Component {
   // Integrated with test api
   loadEmployeeData() {
     let urlParams = {}
-    urlParams.businessID = this.props.business.response.data.businessID
+    urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
       .getEmployees(urlParams)
       .then(res => {
@@ -191,17 +191,22 @@ class App extends Component {
   }
 
   createSelectData(data) {
-    let selectData = data.map(item => ({
-      name: item.name,
-      value: item.blocationID
-    }))
-    return selectData
+    if (Object.keys(data).length != 0) {
+      let selectData = data.map(item => ({
+        name: item.name,
+        value: item.blocationID
+      }))
+      return selectData
+    } else {
+      return [{ name: "", value: "" }]
+    }
   }
 }
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  employees: state.employees
+  employees: state.employees,
+  locations: state.locations
   // addEmployee: state.addEmployee,
   // updateEmployee: state.updateEmployee,
   // deleteEmployee: state.deleteEmployee

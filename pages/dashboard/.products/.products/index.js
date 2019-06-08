@@ -23,7 +23,7 @@ class App extends React.Component {
 
   handleCreateproducts(data, cb) {
     data.values.productID = uuidv4()
-    data.values.business = this.props.business.response.data.businessID
+    data.values.business = this.props.business.response.data[0][0].businessID
     this.props
       .addProduct(data.values)
       .then(res => {
@@ -83,7 +83,7 @@ class App extends React.Component {
         object.selectData = this.createSelectData(this.props.productCategories.response.data)
         object.handleFeatures = {
           handleDelete: urlParams => {
-            urlParams.businessID = this.props.business.response.data.businessID;
+            urlParams.businessID = this.props.business.response.data[0][0].businessID;
             console.log("here", urlParams)
             this.props.deleteProduct(urlParams).then(res => {
               this.loadproductsData();
@@ -114,7 +114,7 @@ class App extends React.Component {
       object.price = data.price
       object.handleFeatures = {
         handleDelete: urlParams => {
-          urlParams.businessID = this.props.business.response.data.businessID;
+          urlParams.businessID = this.props.business.response.data[0].businessID;
           console.log("here", urlParams)
           this.props.deleteProduct(urlParams).then(res => {
             this.loadproductsData();
@@ -140,7 +140,7 @@ class App extends React.Component {
 
     loadproductsData() {
       console.log("loading")
-      let businessID = this.props.business.response.data.businessID
+      let businessID = this.props.business.response.data[0].businessID
       this.props.getproducts(businessID).then(res => {
         this.setState({ productsTableData: this._createproductsColumns(res) })
         this.setState({ filteredTableData: this.state.productsTableData })

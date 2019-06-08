@@ -15,8 +15,11 @@ export default function init(WrappedComponent) {
     }
 
     loadData() {
-      let businessID = this.props.business.response.data.businessID
-      this.props.getLocations(businessID)
+      let businessID = this.props.business.response.data[0].businessID
+      this.props
+        .getLocations(businessID)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
     render() {

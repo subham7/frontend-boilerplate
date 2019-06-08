@@ -28,8 +28,8 @@ class App extends React.Component {
 
   handleCreateLocation(data, cb) {
     data.values.blocationID = uuidv4()
-    data.values.business = this.props.business.response.data.businessID
-    let businessID = this.props.business.response.data.businessID
+    data.values.business = this.props.business.response.data[0].businessID
+    let businessID = this.props.business.response.data[0].businessID
     this.props
       .addLocation(data.values)
       .then(res => {
@@ -153,7 +153,7 @@ class App extends React.Component {
   }
 
   loadLocationData() {
-    let businessID = this.props.business.response.data.businessID
+    let businessID = this.props.business.response.data[0].businessID
     this.props
       .getLocations(businessID)
       .then(res => {

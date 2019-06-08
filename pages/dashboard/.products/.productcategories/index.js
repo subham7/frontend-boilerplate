@@ -1,14 +1,19 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { productCategories, addProductCategory, deleteProductCategory, updateProductCategory } from "../../../../src/reduxHelper"
+import {
+  productCategories,
+  addProductCategory,
+  deleteProductCategory,
+  updateProductCategory
+} from "../../../../src/reduxHelper"
 import Categories from "../../../../src/components/organisms/categories"
-import ButtonIcon from '../../../../src/components/atoms/tableButton';
+import ButtonIcon from "../../../../src/components/atoms/tableButton"
 import Model from "../../../../src/components/molecules/modelButton"
 import createCategory from "../../../../src/components/organisms/forms/createCategory"
 
 import { categoryData, categoryColumns } from "./category.data"
-import { Button } from 'antd';
+import { Button } from "antd"
 import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
@@ -27,7 +32,7 @@ class App extends React.Component {
   handleCreateProductCategory(data, cb) {
     // console.log(data)
     data.values.productcategoryID = uuidv4()
-    data.values.business = this.props.business.response.data.businessID
+    data.values.business = this.props.business.response.data[0].businessID
     this.props
       .addProductCategory(data.values)
       .then(res => {
@@ -41,7 +46,7 @@ class App extends React.Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.productsTableData.filter(function (data) {
+    const filteredEvents = this.state.productsTableData.filter(function(data) {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -51,15 +56,20 @@ class App extends React.Component {
   render() {
     if (true) {
       return (
-        <div> 
+        <div>
           <Categories
             cardData={categoryData.cardData}
             cascaderData={categoryData.cascaderData}
             columns={categoryData.categoryColumns}
             columnData={this.state.filteredTableData}
-            pagination={{ pageSize: 5, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
+            pagination={{
+              pageSize: 5,
+              showLessItems: true,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "15", "20"]
+            }}
             onCreate={(data, cb) => this.handleCreateProductCategory(data, cb)}
-            onSearch={(value) => this.handleSearch(value)}
+            onSearch={value => this.handleSearch(value)}
           />
         </div>
       )
@@ -72,54 +82,69 @@ class App extends React.Component {
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
-        object.name = item.name,
-          object.productcategoryID = item.productcategoryID,
+        ;(object.name = item.name),
+          (object.productcategoryID = item.productcategoryID),
           // object.inventory = [50],
-          object.handleFeatures = {
-            handleDelete: (id) => {
-              // let businessID = this.props.business.response.data.businessID;
-              this.props.deleteProductCategory(id).then(res => {
-                this.loadProductCategoryData();
-              }).catch(err => {
-                console.log(err);
-              })
+          (object.handleFeatures = {
+            handleDelete: id => {
+              // let businessID = this.props.business.response.data[0].businessID;
+              this.props
+                .deleteProductCategory(id)
+                .then(res => {
+                  this.loadProductCategoryData()
+                })
+                .catch(err => {
+                  console.log(err)
+                })
             },
             editProductCategory: (data, id, cb) => {
               // console.log("clicked", data, id, cb)
-              this.props.updateProductCategory(id, data.values).then(res => {
-                this.loadProductCategoryData()
-                cb({ status: true, message: "Product category updated" })
-              }).catch(err => {
-                console.log(err)
-                cb({ status: false, message: "Some Error while updating" })
-              })
+              this.props
+                .updateProductCategory(id, data.values)
+                .then(res => {
+                  this.loadProductCategoryData()
+                  cb({ status: true, message: "Product category updated" })
+                })
+                .catch(err => {
+                  console.log(err)
+                  cb({ status: false, message: "Some Error while updating" })
+                })
             }
-          }
+          })
         temp.push(object)
       })
     } else {
       let object = {}
-      object.name = data.name,
-        object.productcategoryID = data.productcategoryID,
-        object.handleFeatures = {
-          handleDelete: (id) => {
-            // let businessID = this.props.business.response.data.businessID;
-            this.props.deleteProductCategory(id).then(res => {
-              this.loadProductCategoryData();
-            }).catch(err => {
-              console.log(err);
-            })
+      ;(object.name = data.name),
+        (object.productcategoryID = data.productcategoryID),
+        (object.handleFeatures = {
+          handleDelete: id => {
+            // let businessID = this.props.business.response.data[0].businessID;
+            this.props
+              .deleteProductCategory(id)
+              .then(res => {
+                this.loadProductCategoryData()
+              })
+              .catch(err => {
+                console.log(err)
+              })
           },
           editProductCategory: (data, id, cb) => {
-            this.props.updateProductCategory(id, data.values).then(res => {
-              this.loadProductCategoryData()
-              cb({ status: true, message: "Product category updated" })
-            }).catch(err => {
-              console.log(err)
-              cb({ status: false, message: "Some Error occured while updating" })
-            })
+            this.props
+              .updateProductCategory(id, data.values)
+              .then(res => {
+                this.loadProductCategoryData()
+                cb({ status: true, message: "Product category updated" })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({
+                  status: false,
+                  message: "Some Error occured while updating"
+                })
+              })
           }
-        }
+        })
       temp.push(object)
     }
     return temp
@@ -127,7 +152,7 @@ class App extends React.Component {
 
   loadProductCategoryData = () => {
     let urlParams = {}
-    urlParams.businessID = this.props.business.response.data.businessID
+    urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
       .getProductCategory(urlParams)
       .then(res => {
@@ -142,20 +167,27 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  productCategories: state.productCategories,
+  productCategories: state.productCategories
   // addProductCategory: state.addProductCategory,
   // deleteProductCategory: state.deleteProductCategory,
   // updateProductCategory: state.updateProductCategory
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
-  getProductCategory: (businessID) => dispatch(productCategories.action(businessID)),
+  getProductCategory: businessID =>
+    dispatch(productCategories.action(businessID)),
   addProductCategory: (businessID, object) => {
     console.log("heeeeeee", businessID)
-    return(dispatch(addProductCategory.action(businessID, object)))},
-  deleteProductCategory: (productcategoryID) => dispatch(deleteProductCategory.action(productcategoryID)),
+    return dispatch(addProductCategory.action(businessID, object))
+  },
+  deleteProductCategory: productcategoryID =>
+    dispatch(deleteProductCategory.action(productcategoryID)),
   updateProductCategory: (productcategoryID, object) => {
     console.log("heeeeeee", productcategoryID, object)
-    return(dispatch(updateProductCategory.action(productcategoryID, object)))}
+    return dispatch(updateProductCategory.action(productcategoryID, object))
+  }
 })
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

@@ -5,12 +5,12 @@ import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Cascader from "../../../../src/components/molecules/cascader"
 import Model from "../../../../src/components/molecules/modelButton"
 import createHsn from "../../../../src/components/organisms/forms/createTaxCategory"
-import AssignItem from "../../../../src/components/organisms/forms/assignItem"
+import AssignItem from "../../../../src/components/organisms/forms/assignHsn"
 
 var hsnColumns = [
     {
         title: 'HSN Code',
-        dataIndex: 'hsnCode'
+        dataIndex: 'name'
     },
     // {
     //     title: 'HSN Code',
@@ -18,25 +18,34 @@ var hsnColumns = [
     // },
     {
         title: 'Assign',
-        dataIndex: 'assign',
+        dataIndex: '',
         key: 'assign',
-        render: (assign) => <Model form={AssignItem} title="Assign Items" buttonValue="Assign"  />
+        render: (object) => {
+            // console.log(object.assign.taxCategoryData)
+            return (
+                <Model
+                    form={AssignItem}
+                    title="Assign Items"
+                    buttonValue="Assign"
+                    formData={object.assign}
+                    assignedData={{}}
+                    onSubmit={(data, cb) => object.assign.handleAssign(data, object.hsnCode, cb)}
+                />
+            )
+        }
     },
     {
         title: 'Edit',
         key: 'edit',
         dataIndex: '',
         render: (object) => {
-            console.log(object.name, "idiejjnkjnk")
             return (
-                
                 <span>
                     <Model
                         visible form={createHsn}
-                        prefilledValues={object.name}
-                        formData={object.selectData}
+                        prefilledValues={object}
                         title="Edit HSN" isTableModal
-                        onSubmit={(data, cb) => object.handleFeatures.handleEdit(data, object.taxID, cb)}
+                        onSubmit={(data, cb) => object.handleFeatures.handleEdit(data, object.hsnCode, cb)}
                     />
                 </span>
             )
@@ -56,54 +65,8 @@ var hsnColumns = [
     }
 ]
 
-const hsnColumnData = [
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: '2246ef07-2cbe-496b-af7e-ac88b5d3235e',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: '2246ef07-2cbe-496b-af7e-ac88b5d3235e',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: '2246ef07-2cbe-496b-af7e-ac88b5d3235e',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: '2246ef07-2cbe-496b-af7e-ac88b5d3235e',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: '2246ef07-2cbe-496b-af7e-ac88b5d3235e',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: '2246ef07-2cbe-496b-af7e-ac88b5d3235e',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-
-    }
-]
 
 
 export {
-    hsnColumns,
-    hsnColumnData
+    hsnColumns
 }

@@ -3,9 +3,9 @@ import { connect } from "react-redux"
 //Just for knowledge, HSN stands for Harmonized System of Nomenclature
 import HSN from "../../../../src/components/organisms/hsn"
 
-import { hsnColumns, hsnColumnData } from "./hsn.data"
+import { hsnColumns } from "./hsn.data"
 import { itemData } from "../../../../pagesData/item.data"
-import { hsncodes, addHsnCode, deleteHsnCode, updateHsnCode } from "../../../../src/reduxHelper"
+import { hsncodes, addHsnCode, deleteHsnCode, updateHsnCode, taxCategories, addhsncodetaxcategories, taxCategoryHsn } from "../../../../src/reduxHelper"
 import uuid from "uuid/v4"
 
 class App extends React.Component {
@@ -18,16 +18,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    let urlParams = {}
+    urlParams.businessID = this.props.business.response.data[0].businessID
+    console.log(this.props.business.response.data, urlParams.businessID)
     this.loadHsnCodeData()
+    this.props.getTaxCategories(urlParams)
   }
 
   handleCreateTaxes(data, cb) {
     let object = {}
     object.hsnname = data.values.name
     object.hsncodeID = uuid()
-    console.log(object, "gafgfahajn")
     this.props.addHsnCode(object).then(res => {
-      console.log(res, "responsnewwd")
       this.loadHsnCodeData()
       cb({ status: true, message: "HSN created successfully" })
     }).catch(err => {
@@ -46,7 +48,7 @@ class App extends React.Component {
 
   render() {
     // will not render under taxcategory loaded
-    if (true) {
+    if (this.props.hsncodes.response) {
       return (
         <div>
           <HSN
@@ -69,8 +71,9 @@ class App extends React.Component {
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
-        object.name = item.hsnname
+        // object.name = item.hsnname
         object.hsnCode = item.hsncodeID
+        object.selectData = this.createSelectData(this.props.taxCategories.response.data)
         object.handleFeatures = {
           handleDelete: (id) => {
             console.log(id)
@@ -80,9 +83,11 @@ class App extends React.Component {
               console.log(err);
             })
           },
-          handleUpdate: (data, id, cb) => {
-            // console.log("clicked", data, id, cb)
-            this.props.updateTaxCategory(id, data.values).then(res => {
+          handleEdit: (data, id, cb) => {
+            console.log("clicked", data, id, cb)
+            let obj = {}
+            obj.hsnname = data.values.name
+            this.props.updateHsnCode(id, obj).then(res => {
               this.loadHsnCodeData()
               cb({ status: true, message: "HSN Code updated" })
             }).catch(err => {
@@ -90,13 +95,29 @@ class App extends React.Component {
               cb({ status: false, message: "Some Error while updating" })
             })
           }
-        }
+        },
+          object.assign = {
+            handleAssign: (data, id, cb) => {
+              let obj = {}
+              obj.hsncode = id;
+              obj.taxcategory = data.values.assignedTo
+              console.log(obj)
+              this.props.addhsncodetaxcategories(obj).then(res => {
+                cb({ status: true, message: "Tax Category assigned" })
+              }).catch(err => {
+                console.log(err)
+                cb({ status: true, message: "Error occured" })
+              })
+            },
+            assignedTaxCategory: (hsnID) => this.props.getHsnTaxCategory(hsnID),
+            taxCategoryData: this.createSelectData(this.props.taxCategories.response.data)
+          }
         temp.push(object)
       })
     } else {
       let object = {}
-      object.name = item.hsnname
-      object.hsnCode = item.hsncodeID
+      object.name = data.hsnname
+      object.hsnCode = data.hsncodeID
       object.handleFeatures = {
         handleDelete: (id) => {
           console.log(id)
@@ -106,9 +127,11 @@ class App extends React.Component {
             console.log(err);
           })
         },
-        handleUpdate: (data, id, cb) => {
-          // console.log("clicked", data, id, cb)
-          this.props.updateTaxCategory(id, data.values).then(res => {
+        handleEdit: (data, id, cb) => {
+          console.log("clicked", data, id, cb)
+          let obj = {}
+          obj.hsnname = data.values.name
+          this.props.updateHsnCode(id, obj).then(res => {
             this.loadHsnCodeData()
             cb({ status: true, message: "HSN Code updated" })
           }).catch(err => {
@@ -116,6 +139,22 @@ class App extends React.Component {
             cb({ status: false, message: "Some Error while updating" })
           })
         }
+      },
+      object.assign = {
+        handleAssign: (data, id, cb) => {
+          let obj = {}
+          obj.hsncode = id;
+          obj.taxcategory = data.values.assignedTo
+          console.log(obj)
+          this.props.addhsncodetaxcategories(obj).then(res => {
+            cb({ status: true, message: "Tax Category assigned" })
+          }).catch(err => {
+            console.log(err)
+            cb({ status: true, message: "Error occured" })
+          })
+        },
+          assignedTaxCategory: (hsnID) => this.props.getHsnTaxCategory(hsnID),
+          taxCategoryData: this.createSelectData(this.props.taxCategories.response.data)
       }
       temp.push(object)
     }
@@ -126,24 +165,39 @@ class App extends React.Component {
     this.props
       .getHsnCodes()
       .then(res => {
+        console.log(res)
         this.setState({
-          hsnTableData: this._createHsnCodeColoumns(this.props.hsncodes.response.data)
+          hsnTableData: this._createHsnCodeColoumns(res)
         })
-        console.log(this.state.hsnTableData, "statteeee")
+        console.log(this.state.hsnTableData)
+      }).catch(err => {
+        console.log(err)
       })
-      .catch(err => console.log(err))
+  }
+
+  createSelectData(data) {
+    let selectData = data.map(item => ({
+      name: item.name,
+      value: item.taxcategoryID
+    }))
+    return selectData
   }
 }
 
 const mapStateToProps = state => ({
+  business: state.businesses,
   hsncodes: state.hsncodes,
+  taxCategories: state.taxCategories,
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getHsnCodes: () => dispatch(hsncodes.action()),
   addHsnCode: object => dispatch(addHsnCode.action(object)),
   deleteHsnCode: hsncodeID => dispatch(deleteHsnCode.action(hsncodeID)),
-  updateHsnCode: (hsncodeID, object) => dispatch(updateHsnCode.action(hsncodeID, object))
+  updateHsnCode: (hsncodeID, object) => dispatch(updateHsnCode.action(hsncodeID, object)),
+  getTaxCategories: object => dispatch(taxCategories.action(object)),
+  addhsncodetaxcategories: (object) => dispatch(addhsncodetaxcategories.action(object)),
+  getHsnTaxCategory: hsnID => dispatch(taxCategoryHsn.action(hsnID)),
 })
 export default
   connect(

@@ -8,6 +8,7 @@ import * as modifiers from "./modifiers"
 import * as employees from "./employees"
 import * as products from './products'
 import * as stockdiary from './stockdiary'
+import * as hsn from './hsn'
 
 module.exports = {
   taxes,
@@ -19,6 +20,7 @@ module.exports = {
   employees,
   products,
   modifiers,
-  stockdiary
+  stockdiary,
+  hsn
 }
 

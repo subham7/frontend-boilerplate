@@ -1,0 +1,9 @@
+version: "3"
+services:
+  frontend:
+    # replace username/repo:tag with your name and image details
+    image: ad1619/skip-frontend:latest
+    ports:
+      - '3000:3000'
+    restart: always
+    command: npm start

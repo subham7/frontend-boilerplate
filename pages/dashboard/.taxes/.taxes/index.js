@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import Taxes from "../../../../src/components/organisms/taxes"
 
-import { taxesColumns, taxesColumnData } from "./taxes.data"
+import { taxesColumns } from "./taxes.data"
 import { itemData } from "../../../../pagesData/item.data"
 import { addTax, taxes, getTaxCategories, deleteTax, updateTax } from "../../../../src/reduxHelper"
 import wrapper from "./wrapper"
@@ -57,7 +57,7 @@ class App extends React.Component {
             cascaderData={itemData.cascaderData}
             columns={taxesColumns}
             columnData={this.state.filteredTableData}
-            pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
+            pagination={{ pageSize: 7, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
             onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
             onSearch={(value) => this.handleSearch(value)}
           />

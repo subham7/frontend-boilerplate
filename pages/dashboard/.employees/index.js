@@ -62,6 +62,12 @@ class App extends Component {
           rowSelection={{}}
           columns={employeeColumns}
           columnData={this.state.employeesTableData}
+          pagination={{
+            pageSize: 5,
+            showLessItems: true,
+            showSizeChanger: true,
+            pageSizeOptions: ["5", "10", "15", "20"]
+          }}
           onCreate={(data, cb) => this.handleCreateLocation(data, cb)}
         />
       )
@@ -195,11 +201,10 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  employees: state.employees,
-  addEmployee: state.addEmployee,
-  updateEmployee: state.updateEmployee,
-  deleteEmployee: state.deleteEmployee,
-  locations: state.locations
+  employees: state.employees
+  // addEmployee: state.addEmployee,
+  // updateEmployee: state.updateEmployee,
+  // deleteEmployee: state.deleteEmployee
 })
 
 const mapDispatchToProps = dispatch => ({

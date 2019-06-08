@@ -36,6 +36,7 @@ class App extends Component {
           rowSelection={{}}
           columns={taxCategoryColumns}
           columnData={this.state.taxCategoryTableData}
+          pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
           onCreate={(data,cb) => this.handleCreateTaxes(data,cb)}
         />
       )

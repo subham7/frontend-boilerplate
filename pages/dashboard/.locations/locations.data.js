@@ -55,45 +55,5 @@ var locationColumns =[
     }
 ]
 
- const locationColumnData =[
-     {
-         product: 'Big Bazaar',
-         code: 'Somewhere',
-         category: 'abcd@gmail.com',
-         location: ['BBSR']
-     },
-     {
-        product: 'Bawa ka Jhopdi',
-        code: 'Somewhere',
-        category: 'abcd@gmail.com',
-        location: ['BBSR']
-    },
-    {
-        product: 'Big Bazaar',
-        code: 'Somewhere',
-        category: 'abcd@gmail.com',
-        location: ['BBSR']
-    },
-    {
-        product: 'Big Bazaar',
-        code: 'Somewhere',
-        category: 'abcd@gmail.com',
-        location: ['BBSR']
-    },
-    {
-       product: 'Bawa ka Jhopdi',
-       code: 'Somewhere',
-       category: 'abcd@gmail.com',
-       location: ['BBSR']
-    },
-   {
-       product: 'Big Bazaar',
-       code: 'Somewhere',
-       category: 'abcd@gmail.com',
-       location: ['BBSR']
 
-   }
- ]
-
-
-export {locationColumns, locationColumnData}
+export {locationColumns}

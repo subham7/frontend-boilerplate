@@ -7,7 +7,7 @@ export const addTax = (object) => axios.post(`${ROOTURL}/taxes`, object)
 
 export const deleteTax = (taxID) => axios.delete(`${ROOTURL}/taxes/${taxID}`)
 
-export const updateTax = (taxID) => axios.patch(`${ROOTURL}/taxes/${taxID}`, object)
+export const updateTax = (taxID, object) => axios.patch(`${ROOTURL}/taxes/${taxID}`, object)
 
 export const taxCategories = (urlParams) => axios.get(`${ROOTURL}/businesses/${urlParams.businessID}/taxcategories`)
 

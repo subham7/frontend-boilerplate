@@ -13,14 +13,14 @@ let ModifierTemplate = (props) => {
           <Cascader optionArray={props.cascaderData[0].optionArray} />
         </Col>
         <Col span={6}>
-          <SearchBar />
+          <SearchBar handleSearch={props.onSearch} value="Search" />
         </Col>
         <Col span={3} push={9}>
           <ButtonOne value="Create Modifier Set"/>
         </Col>
       </Row>
       <br />
-      <ProductTable columns={props.columns} data={props.columnData} />
+      <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
       <Row>
         <Col span={6} push={19}>
           <ButtonOne value="Create"/>

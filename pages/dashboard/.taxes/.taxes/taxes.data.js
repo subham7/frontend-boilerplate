@@ -3,20 +3,22 @@ import {Tag} from 'antd';
 import stockTag from "../../../../src/components/atoms/stockTag"
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Cascader from "../../../../src/components/molecules/cascader"
+import Model from "../../../../src/components/molecules/modelButton"
+import createTax from "../../../../src/components/organisms/forms/createTax"
 
 var taxesColumns = [
     {
         title: 'Name',
         dataIndex: 'name'
     },
-    // {
-    //     title: 'Tax Category',
-    //     dataIndex: 'percentage',
-    //     render: percentage => {
-    //         console.log("kahiiiiiiito ", percentage)
-    //         return (<span>{stockTag(percentage)}</span>)
-    //     }
-    // },
+    {
+        title: 'Tax Category',
+        dataIndex: '',
+        render: object => {
+            var categoryIndex = object.selectData.findIndex(id => id.value == object.taxCategory)
+            return (<span>{stockTag(object.selectData[categoryIndex].name)}</span>)
+        }
+    },
     {
         title: 'Percentage',
         dataIndex: 'percentage',
@@ -29,7 +31,23 @@ var taxesColumns = [
         render: (object) => {
             return (
             <span>
-            <ButtonIcon icon="form" style={{"marginRight":"30px"}} shape="circle" type="primary" size="small" ghost />
+            <Model 
+                visible form={createTax}
+                prefilledValues = {object.prefilledValues}
+                formData={object.selectData}
+                title="Edit Tax" isTableModal
+                onSubmit={(data, cb) => object.handleFeatures.handleEdit(data, object.taxID, cb)}
+            />
+            </span>
+            )
+        }
+    },
+    {
+        title:'',
+        dataIndex: '',
+        render: (object) => {
+            return (
+            <span>
             <Cascader placeholder='Actions' style={{width: 120, "marginRight":"30px"}} optionArray={object.cascaderData} />
             <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{backgroundColor: '#F84D65', color: 'white'}} />
             </span>

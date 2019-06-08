@@ -15,9 +15,11 @@ let ItemCategory = props => {
       <CascaderAndSearch
         dataArray={props.cascaderData}
         buttonValue="Quick Upload"
+        onSearch={props.onSearch}
+        placeholder="Search Category"
       />
       <br />
-      <ProductTable columns={props.columns} data={props.columnData} />
+      <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
       <Row>
         <Col span={3} push={20}>
           <Model

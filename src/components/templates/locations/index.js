@@ -19,11 +19,11 @@ const LocationTemplate = (props) => {
                     <h2><b>Locations</b></h2>
                 </Col>
                 <Col span={6} push={16}>
-                    <Search value="Search Name" />
+                    <Search value="Search Name" handleSearch={props.onSearch} kucaur="kakk" />
                 </Col>
             </Row>
             {/* <br/> */}
-            <ProductTable rowSelection={props.rowSelection} columns={props.columns} data={props.columnData} />
+            <ProductTable pagination={{...props.pagination}} rowSelection={props.rowSelection} columns={props.columns} data={props.columnData} />
             <Model form={CreateLocation} title="Create Location" buttonValue="Create" onSubmit={props.onCreate} handleSubmitOk={props.handleSubmitOk}/>
         </div>
     )

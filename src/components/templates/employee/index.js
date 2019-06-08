@@ -20,6 +20,7 @@ const Employee = props => {
       </Row>
       {/* <br/> */}
       <ProductTable
+        pagination={{ ...props.pagination }}
         rowSelection={props.rowSelection}
         columns={props.columns}
         data={props.columnData}

@@ -8,19 +8,17 @@ import { Row, Col, Divider, Card } from "antd"
 const ContactDeatil = props => {
   return (
     <Card
-      style={{
-        backgroundColor: "#F1F1F3",
-        height: "74.6vh",
-        overflow: "auto"
-      }}
+      style={{ backgroundColor: "#F1F1F3", height: "74.6vh", overflow: "auto" }}
     >
       <Row>
-        <Col span={6}>
-          <h2>{props.customerData.name}</h2>
+        <Col span={14}>
+          <h2>
+            {props.customerData.firstName + " " + props.customerData.LastName}
+          </h2>
           <h3 style={{ color: "#2699FB" }}>{props.customerData.email}</h3>
-          <h3 style={{ color: "#2699FB" }}>{props.customerData.phoneNumber}</h3>
+          <h3 style={{ color: "#2699FB" }}>{props.customerData.phone}</h3>
         </Col>
-        <Col span={2} offset={12}>
+        <Col span={2} offset={4}>
           <ButtonIcon icon="form" shape="square" type="primary" />
         </Col>
         <Col span={4}>

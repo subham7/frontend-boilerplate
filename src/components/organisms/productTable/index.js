@@ -7,6 +7,7 @@ const ProductTable = props => {
       columns={props.columns}
       dataSource={props.data}
       rowSelection={props.rowSelection}
+      pagination={{ ...props.pagination }}
     />
   )
 }

@@ -1,11 +1,14 @@
-import React from 'react';
-import { Table } from 'antd';
+import React from "react"
+import { Table } from "antd"
 
-const ProductTable = (props) => {
-    return(
-        <Table columns={props.columns} dataSource={props.data} rowSelection={props.rowSelection} ></Table>    
-    )
-    
+const ProductTable = props => {
+  return (
+    <Table
+      columns={props.columns}
+      dataSource={props.data}
+      rowSelection={props.rowSelection}
+    />
+  )
 }
 
-export default ProductTable;
+export default ProductTable

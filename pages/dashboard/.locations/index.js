@@ -1,7 +1,12 @@
 import React from "react"
 import { connect } from "react-redux"
 
-import { locations, addLocation, deleteLocation, updateLocation } from "../../../src/reduxHelper"
+import {
+  locations,
+  addLocation,
+  deleteLocation,
+  updateLocation
+} from "../../../src/reduxHelper"
 import Locations from "../../../src/components/templates/locations"
 
 import { locationColumns, locationColumnData } from "./locations.data"
@@ -57,38 +62,43 @@ class App extends React.Component {
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {
-        let object = {};
+        let object = {}
         object.pocname = item.pocName
         object.name = item.name
         object.blocationID = item.blocationID
         object.address = item.address
-        object.email = item.pocEmail,
-        object.prefilledValues=item
+        ;(object.email = item.pocEmail), (object.prefilledValues = item)
         object.handleFeatures = {
-          handleDelete: (id) => {
+          handleDelete: id => {
             console.log(id)
-            this.props.deleteLocation(id).then(res => {
-              this.loadLocationData();
-            }).catch(err => {
-              console.log(err);
-            })
+            this.props
+              .deleteLocation(id)
+              .then(res => {
+                this.loadLocationData()
+              })
+              .catch(err => {
+                console.log(err)
+              })
           },
           handleUpdate: (data, id, cb) => {
             // console.log("clicked", data, id, cb)
-            this.props.updateLocation(id, data.values).then(res => {
-              this.loadLocationData()
-              cb({ status: true, message: "Location updated" })
-            }).catch(err => {
-              console.log(err)
-              cb({ status: false, message: "Some Error while updating" })
-            })
+            this.props
+              .updateLocation(id, data.values)
+              .then(res => {
+                this.loadLocationData()
+                cb({ status: true, message: "Location updated" })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({ status: false, message: "Some Error while updating" })
+              })
           }
         }
         temp.push(object)
       })
     } else {
       let object = {}
-        ;(object.pocname = item.pocName), (object.name = item.name)
+      ;(object.pocname = item.pocName), (object.name = item.name)
       object.blocationID = item.blocationID
       object.address = data.address
       object.email = data.pocEmail
@@ -117,13 +127,17 @@ const mapStateToProps = state => ({
   deleteLocation: state.deleteLocation,
   updateLocation: state.updateLocation
 })
+
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getLocations: businessID => dispatch(locations.action(businessID)),
-  addLocation: (businessID, object) => dispatch(addLocation.action(businessID, object)),
-  deleteLocation: (blocationID) => dispatch(deleteLocation.action(blocationID)),
-  updateLocation: (blocationID, object) => dispatch(updateLocation.action(blocationID, object)),  
-  })
+  addLocation: (businessID, object) =>
+    dispatch(addLocation.action(businessID, object)),
+  deleteLocation: blocationID => dispatch(deleteLocation.action(blocationID)),
+  updateLocation: (blocationID, object) =>
+    dispatch(updateLocation.action(blocationID, object))
+})
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps

@@ -1,7 +1,12 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 
-import { taxCategories, addTaxCategory, deleteTaxCategory, updateTaxCategory } from "../../../../src/reduxHelper"
+import {
+  taxCategories,
+  addTaxCategory,
+  deleteTaxCategory,
+  updateTaxCategory
+} from "../../../../src/reduxHelper"
 import TaxCategory from "../../../../src/components/organisms/taxCategory"
 import { taxCategoryColumns } from "./taxCategory.data"
 
@@ -19,15 +24,18 @@ class App extends Component {
 
   handleCreateTaxes(data, cb) {
     data.values.taxcategoryID = uuid()
-    data.values.business = this.props.business.response.data.businessID
-      this.props.addTaxCategory(data.values).then(res =>{
+    data.values.business = this.props.business.response.data[0].businessID
+    this.props
+      .addTaxCategory(data.values)
+      .then(res => {
         this.loadTaxCategoryData()
-        cb({status:true, message: "Taxes created successful"})
-      }).catch(err => {
-        console.log(err)
-        cb({status:false, message: "SomeError occured"})
+        cb({ status: true, message: "Taxes created successful" })
       })
-    }
+      .catch(err => {
+        console.log(err)
+        cb({ status: false, message: "SomeError occured" })
+      })
+  }
 
   render() {
     if (true)
@@ -36,8 +44,13 @@ class App extends Component {
           rowSelection={{}}
           columns={taxCategoryColumns}
           columnData={this.state.taxCategoryTableData}
-          pagination={{ pageSize: 10, showLessItems: true, showSizeChanger: true ,pageSizeOptions: ['5', '10', '15', '20'] }}
-          onCreate={(data,cb) => this.handleCreateTaxes(data,cb)}
+          pagination={{
+            pageSize: 10,
+            showLessItems: true,
+            showSizeChanger: true,
+            pageSizeOptions: ["5", "10", "15", "20"]
+          }}
+          onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
         />
       )
     else return <h1>Loading...</h1>
@@ -51,23 +64,29 @@ class App extends Component {
         object.name = item.name
         object.taxCode = item.taxcategoryID
         object.handleFeatures = {
-          handleDelete: (id) => {
+          handleDelete: id => {
             console.log(id)
-            this.props.deleteTaxCategory(id).then(res => {
-              this.loadTaxCategoryData();
-            }).catch(err => {
-              console.log(err);
-            })
+            this.props
+              .deleteTaxCategory(id)
+              .then(res => {
+                this.loadTaxCategoryData()
+              })
+              .catch(err => {
+                console.log(err)
+              })
           },
           handleUpdate: (data, id, cb) => {
             // console.log("clicked", data, id, cb)
-            this.props.updateTaxCategory(id, data.values).then(res => {
-              this.loadTaxCategoryData()
-              cb({ status: true, message: "Tax category updated" })
-            }).catch(err => {
-              console.log(err)
-              cb({ status: false, message: "Some Error while updating" })
-            })
+            this.props
+              .updateTaxCategory(id, data.values)
+              .then(res => {
+                this.loadTaxCategoryData()
+                cb({ status: true, message: "Tax category updated" })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({ status: false, message: "Some Error while updating" })
+              })
           }
         }
         temp.push(object)
@@ -77,23 +96,29 @@ class App extends Component {
       object.name = item.name
       object.taxCode = item.taxcategoryID
       object.handleFeatures = {
-        handleDelete: (id) => {
+        handleDelete: id => {
           console.log(id)
-          this.props.deleteTaxCategory(id).then(res => {
-            this.loadTaxCategoryData();
-          }).catch(err => {
-            console.log(err);
-          })
+          this.props
+            .deleteTaxCategory(id)
+            .then(res => {
+              this.loadTaxCategoryData()
+            })
+            .catch(err => {
+              console.log(err)
+            })
         },
         handleUpdate: (data, id, cb) => {
           // console.log("clicked", data, id, cb)
-          this.props.updateTaxCategory(id, data.values).then(res => {
-            this.loadTaxCategoryData()
-            cb({ status: true, message: "Tax category updated" })
-          }).catch(err => {
-            console.log(err)
-            cb({ status: false, message: "Some Error while updating" })
-          })
+          this.props
+            .updateTaxCategory(id, data.values)
+            .then(res => {
+              this.loadTaxCategoryData()
+              cb({ status: true, message: "Tax category updated" })
+            })
+            .catch(err => {
+              console.log(err)
+              cb({ status: false, message: "Some Error while updating" })
+            })
         }
       }
       temp.push(object)
@@ -104,7 +129,7 @@ class App extends Component {
   // Integrated with test api
   loadTaxCategoryData() {
     let urlParams = {}
-    urlParams.businessID = this.props.business.response.data.businessID
+    urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
       .getTaxCategories(urlParams)
       .then(res => {
@@ -128,8 +153,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getTaxCategories: object => dispatch(taxCategories.action(object)),
   addTaxCategory: object => dispatch(addTaxCategory.action(object)),
-  deleteTaxCategory: (taxcategoryID) => dispatch(deleteTaxCategory.action(taxcategoryID)),
-  updateTaxCategory: (taxcategoryID, object) => dispatch(updateTaxCategory.action(taxcategoryID, object))
+  deleteTaxCategory: taxcategoryID =>
+    dispatch(deleteTaxCategory.action(taxcategoryID)),
+  updateTaxCategory: (taxcategoryID, object) =>
+    dispatch(updateTaxCategory.action(taxcategoryID, object))
 })
 
 export default connect(

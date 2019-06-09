@@ -29,10 +29,18 @@ var employeeColumns = [
     key: "phone"
   },
   {
-    title: 'Assign',
-    dataIndex: 'assign',
-    key: 'assign',
-    render: (assign) => <Model form={AssignItem} title="Assign Items" buttonValue="Assign" onSubmit={assign.onCreate} />
+    title: "Assign",
+    dataIndex: "assign",
+    key: "assign",
+    render: assign => (
+      <Model
+        form={AssignItem}
+        title="Assign Items"
+        buttonValue="Assign"
+        onSubmit={assign.onCreate}
+        formData={assign}
+      />
+    )
   },
   // {
   //   title: "Permissions",
@@ -49,25 +57,37 @@ var employeeColumns = [
   //   render: role => <Tag color="green">{role}</Tag>
   // },
   {
-    title: 'Rename',
-    dataIndex: '',
-    render: (object) => {
+    title: "Rename",
+    dataIndex: "",
+    render: object => {
       return (
-        <Model visible form={createCategory}
-          title="Create Item" isTableModal={true}
+        <Model
+          visible
+          form={createCategory}
+          title="Create Item"
+          isTableModal={true}
           buttonValue="Create"
           prefilledValues={object.prefilledValues}
-          onSubmit={(data, cb) => object.handleFeatures.handleUpdate(data, object.userID, cb)}
+          onSubmit={(data, cb) =>
+            object.handleFeatures.handleUpdate(data, object.userID, cb)
+          }
         />
       )
     }
   },
   {
-    title: '',
-    dataIndex: '',
-    render: (object) => {
+    title: "",
+    dataIndex: "",
+    render: object => {
       return (
-        <ButtonIcon onSubmit={() => object.handleFeatures.handleDelete(object.userID)} modalTitle="Sure you want to delete ?" icon="delete" shape="round" size="small" style={{ backgroundColor: '#F84D65', color: 'white' }} />
+        <ButtonIcon
+          onSubmit={() => object.handleFeatures.handleDelete(object.userID)}
+          modalTitle="Sure you want to delete ?"
+          icon="delete"
+          shape="round"
+          size="small"
+          style={{ backgroundColor: "#F84D65", color: "white" }}
+        />
       )
     }
   }

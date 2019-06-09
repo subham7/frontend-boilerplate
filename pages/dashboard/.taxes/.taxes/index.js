@@ -5,7 +5,13 @@ import Taxes from "../../../../src/components/organisms/taxes"
 
 import { taxesColumns } from "./taxes.data"
 import { itemData } from "../../../../pagesData/item.data"
-import { addTax, taxes, getTaxCategories, deleteTax, updateTax } from "../../../../src/reduxHelper"
+import {
+  addTax,
+  taxes,
+  getTaxCategories,
+  deleteTax,
+  updateTax
+} from "../../../../src/reduxHelper"
 import wrapper from "./wrapper"
 import uuidv4 from "uuid/v4"
 
@@ -37,7 +43,7 @@ class App extends React.Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.taxesTableData.filter(function (data) {
+    const filteredEvents = this.state.taxesTableData.filter(function(data) {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -57,9 +63,14 @@ class App extends React.Component {
             cascaderData={itemData.cascaderData}
             columns={taxesColumns}
             columnData={this.state.filteredTableData}
-            pagination={{ pageSize: 7, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
+            pagination={{
+              pageSize: 10,
+              showLessItems: true,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "15", "20"]
+            }}
             onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
-            onSearch={(value) => this.handleSearch(value)}
+            onSearch={value => this.handleSearch(value)}
           />
         </div>
       )
@@ -77,26 +88,37 @@ class App extends React.Component {
         object.taxID = item.taxID
         object.taxCategory = item.taxcategory
         object.percentage = item.percentage
-        object.selectData = this.createSelectData(this.props.taxCategories.response.data)
+        object.selectData = this.createSelectData(
+          this.props.taxCategories.response.data
+        )
         object.prefilledValues = item
         object.handleFeatures = {
           handleDelete: urlParams => {
             console.log("here", urlParams)
-            this.props.deleteTax(urlParams.taxID).then(res => {
-              this.loadTaxesData();
-            }).catch(err => {
-              console.log(err);
-            })
+            this.props
+              .deleteTax(urlParams.taxID)
+              .then(res => {
+                this.loadTaxesData()
+              })
+              .catch(err => {
+                console.log(err)
+              })
           },
           handleEdit: (data, taxID, cb) => {
             console.log("allll", data, taxID)
-            this.props.updateTax(taxID, data.values).then(res => {
-              this.loadTaxesData();
-              cb({ status: true, message: "Tax updated successfully" })
-            }).catch(err => {
-              console.log(err);
-              cb({ status: false, message: "Some error occured while updating" });
-            })
+            this.props
+              .updateTax(taxID, data.values)
+              .then(res => {
+                this.loadTaxesData()
+                cb({ status: true, message: "Tax updated successfully" })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({
+                  status: false,
+                  message: "Some error occured while updating"
+                })
+              })
           }
         }
         temp.push(object)
@@ -113,7 +135,7 @@ class App extends React.Component {
   }
 
   loadTaxesData() {
-    let businessID = this.props.business.response.data.businessID
+    let businessID = this.props.business.response.data[0].businessID
     this.props
       .getTaxes(businessID)
       .then(res => {
@@ -137,7 +159,7 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   business: state.businesses,
   taxes: state.taxes,
-  taxCategories: state.taxCategories,
+  taxCategories: state.taxCategories
   // Tax: state.addTax,
 })
 // Example Syntax for writing dispatch

@@ -8,7 +8,7 @@ import Employees from "./.employees"
 import Locations from "./.locations"
 import Taxes from "./.taxes"
 import Products from "./.products"
-import Customers from './.customers'
+import Customers from "./.customers"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
 
@@ -61,7 +61,7 @@ class SwitchHandler extends React.Component {
             case "locations":
               return <Locations />
             case "purchase":
-              return <Purchase/>
+              return <Purchase />
             case "taxes":
               return <Taxes />
             case "products":
@@ -69,11 +69,9 @@ class SwitchHandler extends React.Component {
             case "discounts":
               return <h1>Empty</h1>
             case "customers":
-                return <Customers />
+              return <Customers />
             case "modifiers":
-              return (
-                <Modifiers/>
-              )
+              return <Modifiers />
             default:
               return <h1>Error: 404</h1>
           }

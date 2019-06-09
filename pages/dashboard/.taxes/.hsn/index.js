@@ -5,7 +5,15 @@ import HSN from "../../../../src/components/organisms/hsn"
 
 import { hsnColumns } from "./hsn.data"
 import { itemData } from "../../../../pagesData/item.data"
-import { hsncodes, addHsnCode, deleteHsnCode, updateHsnCode, taxCategories, addhsncodetaxcategories, taxCategoryHsn } from "../../../../src/reduxHelper"
+import {
+  hsncodes,
+  addHsnCode,
+  deleteHsnCode,
+  updateHsnCode,
+  taxCategories,
+  addhsncodetaxcategories,
+  taxCategoryHsn
+} from "../../../../src/reduxHelper"
 import uuid from "uuid/v4"
 
 class App extends React.Component {
@@ -29,17 +37,20 @@ class App extends React.Component {
     let object = {}
     object.hsnname = data.values.name
     object.hsncodeID = uuid()
-    this.props.addHsnCode(object).then(res => {
-      this.loadHsnCodeData()
-      cb({ status: true, message: "HSN created successfully" })
-    }).catch(err => {
-      console.log(err)
-      cb({ status: false, message: "SomeError occured" })
-    })
+    this.props
+      .addHsnCode(object)
+      .then(res => {
+        this.loadHsnCodeData()
+        cb({ status: true, message: "HSN created successfully" })
+      })
+      .catch(err => {
+        console.log(err)
+        cb({ status: false, message: "SomeError occured" })
+      })
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.hsnTableData.filter(function (data) {
+    const filteredEvents = this.state.hsnTableData.filter(function(data) {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -48,7 +59,8 @@ class App extends React.Component {
 
   render() {
     // will not render under taxcategory loaded
-    if (this.props.hsncodes.response) {
+    if (this.props.hsncodes.isLoaded && this.props.taxCategories.isLoaded) {
+      console.log(this.state.hsnTableData)
       return (
         <div>
           <HSN
@@ -56,7 +68,12 @@ class App extends React.Component {
             cascaderData={itemData.cascaderData}
             columns={hsnColumns}
             columnData={this.state.hsnTableData}
-            pagination={{ pageSize: 7, showLessItems: true, showSizeChanger: true, pageSizeOptions: ['5', '10', '15', '20'] }}
+            pagination={{
+              pageSize: 7,
+              showLessItems: true,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "15", "20"]
+            }}
             onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
           />
         </div>
@@ -71,92 +88,69 @@ class App extends React.Component {
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
-        // object.name = item.hsnname
+        object.name = item.hsnname
         object.hsnCode = item.hsncodeID
-        object.selectData = this.createSelectData(this.props.taxCategories.response.data)
-        object.handleFeatures = {
-          handleDelete: (id) => {
+        object.selectData = this.createSelectData(
+          this.props.taxCategories.response.data
+        )
+        ;(object.handleFeatures = {
+          handleDelete: id => {
             console.log(id)
-            this.props.deleteHsnCode(id).then(res => {
-              this.loadHsnCodeData();
-            }).catch(err => {
-              console.log(err);
-            })
+            this.props
+              .deleteHsnCode(id)
+              .then(res => {
+                this.loadHsnCodeData()
+              })
+              .catch(err => {
+                console.log(err)
+              })
           },
           handleEdit: (data, id, cb) => {
             console.log("clicked", data, id, cb)
             let obj = {}
             obj.hsnname = data.values.name
-            this.props.updateHsnCode(id, obj).then(res => {
-              this.loadHsnCodeData()
-              cb({ status: true, message: "HSN Code updated" })
-            }).catch(err => {
-              console.log(err)
-              cb({ status: false, message: "Some Error while updating" })
-            })
+            this.props
+              .updateHsnCode(id, obj)
+              .then(res => {
+                this.loadHsnCodeData()
+                cb({ status: true, message: "HSN Code updated" })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({
+                  status: false,
+                  message: "Some Error while updating"
+                })
+              })
           }
-        },
-          object.assign = {
+        }),
+          (object.assign = {
             handleAssign: (data, id, cb) => {
               let obj = {}
-              obj.hsncode = id;
+              obj.hsncode = id
               obj.taxcategory = data.values.assignedTo
               console.log(obj)
-              this.props.addhsncodetaxcategories(obj).then(res => {
-                cb({ status: true, message: "Tax Category assigned" })
-              }).catch(err => {
-                console.log(err)
-                cb({ status: true, message: "Error occured" })
-              })
+              this.props
+                .addhsncodetaxcategories(obj)
+                .then(res => {
+                  cb({
+                    status: true,
+                    message: "Tax Category assigned"
+                  })
+                })
+                .catch(err => {
+                  console.log(err)
+                  cb({ status: true, message: "Error occured" })
+                })
             },
-            assignedTaxCategory: (hsnID) => this.props.getHsnTaxCategory(hsnID),
-            taxCategoryData: this.createSelectData(this.props.taxCategories.response.data)
-          }
+            assignedTaxCategory: hsnID => this.props.getHsnTaxCategory(hsnID),
+            taxCategoryData: this.createSelectData(
+              this.props.taxCategories.response.data
+            ),
+            hsnID: item.hsncodeID
+          })
         temp.push(object)
       })
-    } else {
-      let object = {}
-      object.name = data.hsnname
-      object.hsnCode = data.hsncodeID
-      object.handleFeatures = {
-        handleDelete: (id) => {
-          console.log(id)
-          this.props.deleteHsnCode(id).then(res => {
-            this.loadHsnCodeData();
-          }).catch(err => {
-            console.log(err);
-          })
-        },
-        handleEdit: (data, id, cb) => {
-          console.log("clicked", data, id, cb)
-          let obj = {}
-          obj.hsnname = data.values.name
-          this.props.updateHsnCode(id, obj).then(res => {
-            this.loadHsnCodeData()
-            cb({ status: true, message: "HSN Code updated" })
-          }).catch(err => {
-            console.log(err)
-            cb({ status: false, message: "Some Error while updating" })
-          })
-        }
-      },
-      object.assign = {
-        handleAssign: (data, id, cb) => {
-          let obj = {}
-          obj.hsncode = id;
-          obj.taxcategory = data.values.assignedTo
-          console.log(obj)
-          this.props.addhsncodetaxcategories(obj).then(res => {
-            cb({ status: true, message: "Tax Category assigned" })
-          }).catch(err => {
-            console.log(err)
-            cb({ status: true, message: "Error occured" })
-          })
-        },
-          assignedTaxCategory: (hsnID) => this.props.getHsnTaxCategory(hsnID),
-          taxCategoryData: this.createSelectData(this.props.taxCategories.response.data)
-      }
-      temp.push(object)
     }
     return temp
   }
@@ -170,7 +164,8 @@ class App extends React.Component {
           hsnTableData: this._createHsnCodeColoumns(res)
         })
         console.log(this.state.hsnTableData)
-      }).catch(err => {
+      })
+      .catch(err => {
         console.log(err)
       })
   }
@@ -187,20 +182,21 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   business: state.businesses,
   hsncodes: state.hsncodes,
-  taxCategories: state.taxCategories,
+  taxCategories: state.taxCategories
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getHsnCodes: () => dispatch(hsncodes.action()),
   addHsnCode: object => dispatch(addHsnCode.action(object)),
   deleteHsnCode: hsncodeID => dispatch(deleteHsnCode.action(hsncodeID)),
-  updateHsnCode: (hsncodeID, object) => dispatch(updateHsnCode.action(hsncodeID, object)),
+  updateHsnCode: (hsncodeID, object) =>
+    dispatch(updateHsnCode.action(hsncodeID, object)),
   getTaxCategories: object => dispatch(taxCategories.action(object)),
-  addhsncodetaxcategories: (object) => dispatch(addhsncodetaxcategories.action(object)),
-  getHsnTaxCategory: hsnID => dispatch(taxCategoryHsn.action(hsnID)),
+  addhsncodetaxcategories: object =>
+    dispatch(addhsncodetaxcategories.action(object)),
+  getHsnTaxCategory: hsnID => dispatch(taxCategoryHsn.action(hsnID))
 })
-export default
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

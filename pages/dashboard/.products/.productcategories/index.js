@@ -110,7 +110,8 @@ class App extends React.Component {
                   cb({ status: false, message: "Some Error while updating" })
                 })
             }
-          })
+          }),
+          (object.assign = {})
         temp.push(object)
       })
     } else {

@@ -14,12 +14,20 @@ const validate = value => {
 export class F3 extends Component {
   constructor(props) {
     super(props)
-    this.state = { location: [] }
+    this.state = { location: [], isLoaded: false }
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
   }
 
   componentDidMount() {
+    this.loadLoacation()
+  }
+
+  handleClick() {
+    this.props.onSubmit(this.formAPi.getState())
+  }
+
+  loadLoacation = () => {
     this.props.formData
       .employeeLocation({
         userID: this.props.formData.employeeID
@@ -30,23 +38,24 @@ export class F3 extends Component {
           location.push(JSON.parse(item.locationunfold))
         })
         this.setState({ location: location })
+        return location
+      })
+      .then(_ => {
+        this.setState({ isLoaded: true })
       })
       .catch(err => console.log(err))
   }
 
-  handleClick() {
-    this.props.onSubmit(this.formAPi.getState())
-  }
-
   setFormApi(formAPi) {
     this.formAPi = formAPi
+    this.loadLoacation()
   }
 
   render() {
     const style = {
-      locationContainer: { marginBottom: "20px" },
-      locationHeading: { marginBottom: "2px" },
-      locationText: { marginBottom: "5px" },
+      container: { marginBottom: "20px" },
+      heading: { marginBottom: "2px" },
+      text: { marginBottom: "5px" },
       removeBtn: {
         fontSize: "10px",
         height: "16px",
@@ -57,17 +66,20 @@ export class F3 extends Component {
 
     return (
       <div className="App">
-        <div style={style.locationContainer}>
-          <h2 style={style.locationHeading}>Locations Assigned</h2>
-          <div>
-            {this.state.location.map(item => (
-              <p style={style.locationText}>
-                <ButtonIcon icon="close" style={style.removeBtn} />
-                {"     "}
-                {item.name}
-              </p>
-            ))}
-          </div>
+        <div style={style.container}>
+          <h2 style={style.heading}>Locations Assigned</h2>
+
+          {this.state.isLoaded ? (
+            <div>
+              {this.state.location.map(item => (
+                <p style={style.text}>
+                  <ButtonIcon icon="close" style={style.removeBtn} />
+                  {"     "}
+                  {item.name}
+                </p>
+              ))}
+            </div>
+          ) : null}
         </div>
         <Form getApi={this.setFormApi}>
           <Select

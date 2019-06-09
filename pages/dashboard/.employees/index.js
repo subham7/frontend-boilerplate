@@ -24,6 +24,7 @@ class App extends Component {
   componentDidMount() {
     this.loadEmployeeData()
   }
+
   handleCreateLocation(data, cb) {
     data.values.userID = uuid()
     data.values.business = this.props.business.response.data[0].businessID
@@ -126,49 +127,6 @@ class App extends Component {
         }
         temp.push(object)
       })
-    } else {
-      let object = {}
-      object.name = data.firstName + " " + data.LastName
-      object.userName = data.userName
-      object.email = data.email
-      object.phone = data.phone
-      object.assign = {
-        onCreate: (data, cb) => {
-          data.values.user = item.userID
-          this.handleAssignUserLocation(data, cb)
-        },
-        employeeLocation: object => this.props.employeelocations(object),
-        locationData: this.createSelectData(this.props.locations.response.data)
-      }
-      object.handleFeatures = {
-        handleDelete: id => {
-          // let businessID = this.props.business.response.data[0].businessID;
-          this.props
-            .deleteEmployee(id)
-            .then(res => {
-              this.loadEmployeeData()
-            })
-            .catch(err => {
-              console.log(err)
-            })
-        },
-        handleUpdate: (data, id, cb) => {
-          this.props
-            .updateEmployee(id, data.values)
-            .then(res => {
-              this.loadEmployeeData()
-              cb({ status: true, message: "Employee data updated" })
-            })
-            .catch(err => {
-              console.log(err)
-              cb({
-                status: false,
-                message: "Some Error occured while updating"
-              })
-            })
-        }
-      }
-      temp.push(object)
     }
     return temp
   }

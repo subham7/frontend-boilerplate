@@ -56,54 +56,8 @@ var taxesColumns = [
     }
 ]
 
- const taxesColumnData =[
-     {
-         product: 'Test Name',
-         location: ['BBSR'],
-         percentage: 5,
-         taxCode: 'GST1234',
-         cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-     },
-     {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: 'GST1234',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: 'GST1234',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-        product: 'Test Name',
-        location: ['BBSR'],
-        percentage: 5,
-        taxCode: 'GST1234',
-        cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-    {
-       product: 'Test Name',
-       location: ['BBSR'],
-       percentage: 5,
-       taxCode: 'GST1234',
-       cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-    },
-   {
-       product: 'Test Name',
-       location: ['BBSR'],
-       percentage: 5,
-       taxCode: 'GST1234',
-       cascaderData: ['Permission', 'Permission', 'Permission', 'Permission']
-
-   }
- ]
 
 
 export {
     taxesColumns,
-    taxesColumnData
 }

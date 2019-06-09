@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import Taxes from "../../../../src/components/organisms/taxes"
 
-import { taxesColumns, taxesColumnData } from "./taxes.data"
+import { taxesColumns } from "./taxes.data"
 import { itemData } from "../../../../pagesData/item.data"
 import {
   addTax,

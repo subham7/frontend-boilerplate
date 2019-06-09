@@ -22,7 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Tabs defaultActiveKey={"3"} onChange={this.callback}>
+        <Tabs defaultActiveKey={"1"} onChange={this.callback}>
           <TabPane tab="Tax Categories" key="1">
             <TaxCategory />
           </TabPane>

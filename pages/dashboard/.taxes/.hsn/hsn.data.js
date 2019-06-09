@@ -9,7 +9,7 @@ import AssignItem from "../../../../src/components/organisms/forms/assignHsn"
 
 var hsnColumns = [
     {
-        title: 'HSN Code',
+        title: 'HSN ',
         dataIndex: 'name'
     },
     // {
@@ -21,7 +21,7 @@ var hsnColumns = [
         dataIndex: '',
         key: 'assign',
         render: (object) => {
-            // console.log(object.assign.taxCategoryData)
+            // console.log(object.assign.assignedTaxCategory())
             return (
                 <Model
                     form={AssignItem}

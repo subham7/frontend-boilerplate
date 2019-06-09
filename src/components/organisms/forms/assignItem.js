@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import { Asearch } from "../../../utils/xinformed/antdesignInformed"
 import { Form, Checkbox, Text, Select } from "../../../utils/xinformed"
-import { Button } from "antd"
+import { Button, Icon } from "antd"
+import ButtonIcon from "../../atoms/tableButton"
 
 var items = ["Biscuits", "Drinks", "Fries", "Breads", "Fries", "Breads"]
 const validate = value => {
@@ -42,13 +43,29 @@ export class F3 extends Component {
   }
 
   render() {
+    const style = {
+      locationContainer: { marginBottom: "20px" },
+      locationHeading: { marginBottom: "2px" },
+      locationText: { marginBottom: "5px" },
+      removeBtn: {
+        fontSize: "10px",
+        height: "16px",
+        width: "28px",
+        marginRight: "10px"
+      }
+    }
+
     return (
       <div className="App">
-        <div style={{ marginBottom: "20px" }}>
-          <h2 style={{ marginBottom: "2px" }}>Locations Assigned</h2>
+        <div style={style.locationContainer}>
+          <h2 style={style.locationHeading}>Locations Assigned</h2>
           <div>
             {this.state.location.map(item => (
-              <p style={{ marginBottom: "2px" }}>{item.name}</p>
+              <p style={style.locationText}>
+                <ButtonIcon icon="close" style={style.removeBtn} />
+                {"     "}
+                {item.name}
+              </p>
             ))}
           </div>
         </div>

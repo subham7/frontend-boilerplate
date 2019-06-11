@@ -29,8 +29,8 @@ class App extends React.Component {
     let urlParams = {}
     urlParams.businessID = this.props.business.response.data[0].businessID
     console.log(this.props.business.response.data, urlParams.businessID)
-    this.loadHsnCodeData()
     this.props.getTaxCategories(urlParams)
+    this.loadHsnCodeData()
   }
 
   handleCreateTaxes(data, cb) {
@@ -163,7 +163,7 @@ class App extends React.Component {
         this.setState({
           hsnTableData: this._createHsnCodeColoumns(res)
         })
-        console.log(this.state.hsnTableData)
+        console.log("new Data:", this.state.hsnTableData)
       })
       .catch(err => {
         console.log(err)

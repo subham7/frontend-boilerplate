@@ -2,7 +2,11 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import Purchase from "../../../src/components/organisms/ItemPurchase"
-import { stockdiary, products, getLocationByID } from "../../../src/reduxHelper"
+import {
+  stockdiary,
+  addPurchase,
+  getLocationByID
+} from "../../../src/reduxHelper"
 
 import { itemPurchaseData } from "./purchase.data"
 import wrapper from "./wrapper"
@@ -20,6 +24,13 @@ class App extends Component {
   componentDidMount() {
     console.log("purchase state", this.props)
     this.loadPurchaseData()
+  }
+
+  handleCreatePurchase = (data, cb) => {
+    this.props
+      .addPurchase(data.values)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
   }
 
   handleSearch(e) {
@@ -47,24 +58,25 @@ class App extends Component {
             pageSizeOptions: ["5", "10", "15", "20"]
           }}
           onSearch={value => this.handleSearch(value)}
+          onCreate={(data, cb) => this.handleCreatePurchase(data, cb)}
         />
       </div>
     )
   }
 
   createpurchasecolumns(data) {
-    let temp = []
-    data.map(item => {
-      let object = {}
-      object.purchaseItemID = item.purchaseID
-      object.amount = item.amount
-      object.date = item.date
-      object.desription = item.description
-      object.vendor = item.vendor
-      object.location = JSON.parse(item.locationunfold).name
-      temp.push(object)
-    })
-    return temp
+    let columns = []
+    data.map(item =>
+      columns.push({
+        purchaseItemID: item.purchaseID,
+        amount: item.amount,
+        date: item.date,
+        desription: item.description,
+        vendor: item.vendor,
+        location: JSON.parse(item.locationunfold).name
+      })
+    )
+    return columns
   }
 
   loadPurchaseData() {
@@ -73,7 +85,7 @@ class App extends Component {
       this.setState({ purchaseItemTableData: this.createpurchasecolumns(data) })
       this.setState({ filteredTableData: this.state.purchaseItemTableData })
     })
-  }
+  } 
 }
 
 const mapStateToProps = state => {
@@ -84,7 +96,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  stockdiary: () => dispatch(stockdiary.action())
+  stockdiary: () => dispatch(stockdiary.action()),
+  addPurchase: data => dispatch(addPurchase.action(data))
 })
 
 export default wrapper(

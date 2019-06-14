@@ -8,6 +8,11 @@ import Model from "../../molecules/modelButton"
 import { Row, Col } from "antd"
 
 import CreatePurchase from "./../forms/createPurchase"
+import ReviewPurchase from "./../reviewPurchase"
+
+const style = {
+  reviewModal: { width: "100%" }
+}
 
 const ItemPurchase = props => {
   return (
@@ -59,7 +64,7 @@ const ItemPurchase = props => {
       />
       <Row>
         <Col span={6} push={19}>
-          <ButtonOne value="Review Purchase" />
+          {/* <ButtonOne value="Review Purchase" />*/}
           <Model
             form={CreatePurchase}
             formData={props.formData}
@@ -67,6 +72,21 @@ const ItemPurchase = props => {
             buttonValue="Create"
             onSubmit={props.onCreate}
             handleSubmitOk={props.handleSubmitOk}
+            utilFunc={props.utilFunc}
+          />
+          <Model
+            normal={true}
+            width={1200}
+            content={
+              <ReviewPurchase
+                heading=""
+                data={props.reviewPurchaseData}
+                actions={props.reviewAction}
+                itemsData={props.itemsData}
+              />
+            }
+            title="Review Purchase"
+            buttonValue="Review Purchase"
           />
         </Col>
       </Row>

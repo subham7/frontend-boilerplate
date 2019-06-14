@@ -5,7 +5,9 @@ import Purchase from "../../../src/components/organisms/ItemPurchase"
 import {
   stockdiary,
   addPurchase,
-  getLocationByID
+  getLocationByID,
+  reviewPurchase,
+  getPurchaseItems
 } from "../../../src/reduxHelper"
 
 import { itemPurchaseData } from "./purchase.data"
@@ -17,16 +19,23 @@ class App extends Component {
     super(props)
     this.state = {
       purchaseItemTableData: [],
-      filteredTableData: []
+      filteredTableData: [],
+      formValue: {},
+      test: "test"
     }
   }
 
   componentDidMount() {
     console.log("purchase state", this.props)
     this.loadPurchaseData()
+    this.props.getReviewPurchase()
   }
 
   handleCreatePurchase = (data, cb) => {
+    data.values.purchaseID = uuidv4()
+    this.setState({ formValue: data.values })
+    console.log(this.state.formValue)
+
     this.props
       .addPurchase(data.values)
       .then(res => console.log(res))
@@ -43,25 +52,47 @@ class App extends Component {
     this.setState({ filteredTableData: filteredEvents })
   }
 
+  reviewAction = pid => {
+    this.props.getPurchaseItems(pid)
+  }
+
+  getFormValue = data => {
+    console.log(data)
+  }
+
   render() {
-    return (
-      <div>
-        <Purchase
-          rowSelection={{}}
-          columns={itemPurchaseData.itemPurchaseColumns}
-          columnData={this.state.filteredTableData}
-          cascaderData={itemPurchaseData.cascaderData}
-          pagination={{
-            pageSize: 10,
-            showLessItems: true,
-            showSizeChanger: true,
-            pageSizeOptions: ["5", "10", "15", "20"]
-          }}
-          onSearch={value => this.handleSearch(value)}
-          onCreate={(data, cb) => this.handleCreatePurchase(data, cb)}
-        />
-      </div>
-    )
+    if (this.props.reviewPurchase.isLoaded)
+      return (
+        <div>
+          <Purchase
+            formData={{
+              product: this.createProductSelectData(
+                this.props.products.response.data
+              ),
+              location: this.createLocationSelectData(
+                this.props.blocations.response.data
+              )
+            }}
+            rowSelection={{}}
+            columns={itemPurchaseData.itemPurchaseColumns}
+            columnData={this.state.filteredTableData}
+            cascaderData={itemPurchaseData.cascaderData}
+            pagination={{
+              pageSize: 10,
+              showLessItems: true,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "15", "20"]
+            }}
+            onSearch={value => this.handleSearch(value)}
+            onCreate={(data, cb) => this.handleCreatePurchase(data, cb)}
+            reviewPurchaseData={this.props.reviewPurchase.response.data}
+            reviewAction={this.reviewAction}
+            itemsData={this.props.purchaseItem}
+            utilFunc={this.getFormValue}
+          />
+        </div>
+      )
+    else return <h1>Loading....</h1>
   }
 
   createpurchasecolumns(data) {
@@ -81,23 +112,33 @@ class App extends Component {
 
   loadPurchaseData() {
     this.props.stockdiary().then(data => {
-      console.log("gibberish", data)
       this.setState({ purchaseItemTableData: this.createpurchasecolumns(data) })
       this.setState({ filteredTableData: this.state.purchaseItemTableData })
     })
-  } 
+  }
+
+  createProductSelectData = data =>
+    data.map(item => ({ name: item.name, value: item.productID }))
+
+  createLocationSelectData = data =>
+    data.map(item => ({ name: item.name, value: item.blocationID }))
 }
 
 const mapStateToProps = state => {
   return {
     stockdiary: state.stockdiary,
-    blocations: state.getLocationByID
+    blocations: state.getLocationByID,
+    products: state.products,
+    reviewPurchase: state.reviewPurchase,
+    purchaseItem: state.getPurchaseItems
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   stockdiary: () => dispatch(stockdiary.action()),
-  addPurchase: data => dispatch(addPurchase.action(data))
+  addPurchase: data => dispatch(addPurchase.action(data)),
+  getReviewPurchase: () => dispatch(reviewPurchase.action()),
+  getPurchaseItems: pid => dispatch(getPurchaseItems.action(pid))
 })
 
 export default wrapper(

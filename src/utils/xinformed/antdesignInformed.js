@@ -10,11 +10,17 @@ const selectStyle = {
   borderRadius: "4px"
 }
 
-const Date = asField(({ fieldState, fieldApi: {setTouched, setValue}, ...props }) => (
-  <React.Fragment>
-    <DatePicker  {...props}  fieldState={fieldState}  onChange={date => setValue(date)}/>
-  </React.Fragment>
-));
+const Date = asField(
+  ({ fieldState, fieldApi: { setTouched, setValue }, ...props }) => (
+    <React.Fragment>
+      <DatePicker
+        {...props}
+        fieldState={fieldState}
+        onChange={(date, dateString) => setValue(dateString)}
+      />
+    </React.Fragment>
+  )
+)
 
 const Text_type1 = asField(({ fieldState, fieldApi, ...props }) => {
   const { value } = fieldState

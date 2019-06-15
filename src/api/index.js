@@ -6,9 +6,11 @@ import * as login from "./login"
 import * as signup from "./signup"
 import * as modifiers from "./modifiers"
 import * as employees from "./employees"
-import * as products from './products'
-import * as stockdiary from './stockdiary'
-import * as hsn from './hsn'
+import * as products from "./products"
+import * as stockdiary from "./stockdiary"
+import * as hsn from "./hsn"
+import * as purchase from "./purchase"
+import * as form from "./form"
 
 module.exports = {
   taxes,
@@ -21,6 +23,7 @@ module.exports = {
   products,
   modifiers,
   stockdiary,
-  hsn
+  hsn,
+  purchase,
+  form
 }
-

@@ -1,6 +1,6 @@
 import React from "react"
-import { Form, asField, Select, Option } from "informed"
-import { Input, Radio, Checkbox } from "antd"
+import { Form, asField, Select, Option , useFormState } from "informed"
+import { Input, Radio, Checkbox, DatePicker } from "antd"
 // import 'antd/dist/antd.css';
 
 const selectStyle = {
@@ -9,6 +9,18 @@ const selectStyle = {
   height: "32px",
   borderRadius: "4px"
 }
+
+const Date = asField(
+  ({ fieldState, fieldApi: { setTouched, setValue }, ...props }) => (
+    <React.Fragment>
+      <DatePicker
+        {...props}
+        fieldState={fieldState}
+        onChange={(date, dateString) => setValue(dateString)}
+      />
+    </React.Fragment>
+  )
+)
 
 const Text_type1 = asField(({ fieldState, fieldApi, ...props }) => {
   const { value } = fieldState
@@ -149,4 +161,4 @@ const Sel = props => {
   )
 }
 
-export { Form, Text_type1, Check, O, Tarea, Sel, R, RG }
+export { Form, Text_type1, Check, O, Tarea, Sel, R, RG, Date ,useFormState}

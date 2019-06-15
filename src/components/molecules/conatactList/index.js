@@ -18,7 +18,6 @@ const ContactList = props => {
   return (
     <div style={ContainerStyle}>
       <List
-        bordered
         header={props.heading}
         dataSource={props.data}
         renderItem={(item, k) => (

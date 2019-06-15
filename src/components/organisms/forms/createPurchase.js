@@ -1,4 +1,6 @@
 import React, { Component } from "react"
+import { connect } from "react-redux"
+import { formData } from "./../../../reduxHelper"
 import { Form, Checkbox, Text, Select, Date } from "../../../utils/xinformed"
 import { ArrayField } from "informed"
 import { Button } from "antd"
@@ -8,22 +10,39 @@ class createPurchase extends Component {
   constructor(props) {
     super(props)
     this.state = { renderReview: false, formValues: {} }
+    this.renderReview = this.renderReview.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
   }
 
+  renderReview() {
+    // let data = Object.assign({}, this.formAPi.getState()).values
+    // this.setState(
+    //   {
+    //     renderReview: data
+    //   },
+    //   err => {
+    //     console.log("setstate complete createpurchase", this.state)
+    //   }
+    // )
+    this.props.formAction(this.formAPi.getState().values)
+    // .then(_ => {
+    //   console.log("p2")
+
+    //   this.setState({ ...this.state, renderReview: true })
+    // })
+    // .catch(err => {
+    //   console.log(err)
+    // })
+  }
+
   handleClick() {
-    this.props.onSubmit(this.formAPi.getState())
+    this.props.onSubmit(this.props.form.response.data)
     this.setState({ renderReview: false })
   }
 
   setFormApi(formAPi) {
     this.formAPi = formAPi
-  }
-
-  renderReview = () => {
-    this.props.utilFunc(this.formAPi.getState())
-    this.setState({ renderReview: true })
   }
 
   render() {
@@ -45,9 +64,11 @@ class createPurchase extends Component {
 
     return (
       <div className="App">
-        {this.state.renderReview ? (
+        {this.props.form.response ? (
           <div>
             <h1>review</h1>
+
+            <p />
             <Button
               style={{ float: "left", width: 192, marginLeft: 15 }}
               type="primary"
@@ -147,7 +168,7 @@ class createPurchase extends Component {
               <Button
                 style={{ float: "left", width: 192, marginLeft: 15 }}
                 type="primary"
-                onClick={this.handleClick}
+                onClick={this.renderReview}
               >
                 Proceed
               </Button>
@@ -159,4 +180,15 @@ class createPurchase extends Component {
   }
 }
 
-export default createPurchase
+const mapStateToProps = state => ({
+  form: state.formData
+})
+
+const mapDispatchToProps = dispatch => ({
+  formAction: data => dispatch(formData.action(data))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(createPurchase)

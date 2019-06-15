@@ -32,14 +32,15 @@ class App extends Component {
   }
 
   handleCreatePurchase = (data, cb) => {
-    data.values.purchaseID = uuidv4()
-    this.setState({ formValue: data.values })
-    console.log(this.state.formValue)
+    // data.purchaseID = uuidv4()
+    console.log(data)
 
-    this.props
-      .addPurchase(data.values)
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
+    // this.setState({ formValue: data.values })
+    // console.log(this.state.formValue)
+    // this.props
+    //   .addPurchase(data)
+    //   .then(res => console.log(res))
+    //   .catch(err => console.log(err))
   }
 
   handleSearch(e) {
@@ -57,7 +58,9 @@ class App extends Component {
   }
 
   getFormValue = data => {
-    console.log(data)
+    this.setState({ formValue: data }, () => {
+      console.log(this.state.formValue)
+    })
   }
 
   render() {

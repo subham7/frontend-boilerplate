@@ -1,6 +1,6 @@
 export const formData = data => {
-  console.log("p1")
+  let dataDeepCopy = Object.assign({},data)
   return new Promise(function(resolve, reject) {
-    resolve(data)
+    resolve(dataDeepCopy)
   })
 }

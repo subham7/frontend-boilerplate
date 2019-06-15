@@ -7,7 +7,8 @@ import {
   O as Option,
   R as Radio,
   RG as RadioGroup,
-  Date
+  Date,
+  useFormState 
 } from "./antdesignInformed"
 
 export {
@@ -19,5 +20,6 @@ export {
   Option,
   Radio,
   RadioGroup,
-  Date
+  Date,
+  useFormState 
 }

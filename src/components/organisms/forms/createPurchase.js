@@ -15,7 +15,7 @@ class createPurchase extends Component {
     this.setFormApi = this.setFormApi.bind(this)
   }
 
-  renderReview() {
+  async renderReview() {
     // let data = Object.assign({}, this.formAPi.getState()).values
     // this.setState(
     //   {
@@ -25,15 +25,9 @@ class createPurchase extends Component {
     //     console.log("setstate complete createpurchase", this.state)
     //   }
     // )
-    this.props.formAction(this.formAPi.getState().values)
-    // .then(_ => {
-    //   console.log("p2")
+    let data = this.formAPi.getState().values
+    await this.props.formAction(data)
 
-    //   this.setState({ ...this.state, renderReview: true })
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
   }
 
   handleClick() {
@@ -62,12 +56,14 @@ class createPurchase extends Component {
       ]
     }
 
-    return (
-      <div className="App">
-        {this.props.form.response ? (
+    if(this.props.form.response){
+      return (
+       
+        <div className="App">  
+        {/* Example */}
+         <p>{this.props.form.response.vendor}</p>
           <div>
             <h1>review</h1>
-
             <p />
             <Button
               style={{ float: "left", width: 192, marginLeft: 15 }}
@@ -77,106 +73,110 @@ class createPurchase extends Component {
               Save
             </Button>
           </div>
-        ) : (
-          <div>
-            <Form getApi={this.setFormApi} initialValues={initialFormVal}>
-              <Text field="vendor" placeholder="Vendor" style={style.margin} />
-              <Text
-                field="description"
-                placeholder="Description"
-                style={style.margin}
-              />
-              <Select
-                field="location"
-                placeholder="Location"
-                option={this.props.formData.location}
-                style={style.margin}
-              />
-              <Date field="date" style={style.margin} />
-              <Text field="amount" placeholder="Amount" style={style.margin} />
-
-              <div style={style.dynamicForm}>
-                <ArrayField field="items">
-                  {({ add, fields }) => (
-                    <div>
-                      <Button
-                        onClick={() => {
-                          add()
-                        }}
-                        style={style.margin}
-                      >
-                        Add Items
-                      </Button>
-
-                      {fields.map(({ field, key, remove }, i) => (
-                        <label key={key}>
-                          <Row gutter={4}>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.cp`}
-                                placeholder="Cost Price"
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.units`}
-                                placeholder="Units"
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.mrp`}
-                                placeholder="MRP"
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.asinstance`}
-                                placeholder="asinstance"
-                                value=""
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Select
-                                field={`${field}.product`}
-                                option={this.props.formData.product}
-                                style={{ width: "100%" }}
-                              />
-                            </Col>
-                            <Col span={12}>
-                              <Button onClick={remove}>Remove</Button>
-                            </Col>
-                          </Row>
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </ArrayField>
-              </div>
-            </Form>
-            <div style={{ display: "inline-block" }}>
-              <Button
-                style={{ float: "left", width: 192 }}
-                onClick={this.props.onCancel}
-              >
-                Cancel
-              </Button>
-              <Button
-                style={{ float: "left", width: 192, marginLeft: 15 }}
-                type="primary"
-                onClick={this.renderReview}
-              >
-                Proceed
-              </Button>
-            </div>
           </div>
-        )}
+        )
+    }else{
+      return (
+        <div>
+        <Form getApi={this.setFormApi} initialValues={initialFormVal}>
+          <Text field="vendor" placeholder="Vendor" style={style.margin} />
+          <Text
+            field="description"
+            placeholder="Description"
+            style={style.margin}
+          />
+          <Select
+            field="location"
+            placeholder="Location"
+            option={this.props.formData.location}
+            style={style.margin}
+          />
+          <Date field="date" style={style.margin} />
+          <Text field="amount" placeholder="Amount" style={style.margin} />
+  
+          <div style={style.dynamicForm}>
+            <ArrayField field="items">
+              {({ add, fields }) => (
+                <div>
+                  <Button
+                    onClick={() => {
+                      add()
+                    }}
+                    style={style.margin}
+                  >
+                    Add Items
+                  </Button>
+  
+                  {fields.map(({ field, key, remove }, i) => (
+                    <label key={key}>
+                      <Row gutter={4}>
+                        <Col span={6}>
+                          <Text
+                            field={`${field}.cp`}
+                            placeholder="Cost Price"
+                            style={style.margin}
+                          />
+                        </Col>
+                        <Col span={6}>
+                          <Text
+                            field={`${field}.units`}
+                            placeholder="Units"
+                            style={style.margin}
+                          />
+                        </Col>
+                        <Col span={6}>
+                          <Text
+                            field={`${field}.mrp`}
+                            placeholder="MRP"
+                            style={style.margin}
+                          />
+                        </Col>
+                        <Col span={6}>
+                          <Text
+                            field={`${field}.asinstance`}
+                            placeholder="asinstance"
+                            value=""
+                            style={style.margin}
+                          />
+                        </Col>
+                        <Col span={6}>
+                          <Select
+                            field={`${field}.product`}
+                            option={this.props.formData.product}
+                            style={{ width: "100%" }}
+                          />
+                        </Col>
+                        <Col span={12}>
+                          <Button onClick={remove}>Remove</Button>
+                        </Col>
+                      </Row>
+                    </label>
+                  ))}
+                </div>
+              )}
+            </ArrayField>
+          </div>
+          <div style={{ display: "inline-block" }}>
+            <Button
+              style={{ float: "left", width: 192 }}
+              onClick={this.props.onCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{ float: "left", width: 192, marginLeft: 15 }}
+              type="primary"
+              onClick={this.renderReview}
+            >
+              Proceed
+            </Button>
+        </div>
+        </Form>
+     
       </div>
-    )
+      )
+    }
+
   }
 }
 

@@ -8,12 +8,16 @@ import { Row, Col } from "antd"
 const HSNTemplate = props => {
   return (
     <div>
-      <CascaderAndSearch onSearch={props.onSearch} placeholder="Search Name" dataArray={props.cascaderData} />
+      <CascaderAndSearch
+        onSearch={props.onSearch}
+        placeholder="Search Name"
+        dataArray={props.cascaderData}
+      />
       <ProductTable
         rowSelection={props.rowSelection}
         columns={props.columns}
         data={props.columnData}
-        pagination={{...props.pagination}}
+        pagination={{ ...props.pagination }}
       />
       <Row>
         <Col span={3} push={12}>

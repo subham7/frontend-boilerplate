@@ -23,7 +23,7 @@ class App extends React.Component {
 
   handleCreateproducts(data, cb) {
     data.values.productID = uuidv4()
-    data.values.business = this.props.business.response.data[0][0].businessID
+    data.values.business = this.props.business.response.data[0].businessID
     this.props
       .addProduct(data.values)
       .then(res => {
@@ -78,6 +78,7 @@ class App extends React.Component {
         object.code = item.code
         object.barcode = item.barcode
         object.category = item.productcategory
+        object.location = item.location//map location here
         object.price = item.price
         object.prefilledValues = item
         object.selectData = this.createSelectData(this.props.productCategories.response.data)

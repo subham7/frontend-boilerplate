@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import { Asearch } from "../../../utils/xinformed/antdesignInformed"
 import { Form, Checkbox, Text, Select } from "../../../utils/xinformed"
-import { Button } from "antd"
+import { Button, Icon } from "antd"
+import ButtonIcon from "../../atoms/tableButton"
 
 var items = ["Biscuits", "Drinks", "Fries", "Breads", "Fries", "Breads"]
 const validate = value => {
@@ -13,12 +14,20 @@ const validate = value => {
 export class F3 extends Component {
   constructor(props) {
     super(props)
-    this.state = { location: [] }
+    this.state = { location: [], isLoaded: false }
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
   }
 
   componentDidMount() {
+    this.loadLoacation()
+  }
+
+  handleClick() {
+    this.props.onSubmit(this.formAPi.getState())
+  }
+
+  loadLoacation = () => {
     this.props.formData
       .employeeLocation({
         userID: this.props.formData.employeeID
@@ -29,34 +38,61 @@ export class F3 extends Component {
           location.push(JSON.parse(item.locationunfold))
         })
         this.setState({ location: location })
+        return location
+      })
+      .then(_ => {
+        this.setState({ isLoaded: true })
       })
       .catch(err => console.log(err))
   }
 
-  handleClick() {
-    this.props.onSubmit(this.formAPi.getState())
-  }
-
   setFormApi(formAPi) {
     this.formAPi = formAPi
+    this.loadLoacation()
   }
 
+  handleChange(value) {
+    console.log(value);
+  }
+
+
   render() {
+    const style = {
+      container: { marginBottom: "20px" },
+      heading: { marginBottom: "2px" },
+      text: { marginBottom: "5px" },
+      removeBtn: {
+        fontSize: "10px",
+        height: "16px",
+        width: "28px",
+        marginRight: "10px"
+      }
+    }
+
     return (
       <div className="App">
-        <div style={{ marginBottom: "20px" }}>
-          <h2 style={{ marginBottom: "2px" }}>Locations Assigned</h2>
-          <div>
-            {this.state.location.map(item => (
-              <p style={{ marginBottom: "2px" }}>{item.name}</p>
-            ))}
-          </div>
+        <div style={style.container}>
+          <h2 style={style.heading}>Locations Assigned</h2>
+
+          {this.state.isLoaded ? (
+            <div>
+              {this.state.location.map(item => (
+                <p style={style.text}>
+                  <ButtonIcon icon="close" style={style.removeBtn} />
+                  {"     "}
+                  {item.name}
+                </p>
+              ))}
+            </div>
+          ) : null}
         </div>
         <Form getApi={this.setFormApi}>
           <Select
             field="location"
+            mode="multiple"
             option={this.props.formData.locationData}
-            style={{ marginBottom: 15 }}
+            style={{ marginBottom: 15, width: '50%' }}
+            onChange={this.handleChange}
           />
           {/* <div style={{display:"inline-block",marginBottom:15}}>
           <div style={{float:"left"}}><Asearch placeholder="Get ready to become fat"/></div>

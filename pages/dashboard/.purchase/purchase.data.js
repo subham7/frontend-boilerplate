@@ -3,6 +3,8 @@ import { Tag } from "antd"
 import stockTag from "../../../src/components/atoms/stockTag"
 import ButtonIcon from "../../../src/components/atoms/tableButton"
 import Cascader from "../../../src/components/molecules/cascader"
+import Modal from "./../../../src/components/molecules/modelButton"
+import editPurchase from "./../../../src/components/organisms/forms/editPurchase"
 
 var cascaderData = [
   {
@@ -75,22 +77,47 @@ var itemPurchaseColumns = [
             style={{ width: 120, marginRight: "30px" }}
             optionArray={cascaderData}
           />
-          <ButtonIcon
+          {/* <ButtonIcon
             icon="form"
             shape="circle"
             type="primary"
             size="small"
             ghost
-          />
+         />*/}
         </span>
+      )
+    }
+  },
+  {
+    title: "Edit",
+    dataIndex: "",
+    render: object => {
+      console.log(object)
+      return (
+        <Modal
+          visible
+          form={editPurchase}
+          formData={object.formData}
+          title="Edit Purchase"
+          isTableModal={true}
+          buttonValue="Edit"
+          prefilledValues={object.prefilledValues}
+          onSubmit={(data, cb) =>
+            object.handleFeatures.handleUpdate(data, object.purchaseItemID, cb)
+          }
+        />
       )
     }
   },
   {
     title: "",
     dataIndex: "",
-    render: () => (
+    render: object => (
       <ButtonIcon
+        onSubmit={() =>
+          object.handleFeatures.handleDelete(object.purchaseItemID)
+        }
+        modalTitle="Sure you want to delete ?"
         icon="delete"
         shape="round"
         size="small"

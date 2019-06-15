@@ -7,7 +7,9 @@ import {
   addPurchase,
   getLocationByID,
   reviewPurchase,
-  getPurchaseItems
+  getPurchaseItems,
+  deletePurchase,
+  updatePurchase
 } from "../../../src/reduxHelper"
 
 import { itemPurchaseData } from "./purchase.data"
@@ -48,13 +50,33 @@ class App extends Component {
       data
     ) {
       var pattern = new RegExp(e.target.value, "i")
-      return data.name.match(pattern)
+      return data.vendor.match(pattern)
     })
     this.setState({ filteredTableData: filteredEvents })
   }
 
   reviewAction = pid => {
     this.props.getPurchaseItems(pid)
+  }
+
+  getItems = pid => {
+    this.props
+      .getPurchaseItems(pid)
+      .then(res => {
+        console.log(res)
+
+        return res
+      })
+      .catch(err => {
+        return [
+          {
+            cp: "",
+            unit: "",
+            mrp: "",
+            asinstance: ""
+          }
+        ]
+      })
   }
 
   getFormValue = data => {
@@ -107,7 +129,48 @@ class App extends Component {
         date: item.date,
         desription: item.description,
         vendor: item.vendor,
-        location: JSON.parse(item.locationunfold).name
+        location: JSON.parse(item.locationunfold).name,
+        prefilledValues: item,
+        formData: {
+          product: this.createProductSelectData(
+            this.props.products.response.data
+          ),
+          location: this.createLocationSelectData(
+            this.props.blocations.response.data
+          ),
+          items: this.props.getPurchaseItems,
+          pid: item.purchaseID
+        },
+        handleFeatures: {
+          handleDelete: pid => {
+            this.props
+              .deletePurchase(pid)
+              .then(_ => {
+                this.loadPurchaseData()
+              })
+              .catch(err => {
+                console.log(err)
+              })
+          },
+          handleUpdate: (data, pid, cb) => {
+            this.props
+              .updatePurchase(pid, data.values)
+              .then(_ => {
+                this.loadPurchaseData()
+                cb({
+                  status: true,
+                  message: "Purchase data updated"
+                })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({
+                  status: false,
+                  message: "Some Error occured while updating"
+                })
+              })
+          }
+        }
       })
     )
     return columns
@@ -141,7 +204,9 @@ const mapDispatchToProps = dispatch => ({
   stockdiary: () => dispatch(stockdiary.action()),
   addPurchase: data => dispatch(addPurchase.action(data)),
   getReviewPurchase: () => dispatch(reviewPurchase.action()),
-  getPurchaseItems: pid => dispatch(getPurchaseItems.action(pid))
+  getPurchaseItems: pid => dispatch(getPurchaseItems.action(pid)),
+  deletePurchase: pid => dispatch(deletePurchase.action(pid)),
+  updatePurchase: (pid, data) => dispatch(updatePurchase.action(pid, data))
 })
 
 export default wrapper(

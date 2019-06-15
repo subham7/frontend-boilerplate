@@ -12,3 +12,8 @@ export const getPurchaseItems = pid =>
   axios.get(
     `${ROOTURL}/purchaseitems?_where=(purchase,eq,${pid})&_unfold={"product":["name"]}`
   )
+
+export const deletePurchase = pid => axios.delete(`${ROOTURL}/purchases/${pid}`)
+
+export const updatePurchase = (pid, data) =>
+  axios.patch(`${ROOTURL}/purchases/${pid}`, data)

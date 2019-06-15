@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, asField, Select, Option } from "informed"
+import { Form, asField, Select, Option , useFormState } from "informed"
 import { Input, Radio, Checkbox, DatePicker } from "antd"
 // import 'antd/dist/antd.css';
 
@@ -161,4 +161,4 @@ const Sel = props => {
   )
 }
 
-export { Form, Text_type1, Check, O, Tarea, Sel, R, RG, Date }
+export { Form, Text_type1, Check, O, Tarea, Sel, R, RG, Date ,useFormState}

@@ -84,7 +84,7 @@ class App extends React.Component {
         let object = {}
         ;(object.name = item.name),
           (object.productcategoryID = item.productcategoryID),
-          // object.inventory = [50],
+          object.inventory = item.inventory, //map inventory details here
           (object.handleFeatures = {
             handleDelete: id => {
               // let businessID = this.props.business.response.data[0].businessID;

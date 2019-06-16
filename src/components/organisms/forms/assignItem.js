@@ -51,6 +51,11 @@ export class F3 extends Component {
     this.loadLoacation()
   }
 
+  handleChange(value) {
+    console.log(value);
+  }
+
+
   render() {
     const style = {
       container: { marginBottom: "20px" },
@@ -84,8 +89,10 @@ export class F3 extends Component {
         <Form getApi={this.setFormApi}>
           <Select
             field="location"
+            mode="multiple"
             option={this.props.formData.locationData}
-            style={{ marginBottom: 15 }}
+            style={{ marginBottom: 15, width: '50%' }}
+            onChange={this.handleChange}
           />
           {/* <div style={{display:"inline-block",marginBottom:15}}>
           <div style={{float:"left"}}><Asearch placeholder="Get ready to become fat"/></div>

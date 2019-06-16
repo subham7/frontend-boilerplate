@@ -70,11 +70,11 @@ var productColumns = [
             return <p>{stockTag(object.selectData[categoryIndex].name)}</p>
         }
     },
-    // {
-    //     title: 'LOCATION',
-    //     dataIndex: 'location',
-    //     key: 'location'
-    // },
+    {
+        title: 'LOCATION',
+        dataIndex: 'location',
+        key: 'location'
+    },
     // {
     //     title: 'INVENTORY',
     //     dataIndex: 'inventory',

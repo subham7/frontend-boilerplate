@@ -53,6 +53,12 @@ var categoryColumns = [
     dataIndex: "name"
   },
   {
+    title: 'INVENTORY',
+    dataIndex: 'inventory',
+    key: 'inventory',
+    render: inventory => (<span>{stockTag(inventory)}</span>)
+  },
+  {
     title: "Assign",
     dataIndex: "assign",
     render: assign => (

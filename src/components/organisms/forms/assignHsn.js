@@ -18,9 +18,9 @@ export class F3 extends Component {
     this.setFormApi = this.setFormApi.bind(this)
   }
 
-  componentDidMount() {
-    this.loadTaxCategories()
-  }
+  // componentDidMount() {
+  //   this.loadTaxCategories()
+  // }
 
   handleClick() {
     this.props.onSubmit(this.formAPi.getState())
@@ -28,27 +28,27 @@ export class F3 extends Component {
 
   setFormApi(formAPi) {
     this.formAPi = formAPi
-    this.loadTaxCategories()
+    // this.loadTaxCategories()
   }
 
-  loadTaxCategories = () => {
-    this.props.formData
-      .assignedTaxCategory(this.props.formData.hsnID)
-      .then(res => {
-        let taxCategory = []
-        res.map(item => {
-          taxCategory.push(JSON.parse(item.taxcategoryunfold))
-        })
-        this.setState({ taxCategory: taxCategory })
-        return taxCategory
-      })
-      .then(_ => {
-        this.setState({ isLoaded: true })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+  // loadTaxCategories = () => {
+  //   this.props.formData
+  //     .assignedTaxCategory(this.props.formData.hsnID)
+  //     .then(res => {
+  //       let taxCategory = []
+  //       res.map(item => {
+  //         taxCategory.push(JSON.parse(item.taxcategoryunfold))
+  //       })
+  //       this.setState({ taxCategory: taxCategory })
+  //       return taxCategory
+  //     })
+  //     .then(_ => {
+  //       this.setState({ isLoaded: true })
+  //     })
+  //     .catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
   render() {
     const style = {
@@ -62,14 +62,7 @@ export class F3 extends Component {
         marginRight: "10px"
       }
     }
-
-    let sdata = [
-      { name: "GST101", value: "2246ef07-2cbe-496b-af7e-ac88b5d3235e" },
-      { name: "GST14", value: "236688b8-59ce-11e9-9666-f8cab8258ec4" },
-      { name: "GST18", value: "3e3b74ce-59ce-11e9-9666-f8cab8258ec4" },
-      { name: "GST25", value: "a6d46a94-e5da-48f1-852b-388144870168" },
-      { name: "GST52", value: "d6f7613b-7d1e-4a01-8383-984b8784d453" }
-    ]
+    console.log(this.props.formData.hsnData)
     return (
       <div className="App">
         <div style={style.container}>
@@ -92,7 +85,7 @@ export class F3 extends Component {
             <Select
               field="assignedTo"
               style={{ width: 250 }}
-              option={this.props.formData.taxCategoryData}
+              option={this.props.formData.hsnData}
             />
           </div>
         </Form>

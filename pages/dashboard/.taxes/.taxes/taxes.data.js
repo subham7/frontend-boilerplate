@@ -5,6 +5,7 @@ import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Cascader from "../../../../src/components/molecules/cascader"
 import Model from "../../../../src/components/molecules/modelButton"
 import createTax from "../../../../src/components/organisms/forms/createTax"
+import AssignItem from "../../../../src/components/organisms/forms/assignHsn"
 
 var taxesColumns = [
     {
@@ -24,6 +25,26 @@ var taxesColumns = [
         dataIndex: 'percentage',
         render: percentage => (<b>{percentage}%</b>)
     },
+    {
+        title: "Assign",
+        dataIndex: "",
+        key: "assign",
+        render: object => {
+          // console.log(object.assign.taxCategoryData)
+          return (
+            <Model
+              form={AssignItem}
+              title="Assign Items"
+              buttonValue="Assign"
+              formData={object.assign}
+              assignedData={{}}
+              onSubmit={(data, cb) =>
+                object.assign.handleAssign(data, object.taxID, cb)
+              }
+            />
+          )
+        }
+      },
     {
         title:'Edit',
         key: 'edit',

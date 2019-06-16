@@ -16,3 +16,8 @@ export const addTaxCategory = (object) => axios.post(`${ROOTURL}/taxcategories`,
 export const deleteTaxCategory = (taxCategoryID) => axios.delete(`${ROOTURL}/taxcategories/${taxCategoryID}`)
 
 export const updateTaxCategory = (taxCategoryID, object) => axios.patch(`${ROOTURL}/taxcategories/${taxCategoryID}`,object)
+
+export const hsnTaxcategory = taxCategoryID =>
+  axios.get(
+    `${ROOTURL}/hsncodetaxcategories?_where=(taxcategory,eq,${taxCategoryID})&_unfold={"hsncode":["hsnname"]}`
+  )

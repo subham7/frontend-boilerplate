@@ -1,5 +1,5 @@
 import React from 'react';
-import {Tag} from 'antd';
+import { Tag } from 'antd';
 
 import stockTag from '../../../src/components/atoms/stockTag'
 import ButtonIcon from '../../../src/components/atoms/tableButton';
@@ -7,7 +7,7 @@ import Model from "../../../src/components/molecules/modelButton"
 import createLocation from "../../../src/components/organisms/forms/createLocation"
 // import Cascader from '../src/components/molecules/cascader'
 
-var locationColumns =[
+var locationColumns = [
     {
         title: 'Name',
         dataIndex: 'name',
@@ -22,13 +22,17 @@ var locationColumns =[
         title: 'LOCATION',
         dataIndex: 'address',
         key: 'address',
-     
+
+    },
+    {
+        title: 'Phone Number',
+        dataIndex: 'number',
     },
     {
         title: 'Email',
         dataIndex: 'email',
         key: 'email',
-        render: (category)=> <a href="#" >{category}</a>
+        render: (category) => <a href="#" >{category}</a>
     },
     {
         title: 'Rename',
@@ -56,4 +60,4 @@ var locationColumns =[
 ]
 
 
-export {locationColumns}
+export { locationColumns }

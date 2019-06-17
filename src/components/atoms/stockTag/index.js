@@ -5,7 +5,7 @@ export default function stockTag(tag) {
     var color;
     if (tag >= 0 && tag <= 10) {
         color = 'red'
-    } else if (tag > 10 && tag < 100) {
+    } else if (tag > 10 && tag <= 100) {
         color = 'yellow'
     } else if (tag > 100) {
         color = 'green'

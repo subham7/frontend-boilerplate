@@ -88,6 +88,7 @@ class App extends React.Component {
         ;(object.productID = item.productID), (object.code = item.code)
         object.barcode = item.barcode
         object.category = item.productcategory
+        object.location = item.location//map location here
         object.price = item.price
         object.prefilledValues = item
         object.selectData = this.createSelectData(

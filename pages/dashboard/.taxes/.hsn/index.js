@@ -60,14 +60,14 @@ class App extends React.Component {
   render() {
     // will not render under taxcategory loaded
     if (this.props.hsncodes.isLoaded && this.props.taxCategories.isLoaded) {
-      console.log(this.state.hsnTableData)
+      // console.log(this.state.hsnTableData)
       return (
         <div>
           <HSN
             rowSelection={{}}
             cascaderData={itemData.cascaderData}
             columns={hsnColumns}
-            columnData={this.state.hsnTableData}
+            columnData={this.state.filteredTableData}
             pagination={{
               pageSize: 7,
               showLessItems: true,
@@ -75,6 +75,7 @@ class App extends React.Component {
               pageSizeOptions: ["5", "10", "15", "20"]
             }}
             onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
+            onSearch={value => this.handleSearch(value)}
           />
         </div>
       )
@@ -163,6 +164,7 @@ class App extends React.Component {
         this.setState({
           hsnTableData: this._createHsnCodeColoumns(res)
         })
+        this.setState({filteredTableData: this.state.hsnTableData})
         console.log("new Data:", this.state.hsnTableData)
       })
       .catch(err => {

@@ -85,6 +85,7 @@ class App extends React.Component {
         let object = {}
         object.pocname = item.pocName
         object.name = item.name
+        object.number = item.pocPhone
         object.blocationID = item.blocationID
         object.address = item.address
         ;(object.email = item.pocEmail), (object.prefilledValues = item)

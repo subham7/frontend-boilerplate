@@ -52,11 +52,11 @@ class App extends React.Component {
 
   render() {
     // will not render under taxcategory loaded
-    if (true) {
+    if (this.props.taxCategories.isLoaded) {
       return (
         <div>
           <Taxes
-            formData={this.createSelectData(
+          formData={this.createSelectData(
               this.props.taxCategories.response.data
             )}
             rowSelection={{}}
@@ -105,7 +105,6 @@ class App extends React.Component {
               })
           },
           handleEdit: (data, taxID, cb) => {
-            console.log("allll", data, taxID)
             this.props
               .updateTax(taxID, data.values)
               .then(res => {
@@ -120,16 +119,34 @@ class App extends React.Component {
                 })
               })
           }
-        }
+        },
+        (object.assign = {
+          handleAssign: (data, id, cb) => {
+            let obj = {}
+            obj.taxid = id
+            obj.hsncode = data.values.assignedTo
+            console.log(obj)
+            // this.props
+            //   .addhsncodetaxcategories(obj)
+            //   .then(res => {
+            //     cb({
+            //       status: true,
+            //       message: "HSN assigned"
+            //     })
+            //   })
+            //   .catch(err => {
+            //     console.log(err)
+            //     cb({ status: true, message: "Error occured" })
+            //   })
+          },
+          // assignedTaxCategory: hsnID => this.props.getHsnTaxCategory(hsnID),
+          hsnData: this.createSelectHsnData(
+            this.props.hsncodes.response.data
+          ),
+          taxID: item.taxID
+        })
         temp.push(object)
       })
-    } else {
-      let object = {}
-      object.name = item.name
-      object.taxID = item.taxID
-      object.taxCategory = item.taxcategory
-      object.percentage = item.percentage
-      temp.push(object)
     }
     return temp
   }
@@ -154,13 +171,21 @@ class App extends React.Component {
     }))
     return selectData
   }
+
+  createSelectHsnData(data) {
+    let selectData = data.map(item => ({
+      name: item.hsnname,
+      value: item.hsncodeID
+    }))
+    return selectData
+  }
 }
 
 const mapStateToProps = state => ({
   business: state.businesses,
   taxes: state.taxes,
-  taxCategories: state.taxCategories
-  // Tax: state.addTax,
+  taxCategories: state.taxCategories,
+  hsncodes: state.hsncodes,
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({

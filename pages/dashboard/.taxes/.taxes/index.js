@@ -10,7 +10,9 @@ import {
   taxes,
   getTaxCategories,
   deleteTax,
-  updateTax
+  updateTax,
+  addhsncodetax,
+  taxHsn
 } from "../../../../src/reduxHelper"
 import wrapper from "./wrapper"
 import uuidv4 from "uuid/v4"
@@ -123,23 +125,23 @@ class App extends React.Component {
         (object.assign = {
           handleAssign: (data, id, cb) => {
             let obj = {}
-            obj.taxid = id
+            obj.tax = id
             obj.hsncode = data.values.assignedTo
             console.log(obj)
-            // this.props
-            //   .addhsncodetaxcategories(obj)
-            //   .then(res => {
-            //     cb({
-            //       status: true,
-            //       message: "HSN assigned"
-            //     })
-            //   })
-            //   .catch(err => {
-            //     console.log(err)
-            //     cb({ status: true, message: "Error occured" })
-            //   })
+            this.props
+              .addhsncodetax(obj)
+              .then(res => {
+                cb({
+                  status: true,
+                  message: "HSN assigned"
+                })
+              })
+              .catch(err => {
+                console.log(err)
+                cb({ status: true, message: "ERROR! HSN already assigned" })
+              })
           },
-          // assignedTaxCategory: hsnID => this.props.getHsnTaxCategory(hsnID),
+          assignedhsnCode: taxID => this.props.getHsnTax(taxID),
           hsnData: this.createSelectHsnData(
             this.props.hsncodes.response.data
           ),
@@ -193,7 +195,9 @@ const mapDispatchToProps = dispatch => ({
   addTax: object => dispatch(addTax.action(object)),
   deleteTax: taxID => dispatch(deleteTax.action(taxID)),
   getTaxCategories: businessID => dispatch(getTaxCategories.action(businessID)),
-  updateTax: (taxID, object) => dispatch(updateTax.action(taxID, object))
+  updateTax: (taxID, object) => dispatch(updateTax.action(taxID, object)),
+  addhsncodetax: (object) => dispatch(addhsncodetax.action(object)),
+  getHsnTax: (taxID) => dispatch(taxHsn.action(taxID))
 })
 export default wrapper(
   connect(

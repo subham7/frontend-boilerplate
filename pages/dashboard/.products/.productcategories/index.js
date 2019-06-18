@@ -5,7 +5,8 @@ import {
   productCategories,
   addProductCategory,
   deleteProductCategory,
-  updateProductCategory
+  updateProductCategory,
+  inventoryStock
 } from "../../../../src/reduxHelper"
 import Categories from "../../../../src/components/organisms/categories"
 import ButtonIcon from "../../../../src/components/atoms/tableButton"
@@ -21,12 +22,17 @@ class App extends React.Component {
     super(props)
     this.state = {
       productsTableData: [],
-      filteredTableData: []
+      filteredTableData: [],
+      cardData: []
     }
   }
 
   componentDidMount() {
+    let businessID = this.props.business.response.data[0].businessID
     this.loadProductCategoryData()
+    this.props.getInventoryStock(businessID).then(res => {
+      this.setState({cardData: res})
+    })
   }
 
   handleCreateProductCategory(data, cb) {
@@ -54,11 +60,12 @@ class App extends React.Component {
   }
 
   render() {
+    // console.log(this.state.cardData, "avvvvai")
     if (true) {
       return (
         <div>
           <Categories
-            cardData={categoryData.cardData}
+            cardData={this.state.cardData}
             cascaderData={categoryData.cascaderData}
             columns={categoryData.categoryColumns}
             columnData={this.state.filteredTableData}
@@ -168,25 +175,22 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  productCategories: state.productCategories
-  // addProductCategory: state.addProductCategory,
-  // deleteProductCategory: state.deleteProductCategory,
-  // updateProductCategory: state.updateProductCategory
+  productCategories: state.productCategories,
+  inventoryStock: state.inventoryStock
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getProductCategory: businessID =>
     dispatch(productCategories.action(businessID)),
   addProductCategory: (businessID, object) => {
-    console.log("heeeeeee", businessID)
     return dispatch(addProductCategory.action(businessID, object))
   },
   deleteProductCategory: productcategoryID =>
     dispatch(deleteProductCategory.action(productcategoryID)),
   updateProductCategory: (productcategoryID, object) => {
-    console.log("heeeeeee", productcategoryID, object)
     return dispatch(updateProductCategory.action(productcategoryID, object))
-  }
+  },
+  getInventoryStock: (businessID) => dispatch(inventoryStock.action(businessID))
 })
 export default connect(
   mapStateToProps,

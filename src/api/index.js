@@ -13,6 +13,7 @@ import * as purchase from "./purchase"
 import * as form from "./form"
 import * as auth from "./auth"
 import * as permissions from "./permissions"
+import * as inventory from "./inventory"
 
 module.exports = {
   taxes,
@@ -29,5 +30,6 @@ module.exports = {
   purchase,
   form,
   auth,
-  permissions
+  permissions,
+  inventory
 }

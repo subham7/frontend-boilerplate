@@ -3,16 +3,19 @@ import React from "react"
 import Template from "../../src/components/templates/dashboard"
 import Modifiers from "./.modifiers"
 import Categories from "../../src/components/organisms/categories"
-import Purchase from "./.purchase"
 import Employees from "./.employees"
 import Locations from "./.locations"
 import Taxes from "./.taxes"
 import Products from "./.products"
 import Customers from "./.customers"
+import Purchase from "./.purchase"
+import Permissions from "./.permissions"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
 
 import init from "../../src/utils/wrappers"
+import Auth from "./../../src/utils/auth"
+import NotAuthorized from "./../../src/components/templates/notAuthorized"
 
 const TabPane = Tabs.TabPane
 
@@ -25,9 +28,7 @@ const ItemsContent = props => {
     <div>
       <Tabs defaultActiveKey={props.selectedTab} onChange={callback}>
         <TabPane tab="Items" key="1" />
-        <TabPane tab="Modifiers" key="2">
-          />
-        </TabPane>
+        <TabPane tab="Modifiers" key="2" />
         <TabPane tab="Categories" key="3">
           <Categories
             cardData={props.categoryData.cardData}
@@ -55,23 +56,95 @@ class SwitchHandler extends React.Component {
         {(() => {
           switch (this.props.switchItem) {
             case "home":
-              return <h1>Home page</h1>
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<h1>Home page</h1>}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "employees":
-              return <Employees />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Employees />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "locations":
-              return <Locations />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Locations />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "purchase":
-              return <Purchase />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Purchase />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "taxes":
-              return <Taxes />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Taxes />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "products":
-              return <Products />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Products />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "discounts":
-              return <h1>Empty</h1>
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<h1>Empty</h1>}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "customers":
-              return <Customers />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Customers />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             case "modifiers":
-              return <Modifiers />
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Modifiers />}
+                  no={<NotAuthorized />}
+                />
+              )
+
+            case "permission":
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Permissions />}
+                  no={<NotAuthorized />}
+                />
+              )
+
             default:
               return <h1>Error: 404</h1>
           }

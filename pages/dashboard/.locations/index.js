@@ -8,9 +8,8 @@ import {
   updateLocation
 } from "../../../src/reduxHelper"
 import Locations from "../../../src/components/templates/locations"
-
+import Loading from "./../../../src/components/atoms/loading"
 import { locationColumns } from "./locations.data"
-
 import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
@@ -74,7 +73,7 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <h1>Loading</h1>
+      return <Loading />
     }
   }
 

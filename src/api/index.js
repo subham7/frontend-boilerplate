@@ -11,6 +11,8 @@ import * as stockdiary from "./stockdiary"
 import * as hsn from "./hsn"
 import * as purchase from "./purchase"
 import * as form from "./form"
+import * as auth from "./auth"
+import * as permissions from "./permissions"
 
 module.exports = {
   taxes,
@@ -25,5 +27,7 @@ module.exports = {
   stockdiary,
   hsn,
   purchase,
-  form
+  form,
+  auth,
+  permissions
 }

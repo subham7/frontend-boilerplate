@@ -2,6 +2,7 @@ import React from "react"
 import { Menu, Icon, Divider } from "antd"
 import Link from "next/link"
 import styles from "./styles"
+import Auth from "./../../../utils/auth"
 
 let SubMenu = Menu.SubMenu
 
@@ -23,13 +24,21 @@ let SidePanel = props => {
         <div style={{ margin: "25px 0 50px 24px" }}>
           <h1>Hi Ankit!</h1>
         </div>
+
         <Menu.Item key="home">
-          <Link as={`/dashboard/home`} href={`/dashboard?page=home`}>
-            <a>
-              <p className="sidebar-option">HOME</p>
-            </a>
-          </Link>
+          <Auth
+            param="home"
+            yes={
+              <Link as={`/dashboard/home`} href={`/dashboard?page=home`}>
+                <a>
+                  <p className="sidebar-option">HOME</p>
+                </a>
+              </Link>
+            }
+            no={null}
+          />
         </Menu.Item>
+
         <SubMenu
           key="masterData"
           title={
@@ -121,9 +130,21 @@ let SidePanel = props => {
               <p className="sidebar-option">LOCATIONS</p>
             </Link>
           </Menu.Item>
-          <Menu.Item key="permissions">
-            <p className="sidebar-option">PERMISSIONS</p>
+          <Menu.Item key="permission">
+            <Link
+              as={`/dashboard/permission`}
+              href={`/dashboard?page=permission`}
+            >
+              <p className="sidebar-option">PERMISSIONS</p>
+            </Link>
           </Menu.Item>
+
+          <Menu.Item key="purchase">
+            <Link as={`/dashboard/purchase`} href={`/dashboard?page=purchase`}>
+              <p className="sidebar-option">PURCHASE</p>
+            </Link>
+          </Menu.Item>
+
           <Menu.Item key="receipts">
             <p className="sidebar-option">RECEIPTS</p>
           </Menu.Item>

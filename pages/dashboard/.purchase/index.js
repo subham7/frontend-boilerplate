@@ -100,61 +100,56 @@ class App extends Component {
     else return <h1>Loading....</h1>
   }
 
-  createpurchasecolumns(data) {
-    let columns = []
-    data.map(item =>
-      columns.push({
-        purchaseItemID: item.purchaseID,
-        amount: item.amount,
-        date: item.date,
-        desription: item.description,
-        vendor: item.vendor,
-        location: JSON.parse(item.locationunfold).name,
-        prefilledValues: item,
-        formData: {
-          product: this.createProductSelectData(
-            this.props.products.response.data
-          ),
-          location: this.createLocationSelectData(
-            this.props.blocations.response.data
-          ),
-          items: this.props.getPurchaseItems,
-          pid: item.purchaseID
+  createpurchasecolumns = data =>
+    data.map(item => ({
+      purchaseItemID: item.purchaseID,
+      amount: item.amount,
+      date: item.date,
+      desription: item.description,
+      vendor: item.vendor,
+      location: JSON.parse(item.locationunfold).name,
+      prefilledValues: item,
+      formData: {
+        product: this.createProductSelectData(
+          this.props.products.response.data
+        ),
+        location: this.createLocationSelectData(
+          this.props.blocations.response.data
+        ),
+        items: this.props.getPurchaseItems,
+        pid: item.purchaseID
+      },
+      handleFeatures: {
+        handleDelete: pid => {
+          this.props
+            .deletePurchase(pid)
+            .then(_ => {
+              this.loadPurchaseData()
+            })
+            .catch(err => {
+              console.log(err)
+            })
         },
-        handleFeatures: {
-          handleDelete: pid => {
-            this.props
-              .deletePurchase(pid)
-              .then(_ => {
-                this.loadPurchaseData()
+        handleUpdate: (data, pid, cb) => {
+          this.props
+            .updatePurchase(pid, data.values)
+            .then(_ => {
+              this.loadPurchaseData()
+              cb({
+                status: true,
+                message: "Purchase data updated"
               })
-              .catch(err => {
-                console.log(err)
+            })
+            .catch(err => {
+              console.log(err)
+              cb({
+                status: false,
+                message: "Some Error occured while updating"
               })
-          },
-          handleUpdate: (data, pid, cb) => {
-            this.props
-              .updatePurchase(pid, data.values)
-              .then(_ => {
-                this.loadPurchaseData()
-                cb({
-                  status: true,
-                  message: "Purchase data updated"
-                })
-              })
-              .catch(err => {
-                console.log(err)
-                cb({
-                  status: false,
-                  message: "Some Error occured while updating"
-                })
-              })
-          }
+            })
         }
-      })
-    )
-    return columns
-  }
+      }
+    }))
 
   loadPurchaseData() {
     this.props.stockdiary().then(data => {

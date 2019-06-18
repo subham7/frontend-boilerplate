@@ -8,7 +8,7 @@ var cardData = [
   {
     iconType: "bank",
     iconStyle: { fontSize: "30px", marginTop: "30%", color: "#F88998" },
-    title: "25",
+    title: "15",
     description: "Items Out of Stock"
   },
   {

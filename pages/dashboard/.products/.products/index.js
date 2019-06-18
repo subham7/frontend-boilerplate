@@ -6,7 +6,8 @@ import {
   addProduct,
   deleteProduct,
   updateProduct,
-  reviewPurchase
+  reviewPurchase,
+  inventoryStock
 } from "../../../../src/reduxHelper"
 import Products from "../../../../src/components/organisms/items"
 import ButtonIcon from "../../../../src/components/atoms/tableButton"
@@ -19,12 +20,18 @@ class App extends React.Component {
     super(props)
     this.state = {
       productsTableData: [],
-      filteredTableData: []
+      filteredTableData: [],
+      cardData: []
     }
   }
 
   componentDidMount() {
+    let businessID = this.props.business.response.data[0].businessID
     this.loadproductsData()
+    this.props.getInventoryStock(businessID).then(res => {
+      console.log(res)
+      this.setState({cardData: res})
+    })
   }
 
   handleCreateproducts(data, cb) {
@@ -65,7 +72,7 @@ class App extends React.Component {
               showSizeChanger: true,
               pageSizeOptions: ["5", "10", "15", "20"]
             }}
-            cardData={itemData.cardData}
+            cardData={this.state.cardData}
             cascaderData={itemData.cascaderData}
             columns={itemData.productColumns}
             columnData={this.state.filteredTableData}
@@ -189,10 +196,8 @@ const mapStateToProps = state => {
   return {
     business: state.businesses,
     products: state.products,
-    taxcategories: state.taxcategories
-    // addProduct: state.addProduct,
-    // deleteProduct: state.deleteProduct,
-    // updateProduct: state.updateProduct
+    taxcategories: state.taxcategories,
+    inventoryStock: state.inventoryStock
   }
 }
 
@@ -208,7 +213,8 @@ const mapDispatchToProps = dispatch => ({
   deleteProduct: urlParams => dispatch(deleteProduct.action(urlParams)),
   updateProduct: (productID, object) =>
     dispatch(updateProduct.action(productID, object)),
-  reviewPurchase: () => dispatch(reviewPurchase.action())
+  reviewPurchase: () => dispatch(reviewPurchase.action()),
+  getInventoryStock: (businessID) => dispatch(inventoryStock.action(businessID))
 })
 
 export default wrapper(

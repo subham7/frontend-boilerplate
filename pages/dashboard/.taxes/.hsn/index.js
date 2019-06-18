@@ -1,6 +1,5 @@
 import React from "react"
 import { connect } from "react-redux"
-//Just for knowledge, HSN stands for Harmonized System of Nomenclature
 import HSN from "../../../../src/components/organisms/hsn"
 
 import { hsnColumns } from "./hsn.data"
@@ -67,7 +66,7 @@ class App extends React.Component {
             rowSelection={{}}
             cascaderData={itemData.cascaderData}
             columns={hsnColumns}
-            columnData={this.state.filteredTableData}
+            columnData={this.state.hsnTableData}
             pagination={{
               pageSize: 7,
               showLessItems: true,
@@ -125,31 +124,31 @@ class App extends React.Component {
               })
           }
         }),
-          (object.assign = {
-            handleAssign: (data, id, cb) => {
-              let obj = {}
-              obj.hsncode = id
-              obj.taxcategory = data.values.assignedTo
-              console.log(obj)
-              this.props
-                .addhsncodetaxcategories(obj)
-                .then(res => {
-                  cb({
-                    status: true,
-                    message: "Tax Category assigned"
-                  })
-                })
-                .catch(err => {
-                  console.log(err)
-                  cb({ status: true, message: "Error occured" })
-                })
-            },
-            assignedTaxCategory: hsnID => this.props.getHsnTaxCategory(hsnID),
-            taxCategoryData: this.createSelectData(
-              this.props.taxCategories.response.data
-            ),
-            hsnID: item.hsncodeID
-          })
+          // (object.assign = {
+          //   handleAssign: (data, id, cb) => {
+          //     let obj = {}
+          //     obj.hsncode = id
+          //     obj.taxcategory = data.values.assignedTo
+          //     console.log(obj)
+          //     this.props
+          //       .addhsncodetaxcategories(obj)
+          //       .then(res => {
+          //         cb({
+          //           status: true,
+          //           message: "Tax Category assigned"
+          //         })
+          //       })
+          //       .catch(err => {
+          //         console.log(err)
+          //         cb({ status: true, message: "Error occured" })
+          //       })
+          //   },
+          //   assignedTaxCategory: hsnID => this.props.getHsnTaxCategory(hsnID),
+          //   taxCategoryData: this.createSelectData(
+          //     this.props.taxCategories.response.data
+          //   ),
+          //   hsnID: item.hsncodeID
+          // })
         temp.push(object)
       })
     }

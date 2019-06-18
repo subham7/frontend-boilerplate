@@ -16,26 +16,26 @@ var hsnColumns = [
   //     title: 'HSN Code',
   //     dataIndex: 'hsnCode',
   // },
-  {
-    title: "Assign",
-    dataIndex: "",
-    key: "assign",
-    render: object => {
-      // console.log(object.assign.taxCategoryData)
-      return (
-        <Model
-          form={AssignItem}
-          title="Assign Items"
-          buttonValue="Assign"
-          formData={object.assign}
-          assignedData={{}}
-          onSubmit={(data, cb) =>
-            object.assign.handleAssign(data, object.hsnCode, cb)
-          }
-        />
-      )
-    }
-  },
+  // {
+  //   title: "Assign",
+  //   dataIndex: "",
+  //   key: "assign",
+  //   render: object => {
+  //     // console.log(object.assign.taxCategoryData)
+  //     return (
+  //       <Model
+  //         form={AssignItem}
+  //         title="Assign Items"
+  //         buttonValue="Assign"
+  //         formData={object.assign}
+  //         assignedData={{}}
+  //         onSubmit={(data, cb) =>
+  //           object.assign.handleAssign(data, object.hsnCode, cb)
+  //         }
+  //       />
+  //     )
+  //   }
+  // },
   {
     title: "Edit",
     key: "edit",

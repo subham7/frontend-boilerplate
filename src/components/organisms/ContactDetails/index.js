@@ -6,6 +6,7 @@ import Cascader from "../../molecules/cascader"
 import { Row, Col, Divider, Card } from "antd"
 
 const ContactDeatil = props => {
+  // console.log(props.customerData[0])
   return (
     <Card
       style={{ backgroundColor: "#F1F1F3", height: "74.6vh", overflow: "auto" }}
@@ -13,10 +14,10 @@ const ContactDeatil = props => {
       <Row>
         <Col span={14}>
           <h2>
-            {props.customerData.firstName + " " + props.customerData.LastName}
+            {props.customerData[0].firstName + " " + props.customerData[0].LastName}
           </h2>
-          <h3 style={{ color: "#2699FB" }}>{props.customerData.email}</h3>
-          <h3 style={{ color: "#2699FB" }}>{props.customerData.phone}</h3>
+          <h3 style={{ color: "#2699FB" }}>{props.customerData[0].email}</h3>
+          <h3 style={{ color: "#2699FB" }}>{props.customerData[0].phone}</h3>
         </Col>
         <Col span={2} offset={4}>
           <ButtonIcon icon="form" shape="square" type="primary" />
@@ -33,15 +34,15 @@ const ContactDeatil = props => {
         </Col>
       </Row>
       <Row>
-        {props.receiptCardData ? (
+        {Object.keys(props.receiptCardData).length !== 0 ? (
           props.receiptCardData.map(data => {
             return (
               <div>
                 <h4>{data.time}</h4>
                 <ReceiptCard
-                  iconType={data.iconType}
-                  price={data.price}
-                  receiptNo={data.receiptNo}
+                  iconType="stock"
+                  price={data.amount}
+                  receiptNo={data.receiptID.slice(0, 8)}
                 />
               </div>
             )

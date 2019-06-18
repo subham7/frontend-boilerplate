@@ -13,42 +13,45 @@ const validate = value => {
 export class F3 extends Component {
   constructor(props) {
     super(props)
-    this.state = { taxCategory: [], isLoaded: false }
+    this.state = { hsnCode: [], isLoaded: false }
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
   }
 
-  // componentDidMount() {
-  //   this.loadTaxCategories()
-  // }
+  componentDidMount() {
+    this.loadTaxCategories()
+  }
 
   handleClick() {
-    this.props.onSubmit(this.formAPi.getState())
+    this.props.onSubmit(this.formAPi.getState(), () => {
+      
+    })
   }
 
   setFormApi(formAPi) {
     this.formAPi = formAPi
-    // this.loadTaxCategories()
   }
 
-  // loadTaxCategories = () => {
-  //   this.props.formData
-  //     .assignedTaxCategory(this.props.formData.hsnID)
-  //     .then(res => {
-  //       let taxCategory = []
-  //       res.map(item => {
-  //         taxCategory.push(JSON.parse(item.taxcategoryunfold))
-  //       })
-  //       this.setState({ taxCategory: taxCategory })
-  //       return taxCategory
-  //     })
-  //     .then(_ => {
-  //       this.setState({ isLoaded: true })
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }
+  loadTaxCategories = () => {
+    this.props.formData
+      .assignedhsnCode(this.props.formData.taxID)
+      .then(res => {
+        console.log(res)
+        let hsnCode = []
+        res.map(item => {
+          hsnCode.push(JSON.parse(item.hsncodeunfold))
+        })
+        this.setState({ hsnCode: hsnCode })
+        console.log(this.state.hsnCode)
+        return hsnCode
+      })
+      .then(_ => {
+        this.setState({ isLoaded: true })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   render() {
     const style = {
@@ -62,18 +65,18 @@ export class F3 extends Component {
         marginRight: "10px"
       }
     }
-    console.log(this.props.formData.hsnData)
+    // console.log(this.props.formData.hsnData)
     return (
       <div className="App">
         <div style={style.container}>
-          <h2 style={style.heading}>Tax Categories Assigned</h2>
+          <h2 style={style.heading}>HSN Assigned</h2>
           {this.state.isLoaded ? (
             <div>
-              {this.state.taxCategory.map(item => (
+              {this.state.hsnCode.map(item => (
                 <p style={style.text}>
                   <ButtonIcon icon="close" style={style.removeBtn} />
                   {"     "}
-                  {item.name}
+                  {item.hsnname}
                 </p>
               ))}
             </div>

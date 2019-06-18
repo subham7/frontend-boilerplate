@@ -11,10 +11,10 @@ export const deleteHsnCode = hsncodeID =>
 export const updateHsnCode = (hsncodeID, object) =>
   axios.patch(`${ROOTURL}/hsncodes/${hsncodeID}`, object)
 
-export const addhsncodetaxcategories = object =>
-  axios.post(`${ROOTURL}/hsncodetaxcategories`, object)
+export const addhsncodetax = object =>
+  axios.post(`${ROOTURL}/taxhsncodes`, object)
 
-export const taxCategoryHsn = hsnID =>
+export const taxHsn = taxID =>
   axios.get(
-    `${ROOTURL}/hsncodetaxcategories?_where=(hsncode,eq,${hsnID})&_unfold={"taxcategory":["name"]}`
+    `${ROOTURL}/taxhsncodes?_where=(tax,eq,${taxID})&_unfold={"hsncode":["hsnname"]}`
   )

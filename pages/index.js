@@ -1,15 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React from "react"
+import { connect } from "react-redux"
 // import { startClock, serverRenderClock } from '../src/store'
-import Template from '../src/components/templates/login';
-
+import Template from "../src/components/templates/login"
+import Auth from "./../src/utils/auth"
 import { login } from "../src/reduxHelper"
-import Router from 'next/router'
+import Router from "next/router"
+
 class App extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
-  static getInitialProps ({ reduxStore, req }) {
+  static getInitialProps({ reduxStore, req }) {
     // console.log(req)
     const isServer = !!req
     // reduxStore.dispatch(serverRenderClock(isServer))
@@ -17,60 +18,67 @@ class App extends React.Component {
     return {}
   }
 
-  componentDidMount () {
-   
-   // Add redux api here
+  componentDidMount() {
+    // Add redux api here
     // this.props.loginDispatch({uid:"b216008", pwd:"Ankit16@19"}).then(res=>{
     //   console.log(res)
     // }).catch(err =>{
     //   console.log(err)
     // })
+    Auth
   }
 
   handleFormData(data) {
     // TODO: check later , wher id is coming from in formstate
     let formData = data.values
-    this.props.loginDispatch(formData).then(res=>{
-      console.log("response", res)
-    // login was successful
-      // check if account is blocked
-      if(res.data.isblocked){
-        alert("You account is not active")
-      }else {
-        if(!res.data.data1){
-          Router.push("/business-details")
-        }else if (!res.data.data2){
-          Router.push("/master-data")
-        }else{
-          Router.push("/dashboard")
+    this.props
+      .loginDispatch(formData)
+      .then(res => {
+        console.log("response", res)
+        // login was successful
+        // check if account is blocked
+        if (res.data.isblocked) {
+          alert("You account is not active")
+        } else {
+          if (!res.data.data1) {
+            Router.push("/business-details")
+          } else if (!res.data.data2) {
+            Router.push("/master-data")
+          } else {
+            Router.push("/dashboard")
+          }
         }
-      }  
-    }).catch(err =>{     
-      console.log(err)
-      if(err.reponse && (err.response.status = 401)){
-        alert("Login Failed")
-      }else {
-        alert("Something bad happend at our end")
-      }
-      console.log("error", err)
-    })
+      })
+      .catch(err => {
+        console.log(err)
+        if (err.reponse && (err.response.status = 401)) {
+          alert("Login Failed")
+        } else {
+          alert("Something bad happend at our end")
+        }
+        console.log("error", err)
+      })
   }
 
- render() {
+  render() {
     return (
-      <div> 
-        <Template getFormData={(data) => this.handleFormData(data)}/>
+      <div>
+        {Auth}
+        <Template getFormData={data => this.handleFormData(data)} />
       </div>
-    );
+    )
   }
 }
-
 
 const mapStateToProps = state => ({
   login: state.login
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
-  loginDispatch: (username, password) => dispatch(login.action(username, password)),
+  loginDispatch: (username, password) =>
+    dispatch(login.action(username, password))
 })
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

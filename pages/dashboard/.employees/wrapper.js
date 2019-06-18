@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { locations } from "../../../src/reduxHelper"
+import Loading from "./../../../src/components/atoms/loading"
 
 export default function init(WrappedComponent) {
   class App extends React.Component {
@@ -25,7 +26,7 @@ export default function init(WrappedComponent) {
     render() {
       if (this.props.locations.isLoaded)
         return <WrappedComponent {...this.props} />
-      else return <div>Loading...</div>
+      else return <Loading />
     }
   }
 

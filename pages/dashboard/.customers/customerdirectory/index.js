@@ -6,6 +6,8 @@ import {
   listData,
   customerData
 } from "./customerDirectory.data"
+import Loading from "./../../../../src/components/atoms/loading"
+
 
 import { businessUsers, customerReceipts } from "../../../../src/reduxHelper"
 import ROOTURL from "../../../../src/api/ROOTURL"
@@ -66,7 +68,7 @@ class App extends Component {
           onSearch={value => this.handleSearch(value)}
         />
       )
-    else return <h1>Loading...</h1>
+    else return <Loading />
   }
 }
 

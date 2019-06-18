@@ -1,7 +1,7 @@
 import React from "react"
 import { Button } from "antd"
 
-const ButtonOne = ({ color, value, onClick, loading, width }) => {
+const ButtonOne = ({ color, value, onClick, loading, width, style }) => {
   let ButtonStyle = {
     backgroundColor: color,
     borderWidth: "0px",
@@ -13,7 +13,7 @@ const ButtonOne = ({ color, value, onClick, loading, width }) => {
     return (
       <Button
         type="primary"
-        style={ButtonStyle}
+        style={{ ...ButtonStyle, ...style }}
         onClick={onClick}
         loading={loading}
       >
@@ -22,7 +22,11 @@ const ButtonOne = ({ color, value, onClick, loading, width }) => {
     )
   }
   return (
-    <Button type="primary" style={ButtonStyle} onClick={onClick}>
+    <Button
+      type="primary"
+      style={{ ...ButtonStyle, ...style }}
+      onClick={onClick}
+    >
       {value}
     </Button>
   )
@@ -30,7 +34,7 @@ const ButtonOne = ({ color, value, onClick, loading, width }) => {
 ButtonOne.defaultProps = {
   color: "#030D34",
   value: "Click Me",
-  width: ''
+  width: ""
 }
 
 export default ButtonOne

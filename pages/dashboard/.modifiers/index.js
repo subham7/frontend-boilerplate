@@ -10,6 +10,7 @@ import Modifiers from "../../../src/components/organisms/modifiers"
 
 import { itemData } from "./modifier.data"
 import uuidv4 from "uuid/v4"
+import Loading from "../../../src/components/atoms/loading"
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("ho gya  load", this.props.products)
     let businessID = this.props.business.response.data[0].businessID
     this.props.getProducts(businessID)
     this.loadModifierData()
@@ -37,22 +37,24 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div>
-        <Modifiers
-          cascaderData={itemData.cascaderData}
-          columns={itemData.productColumns}
-          columnData={this.state.filteredTableData}
-          pagination={{
-            pageSize: 5,
-            showLessItems: true,
-            showSizeChanger: true,
-            pageSizeOptions: ["5", "10", "15", "20"]
-          }}
-          onSearch={value => this.handleSearch(value)}
-        />
-      </div>
-    )
+    if (this.props.modifieruse.isLoaded)
+      return (
+        <div>
+          <Modifiers
+            cascaderData={itemData.cascaderData}
+            columns={itemData.productColumns}
+            columnData={this.state.filteredTableData}
+            pagination={{
+              pageSize: 5,
+              showLessItems: true,
+              showSizeChanger: true,
+              pageSizeOptions: ["5", "10", "15", "20"]
+            }}
+            onSearch={value => this.handleSearch(value)}
+          />
+        </div>
+      )
+    else return <Loading />
   }
 
   _createModifierColumns(data) {

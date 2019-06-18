@@ -1,15 +1,26 @@
-import React from 'react';
-import PropTypes from "prop-types";
-import {Spin} from 'antd'
+import React from "react"
+import { Spin } from "antd"
 
-const Loading=(props)=>{
-    return(
-        <Spin size={props.size} spinning={props.spinning} />
-    )
+const Loading = () => {
+  const style = {
+    loaderContainer: {
+      height: "100%",
+      width: "100%"
+    },
+    loader: {
+      position: "absolute",
+      left: "50%",
+      top: "50%",
+      transform: "translateX(-50%)",
+      transform: "translateY(-50%)"
+    }
+  }
+
+  return (
+    <div style={style.loaderContainer}>
+      <Spin style={style.loader} size="large" tip="Loading..." />
+    </div>
+  )
 }
 
-Loading.defaultProps = {
-    spinning: false
-}
-
-export default Loading;
+export default Loading

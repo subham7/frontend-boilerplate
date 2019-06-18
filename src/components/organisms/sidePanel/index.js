@@ -26,17 +26,11 @@ let SidePanel = props => {
         </div>
 
         <Menu.Item key="home">
-          <Auth
-            param="home"
-            yes={
-              <Link as={`/dashboard/home`} href={`/dashboard?page=home`}>
-                <a>
-                  <p className="sidebar-option">HOME</p>
-                </a>
-              </Link>
-            }
-            no={null}
-          />
+          <Link as={`/dashboard/home`} href={`/dashboard?page=home`}>
+            <a>
+              <p className="sidebar-option">HOME</p>
+            </a>
+          </Link>
         </Menu.Item>
 
         <SubMenu

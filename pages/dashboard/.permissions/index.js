@@ -75,12 +75,6 @@ class App extends Component {
 
   onClick = () => {
     this.props.getPermissions(this.state.formValues.employee)
-    // .then(res => {
-    //   console.log(res)
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
   }
 
   handleFocus = option => {
@@ -88,6 +82,7 @@ class App extends Component {
       case "employee":
         this.props.getEmployeeByLid(this.state.formValues.location)
         break
+
       case "location":
         this.setState({
           formValues: {

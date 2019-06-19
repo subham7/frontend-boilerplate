@@ -4,7 +4,8 @@ import Cascader from "../../molecules/cascader"
 import Search from "../../molecules/searchBar"
 import { Row, Col } from "antd"
 
-const CascaderAndSearch = props => {
+const 
+CascaderAndSearch = props => {
   return (
     <Row gutter="8">
       {props.dataArray.map((data, index) => (

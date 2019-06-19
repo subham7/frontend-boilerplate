@@ -9,13 +9,14 @@ import {
 } from "../../../../src/reduxHelper"
 import TaxCategory from "../../../../src/components/organisms/taxCategory"
 import { taxCategoryColumns } from "./taxCategory.data"
+import { taxCategoryData } from "./../../../../pagesData/taxCategory"
 
 import uuid from "uuid/v4"
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { taxCategoryTableData: [] }
+    this.state = { taxCategoryTableData: [], filteredTableData: [] }
   }
 
   componentDidMount() {
@@ -37,13 +38,24 @@ class App extends Component {
       })
   }
 
+  handleSearch(e) {
+    const filteredEvents = this.state.taxCategoryTableData.filter(function(
+      data
+    ) {
+      var pattern = new RegExp(e.target.value, "i")
+      return data.name.match(pattern)
+    })
+    this.setState({ filteredTableData: filteredEvents })
+  }
+
   render() {
     if (true)
       return (
         <TaxCategory
           rowSelection={{}}
+          cascaderData={taxCategoryData.cascaderData}
           columns={taxCategoryColumns}
-          columnData={this.state.taxCategoryTableData}
+          columnData={this.state.filteredTableData}
           pagination={{
             pageSize: 10,
             showLessItems: true,
@@ -51,6 +63,7 @@ class App extends Component {
             pageSizeOptions: ["5", "10", "15", "20"]
           }}
           onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
+          onSearch={value => this.handleSearch(value)}
         />
       )
     else return <h1>Loading...</h1>
@@ -132,12 +145,19 @@ class App extends Component {
     urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
       .getTaxCategories(urlParams)
-      .then(res => {
-        this.setState({
-          taxCategoryTableData: this._createTaxCategoryColoumns(
-            this.props.taxCategories.response.data
-          )
-        })
+      .then(_ => {
+        this.setState(
+          {
+            taxCategoryTableData: this._createTaxCategoryColoumns(
+              this.props.taxCategories.response.data
+            )
+          },
+          () => {
+            this.setState({
+              filteredTableData: this.state.taxCategoryTableData
+            })
+          }
+        )
       })
       .catch(err => console.log(err))
   }

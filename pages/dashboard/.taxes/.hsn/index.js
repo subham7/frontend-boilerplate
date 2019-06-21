@@ -66,7 +66,7 @@ class App extends React.Component {
             rowSelection={{}}
             cascaderData={itemData.cascaderData}
             columns={hsnColumns}
-            columnData={this.state.hsnTableData}
+            columnData={this.state.filteredTableData}
             pagination={{
               pageSize: 7,
               showLessItems: true,
@@ -149,7 +149,7 @@ class App extends React.Component {
           //   ),
           //   hsnID: item.hsncodeID
           // })
-        temp.push(object)
+          temp.push(object)
       })
     }
     return temp
@@ -163,7 +163,7 @@ class App extends React.Component {
         this.setState({
           hsnTableData: this._createHsnCodeColoumns(res)
         })
-        this.setState({filteredTableData: this.state.hsnTableData})
+        this.setState({ filteredTableData: this.state.hsnTableData })
         console.log("new Data:", this.state.hsnTableData)
       })
       .catch(err => {

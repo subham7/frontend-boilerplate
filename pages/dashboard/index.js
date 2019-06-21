@@ -12,6 +12,7 @@ import Purchase from "./.purchase"
 import Permissions from "./.permissions"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
+import wrapper from "./wrapper"
 
 import init from "../../src/utils/wrappers"
 import Auth from "./../../src/utils/auth"
@@ -136,10 +137,19 @@ class SwitchHandler extends React.Component {
                 />
               )
 
-            case "permission":
+            case "permissions-web":
               return (
                 <Auth
-                  param={this.props.switchItem}
+                  param="permissions"
+                  yes={<Permissions />}
+                  no={<NotAuthorized />}
+                />
+              )
+
+            case "permissions-app":
+              return (
+                <Auth
+                  param="permissions"
                   yes={<Permissions />}
                   no={<NotAuthorized />}
                 />
@@ -167,4 +177,4 @@ class App extends React.Component {
     )
   }
 }
-export default withRouter(init(App))
+export default wrapper(withRouter(init(App)))

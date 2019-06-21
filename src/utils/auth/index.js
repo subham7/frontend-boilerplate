@@ -3,8 +3,10 @@ import { connect } from "react-redux"
 import jwt from "jsonwebtoken"
 
 const Auth = ({ auth, param, yes, no }) => {
-  const rules = jwt.decode(auth.response.data.token)
-  if (rules[param]) return yes
+  const rules = jwt.decode(auth.response)
+  console.log(rules)
+
+  if (rules.data.permissions[param]) return yes
   else return no
 }
 

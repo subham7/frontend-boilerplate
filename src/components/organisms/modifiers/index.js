@@ -3,6 +3,8 @@ import SearchBar from '../../molecules/searchBar';
 import Cascader from '../../molecules/cascader';
 import ProductTable from '../../organisms/productTable';
 import ButtonOne from '../../atoms/button';
+import Model from "../../molecules/modelButton"
+import createModifier from "../../organisms/forms/createModifier"
 import { Row,Col } from 'antd';
 //Code
 let ModifierTemplate = (props) => {
@@ -10,7 +12,7 @@ let ModifierTemplate = (props) => {
     <div style={{"overflow":"hidden"}}>
       <Row >
         <Col span={3}>
-          <Cascader optionArray={props.cascaderData[0].optionArray} />
+          <Cascader optionArray={props.cascaderData.optionArray} placeholder={props.cascaderData.placeholder} />
         </Col>
         <Col span={6}>
           <SearchBar handleSearch={props.onSearch} value="Search" />
@@ -23,7 +25,13 @@ let ModifierTemplate = (props) => {
       <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
       <Row>
         <Col span={6} push={19}>
-          <ButtonOne value="Create"/>
+          <Model
+            form={createModifier}
+            title="Create Modifier"
+            buttonValue="Create"
+            onSubmit={props.onCreate}
+            handleSubmitOk={props.handleSubmitOk}
+          />
         </Col>
       </Row>
     </div>

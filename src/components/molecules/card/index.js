@@ -22,7 +22,7 @@ const Card1 = (props) => {
 Card1.defaultProps = {
     title: 'Title',
     description: 'This is description',
-    style: { width: 330 },
+    style: { width: '100%' },
     loading: false,
     iconStyle: {fontSize: "30px", marginTop: '30%'},
     size: 'small'

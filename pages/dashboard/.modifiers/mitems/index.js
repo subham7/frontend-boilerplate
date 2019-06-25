@@ -2,36 +2,37 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import {
-  taxCategories,
-  addTaxCategory,
-  deleteTaxCategory,
-  updateTaxCategory
+  mitems,
+  addMitem,
+  deleteMitem,
+  updateMitem
 } from "../../../../src/reduxHelper"
-import TaxCategory from "../../../../src/components/organisms/taxCategory"
-import createTaxCategory from "../../../../src/components/organisms/forms/createTaxCategory"
-import { taxCategoryColumns } from "./taxCategory.data"
-import { taxCategoryData } from "./../../../../pagesData/taxCategory"
+import Mitems from "../../../../src/components/organisms/taxCategory"
+import createMitem from "../../../../src/components/organisms/forms/addMitem"
+import { mitemsColumns } from "./mitems.data"
+import { taxCategoryData } from "../../../../pagesData/taxCategory"
+import Loading from "../../../../src/components/atoms/loading"
 
 import uuid from "uuid/v4"
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { taxCategoryTableData: [], filteredTableData: [] }
+    this.state = { mitemsTableData: [], filteredTableData: [] }
   }
 
   componentDidMount() {
-    this.loadTaxCategoryData()
+    this.loadModifierItems()
   }
 
-  handleCreateTaxes(data, cb) {
-    data.values.taxcategoryID = uuid()
+  handleCreateMitems(data, cb) {
+    data.values.mitemID = uuid()
     data.values.business = this.props.business.response.data[0].businessID
     this.props
-      .addTaxCategory(data.values)
+      .addMitem(data.values)
       .then(res => {
-        this.loadTaxCategoryData()
-        cb({ status: true, message: "Taxes created successful" })
+        this.loadModifierItems()
+        cb({ status: true, message: "Mitems created successful" })
       })
       .catch(err => {
         console.log(err)
@@ -40,9 +41,7 @@ class App extends Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.taxCategoryTableData.filter(function(
-      data
-    ) {
+    const filteredEvents = this.state.mitemsTableData.filter(data => {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -50,13 +49,13 @@ class App extends Component {
   }
 
   render() {
-    if (true)
+    if (this.props.mitems.isLoaded)
       return (
-        <TaxCategory
-          form={createTaxCategory}
+        <Mitems
+          form={createMitem}
           rowSelection={{}}
           cascaderData={taxCategoryData.cascaderData}
-          columns={taxCategoryColumns}
+          columns={mitemsColumns}
           columnData={this.state.filteredTableData}
           pagination={{
             pageSize: 10,
@@ -64,27 +63,28 @@ class App extends Component {
             showSizeChanger: true,
             pageSizeOptions: ["5", "10", "15", "20"]
           }}
-          onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
+          onCreate={(data, cb) => this.handleCreateMitems(data, cb)}
           onSearch={value => this.handleSearch(value)}
         />
       )
-    else return <h1>Loading...</h1>
+    else return <Loading/>
   }
 
-  _createTaxCategoryColoumns(data) {
+  _createMitemsColoumns(data) {
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
         object.name = item.name
-        object.taxCode = item.taxcategoryID
+        object.price = item.price
+        object.mitemID = item.mitemID
         object.handleFeatures = {
           handleDelete: id => {
             console.log(id)
             this.props
-              .deleteTaxCategory(id)
+              .deleteMitem(id)
               .then(res => {
-                this.loadTaxCategoryData()
+                this.loadModifierItems()
               })
               .catch(err => {
                 console.log(err)
@@ -93,10 +93,10 @@ class App extends Component {
           handleUpdate: (data, id, cb) => {
             // console.log("clicked", data, id, cb)
             this.props
-              .updateTaxCategory(id, data.values)
+              .updateMitem(id, data.values)
               .then(res => {
-                this.loadTaxCategoryData()
-                cb({ status: true, message: "Tax category updated" })
+                this.loadModifierItems()
+                cb({ status: true, message: "Mtem updated" })
               })
               .catch(err => {
                 console.log(err)
@@ -110,22 +110,22 @@ class App extends Component {
     return temp
   }
 
-  // Integrated with test api
-  loadTaxCategoryData() {
+  loadModifierItems() {
     let urlParams = {}
     urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
-      .getTaxCategories(urlParams)
-      .then(_ => {
+      .getMitems(urlParams)
+      .then(data =>{
+        console.log(data)
         this.setState(
           {
-            taxCategoryTableData: this._createTaxCategoryColoumns(
-              this.props.taxCategories.response.data
+            mitemsTableData: this._createMitemsColoumns(
+              this.props.mitems.response.data
             )
           },
           () => {
             this.setState({
-              filteredTableData: this.state.taxCategoryTableData
+              filteredTableData: this.state.mitemsTableData
             })
           }
         )
@@ -136,18 +136,16 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  taxCategories: state.taxCategories,
-  deleteTaxCategory: state.deleteTaxCategory,
-  updateTaxCategory: state.updateTaxCategory
+  mitems: state.mitems
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTaxCategories: object => dispatch(taxCategories.action(object)),
-  addTaxCategory: object => dispatch(addTaxCategory.action(object)),
-  deleteTaxCategory: taxcategoryID =>
-    dispatch(deleteTaxCategory.action(taxcategoryID)),
-  updateTaxCategory: (taxcategoryID, object) =>
-    dispatch(updateTaxCategory.action(taxcategoryID, object))
+  getMitems: object => dispatch(mitems.action(object)),
+  addMitem: object => dispatch(addMitem.action(object)),
+  deleteMitem: mitemID =>
+    dispatch(deleteMitem.action(mitemID)),
+  updateMitem: (mitemID, object) =>
+    dispatch(updateMitem.action(mitemID, object))
 })
 
 export default connect(

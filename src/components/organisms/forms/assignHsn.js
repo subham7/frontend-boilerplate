@@ -30,6 +30,7 @@ export class F3 extends Component {
 
   setFormApi(formAPi) {
     this.formAPi = formAPi
+    this.loadTaxCategories()
   }
 
   loadTaxCategories = () => {

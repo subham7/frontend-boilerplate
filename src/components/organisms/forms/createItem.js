@@ -45,8 +45,8 @@ export class F2 extends Component {
   }
   render() {
     var values;
-    this.props.prefilledValues ? values=this.props.prefilledValues : values={}
-    console.log(values)
+    this.props.prefilledValues ? values = this.props.prefilledValues : values = {}
+    // console.log(values)
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
@@ -123,11 +123,10 @@ export class F2 extends Component {
               <Text style={{ width: 195 }} field="price" placeholder="Price" defaultValue={values.price} />
             </div>
             <div style={{ float: "left", marginRight: 8 }}>
-              
-            <RadioGroup defaultValue={values.isMRP == 1 ? true : false}>
-              <span style={{'padding-right': 10}} >isMRP</span>
-              <Radio value={true} field='isMRP'>Yes</Radio>
-              <Radio value={false} field='isMRP'>No</Radio>
+              <RadioGroup defaultValue={values.isMRP == 1 ? true : false}>
+                <span style={{ 'paddingRight': 10 }} >isMRP</span>
+                <Radio value={true} field='isMRP'>Yes</Radio>
+                <Radio value={false} field='isMRP'>No</Radio>
               </RadioGroup>
             </div>
             {/* <div style={{float:"left"}}> 

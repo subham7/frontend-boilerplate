@@ -2,14 +2,14 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import {
-  mitems,
-  addMitem,
-  deleteMitem,
-  updateMitem
+    attributes,
+  addAttributes,
+  deleteAttributes,
+  updateAttributes
 } from "../../../../src/reduxHelper"
-import Mitems from "../../../../src/components/organisms/taxCategory"
-import createMitem from "../../../../src/components/organisms/forms/addMitem"
-import { mitemsColumns } from "./mitems.data"
+import Attribute from "../../../../src/components/organisms/taxCategory"
+import createAttributeSet from "../../../../src/components/organisms/forms/createAttributeSet"
+import { attributesColumns } from "./attributes.data"
 import { taxCategoryData } from "../../../../pagesData/taxCategory"
 import Loading from "../../../../src/components/atoms/loading"
 
@@ -18,21 +18,21 @@ import uuid from "uuid/v4"
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { mitemsTableData: [], filteredTableData: [] }
+    this.state = { attributesTableData: [], filteredTableData: [] }
   }
 
   componentDidMount() {
-    this.loadModifierItems()
+    this.loadAttributes()
   }
 
-  handleCreateMitems(data, cb) {
-    data.values.mitemID = uuid()
-    data.values.business = this.props.business.response.data[0].businessID
+  handleCreateAttributeSet(data, cb) {
+    data.values.attributeID = uuid()
+    console.log("post request data", data.values)
     this.props
-      .addMitem(data.values)
+      .addAttributes(data.values)
       .then(res => {
-        this.loadModifierItems()
-        cb({ status: true, message: "Mitems created successful" })
+        this.loadAttributes()
+        cb({ status: true, message: "AttributeSet created successful" })
       })
       .catch(err => {
         console.log(err)
@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.mitemsTableData.filter(data => {
+    const filteredEvents = this.state.attributesTableData.filter(data => {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -49,14 +49,14 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.mitems.isLoaded)
+    if (this.props.attributes.isLoaded)
       return (
-        <Mitems
-          form={createMitem}
-          title="Create Mitems"
+        <Attribute
+          form={createAttributeSet}
+          title="Create Attributes"
           rowSelection={{}}
           cascaderData={taxCategoryData.cascaderData}
-          columns={mitemsColumns}
+          columns={attributesColumns}
           columnData={this.state.filteredTableData}
           pagination={{
             pageSize: 10,
@@ -64,28 +64,28 @@ class App extends Component {
             showSizeChanger: true,
             pageSizeOptions: ["5", "10", "15", "20"]
           }}
-          onCreate={(data, cb) => this.handleCreateMitems(data, cb)}
+          onCreate={(data, cb) => this.handleCreateAttributeSet(data, cb)}
           onSearch={value => this.handleSearch(value)}
         />
       )
     else return <Loading/>
   }
 
-  _createMitemsColoumns(data) {
+  _createAttributeSetColoumns(data) {
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
         object.name = item.name
-        object.price = item.price
-        object.mitemID = item.mitemID
+        object.alias = item.alias
+        object.attributeID = item.attributeID
         object.handleFeatures = {
           handleDelete: id => {
             console.log(id)
             this.props
-              .deleteMitem(id)
+              .deleteAttributes(id)
               .then(res => {
-                this.loadModifierItems()
+                this.loadAttributes()
               })
               .catch(err => {
                 console.log(err)
@@ -94,10 +94,10 @@ class App extends Component {
           handleUpdate: (data, id, cb) => {
             // console.log("clicked", data, id, cb)
             this.props
-              .updateMitem(id, data.values)
+              .updateAttributes(id, data.values)
               .then(res => {
-                this.loadModifierItems()
-                cb({ status: true, message: "Mtem updated" })
+                this.loadAttributes()
+                cb({ status: true, message: "Attribute Set updated" })
               })
               .catch(err => {
                 console.log(err)
@@ -111,22 +111,22 @@ class App extends Component {
     return temp
   }
 
-  loadModifierItems() {
+  loadAttributes() {
     let urlParams = {}
     urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
-      .getMitems(urlParams)
+      .getAttributes(urlParams)
       .then(data =>{
         console.log(data)
         this.setState(
           {
-            mitemsTableData: this._createMitemsColoumns(
-              this.props.mitems.response.data
+            attributesTableData: this._createAttributeSetColoumns(
+              this.props.attributes.response.data
             )
           },
           () => {
             this.setState({
-              filteredTableData: this.state.mitemsTableData
+              filteredTableData: this.state.attributesTableData
             })
           }
         )
@@ -137,16 +137,16 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  mitems: state.mitems
+  attributes: state.attributes
 })
 
 const mapDispatchToProps = dispatch => ({
-  getMitems: object => dispatch(mitems.action(object)),
-  addMitem: object => dispatch(addMitem.action(object)),
-  deleteMitem: mitemID =>
-    dispatch(deleteMitem.action(mitemID)),
-  updateMitem: (mitemID, object) =>
-    dispatch(updateMitem.action(mitemID, object))
+  getAttributes: object => dispatch(attributes.action(object)),
+  addAttributes: object => dispatch(addAttributes.action(object)),
+  deleteAttributes: attributeID =>
+    dispatch(deleteAttributes.action(attributeID)),
+  updateAttributes: (attributeID, object) =>
+    dispatch(updateAttributes.action(attributeID, object))
 })
 
 export default connect(

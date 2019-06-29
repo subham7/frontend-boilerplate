@@ -10,6 +10,7 @@ import Products from "./.products"
 import Customers from "./.customers"
 import Purchase from "./.purchase"
 import Permissions from "./.permissions"
+import Attributes from "./.attributes"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
 
@@ -132,6 +133,15 @@ class SwitchHandler extends React.Component {
                 <Auth
                   param={this.props.switchItem}
                   yes={<Modifiers />}
+                  no={<NotAuthorized />}
+                />
+              )
+
+            case "attributes":
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Attributes/>}
                   no={<NotAuthorized />}
                 />
               )

@@ -54,6 +54,7 @@ class App extends Component {
       return (
         <TaxCategory
           form={createTaxCategory}
+          title="Create Tax Category"
           rowSelection={{}}
           cascaderData={taxCategoryData.cascaderData}
           columns={taxCategoryColumns}

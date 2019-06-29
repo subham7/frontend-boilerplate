@@ -62,6 +62,14 @@ let SidePanel = props => {
               <p className="sidebar-option">MODIFIERS</p>
             </Link>
           </Menu.Item>
+          <Menu.Item key="attributes">
+            <Link
+              as={`/dashboard/attributes`}
+              href={`/dashboard?page=attributes`}
+            >
+              <p className="sidebar-option">ATTRIBUTES</p>
+            </Link>
+          </Menu.Item>
           <Menu.Item key="discounts">
             <Link
               as={`/dashboard/discounts`}

@@ -2,9 +2,9 @@ import React from "react"
 import { connect } from "react-redux"
 // import { startClock, serverRenderClock } from '../src/store'
 import Template from "../src/components/templates/login"
-import Auth from "./../src/utils/auth"
 import { login } from "../src/reduxHelper"
 import Router from "next/router"
+import token from "./../src/utils/token"
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +25,6 @@ class App extends React.Component {
     // }).catch(err =>{
     //   console.log(err)
     // })
-    Auth
   }
 
   handleFormData(data) {
@@ -35,14 +34,16 @@ class App extends React.Component {
       .loginDispatch(formData)
       .then(res => {
         console.log("response", res)
+        token.set(res.token)
         // login was successful
         // check if account is blocked
-        if (res.data.isblocked) {
+
+        if (res.user[0].isblocked) {
           alert("You account is not active")
         } else {
-          if (!res.data.data1) {
+          if (!res.user[0].data1) {
             Router.push("/business-details")
-          } else if (!res.data.data2) {
+          } else if (!res.user[0].data2) {
             Router.push("/master-data")
           } else {
             Router.push("/dashboard")
@@ -63,7 +64,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {Auth}
         <Template getFormData={data => this.handleFormData(data)} />
       </div>
     )

@@ -13,6 +13,7 @@ import Permissions from "./.permissions"
 import Attributes from "./.attributes"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
+import wrapper from "./wrapper"
 
 import init from "../../src/utils/wrappers"
 import Auth from "./../../src/utils/auth"
@@ -137,6 +138,7 @@ class SwitchHandler extends React.Component {
                 />
               )
 
+
             case "attributes":
               return (
                 <Auth
@@ -149,7 +151,16 @@ class SwitchHandler extends React.Component {
             case "permission":
               return (
                 <Auth
-                  param={this.props.switchItem}
+                  param="permissions"
+                  yes={<Permissions />}
+                  no={<NotAuthorized />}
+                />
+              )
+
+            case "permissions-app":
+              return (
+                <Auth
+                  param="permissions"
                   yes={<Permissions />}
                   no={<NotAuthorized />}
                 />
@@ -177,4 +188,4 @@ class App extends React.Component {
     )
   }
 }
-export default withRouter(init(App))
+export default wrapper(withRouter(init(App)))

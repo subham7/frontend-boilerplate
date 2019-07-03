@@ -132,14 +132,34 @@ let SidePanel = props => {
               <p className="sidebar-option">LOCATIONS</p>
             </Link>
           </Menu.Item>
-          <Menu.Item key="permission">
-            <Link
-              as={`/dashboard/permission`}
-              href={`/dashboard?page=permission`}
-            >
-              <p className="sidebar-option">PERMISSIONS</p>
-            </Link>
-          </Menu.Item>
+
+          <SubMenu
+            key="permissions"
+            title={
+              <span>
+                <span>
+                  <p className="sidebar-option">PERMISSIONS</p>
+                </span>
+              </span>
+            }
+          >
+            <Menu.Item key="permissions-web">
+              <Link
+                as={`/dashboard/permissions-web`}
+                href={`/dashboard?page=permissions-web`}
+              >
+                <p className="sidebar-option"> WEB PERMISSIONS</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="permissions-app">
+              <Link
+                as={`/dashboard/permissions-app`}
+                href={`/dashboard?page=permissions-app`}
+              >
+                <p className="sidebar-option">APP PERMISSIONS</p>
+              </Link>
+            </Menu.Item>
+          </SubMenu>
 
           <Menu.Item key="purchase">
             <Link as={`/dashboard/purchase`} href={`/dashboard?page=purchase`}>

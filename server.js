@@ -1,7 +1,7 @@
-const express = require('express')
-const next = require('next')
+const express = require("express")
+const next = require("next")
 
-const dev = process.env.NODE_ENV !== 'production'
+const dev = process.env.NODE_ENV !== "production"
 const app = next({ dev })
 const handle = app.getRequestHandler()
 
@@ -10,24 +10,25 @@ app
   .then(() => {
     const server = express()
 
-    server.get('/dashboard/:page', (req, res) => {
-      const actualPage = '/dashboard'
+    server.get("/dashboard/:page", (req, res) => {
+      const actualPage = "/dashboard"
       const queryParams = { page: req.params.page }
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get('/dashboard/:page/tabs/:tabid', (req, res) => {
-      const actualPage = '/dashboard'
+    server.get("/dashboard/:page/tabs/:tabid", (req, res) => {
+      const actualPage = "/dashboard"
       const queryParams = { page: req.params.page, tab: req.params.tabid }
       app.render(req, res, actualPage, queryParams)
     })
-    server.get('*', (req, res) => {
+
+    server.get("*", (req, res) => {
       return handle(req, res)
     })
 
     server.listen(3000, err => {
       if (err) throw err
-      console.log('> Ready on http://localhost:3000')
+      console.log("> Ready on http://localhost:3000")
     })
   })
   .catch(ex => {

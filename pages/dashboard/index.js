@@ -10,6 +10,7 @@ import Products from "./.products"
 import Customers from "./.customers"
 import Purchase from "./.purchase"
 import Permissions from "./.permissions"
+import Attributes from "./.attributes"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
 import wrapper from "./wrapper"
@@ -137,7 +138,17 @@ class SwitchHandler extends React.Component {
                 />
               )
 
-            case "permissions-web":
+
+            case "attributes":
+              return (
+                <Auth
+                  param={this.props.switchItem}
+                  yes={<Attributes/>}
+                  no={<NotAuthorized />}
+                />
+              )
+
+            case "permission":
               return (
                 <Auth
                   param="permissions"

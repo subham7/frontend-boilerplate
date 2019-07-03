@@ -2,36 +2,37 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import {
-  taxCategories,
-  addTaxCategory,
-  deleteTaxCategory,
-  updateTaxCategory
+    attributes,
+  addAttributes,
+  deleteAttributes,
+  updateAttributes
 } from "../../../../src/reduxHelper"
-import TaxCategory from "../../../../src/components/organisms/taxCategory"
-import createTaxCategory from "../../../../src/components/organisms/forms/createTaxCategory"
-import { taxCategoryColumns } from "./taxCategory.data"
-import { taxCategoryData } from "./../../../../pagesData/taxCategory"
+import Attribute from "../../../../src/components/organisms/taxCategory"
+import createAttributeSet from "../../../../src/components/organisms/forms/createAttributeSet"
+import { attributesColumns } from "./attributes.data"
+import { taxCategoryData } from "../../../../pagesData/taxCategory"
+import Loading from "../../../../src/components/atoms/loading"
 
 import uuid from "uuid/v4"
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { taxCategoryTableData: [], filteredTableData: [] }
+    this.state = { attributesTableData: [], filteredTableData: [] }
   }
 
   componentDidMount() {
-    this.loadTaxCategoryData()
+    this.loadAttributes()
   }
 
-  handleCreateTaxes(data, cb) {
-    data.values.taxcategoryID = uuid()
-    data.values.business = this.props.business.response.data[0].businessID
+  handleCreateAttributeSet(data, cb) {
+    data.values.attributeID = uuid()
+    console.log("post request data", data.values)
     this.props
-      .addTaxCategory(data.values)
+      .addAttributes(data.values)
       .then(res => {
-        this.loadTaxCategoryData()
-        cb({ status: true, message: "Taxes created successful" })
+        this.loadAttributes()
+        cb({ status: true, message: "AttributeSet created successful" })
       })
       .catch(err => {
         console.log(err)
@@ -40,9 +41,7 @@ class App extends Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.taxCategoryTableData.filter(function(
-      data
-    ) {
+    const filteredEvents = this.state.attributesTableData.filter(data => {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -50,14 +49,14 @@ class App extends Component {
   }
 
   render() {
-    if (true)
+    if (this.props.attributes.isLoaded)
       return (
-        <TaxCategory
-          form={createTaxCategory}
-          title="Create Tax Category"
+        <Attribute
+          form={createAttributeSet}
+          title="Create Attributes"
           rowSelection={{}}
           cascaderData={taxCategoryData.cascaderData}
-          columns={taxCategoryColumns}
+          columns={attributesColumns}
           columnData={this.state.filteredTableData}
           pagination={{
             pageSize: 10,
@@ -65,27 +64,28 @@ class App extends Component {
             showSizeChanger: true,
             pageSizeOptions: ["5", "10", "15", "20"]
           }}
-          onCreate={(data, cb) => this.handleCreateTaxes(data, cb)}
+          onCreate={(data, cb) => this.handleCreateAttributeSet(data, cb)}
           onSearch={value => this.handleSearch(value)}
         />
       )
-    else return <h1>Loading...</h1>
+    else return <Loading/>
   }
 
-  _createTaxCategoryColoumns(data) {
+  _createAttributeSetColoumns(data) {
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
         object.name = item.name
-        object.taxCode = item.taxcategoryID
+        object.alias = item.alias
+        object.attributeID = item.attributeID
         object.handleFeatures = {
           handleDelete: id => {
             console.log(id)
             this.props
-              .deleteTaxCategory(id)
+              .deleteAttributes(id)
               .then(res => {
-                this.loadTaxCategoryData()
+                this.loadAttributes()
               })
               .catch(err => {
                 console.log(err)
@@ -94,10 +94,10 @@ class App extends Component {
           handleUpdate: (data, id, cb) => {
             // console.log("clicked", data, id, cb)
             this.props
-              .updateTaxCategory(id, data.values)
+              .updateAttributes(id, data.values)
               .then(res => {
-                this.loadTaxCategoryData()
-                cb({ status: true, message: "Tax category updated" })
+                this.loadAttributes()
+                cb({ status: true, message: "Attribute Set updated" })
               })
               .catch(err => {
                 console.log(err)
@@ -111,22 +111,22 @@ class App extends Component {
     return temp
   }
 
-  // Integrated with test api
-  loadTaxCategoryData() {
+  loadAttributes() {
     let urlParams = {}
     urlParams.businessID = this.props.business.response.data[0].businessID
     this.props
-      .getTaxCategories(urlParams)
-      .then(_ => {
+      .getAttributes(urlParams)
+      .then(data =>{
+        console.log(data)
         this.setState(
           {
-            taxCategoryTableData: this._createTaxCategoryColoumns(
-              this.props.taxCategories.response.data
+            attributesTableData: this._createAttributeSetColoumns(
+              this.props.attributes.response.data
             )
           },
           () => {
             this.setState({
-              filteredTableData: this.state.taxCategoryTableData
+              filteredTableData: this.state.attributesTableData
             })
           }
         )
@@ -137,18 +137,16 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  taxCategories: state.taxCategories,
-  deleteTaxCategory: state.deleteTaxCategory,
-  updateTaxCategory: state.updateTaxCategory
+  attributes: state.attributes
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTaxCategories: object => dispatch(taxCategories.action(object)),
-  addTaxCategory: object => dispatch(addTaxCategory.action(object)),
-  deleteTaxCategory: taxcategoryID =>
-    dispatch(deleteTaxCategory.action(taxcategoryID)),
-  updateTaxCategory: (taxcategoryID, object) =>
-    dispatch(updateTaxCategory.action(taxcategoryID, object))
+  getAttributes: object => dispatch(attributes.action(object)),
+  addAttributes: object => dispatch(addAttributes.action(object)),
+  deleteAttributes: attributeID =>
+    dispatch(deleteAttributes.action(attributeID)),
+  updateAttributes: (attributeID, object) =>
+    dispatch(updateAttributes.action(attributeID, object))
 })
 
 export default connect(

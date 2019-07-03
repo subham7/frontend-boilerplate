@@ -36,7 +36,7 @@ class App extends React.Component {
       .addTax(data.values)
       .then(res => {
         this.loadTaxesData()
-        cb({ status: true, message: "Taxes created successful" })
+        cb({ status: true, message: "Taxes created successfully" })
       })
       .catch(err => {
         console.log(err)

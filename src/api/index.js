@@ -14,6 +14,11 @@ import * as form from "./form"
 import * as auth from "./auth"
 import * as permissions from "./permissions"
 import * as inventory from "./inventory"
+import * as mitems from './mitems'
+import * as attributesets from './attributeset'
+import * as attributes from './attributes'
+import * as attributevalues from './attributevalues'
+
 
 module.exports = {
   taxes,
@@ -31,5 +36,9 @@ module.exports = {
   form,
   auth,
   permissions,
-  inventory
+  inventory,
+  mitems,
+  attributesets,
+  attributes,
+  attributevalues
 }

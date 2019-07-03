@@ -22,8 +22,9 @@ const TaxesCategory = props => {
       <Row>
         <Col span={3} push={12}>
           <Model
-            form={createTaxCategory}
-            title="Create Tax"
+            form={props.form}
+            formData={props.formData}
+            title={props.title}
             buttonValue="Create"
             onSubmit={props.onCreate}
             handleSubmitOk={props.handleSubmitOk}

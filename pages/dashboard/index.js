@@ -148,7 +148,7 @@ class SwitchHandler extends React.Component {
                 />
               )
 
-            case "permission":
+            case "permissions-web":
               return (
                 <Auth
                   param="permissions"

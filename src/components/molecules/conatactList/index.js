@@ -12,9 +12,6 @@ const ContactList = props => {
     height: "82vh"
   }
 
-  const myFunction = userID => {
-    props.onClick(userID)
-  }
   return (
     <div style={ContainerStyle}>
       <List
@@ -25,7 +22,7 @@ const ContactList = props => {
           <List.Item key={k}>
             <List.Item.Meta
               title={
-                <a onClick={() => myFunction(item.userID)}>
+                <a onClick={() => props.onClick(item.userID)}>
                   {item.firstName + " " + item.LastName}
                 </a>
               }

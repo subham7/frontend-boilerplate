@@ -1,15 +1,14 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import CustomerDirectory from "../../../../src/components/templates/CustomerDirectory"
-import {
-  receiptCardData,
-  listData,
-  customerData
-} from "./customerDirectory.data"
 import Loading from "./../../../../src/components/atoms/loading"
 
-
-import { businessUsers, customerReceipts } from "../../../../src/reduxHelper"
+import {
+  businessUsers,
+  customerReceipts,
+  receiptById,
+  receiptTransactionType
+} from "../../../../src/reduxHelper"
 import ROOTURL from "../../../../src/api/ROOTURL"
 import axios from "axios"
 
@@ -19,6 +18,8 @@ class App extends Component {
     this.state = {
       customerDetails: [],
       receiptData: [],
+      receiptDetails: [],
+      // receiptTransactionsData: [],
       usersTableData: [],
       filteredTableData: []
     }
@@ -28,7 +29,6 @@ class App extends Component {
     let businessID = this.props.business.response.data[0].businessID
     console.log(businessID)
     this.props.getUsers(businessID).then(res => {
-      console.log(res)
       this.setState({ filteredTableData: res, usersTableData: res })
     })
   }
@@ -36,18 +36,35 @@ class App extends Component {
   handleClick = userID => {
     console.log(userID)
     axios.get(`${ROOTURL}/users?_where=(userID,eq,${userID})`).then(res => {
-      console.log(res)
       this.setState({ customerDetails: res.data })
       return this.props.getReceipts(userID)
     })
-    .then(res => {
-      console.log(res)
-      this.setState({receiptData: res})
-    })
+      .then(res => {
+        console.log(res)
+        this.setState({ receiptData: res })
+      })
+  }
+
+  handleReceiptClick = (receiptID, cb) => {
+    console.log(receiptID, "receiptId")
+    var promises = [
+      this.props.getReceiptById(receiptID),
+      this.props.getReceiptTransactionType(receiptID)
+    ]
+    Promise.all(promises)
+      .then(result => {
+        var data = [result[0], result[1][0]]
+        this.setState({receiptDetails: data})
+        // console.log(this.state.receiptDetails, "state")
+        cb(this.state.receiptDetails)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.usersTableData.filter(function(data) {
+    const filteredEvents = this.state.usersTableData.filter(function (data) {
       var pattern = new RegExp(e.target.value, "i")
       var name = `${data.firstName} ${data.LastName}`
       return name.match(pattern)
@@ -61,10 +78,12 @@ class App extends Component {
         <CustomerDirectory
           listData={this.state.filteredTableData}
           customerData={this.state.customerDetails}
-          actionData={["abcd", "efgh"]}
-          date="Today 12-12-2019"
           receiptCardData={this.state.receiptData}
+          receiptCardDetails={this.state.receiptDetails}
+          actionData={["abcd", "efgh"]}
+          // date="Today 12-12-2019"
           onClick={this.handleClick}
+          handleReceiptClick={this.handleReceiptClick}
           onSearch={value => this.handleSearch(value)}
         />
       )
@@ -79,7 +98,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUsers: (businessID) => dispatch(businessUsers.action(businessID)),
-  getReceipts: (customerID) => dispatch(customerReceipts.action(customerID))
+  getReceipts: (customerID) => dispatch(customerReceipts.action(customerID)),
+  getReceiptById: (rid) => dispatch(receiptById.action(rid)),
+  getReceiptTransactionType: (rid) => dispatch(receiptTransactionType.action(rid)),
 })
 
 export default connect(

@@ -40,14 +40,14 @@ const ContactDeatil = props => {
             return (
               <div>
                 <h4>{data.time}</h4>
-                {/* <div onClick={() => props.handleReceiptClick(data.receiptID)}> */}
+                {/* <div onClick={() => props.handleModalClick(data.receiptID)}> */}
                 <Modal
                   receiptCard={
                     <ReceiptCard iconType="stock" price={data.amount} receiptNo={data.receiptID.slice(0, 8)} />
                   }
                   receiptNo={data.receiptID}
                   receiptDetails={props.receiptDetails}
-                  handleReceiptClick={props.handleReceiptClick}
+                  handleModalClick={props.handleModalClick}
                 />
                 {/* </div> */}
               </div>

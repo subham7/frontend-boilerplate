@@ -37,7 +37,7 @@ const CustomerDirectory = props => {
         {Object.keys(props.customerData).length !== 0 ? (
           <ContactDetails
             customerData={props.customerData}
-            handleReceiptClick={props.handleReceiptClick}
+            handleModalClick={props.handleModalClick}
             actionData={props.actionData}
             date={props.date}
             receiptCardData={props.receiptCardData}

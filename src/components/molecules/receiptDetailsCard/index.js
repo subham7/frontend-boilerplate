@@ -10,8 +10,24 @@ const ReceiptDetailsCard = props => {
     <Card style={props.style}>
       <Row>
         <h5>Receipt No. {receipts.receiptID}</h5>
+        {transaction ? (<h5>Transaction Id. {transaction.transactionID}</h5>) : <h5/>}
       </Row>
       <Divider dashed />
+      {transaction ? (
+        <Row>
+          <Col span={8}>
+            <h3>Transaction Amount: ₹{transaction.amount} </h3>
+          </Col>
+          <Col span={8}>
+            <h3 style={{ textAlign: "center" }}>Payment mode: {JSON.parse(transaction.transactiontypeunfold).name} </h3>
+          </Col>
+          <Col span={8}>
+            <h3 style={{ textAlign: "right" }}>Date: {transaction.date.split('T')[0] + " / " + transaction.date.split('T').pop().substr(0, 8)}</h3>
+          </Col>
+        </Row>
+      ) : (
+          <center><h3>No Transactions</h3></center>
+        )}
       <Row>
         <Col span={8}>
           <h3>Final amount: ₹{receipts.billData.finalamount}</h3>
@@ -23,33 +39,18 @@ const ReceiptDetailsCard = props => {
           <h3 style={{ textAlign: "right" }}>Tax amount: ₹{receipts.billData.taxamount}</h3>
         </Col>
       </Row>
-      {transaction ? (
-        <Row>
-          <Col span={8}>
-            <h4>Transaction Id: {transaction.transactionID.slice(0, 18)} </h4>
-          </Col>
-          <Col span={8}>
-            <h4 style={{ textAlign: "center" }}>Payment mode: {JSON.parse(transaction.transactiontypeunfold).name} </h4>
-          </Col>
-          <Col span={8}>
-            <h4 style={{ textAlign: "right" }}>Date: {transaction.date.split('T')[0] + " / " + transaction.date.split('T').pop().substr(0, 8)}</h4>
-          </Col>
-        </Row>
-      ) : (
-          <center><h3>No Transactions</h3></center>
-        )}
       {receipts.billData.bill.map(item => {
         return (
           <Card style={{marginTop: "4px"}}>
             <Row>
               <Col span={8}>
-                <h3>{item.productname}</h3>
+                <h4>{item.productname}</h4>
               </Col>
               <Col span={8}>
-                <h3 style={{ textAlign: "center" }}>Units: {item.units}</h3>
+                <h4 style={{ textAlign: "center" }}>Units: {item.units}</h4>
               </Col>
               <Col span={8}>
-                <h3 style={{ textAlign: "right" }}>Price: ₹{item.price}</h3>
+                <h4 style={{ textAlign: "right" }}>Price: ₹{item.price}</h4>
               </Col>
             </Row>
             <Row>

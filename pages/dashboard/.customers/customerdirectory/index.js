@@ -45,7 +45,7 @@ class App extends Component {
       })
   }
 
-  handleReceiptClick = (receiptID, cb) => {
+  handleModalClick = (receiptID, modalData) => {
     console.log(receiptID, "receiptId")
     var promises = [
       this.props.getReceiptById(receiptID),
@@ -56,7 +56,7 @@ class App extends Component {
         var data = [result[0], result[1][0]]
         this.setState({receiptDetails: data})
         // console.log(this.state.receiptDetails, "state")
-        cb(this.state.receiptDetails)
+        modalData(this.state.receiptDetails)
       })
       .catch(err => {
         console.log(err)
@@ -83,7 +83,7 @@ class App extends Component {
           actionData={["abcd", "efgh"]}
           // date="Today 12-12-2019"
           onClick={this.handleClick}
-          handleReceiptClick={this.handleReceiptClick}
+          handleModalClick={this.handleModalClick}
           onSearch={value => this.handleSearch(value)}
         />
       )

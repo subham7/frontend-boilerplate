@@ -1,5 +1,6 @@
 import React from "react"
 import { Modal, Button, Card, Spin } from 'antd';
+import ButtonOne from "../../atoms/button"
 import ReceiptDetailsCard from '../receiptDetailsCard'
 
 class ModalDetail extends React.Component {
@@ -29,9 +30,9 @@ class ModalDetail extends React.Component {
     });
   };
 
-  multipleClicks = (receiptID) => {
+  getModalData = (receiptID) => {
     this.showModal()
-    this.props.handleReceiptClick(receiptID, (response) => {
+    this.props.handleModalClick(receiptID, (response) => {
       this.setState({ modalData: response, loading: false })
     })
   }
@@ -39,9 +40,14 @@ class ModalDetail extends React.Component {
   render() {
     return (
       <div>
-        <div onClick={() => this.multipleClicks(this.props.receiptNo)}>
-          {this.props.receiptCard}
-        </div>
+        {this.props.isTableModal ? (
+          <ButtonOne type="primary" onClick={() => this.getModalData(this.props.receiptNo)} value="View" />
+        ) : (
+          <div onClick={() => this.getModalData(this.props.receiptNo)}>
+            {this.props.receiptCard}
+          </div>
+        )}
+
         <Modal
           width="100vh"
           title="Receipt Details"
@@ -54,7 +60,7 @@ class ModalDetail extends React.Component {
               data={this.state.modalData}
             />
           ) : (
-              <div style={{textAlign: "center"}}>
+              <div style={{ textAlign: "center" }}>
                 <Spin />
               </div>
 

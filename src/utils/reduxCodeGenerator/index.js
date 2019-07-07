@@ -49,7 +49,7 @@ function reduxHelper(actionName, fn) {
     // we are not using arrow function, because there no arguments binding
     // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions
     const action = function() {
-      console.log("working on action")
+      console.log(`working on ${actionRequest.split('_')[0]} action`)
       const args = arguments
       // console.log(typeof args, args);
       return dispatch => {

@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import ButtonIcon from "../../atoms/tableButton/"
 import ReceiptCard from "../../molecules/ReceiptCard"
 import Cascader from "../../molecules/cascader"
+import Modal from "../../molecules/modalDetail"
 import { Row, Col, Divider, Card } from "antd"
 
 const ContactDeatil = props => {
@@ -39,17 +40,22 @@ const ContactDeatil = props => {
             return (
               <div>
                 <h4>{data.time}</h4>
-                <ReceiptCard
-                  iconType="stock"
-                  price={data.amount}
-                  receiptNo={data.receiptID.slice(0, 8)}
+                {/* <div onClick={() => props.handleModalClick(data.receiptID)}> */}
+                <Modal
+                  receiptCard={
+                    <ReceiptCard iconType="stock" price={data.amount} receiptNo={data.receiptID.slice(0, 8)} />
+                  }
+                  receiptNo={data.receiptID}
+                  receiptDetails={props.receiptDetails}
+                  handleModalClick={props.handleModalClick}
                 />
+                {/* </div> */}
               </div>
             )
           })
         ) : (
-          <h1>No Receipt Data</h1>
-        )}
+            <h1>No Receipt Data</h1>
+          )}
       </Row>
     </Card>
   )

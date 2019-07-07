@@ -93,6 +93,13 @@ let SidePanel = props => {
             </a>
           </Link>
         </Menu.Item>
+        <Menu.Item key="transactions">
+          <Link as={`/dashboard/transactions`} href={`/dashboard?page=transactions`}>
+            <a>
+              <p className="sidebar-option">TRANSACTIONS</p>
+            </a>
+          </Link>
+        </Menu.Item>
         <Divider />
         <SubMenu
           key="setting"

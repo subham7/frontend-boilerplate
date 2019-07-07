@@ -9,3 +9,5 @@ export const businesses = userID =>
 
 export const getBusinessById = businessID =>
   axios.get(`${ROOTURL}/businesses/${businessID}`)
+
+export const businessTransactions = businessID => axios.get(`${ROOTURL}/businesses/${businessID}/transactions?_unfold={"transactiontype":["name"]}`)

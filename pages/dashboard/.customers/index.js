@@ -2,8 +2,6 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 
 import CustomerDirectory from "./customerdirectory"
-
-import uuidv4 from "uuid/v4"
 import { Tabs } from "antd"
 const TabPane = Tabs.TabPane
 

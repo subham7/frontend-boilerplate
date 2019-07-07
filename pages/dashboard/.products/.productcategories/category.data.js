@@ -58,19 +58,19 @@ var categoryColumns = [
     key: 'inventory',
     render: inventory => (<span>{stockTag(inventory)}</span>)
   },
-  {
-    title: "Assign",
-    dataIndex: "assign",
-    render: assign => (
-      <Model
-        form={<div>he</div>}
-        title="Assign Product"
-        buttonValue="Assign"
-        onSubmit={assign.onCreate}
-        formData={assign}
-      />
-    )
-  },
+  // {
+  //   title: "Assign",
+  //   dataIndex: "assign",
+  //   render: assign => (
+  //     <Model
+  //       form={<div>he</div>}
+  //       title="Assign Product"
+  //       buttonValue="Assign"
+  //       onSubmit={assign.onCreate}
+  //       formData={assign}
+  //     />
+  //   )
+  // },
   {
     title: "Rename",
     dataIndex: "",

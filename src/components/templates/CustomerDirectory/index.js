@@ -37,13 +37,15 @@ const CustomerDirectory = props => {
         {Object.keys(props.customerData).length !== 0 ? (
           <ContactDetails
             customerData={props.customerData}
+            handleModalClick={props.handleModalClick}
             actionData={props.actionData}
             date={props.date}
             receiptCardData={props.receiptCardData}
+            receiptDetails={props.receiptDetails}
           />
         ) : (
-          <div />
-        )}
+            <div />
+          )}
       </Col>
     </Row>
   )

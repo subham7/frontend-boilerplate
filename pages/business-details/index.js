@@ -11,7 +11,7 @@ class App extends React.Component {
 
   handleFormData = (data) => {
     data.values.businessID = uuidv4()
-    data.values.owner = this.props.user.response.data.userID
+    data.values.owner = this.props.user.response.data[0].userID
     let dispatchData = data.values
     this.props.businessSignupDispatch(dispatchData).then(res => {
       console.log(res)
@@ -26,7 +26,7 @@ class App extends React.Component {
   }
 
 componentDidMount() {
-  this.props.getUserDispatch("6bb05804-ac94-4f82-ba2a-d1792812ffca").then(data=> {
+  this.props.getUserDispatch("3b2d5eae-f7b9-47c8-96b2-c3272992fc1e").then(data=> {
 
   })
 }

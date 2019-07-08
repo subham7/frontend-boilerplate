@@ -10,7 +10,7 @@ export default function init(WrappedComponent) {
     }
 
     componentDidMount() {
-      let userID = "082afffa-f3ca-4ca0-8668-611d7840ec0f"
+      let userID = "3b2d5eae-f7b9-47c8-96b2-c3272992fc1e"
       // load user if not in state
       if (!this.props.user.response) {
         this.props

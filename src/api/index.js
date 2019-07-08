@@ -18,6 +18,7 @@ import * as mitems from './mitems'
 import * as attributesets from './attributeset'
 import * as attributes from './attributes'
 import * as attributevalues from './attributevalues'
+import * as receipts from './receipts'
 
 
 module.exports = {
@@ -40,5 +41,6 @@ module.exports = {
   mitems,
   attributesets,
   attributes,
-  attributevalues
+  attributevalues,
+  receipts
 }

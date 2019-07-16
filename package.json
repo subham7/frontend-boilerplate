@@ -23,6 +23,7 @@
     "express": "^4.16.4",
     "informed": "^2.1.13",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "less": "^3.9.0",
     "next": "^8.0.4",
     "next-antd-aza-less": "^1.0.2",

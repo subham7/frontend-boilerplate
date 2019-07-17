@@ -152,6 +152,9 @@ const Sel = props => {
   let style = { ...props.style, ...selectStyle }
   return (
     <Select field={props.field} style={style}>
+      <Option value="" disabled>
+        Select One...
+      </Option>
       {props.option.map((data, index) => (
         <Option key={index} value={data.value}>
           {data.name}

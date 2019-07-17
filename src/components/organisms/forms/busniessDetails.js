@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Form, Checkbox, Text, TextArea } from "../../../utils/xinformed"
+import { Form, Checkbox, Text, TextArea, Select } from "../../../utils/xinformed"
 import { Button } from "antd"
 
 export class BusinessDetails extends Component {
@@ -28,10 +28,11 @@ export class BusinessDetails extends Component {
               />
             </div>
             <div style={{ float: "left" }}>
-              <Text
+              <Select
                 style={{ width: 195 }}
                 field="businesstype"
-                placeholder="Type of Business"
+                option={this.props.formData}
+                placeholder="Business type"
               />
             </div>
           </div>

@@ -75,11 +75,12 @@ export class F extends Component {
               Log-in
             </Button>
             <h4 style={{ marginLeft: 75, marginTop: 25 }}>
-              Already have an account?
-            </h4>{" "}
-            <Link to="/">
-              <a>Sign_in</a>
+              Already have an account? <Link as={`/`} href={`/`}>
+              <a>Sign in</a>
             </Link>
+            </h4>{" "}
+            
+            
           </div>
         </Form>
       </div>

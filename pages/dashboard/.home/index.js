@@ -57,28 +57,28 @@ class App extends Component {
                     key: '1',
                     name: 'Today',
                     
-                    address: '$5,000',
+                    address: '₹5,0000',
                     // tags: ['nice', 'developer'],
                   },
                   {
                     key: '2',
                     name: 'Yesterday',
                     
-                    address: '$7,000',
+                    address: '₹7,0000',
                     // tags: ['loser'],
                   },
                   {
                     key: '3',
                     name: 'Last Week',
                     
-                    address: '$50,000',
+                    address: '₹50,0000',
                     // tags: ['loser'],
                   },
                   {
                     key: '2',
                     name: 'Last 30 Days',
                     
-                    address: '$10   0,000',
+                    address: '₹100,0000',
                     // tags: ['loser'],
                   },
             ]
@@ -119,21 +119,21 @@ class App extends Component {
                     name: 'K F Premium',
                     
                     
-                    tags: ['+$20k'],
+                    tags: ['+₹20k'],
                   },
                   {
                     key: '2',
                     name: 'Blenders Pride',
                     
                     
-                    tags: ['+$15k'],
+                    tags: ['+₹15k'],
                   },
                   {
                     key: '3',
                     name: 'Smirnoff',
                     
                     
-                    tags: ['-$10k'],
+                    tags: ['-₹10k'],
                   },
             ]
 

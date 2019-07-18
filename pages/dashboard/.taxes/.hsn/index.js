@@ -35,7 +35,7 @@ class App extends React.Component {
   handleCreateTaxes(data, cb) {
     let object = {}
     object.hsnname = data.values.name
-    object.hsncodeID = uuid()
+    object.hsncodeID = data.values.name
     this.props
       .addHsnCode(object)
       .then(res => {

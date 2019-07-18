@@ -301,7 +301,7 @@ class App extends Component {
                     y: 44.9,
                    
                 }, {
-                    name: 'Banglore',
+                    name: 'Bangalore',
                     y: 55.1,
                     sliced: true,
                     selected: true

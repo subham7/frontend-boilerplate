@@ -13,6 +13,7 @@ import Permissions from "./.permissions"
 import Attributes from "./.attributes"
 import Transactions from "./.transactions"
 import Discount from "./.discount"
+import Home from "./.home"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
 import wrapper from "./wrapper"
@@ -63,7 +64,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param={this.props.switchItem}
-                  yes={<h1>Home page</h1>}
+                  yes={<Home/>}
                   no={<NotAuthorized />}
                 />
               )

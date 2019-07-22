@@ -5,7 +5,7 @@ const ReceiptDetailsCard = props => {
   console.log(props.data, "main overlay card")
   const receipts = props.data[0]
   const transaction = props.data[1]
-  // console.log(JSON.parse(transaction.transactiontypeunfold).name)
+  console.log((transaction.transactiontypeunfold).name)
   return (
     <Card style={props.style}>
       <Row>
@@ -19,7 +19,7 @@ const ReceiptDetailsCard = props => {
             <h3>Transaction Amount: ₹{transaction.amount} </h3>
           </Col>
           <Col span={8}>
-            <h3 style={{ textAlign: "center" }}>Payment mode: {JSON.parse(transaction.transactiontypeunfold).name} </h3>
+            <h3 style={{ textAlign: "center" }}>Payment mode: {(transaction.transactiontypeunfold).name} </h3>
           </Col>
           <Col span={8}>
             <h3 style={{ textAlign: "right" }}>Date: {transaction.date.split('T')[0] + " / " + transaction.date.split('T').pop().substr(0, 8)}</h3>

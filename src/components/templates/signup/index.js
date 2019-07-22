@@ -12,7 +12,7 @@ const Login = (props) => {
             </div>
             <div className= "rightSide">
                 <div className= "header">
-                <LogoHeading text="Welcome back! Please login to your account." />
+                <LogoHeading text="Create your account!" />
                 </div>
                 <div className= "content">
                     <SignupForm getFormData={props.getFormData}/>

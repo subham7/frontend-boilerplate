@@ -19,6 +19,7 @@ class App extends React.Component {
     this.props.signupDispatch(dispatchData).then(res => {
       // confirm if user was created 
       console.log(res)
+      alert("Account created!! Please Login to continue")
       Router.push(`/`)
     }).catch(err => {
       console.log(err)

@@ -12,10 +12,12 @@ import Purchase from "./.purchase"
 import Permissions from "./.permissions"
 import Attributes from "./.attributes"
 import Transactions from "./.transactions"
+import Discount from "./.discount"
+import Home from "./.home"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
 import wrapper from "./wrapper"
-
+import Router from "next/router"
 import init from "../../src/utils/wrappers"
 import Auth from "./../../src/utils/auth"
 import NotAuthorized from "./../../src/components/templates/notAuthorized"
@@ -62,7 +64,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param={this.props.switchItem}
-                  yes={<h1>Home page</h1>}
+                  yes={<Home/>}
                   no={<NotAuthorized />}
                 />
               )
@@ -116,7 +118,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param={this.props.switchItem}
-                  yes={<h1>Empty</h1>}
+                  yes={<Discount/>}
                   no={<NotAuthorized />}
                 />
               )
@@ -186,6 +188,9 @@ class SwitchHandler extends React.Component {
 }
 class App extends React.Component {
   render() {
+    if(!this.props.router.query.page){
+      Router.push("/dashboard/home")
+    }
     return (
       <div>
         <Template sidebarTab={this.props.router.query.page}>

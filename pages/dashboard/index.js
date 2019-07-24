@@ -9,7 +9,8 @@ import Taxes from "./.taxes"
 import Products from "./.products"
 import Customers from "./.customers"
 import Purchase from "./.purchase"
-import Permissions from "./.permissions"
+import WebPermissions from "./.webPermissions"
+import AppPermissions from "./.appPermisions"
 import Attributes from "./.attributes"
 import Transactions from "./.transactions"
 import Discount from "./.discount"
@@ -64,7 +65,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param={this.props.switchItem}
-                  yes={<Home/>}
+                  yes={<Home />}
                   no={<NotAuthorized />}
                 />
               )
@@ -118,7 +119,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param={this.props.switchItem}
-                  yes={<Discount/>}
+                  yes={<Discount />}
                   no={<NotAuthorized />}
                 />
               )
@@ -140,7 +141,6 @@ class SwitchHandler extends React.Component {
                   no={<NotAuthorized />}
                 />
               )
-
 
             case "attributes":
               return (
@@ -164,7 +164,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param="permissions"
-                  yes={<Permissions />}
+                  yes={<WebPermissions />}
                   no={<NotAuthorized />}
                 />
               )
@@ -173,7 +173,7 @@ class SwitchHandler extends React.Component {
               return (
                 <Auth
                   param="permissions"
-                  yes={<Permissions />}
+                  yes={<AppPermissions />}
                   no={<NotAuthorized />}
                 />
               )
@@ -188,7 +188,7 @@ class SwitchHandler extends React.Component {
 }
 class App extends React.Component {
   render() {
-    if(!this.props.router.query.page){
+    if (!this.props.router.query.page) {
       Router.push("/dashboard/home")
     }
     return (

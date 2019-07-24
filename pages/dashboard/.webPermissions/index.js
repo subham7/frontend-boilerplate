@@ -1,65 +1,48 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import Permission from "./../../../src/components/templates/permission"
+import Permission from "../../../src/components/templates/permission"
 import {
-  getPermissions,
-  updatePermission,
-  getLocationByBid,
-  getEmployeeByLid
-} from "./../../../src/reduxHelper"
-import Loading from "./../../../src/components/atoms/loading"
+  updateWebPermission,
+  businessPermissions,
+  getEmployeeByBusinessId
+} from "../../../src/reduxHelper"
+import Loading from "../../../src/components/atoms/loading"
 import { message } from "antd"
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { formValues: { location: "", employee: "" } }
+    this.state = { formValues: { employee: "" } }
   }
 
   componentDidMount() {
     let businessID = this.props.business.response.data[0].businessID
-    this.props.getLocationByBid(businessID).then(res => console.log(res))
+    this.props.getEmployeeByBusinessId(businessID).then(res => console.log(res))
   }
 
   createRuleData = data => {
     if (!data) return null
     else if (Object.keys(data.data).length === 0) return null
     return data.data.map(item => ({
-      roleID: item.role,
+      roleID: item.brole,
       user: item.user,
-      location: item.location,
+      business: item.business,
       permission: item.permission,
-      role: JSON.parse(item.roleunfold).name
-    }))
-  }
-
-  createLocationData = data => {
-    if (Object.keys(data).length === 0) return null
-    return data.map(item => ({
-      value: item.blocationID,
-      name: item.name
+      role: item.broleunfold.name
     }))
   }
 
   createEmployeeData = data => {
     if (Object.keys(data).length === 0) return null
-    return data.map(item => {
-      let name = JSON.parse(item.userunfold)
-      return {
-        value: item.user,
-        name: `${name.firstName} ${name.LastName}`
-      }
-    })
+    return data.map(item => ({
+      value: item.userID,
+      name: `${item.firstName} ${item.LastName}`
+    }))
   }
 
-  handleChange = (checked, roleID, user, location) => {
+  handleChange = (checked, broleId, userId, businessId) => {
     this.props
-      .updatePermission({
-        role: roleID,
-        permission: checked,
-        user: user,
-        location: location
-      })
+      .updateWebPermission({ permission: checked }, broleId, userId, businessId)
       .then(_ => {
         message.success("Permission changed successfully.")
       })
@@ -74,7 +57,7 @@ class App extends Component {
   }
 
   onClick = () => {
-    this.props.getPermissions(this.state.formValues.employee)
+    this.props.businessPermissions(this.state.formValues.employee)
   }
 
   handleFocus = option => {
@@ -99,24 +82,20 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.locationData.isLoaded)
+    if (this.props.employeeData.isLoaded)
       return (
         <Permission
+          type="web"
           rules={this.createRuleData(this.props.permissions.response)}
           onChange={this.handleChange}
           formData={{
             handleValue: this.handleValue,
             value: {
-              location: this.state.formValues.location,
               employee: this.state.formValues.employee
             },
-            handleFocus: this.handleFocus,
-            location: this.createLocationData(
-              this.props.locationData.response.data
+            employee: this.createEmployeeData(
+              this.props.employeeData.response.data
             ),
-            employee: this.props.employeeData.isLoaded
-              ? this.createEmployeeData(this.props.employeeData.response.data)
-              : null,
             onClick: this.onClick
           }}
         />
@@ -127,16 +106,17 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  permissions: state.getPermissions,
-  employeeData: state.getEmployeeByLid,
+  permissions: state.businessPermissions,
+  employeeData: state.getEmployeeByBusinessId,
   locationData: state.getLocationByBid
 })
 
 const mapDispatchToProps = dispatch => ({
-  getPermissions: userID => dispatch(getPermissions.action(userID)),
-  updatePermission: data => dispatch(updatePermission.action(data)),
-  getEmployeeByLid: locationID => dispatch(getEmployeeByLid.action(locationID)),
-  getLocationByBid: businessID => dispatch(getLocationByBid.action(businessID))
+  updateWebPermission: (data, broleId, userId, businessId) =>
+    dispatch(updateWebPermission.action(data, broleId, userId, businessId)),
+  businessPermissions: userId => dispatch(businessPermissions.action(userId)),
+  getEmployeeByBusinessId: businessId =>
+    dispatch(getEmployeeByBusinessId.action(businessId))
 })
 
 export default connect(

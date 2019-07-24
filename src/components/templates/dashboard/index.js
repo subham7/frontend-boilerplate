@@ -3,7 +3,7 @@ import ElementHeader from "../../molecules/elementHeader"
 import Sidebar from "../../organisms/sidePanel"
 
 import styles from "./styles.js"
-
+ 
 const Dashboard = props => {
   return (
     <div className="dashboard">

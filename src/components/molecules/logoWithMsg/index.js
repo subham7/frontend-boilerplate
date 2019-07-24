@@ -6,11 +6,17 @@ export let Logo = ({ color , message }) => {
     color: color,
     lineHeight: "17px"
   }
+  let imageStyle = {
+    width: "100%"
+  }
   if(!message){
     return(
-      <div style={{"padding":"0"}}>
-        <h1 style={{"color": color , margin:0}}><b>S K I P</b></h1>
-      </div>
+      // <div style={{"padding":"0"}}>
+        <img 
+          src="/static/images/icons/LogoMainWhite.png" 
+          style={imageStyle}
+        />
+      // </div>
     )
   }
   return(

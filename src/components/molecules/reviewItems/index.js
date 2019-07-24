@@ -16,7 +16,7 @@ const ReviewItems = props => {
                 <div>
                   <Row type="flex" gutter={4}>
                     <Col span={24}>
-                      <strong>{JSON.parse(item.productunfold).name}</strong>
+                      <strong>{ (item.productunfold).name}</strong>
                     </Col>
                     <Col span={12}>
                       Cost Price <br /> <strong>{item.cp}</strong>

@@ -54,7 +54,7 @@ class App extends Component {
         let object = {}
         object.transactionID = item.transactionID
         object.receiptID = item.receipt,
-        object.type = JSON.parse(item.transactiontypeunfold).name,
+        object.type =  (item.transactiontypeunfold).name,
         object.amount = item.amount
         object.date = item.date.split('T')[0]
         object.time = item.date.split('T')[1].substr(0, 8)

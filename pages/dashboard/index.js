@@ -189,7 +189,7 @@ class SwitchHandler extends React.Component {
 class App extends React.Component {
   render() {
     if(!this.props.router.query.page){
-      Router.push("/dashboard/home")
+      Router.push("/dashboard?page=home")
     }
     return (
       <div>

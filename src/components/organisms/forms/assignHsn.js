@@ -40,7 +40,7 @@ export class F3 extends Component {
         console.log(res)
         let hsnCode = []
         res.map(item => {
-          hsnCode.push(JSON.parse(item.hsncodeunfold))
+          hsnCode.push( (item.hsncodeunfold))
         })
         this.setState({ hsnCode: hsnCode })
         console.log(this.state.hsnCode)

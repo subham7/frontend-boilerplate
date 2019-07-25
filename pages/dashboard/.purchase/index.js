@@ -107,7 +107,7 @@ class App extends Component {
       date: item.date,
       desription: item.description,
       vendor: item.vendor,
-      location: JSON.parse(item.locationunfold).name,
+      location:  (item.locationunfold).name,
       prefilledValues: item,
       formData: {
         product: this.createProductSelectData(

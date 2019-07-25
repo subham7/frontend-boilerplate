@@ -35,7 +35,7 @@ export class F3 extends Component {
       .then(res => {
         let location = []
         res.map(item => {
-          location.push(JSON.parse(item.locationunfold))
+          location.push( (item.locationunfold))
         })
         this.setState({ location: location })
         return location

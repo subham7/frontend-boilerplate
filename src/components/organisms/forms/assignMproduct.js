@@ -28,7 +28,7 @@ export class F3 extends Component {
       .then(res => {
         let product = []
         res.map(item => {
-          product.push(JSON.parse(item.productunfold))
+          product.push( (item.productunfold))
         })
         this.setState({ product: product })
         return product

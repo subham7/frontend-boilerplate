@@ -179,7 +179,7 @@ class createPurchase extends Component {
               </Button>
             </div>
           </Form>
-          <style jsx>{styleForm}</style>
+          {/*<style jsx>{styleForm}</style>*/}
         </div>
       )
     }

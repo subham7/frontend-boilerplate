@@ -26,7 +26,7 @@ const ReviewList = props => {
             <Col span={8}>
               <p>
                 Location <br />
-                <strong>{JSON.parse(item.locationunfold).name}</strong>
+                <strong>{ (item.locationunfold).name}</strong>
               </p>
             </Col>
             <Col span={8}>

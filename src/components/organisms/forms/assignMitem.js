@@ -34,7 +34,7 @@ export class F3 extends Component {
   //       console.log(res)
   //       let mitem = []
   //       res.map(item => {
-  //         mitem.push(JSON.parse(item.mitemunfold))
+  //         mitem.push( (item.mitemunfold))
   //       })
   //       this.setState({ mitem: mitem })
   //       console.log(this.state.mitem)

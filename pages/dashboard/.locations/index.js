@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-
+import axios from 'axios'
 import {
   locations,
   addLocation,
@@ -26,11 +26,18 @@ class App extends React.Component {
   }
 
   handleCreateLocation(data, cb) {
-    data.values.blocationID = uuidv4()
-    data.values.business = this.props.business.response.data[0].businessID
-    let businessID = this.props.business.response.data[0].businessID
+    // console.log(data, "main object")
+    const headers = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
+    data.textInput.blocationID = uuidv4()
+    data.textInput.business = this.props.business.response.data[0].businessID
+    data.fileInput.append('data', JSON.stringify(data.textInput));
+    let finalInput = data.fileInput
     this.props
-      .addLocation(data.values)
+      .addLocation(finalInput, headers)
       .then(res => {
         this.loadLocationData()
         cb({ status: true, message: "Location created successfully" })
@@ -43,13 +50,10 @@ class App extends React.Component {
 
   handleSearch(e) {
     let value = e.target.value
-    const filteredEvents = this.state.locationTableData.filter(function(data) {
+    const filteredEvents = this.state.locationTableData.filter(function (data) {
       var pattern = new RegExp(value, "i")
-      // console.log((pattern), "patttttttern")
       return data.name.match(pattern)
-      // return data.name.includes(value)
     })
-    console.log(filteredEvents, "filterrrr")
     this.setState({ filteredTableData: filteredEvents })
   }
 
@@ -87,7 +91,7 @@ class App extends React.Component {
         object.number = item.pocPhone
         object.blocationID = item.blocationID
         object.address = item.address
-        ;(object.email = item.pocEmail), (object.prefilledValues = item)
+          ; (object.email = item.pocEmail), (object.prefilledValues = item)
         object.handleFeatures = {
           handleDelete: id => {
             console.log(id)
@@ -101,42 +105,16 @@ class App extends React.Component {
               })
           },
           handleUpdate: (data, id, cb) => {
+            // console.log(data, "main object")
+            const headers = {
+              headers: {
+                'content-type': 'multipart/form-data'
+              }
+            }
+            data.fileInput.append('data', JSON.stringify(data.textInput));
+            let finalInput = data.fileInput
             this.props
-              .updateLocation(id, data.values)
-              .then(res => {
-                this.loadLocationData()
-                cb({ status: true, message: "Location updated" })
-              })
-              .catch(err => {
-                console.log(err)
-                cb({ status: false, message: "Some Error while updating" })
-              })
-          }
-        }
-        temp.push(object)
-      })
-    } else {
-      let object = {}
-      ;(object.pocname = item.pocName), (object.name = item.name)
-      object.blocationID = item.blocationID
-      object.address = data.address
-      object.email = data.pocEmail
-      object.prefilledValues = item
-      object.handleFeatures = {
-        handleDelete: id => {
-          console.log(id)
-          this.props
-            .deleteLocation(id)
-            .then(res => {
-              this.loadLocationData()
-            })
-            .catch(err => {
-              console.log(err)
-            })
-        },
-        handleUpdate: (data, id, cb) => {
-          this.props
-            .updateLocation(id, data.values)
+              .updateLocation(id, finalInput, headers)
             .then(res => {
               this.loadLocationData()
               cb({ status: true, message: "Location updated" })
@@ -145,9 +123,10 @@ class App extends React.Component {
               console.log(err)
               cb({ status: false, message: "Some Error while updating" })
             })
+          }
         }
-      }
-      temp.push(object)
+        temp.push(object)
+      })
     }
     return temp
   }
@@ -174,10 +153,10 @@ const mapStateToProps = state => ({
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getLocations: businessID => dispatch(locations.action(businessID)),
-  addLocation: object => dispatch(addLocation.action(object)),
+  addLocation: (object, headers) => dispatch(addLocation.action(object, headers)),
   deleteLocation: blocationID => dispatch(deleteLocation.action(blocationID)),
-  updateLocation: (blocationID, object) =>
-    dispatch(updateLocation.action(blocationID, object))
+  updateLocation: (blocationID, object, headers) =>
+    dispatch(updateLocation.action(blocationID, object, headers))
 })
 export default connect(
   mapStateToProps,

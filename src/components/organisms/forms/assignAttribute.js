@@ -28,7 +28,7 @@ export class F3 extends Component {
       .then(res => {
         let attribute = []
         res.map(item => {
-          attribute.push(JSON.parse(item.attributeunfold))
+          attribute.push( (item.attributeunfold))
         })
         this.setState({ attribute: attribute })
         return attribute

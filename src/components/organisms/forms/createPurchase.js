@@ -5,7 +5,6 @@ import { Form, Checkbox, Text, Select, Date } from "../../../utils/xinformed"
 import { ArrayField } from "informed"
 import { Button } from "antd"
 import { Row, Col } from "antd"
-import css from "styled-jsx/css"
 
 class createPurchase extends Component {
   constructor(props) {
@@ -56,11 +55,11 @@ class createPurchase extends Component {
       ]
     }
 
-    const styleForm = css`
-      .items:nth-child(1) {
-        display: none;
-      }
-    `
+    // const styleForm = css`
+    //   .items:nth-child(1) {
+    //     display: none;
+    //   }
+    // `
 
     if (this.props.form.response) {
       return (
@@ -113,8 +112,9 @@ class createPurchase extends Component {
                     </Button>
 
                     {fields.map(({ field, key, remove }, i) => (
-                      <div className="items">
-                        <label key={key}>
+                      <div className="items" key={key}>
+                        <div>
+                          {i}
                           <Row gutter={4}>
                             <Col span={6}>
                               <Text
@@ -156,7 +156,7 @@ class createPurchase extends Component {
                               <Button onClick={remove}>Remove</Button>
                             </Col>
                           </Row>
-                        </label>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -179,7 +179,11 @@ class createPurchase extends Component {
               </Button>
             </div>
           </Form>
-          {/*<style jsx>{styleForm}</style>*/}
+          <style jsx>{`
+            .items:nth-child(1) {
+              display: none;
+            }
+          `}</style>
         </div>
       )
     }

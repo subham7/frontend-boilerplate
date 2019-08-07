@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Asearch } from "../../../utils/xinformed/antdesignInformed"
 import { Form, Checkbox, Text, Select } from "../../../utils/xinformed"
-import { Button, Icon } from "antd"
+import { Button, Icon, message } from "antd"
 import ButtonIcon from "../../atoms/tableButton"
 
 var items = ["Biscuits", "Drinks", "Fries", "Breads", "Fries", "Breads"]
@@ -35,7 +35,8 @@ export class F3 extends Component {
       .then(res => {
         let location = []
         res.map(item => {
-          location.push( (item.locationunfold))
+          item.locationunfold.id = item.location
+          location.push((item.locationunfold))
         })
         this.setState({ location: location })
         return location
@@ -78,7 +79,14 @@ export class F3 extends Component {
             <div>
               {this.state.location.map(item => (
                 <p style={style.text}>
-                  <ButtonIcon icon="close" style={style.removeBtn} />
+                  <ButtonIcon
+                    onSubmit={() => this.props.formData.onRemove(item.id, (err, msg) => {
+                      err ? message.error(msg) : message.success(msg)
+                    })}
+                    icon="close"
+                    modalTitle="Sure you want to delete ?"
+                    style={style.removeBtn}
+                  />
                   {"     "}
                   {item.name}
                 </p>

@@ -15,14 +15,20 @@ const styles = {
         background: "white",
         color: "black",
         display: "inline-block",
+    },
+    logo: {
+        width: "40%"
     }
 }
 
 
 const Logo = (props) => (
-    <Title style={styles[props.type]} level={2}>
-        SKIP
-    </Title>
+    // <Title style={styles[props.type]} level={2}>
+    //     FINITO
+    // </Title>
+    <React.Fragment>
+        <img style={styles.logo} src="/static/images/icons/LogoMainNormal.png" />
+    </React.Fragment>
 )
 Logo.propTypes = {
     type: Proptypes.oneOf(["inverted", "normal"]),

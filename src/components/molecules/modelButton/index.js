@@ -1,5 +1,5 @@
 import React from "react"
-import { Modal, Button } from "antd"
+import { Modal, Button, message } from "antd"
 import ButtonOne from "../../atoms/button"
 import ElemHeader from "../elementHeader"
 
@@ -47,10 +47,12 @@ class ModalButton extends React.Component {
   handleSubmit(data) {
     this.props.onSubmit(data, data => {
       if (data.status) {
-        alert(data.message)
+        // alert(data.message)
+        message.success(data.message)
         this.setState({ visible: false })
       } else {
-        alert(data.message)
+        message.error(data.message)
+        // alert(data.message)
       }
     })
   }

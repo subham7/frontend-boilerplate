@@ -22,6 +22,7 @@ const styles = {
 const LogoHeading = (props) => (
     <div style={{...styles.centerText, ...props.style}}>
         <Logo type={props.logoType}/>
+        <br/><br/>
         <Text style={styles.displayBlock} type={props.textType}>{props.text}</Text>
     </div>
 )

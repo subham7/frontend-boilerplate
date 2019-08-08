@@ -7,12 +7,13 @@ import {
   employeelocations,
   addEmployeeLocation,
   deleteEmployee,
-  updateEmployee
+  updateEmployee,
+  deleteEmployeeLocation
 } from "../../../src/reduxHelper"
 import Employees from "./../../../src/components/templates/employee"
 import { employeeColumns, employeeColumnData } from "./employees.data"
 import wrapper from "./wrapper"
-
+import {Mess} from 'antd'
 import uuid from "uuid/v4"
 
 class App extends Component {
@@ -90,6 +91,17 @@ class App extends Component {
           onCreate: (data, cb) => {
             data.values.user = item.userID
             this.handleAssignUserLocation(data, cb)
+          },
+          onRemove: (id, cb) => {
+            console.log(id)
+            this.props.deleteEmployeeLocation(id)
+            .then(res => {
+              cb("Location removed successfully.")
+            })
+            .catch(err => {
+              cb(err, "Error occured while removing.")
+            })
+            
           },
           employeeLocation: object => this.props.employeelocations(object),
           employeeID: item.userID,
@@ -177,7 +189,8 @@ const mapDispatchToProps = dispatch => ({
   deleteEmployee: employeeID => dispatch(deleteEmployee.action(employeeID)),
   updateEmployee: (employeeID, object) =>
     dispatch(updateEmployee.action(employeeID, object)),
-  employeelocations: object => dispatch(employeelocations.action(object))
+  employeelocations: object => dispatch(employeelocations.action(object)),
+  deleteEmployeeLocation: (id) => dispatch(deleteEmployeeLocation.action(id))
 })
 
 export default wrapper(

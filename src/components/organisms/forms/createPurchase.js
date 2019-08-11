@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { formData } from "./../../../reduxHelper"
-import { Form, Checkbox, Text, Select, Date } from "../../../utils/xinformed"
-import { ArrayField } from "informed"
-import { Button } from "antd"
-import { Row, Col } from "antd"
+import { Form, Text, Select, Date } from "../../../utils/xinformed"
+import { Field, FieldArray, reduxForm } from "redux-form"
+import { Row, Col, Button } from "antd"
+import Input from "./../../atoms/input"
+import RSelect from "./../../atoms/select"
 
 class createPurchase extends Component {
   constructor(props) {
@@ -16,27 +17,48 @@ class createPurchase extends Component {
   }
 
   async renderReview() {
-    // let data = Object.assign({}, this.formAPi.getState()).values
-    // this.setState(
-    //   {
-    //     renderReview: data
-    //   },
-    //   err => {
-    //     console.log("setstate complete createpurchase", this.state)
-    //   }
-    // )
     let data = this.formAPi.getState().values
     await this.props.formAction(data)
   }
 
   handleClick() {
     this.props.onSubmit(this.props.form.response)
-    this.setState({ renderReview: false })
+    this.props.form.response = null
   }
 
   setFormApi(formAPi) {
     this.formAPi = formAPi
   }
+
+  renderItems = ({ fields }) => (
+    <div>
+      <Button onClick={() => fields.push({})}>Add Items</Button>
+      {fields.map((item, index) => (
+        <Row gutter={4} key={index}>
+          <Col span={6}>
+            <Field name={`${item}.cp`} label="Cost Price" component={Input} />
+          </Col>
+          <Col span={6}>
+            <Field name={`${item}.units`} label="Units" component={Input} />
+          </Col>
+          <Col span={6}>
+            <Field name={`${item}.mrp`} label="MRP" component={Input} />
+          </Col>
+          <Col span={6}>
+            <Field
+              name={`${item}.product`}
+              option={this.props.formData.product}
+              label="Products"
+              component={RSelect}
+            />
+          </Col>
+          <Col span={6}>
+            <Button onClick={() => fields.remove(index)}>Remove</Button>
+          </Col>
+        </Row>
+      ))}
+    </div>
+  )
 
   render() {
     const style = {
@@ -44,22 +66,7 @@ class createPurchase extends Component {
       dynamicForm: { marginTop: "20px", marginBottom: "20px" }
     }
 
-    const initialFormVal = {
-      items: [
-        {
-          cp: "",
-          unit: "",
-          mrp: "",
-          asinstance: ""
-        }
-      ]
-    }
-
-    // const styleForm = css`
-    //   .items:nth-child(1) {
-    //     display: none;
-    //   }
-    // `
+    console.log(this.props.form.response, "this.props.form.response")
 
     if (this.props.form.response) {
       return (
@@ -82,7 +89,7 @@ class createPurchase extends Component {
     } else {
       return (
         <div>
-          <Form getApi={this.setFormApi} initialValues={initialFormVal}>
+          <Form getApi={this.setFormApi}>
             <Text field="vendor" placeholder="Vendor" style={style.margin} />
             <Text
               field="description"
@@ -97,93 +104,29 @@ class createPurchase extends Component {
             />
             <Date field="date" style={style.margin} />
             <Text field="amount" placeholder="Amount" style={style.margin} />
-
-            <div style={style.dynamicForm}>
-              <ArrayField field="items">
-                {({ add, fields }) => (
-                  <div>
-                    <Button
-                      onClick={() => {
-                        add()
-                      }}
-                      style={style.margin}
-                    >
-                      Add Items
-                    </Button>
-
-                    {fields.map(({ field, key, remove }, i) => (
-                      <div className="items" key={key}>
-                        <div>
-                          {i}
-                          <Row gutter={4}>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.cp`}
-                                placeholder="Cost Price"
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.units`}
-                                placeholder="Units"
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.mrp`}
-                                placeholder="MRP"
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Text
-                                field={`${field}.asinstance`}
-                                placeholder="asinstance"
-                                value=""
-                                style={style.margin}
-                              />
-                            </Col>
-                            <Col span={6}>
-                              <Select
-                                field={`${field}.product`}
-                                option={this.props.formData.product}
-                                style={{ width: "100%" }}
-                              />
-                            </Col>
-                            <Col span={12}>
-                              <Button onClick={remove}>Remove</Button>
-                            </Col>
-                          </Row>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </ArrayField>
-            </div>
-            <div style={{ display: "inline-block" }}>
-              <Button
-                style={{ float: "left", width: 192 }}
-                onClick={this.props.onCancel}
-              >
-                Cancel
-              </Button>
-              <Button
-                style={{ float: "left", width: 192, marginLeft: 15 }}
-                type="primary"
-                onClick={this.renderReview}
-              >
-                Proceed
-              </Button>
-            </div>
           </Form>
-          <style jsx>{`
-            .items:nth-child(1) {
-              display: none;
-            }
-          `}</style>
+
+          {/* Redux form */}
+          <div style={style.dynamicForm}>
+            <form onSubmit={this.props.handleSubmit}>
+              <FieldArray name="items" component={this.renderItems} />
+            </form>
+          </div>
+          <div style={{ display: "inline-block" }}>
+            <Button
+              style={{ float: "left", width: 192 }}
+              onClick={this.props.onCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              style={{ float: "left", width: 192, marginLeft: 15 }}
+              type="primary"
+              onClick={this.renderReview}
+            >
+              Proceed
+            </Button>
+          </div>
         </div>
       )
     }
@@ -198,7 +141,9 @@ const mapDispatchToProps = dispatch => ({
   formAction: data => dispatch(formData.action(data))
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(createPurchase)
+export default reduxForm({ form: "itemsForm" })(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(createPurchase)
+)

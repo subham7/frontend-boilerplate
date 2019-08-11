@@ -15,9 +15,12 @@ export const updateEmployee = (employeeID, object) =>
 export const employeelocations = urlParams =>
   axios.get(
     `${ROOTURL}/users/${
-      urlParams.userID
+    urlParams.userID
     }/userslocations?_unfold={"location":["name"]}`
   )
 
 export const addEmployeeLocation = object =>
   axios.post(`${ROOTURL}/userslocations`, object)
+
+export const deleteEmployeeLocation = employeeID =>
+  axios.delete(`${ROOTURL}/userslocations/${employeeID}`)

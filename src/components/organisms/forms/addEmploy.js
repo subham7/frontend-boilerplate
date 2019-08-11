@@ -82,6 +82,7 @@ export class F4 extends Component {
             field="password"
             style={{ marginBottom: 15 }}
             placeholder="Password"
+            defaultValue={values.password}
           />
           {/* <h5>Passcode</h5>
           <div style={{display:"inline-block",marginBottom:15}}>

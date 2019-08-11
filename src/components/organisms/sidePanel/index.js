@@ -44,19 +44,19 @@ let SidePanel = props => {
           }
         >
           <Menu.Item key="prodcuts">
-            <Link as={`/dashboard/products`} href={`/dashboard?page=products`}>
+            <Link  href={`/dashboard?page=products`}>
               <p className="sidebar-option">PRODUCTS</p>
             </Link>
           </Menu.Item>
 
           <Menu.Item key="taxes">
-            <Link as={`/dashboard/taxes`} href={`/dashboard?page=taxes`}>
+            <Link  href={`/dashboard?page=taxes`}>
               <p className="sidebar-option">TAXES</p>
             </Link>
           </Menu.Item>
           <Menu.Item key="modifiers">
             <Link
-              as={`/dashboard/modifiers`}
+             
               href={`/dashboard?page=modifiers`}
             >
               <p className="sidebar-option">MODIFIERS</p>
@@ -64,7 +64,7 @@ let SidePanel = props => {
           </Menu.Item>
           <Menu.Item key="attributes">
             <Link
-              as={`/dashboard/attributes`}
+         
               href={`/dashboard?page=attributes`}
             >
               <p className="sidebar-option">ATTRIBUTES</p>
@@ -72,7 +72,7 @@ let SidePanel = props => {
           </Menu.Item>
           <Menu.Item key="discounts">
             <Link
-              as={`/dashboard/discounts`}
+         
               href={`/dashboard?page=discounts`}
             >
               <p className="sidebar-option">DISCOUNTS</p>
@@ -80,21 +80,21 @@ let SidePanel = props => {
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="employees">
-          <Link as={`/dashboard/employees`} href={`/dashboard?page=employees`}>
+          <Link  href={`/dashboard?page=employees`}>
             <a>
               <p className="sidebar-option">EMPLOYEES</p>
             </a>
           </Link>
         </Menu.Item>
         <Menu.Item key="cutomers">
-          <Link as={`/dashboard/customers`} href={`/dashboard?page=customers`}>
+          <Link  href={`/dashboard?page=customers`}>
             <a>
               <p className="sidebar-option">CUSTOMERS</p>
             </a>
           </Link>
         </Menu.Item>
         <Menu.Item key="transactions">
-          <Link as={`/dashboard/transactions`} href={`/dashboard?page=transactions`}>
+          <Link  href={`/dashboard?page=transactions`}>
             <a>
               <p className="sidebar-option">TRANSACTIONS</p>
             </a>
@@ -133,7 +133,7 @@ let SidePanel = props => {
         >
           <Menu.Item key="locations">
             <Link
-              as={`/dashboard/locations`}
+            
               href={`/dashboard?page=locations`}
             >
               <p className="sidebar-option">LOCATIONS</p>
@@ -152,7 +152,7 @@ let SidePanel = props => {
           >
             <Menu.Item key="permissions-web">
               <Link
-                as={`/dashboard/permissions-web`}
+             
                 href={`/dashboard?page=permissions-web`}
               >
                 <p className="sidebar-option"> WEB PERMISSIONS</p>
@@ -160,7 +160,7 @@ let SidePanel = props => {
             </Menu.Item>
             <Menu.Item key="permissions-app">
               <Link
-                as={`/dashboard/permissions-app`}
+            
                 href={`/dashboard?page=permissions-app`}
               >
                 <p className="sidebar-option">APP PERMISSIONS</p>
@@ -169,7 +169,7 @@ let SidePanel = props => {
           </SubMenu>
 
           <Menu.Item key="purchase">
-            <Link as={`/dashboard/purchase`} href={`/dashboard?page=purchase`}>
+            <Link  href={`/dashboard?page=purchase`}>
               <p className="sidebar-option">PURCHASE</p>
             </Link>
           </Menu.Item>

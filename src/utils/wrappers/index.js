@@ -11,10 +11,7 @@ export default function init(WrappedComponent) {
     }
 
     componentDidMount() {
-      // let userID = "3b2d5eae-f7b9-47c8-96b2-c3272992fc1e"
-
       let tokenData = token.getTokenData()
-      console.log(tokenData)
       let userID = tokenData.data.user[0].userID
       let businessID = tokenData.data.business
       // load user if not in state
@@ -41,7 +38,6 @@ export default function init(WrappedComponent) {
         return <WrappedComponent {...this.props} />
       } else {
         return <Loading />
-        // return <h1>sdfg</h1>
       }
     }
   }

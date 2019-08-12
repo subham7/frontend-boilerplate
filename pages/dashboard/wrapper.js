@@ -1,7 +1,7 @@
 import React from "react"
 import token from "./../../src/utils/token"
 import Router from "next/router"
-
+import cookie from 'react-cookies'
 import Loading from "./../../src/components/atoms/loading"
 
 export default function init(WrappedComponent) {
@@ -12,7 +12,7 @@ export default function init(WrappedComponent) {
     }
 
     componentDidMount() {
-      if (!localStorage.getItem("admin-api-key")) {
+      if (!localStorage.getItem("admin-api-key") && !cookie.load('admin-api-key') ) {
         Router.push("/")
       }
       token.setFromStorage()
@@ -20,7 +20,7 @@ export default function init(WrappedComponent) {
     }
 
     render() {
-      if (this.state.setToken && localStorage.getItem("admin-api-key"))
+      if (this.state.setToken && token.getToken())
         return <WrappedComponent {...this.props} />
       else return <Loading />
     }

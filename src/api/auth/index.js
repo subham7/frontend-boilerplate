@@ -1,6 +1,12 @@
+import cookie from 'react-cookies'
+
 export const auth = () => {
   return new Promise((resolve, reject) => {
-    resolve(localStorage.getItem("admin-api-key"))
+    console.log("inside auth api")
+    if(cookie.load('admin-api-key'))
+      resolve(cookie.load('admin-api-key'))
+    else
+      resolve(localStorage.getItem("admin-api-key"))
     // resolve({
     //   data: {
     //     token:

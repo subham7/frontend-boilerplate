@@ -2,7 +2,6 @@ import React from "react"
 import { Menu, Icon, Divider } from "antd"
 import Link from "next/link"
 import styles from "./styles"
-import Auth from "./../../../utils/auth"
 
 let SubMenu = Menu.SubMenu
 
@@ -44,19 +43,19 @@ let SidePanel = props => {
           }
         >
           <Menu.Item key="prodcuts">
-            <Link  href={`/dashboard?page=products`}>
+            <Link href={`/dashboard?page=products`}>
               <p className="sidebar-option">PRODUCTS</p>
             </Link>
           </Menu.Item>
 
           <Menu.Item key="taxes">
-            <Link  href={`/dashboard?page=taxes`}>
+            <Link href={`/dashboard?page=taxes`}>
               <p className="sidebar-option">TAXES</p>
             </Link>
           </Menu.Item>
           <Menu.Item key="modifiers">
             <Link
-             
+
               href={`/dashboard?page=modifiers`}
             >
               <p className="sidebar-option">MODIFIERS</p>
@@ -64,7 +63,7 @@ let SidePanel = props => {
           </Menu.Item>
           <Menu.Item key="attributes">
             <Link
-         
+
               href={`/dashboard?page=attributes`}
             >
               <p className="sidebar-option">ATTRIBUTES</p>
@@ -72,7 +71,7 @@ let SidePanel = props => {
           </Menu.Item>
           <Menu.Item key="discounts">
             <Link
-         
+
               href={`/dashboard?page=discounts`}
             >
               <p className="sidebar-option">DISCOUNTS</p>
@@ -80,21 +79,21 @@ let SidePanel = props => {
           </Menu.Item>
         </SubMenu>
         <Menu.Item key="employees">
-          <Link  href={`/dashboard?page=employees`}>
+          <Link href={`/dashboard?page=employees`}>
             <a>
               <p className="sidebar-option">EMPLOYEES</p>
             </a>
           </Link>
         </Menu.Item>
         <Menu.Item key="cutomers">
-          <Link  href={`/dashboard?page=customers`}>
+          <Link href={`/dashboard?page=customers`}>
             <a>
               <p className="sidebar-option">CUSTOMERS</p>
             </a>
           </Link>
         </Menu.Item>
         <Menu.Item key="transactions">
-          <Link  href={`/dashboard?page=transactions`}>
+          <Link href={`/dashboard?page=transactions`}>
             <a>
               <p className="sidebar-option">TRANSACTIONS</p>
             </a>
@@ -133,7 +132,7 @@ let SidePanel = props => {
         >
           <Menu.Item key="locations">
             <Link
-            
+
               href={`/dashboard?page=locations`}
             >
               <p className="sidebar-option">LOCATIONS</p>
@@ -152,7 +151,7 @@ let SidePanel = props => {
           >
             <Menu.Item key="permissions-web">
               <Link
-             
+
                 href={`/dashboard?page=permissions-web`}
               >
                 <p className="sidebar-option"> WEB PERMISSIONS</p>
@@ -160,7 +159,7 @@ let SidePanel = props => {
             </Menu.Item>
             <Menu.Item key="permissions-app">
               <Link
-            
+
                 href={`/dashboard?page=permissions-app`}
               >
                 <p className="sidebar-option">APP PERMISSIONS</p>
@@ -169,7 +168,7 @@ let SidePanel = props => {
           </SubMenu>
 
           <Menu.Item key="purchase">
-            <Link  href={`/dashboard?page=purchase`}>
+            <Link href={`/dashboard?page=purchase`}>
               <p className="sidebar-option">PURCHASE</p>
             </Link>
           </Menu.Item>
@@ -184,6 +183,11 @@ let SidePanel = props => {
         <Divider />
         <Menu.Item key="settings">
           <p className="sidebar-option">SUPPORT</p>
+        </Menu.Item>
+        <Menu.Item key="logout" onClick={props.handleLogout}>
+          {/* <Link href={'/'} > */}
+            <p className="sidebar-option">LOGOUT</p>
+          {/* </Link> */}
         </Menu.Item>
       </Menu>
       <style jsx>{styles}</style>

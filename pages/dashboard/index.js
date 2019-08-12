@@ -22,6 +22,7 @@ import Router from "next/router"
 import init from "../../src/utils/wrappers"
 import Auth from "./../../src/utils/auth"
 import NotAuthorized from "./../../src/components/templates/notAuthorized"
+import logout from "../../src/utils/auth/logout";
 
 const TabPane = Tabs.TabPane
 
@@ -193,7 +194,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Template sidebarTab={this.props.router.query.page}>
+        <Template sidebarTab={this.props.router.query.page} handleLogout={logout} >
           <SwitchHandler
             switchItem={this.props.router.query.page}
             tab={this.props.router.query.tab}

@@ -4,7 +4,9 @@ import { connect } from "react-redux"
 import Template from "../src/components/templates/login"
 import { login } from "../src/reduxHelper"
 import Router from "next/router"
-import token from "./../src/utils/token"
+import token from "../src/utils/token"
+import cookie from 'react-cookies'
+import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
@@ -19,25 +21,29 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // Add redux api here
-    // this.props.loginDispatch({uid:"b216008", pwd:"Ankit16@19"}).then(res=>{
-    //   console.log(res)
-    // }).catch(err =>{
-    //   console.log(err)
-    // })
+    // console.log(localStorage.getItem("admin-api-key"), "consllllll")
+    // cookie.remove("admin-api-key")
+    if (localStorage.getItem("admin-api-key") != null)
+      Router.push('/dashboard')
+    // if (cookie.load("admin-api-key"))
+    //   Router.push('/dashboard')
   }
 
   handleFormData(data) {
     // TODO: check later , wher id is coming from in formstate
     let formData = data.values
+    console.log(formData, "loginnnn")
     this.props
       .loginDispatch(formData)
       .then(res => {
         console.log("response", res)
-        token.set(res.token)
+        if (formData.rememberme) {
+          token.set(res.token)
+        } else {
+          token.setTokenCookie(res.token)
+        }
         // login was successful
         // check if account is blocked
-
         if (res.user[0].isblocked) {
           alert("You account is not active")
         } else {

@@ -103,7 +103,7 @@ const Check = asField(({ fieldState, fieldApi, ...props }) => {
       {...rest}
       ref={forwardedRef}
       onChange={e => {
-        setValue(e.target.value)
+        setValue(e.target.checked)
         console.log(`checked = ${e.target.checked}`)
         if (onChange) {
           onChange(e)

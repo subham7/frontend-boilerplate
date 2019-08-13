@@ -5,7 +5,6 @@ const ReceiptDetailsCard = props => {
   console.log(props.data, "main overlay card")
   const receipts = props.data[0]
   const transaction = props.data[1]
-  console.log((transaction.transactiontypeunfold).name)
   return (
     <Card style={props.style}>
       <Row>

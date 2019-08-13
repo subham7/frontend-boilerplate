@@ -13,7 +13,6 @@ import {
 import Employees from "./../../../src/components/templates/employee"
 import { employeeColumns, employeeColumnData } from "./employees.data"
 import wrapper from "./wrapper"
-import {Mess} from 'antd'
 import uuid from "uuid/v4"
 
 class App extends Component {

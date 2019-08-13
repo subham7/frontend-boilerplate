@@ -29,7 +29,10 @@ export class F extends Component {
           <Text field="userName" style={{ marginBottom: 15 }} placeholder="User Name" />
           <Text field="password" style={{ marginBottom: 30 }} placeholder="Password" />
           <div style={{ display: "inline-block", marginBottom: 30, width: "100%" }}>
-            <div style={{ float: "left" }}><Checkbox /><label style={{ marginLeft: 10 }}>Remember Password</label></div>
+            <div style={{ float: "left" }}>
+              <Checkbox field="rememberme" />
+              <label style={{ marginLeft: 10 }}>Keep me signed in.</label>
+            </div>
             <div style={{ float: "right" }}><h4>Forgot Password</h4></div>
           </div>
         </Form>

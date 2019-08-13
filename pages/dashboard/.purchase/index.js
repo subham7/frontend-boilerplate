@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import { destroy } from "redux-form"
 
 import Purchase from "../../../src/components/organisms/ItemPurchase"
 import {
@@ -28,20 +29,19 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log("purchase state", this.props)
     this.loadPurchaseData()
     this.props.getReviewPurchase()
   }
 
   handleCreatePurchase = (data, cb) => {
     data.purchaseID = uuidv4()
-    console.log(data)
-
+    data.items = this.props.form.itemsForm.values.items
     this.setState({ formValue: data.values })
-    console.log(this.state.formValue)
     this.props
       .addPurchase(data)
-      .then(res => console.log(res))
+      .then(res => {
+        this.props.destroyReduxForm("itemsForm")
+      })
       .catch(err => console.log(err))
   }
 
@@ -107,7 +107,7 @@ class App extends Component {
       date: item.date,
       desription: item.description,
       vendor: item.vendor,
-      location:  (item.locationunfold).name,
+      location: item.locationunfold.name,
       prefilledValues: item,
       formData: {
         product: this.createProductSelectData(
@@ -167,6 +167,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
+    form: state.form,
     stockdiary: state.stockdiary,
     blocations: state.getLocationByID,
     products: state.products,
@@ -176,6 +177,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+  destroyReduxForm: form => dispatch(destroy(form)),
   stockdiary: () => dispatch(stockdiary.action()),
   addPurchase: data => dispatch(addPurchase.action(data)),
   getReviewPurchase: () => dispatch(reviewPurchase.action()),

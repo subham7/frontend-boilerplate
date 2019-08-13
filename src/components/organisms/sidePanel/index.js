@@ -184,10 +184,10 @@ let SidePanel = props => {
         <Menu.Item key="settings">
           <p className="sidebar-option">SUPPORT</p>
         </Menu.Item>
-        <Menu.Item key="logout" onClick={props.handleLogout}>
-          {/* <Link href={'/'} > */}
+        <Menu.Item key="logout" >
+          <Link href={'/logout'} >
             <p className="sidebar-option">LOGOUT</p>
-          {/* </Link> */}
+          </Link>
         </Menu.Item>
       </Menu>
       <style jsx>{styles}</style>

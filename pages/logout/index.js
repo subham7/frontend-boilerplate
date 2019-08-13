@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Router from "next/router"
 import token from "./../../src/utils/token"
+import Loading from "../../src/components/atoms/loading";
 
 class App extends Component {
   constructor(props) {
@@ -8,12 +9,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    token.remove()
-    Router.push("/")
+    setTimeout(() => {
+      token.remove()
+      Router.push("/")
+    }, 500)
   }
 
   render() {
-    return null
+      return <Loading/>
   }
 }
 

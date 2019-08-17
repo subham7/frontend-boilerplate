@@ -61,7 +61,7 @@ export class F extends Component {
             placeholder="Confirm-Password"
           />
           <div style={{ margin: 10, marginLeft: 2 }}>
-            <Checkbox />
+            <Checkbox field="terms"/>
             <label style={{ marginLeft: 10 }}>
               I agree with terms and conditions
             </label>

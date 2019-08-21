@@ -10,7 +10,7 @@ import {
   inventoryStock
 } from "../../../../src/reduxHelper"
 import Products from "../../../../src/components/organisms/items"
-import ButtonIcon from "../../../../src/components/atoms/tableButton"
+import Loading from "../../../../src/components/atoms/loading"
 import wrapper from "./wrapper"
 import { itemData } from "./product.data"
 import uuidv4 from "uuid/v4"
@@ -82,7 +82,7 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <h1>Loading</h1>
+      return <Loading/>
     }
   }
 

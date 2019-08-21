@@ -21,9 +21,9 @@ let SidePanel = props => {
         defaultSelectedKeys={[props.selected]}
       >
         <div style={{ margin: "25px 0 50px 24px" }}>
-          <h1>Hi Ankit!</h1>
+          <h1>Hi {props.user}!</h1>
         </div>
-
+        <Divider />
         <Menu.Item key="home">
           <Link as={`/dashboard/home`} href={`/dashboard?page=home`}>
             <a>

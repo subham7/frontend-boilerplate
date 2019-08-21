@@ -14,6 +14,7 @@ class App extends React.Component {
     // Add necesarry data
     data.values.userID = uuidv4()
     data.values.usertype = "1faf6ff7-5503-11e9-b3b8-f8cab8258ec4"
+    delete data.values.terms
     let dispatchData = data.values
     
     this.props.signupDispatch(dispatchData).then(res => {

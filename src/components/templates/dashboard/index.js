@@ -12,7 +12,7 @@ const Dashboard = props => {
       </div>
       <div className="content-wrapper">
         <div className="sidebar">
-          <Sidebar handleLogout={props.handleLogout} />
+          <Sidebar user={props.user} />
         </div>
         <div className="content">{props.children}</div>
       </div>

@@ -6,7 +6,7 @@ import { login } from "../src/reduxHelper"
 import Router from "next/router"
 import token from "../src/utils/token"
 import cookie from 'react-cookies'
-import axios from 'axios'
+import {message} from 'antd'
 
 class App extends React.Component {
   constructor(props) {
@@ -25,8 +25,8 @@ class App extends React.Component {
     // cookie.remove("admin-api-key")
     if (localStorage.getItem("admin-api-key") != null)
       Router.push('/dashboard')
-    // if (cookie.load("admin-api-key"))
-    //   Router.push('/dashboard')
+    if (cookie.load("admin-api-key"))
+      Router.push('/dashboard')
   }
 
   handleFormData(data) {
@@ -53,17 +53,17 @@ class App extends React.Component {
             Router.push("/master-data")
           } else {
             Router.push("/dashboard")
+            message.success("Logged in successfully")
           }
         }
       })
       .catch(err => {
-        console.log(err)
+        console.log(err.response)
         if (err.reponse && (err.response.status = 401)) {
-          alert("Login Failed")
+          message.error("Login Failed")
         } else {
-          alert("Something bad happend at our end")
+          message.error("Something bad happend at our end")
         }
-        console.log("error", err)
       })
   }
 

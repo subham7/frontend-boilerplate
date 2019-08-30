@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import Template from '../../src/components/templates/signup';
 import { signup } from '../../src/reduxHelper'
 import Router from "next/router"
+import {message} from 'antd'
 const uuidv4 = require('uuid/v4')
 
 class App extends React.Component {
@@ -23,7 +24,7 @@ class App extends React.Component {
       alert("Account created!! Please Login to continue")
       Router.push(`/`)
     }).catch(err => {
-      console.log(err)
+      message.error(err.response.data.error)
     })
       
   }

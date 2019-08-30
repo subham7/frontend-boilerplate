@@ -5,8 +5,8 @@ import Template from "../src/components/templates/login"
 import { login } from "../src/reduxHelper"
 import Router from "next/router"
 import token from "../src/utils/token"
-import cookie from 'react-cookies'
-import axios from 'axios'
+import cookie from "react-cookies"
+import axios from "axios"
 
 class App extends React.Component {
   constructor(props) {
@@ -23,8 +23,7 @@ class App extends React.Component {
   componentDidMount() {
     // console.log(localStorage.getItem("admin-api-key"), "consllllll")
     // cookie.remove("admin-api-key")
-    if (localStorage.getItem("admin-api-key") != null)
-      Router.push('/dashboard')
+    if (localStorage.getItem("admin-api-key") != null) Router.push("/dashboard")
     // if (cookie.load("admin-api-key"))
     //   Router.push('/dashboard')
   }

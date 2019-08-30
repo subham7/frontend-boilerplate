@@ -15,6 +15,7 @@ import {
   taxHsn
 } from "../../../../src/reduxHelper"
 import wrapper from "./wrapper"
+import Loader from "../../../../src/components/atoms/loading"
 import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
@@ -58,7 +59,7 @@ class App extends React.Component {
       return (
         <div>
           <Taxes
-          formData={this.createSelectData(
+            formData={this.createSelectData(
               this.props.taxCategories.response.data
             )}
             rowSelection={{}}
@@ -77,7 +78,7 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <h1>Loading</h1>
+      return <Loader />
     }
   }
 
@@ -94,7 +95,7 @@ class App extends React.Component {
           this.props.taxCategories.response.data
         )
         object.prefilledValues = item
-        object.handleFeatures = {
+        ;(object.handleFeatures = {
           handleDelete: urlParams => {
             console.log("here", urlParams)
             this.props
@@ -121,32 +122,32 @@ class App extends React.Component {
                 })
               })
           }
-        },
-        (object.assign = {
-          handleAssign: (data, id, cb) => {
-            let obj = {}
-            obj.tax = id
-            obj.hsncode = data.values.assignedTo
-            console.log(obj)
-            this.props
-              .addhsncodetax(obj)
-              .then(res => {
-                cb({
-                  status: true,
-                  message: "HSN assigned"
+        }),
+          (object.assign = {
+            handleAssign: (data, id, cb) => {
+              let obj = {}
+              obj.tax = id
+              obj.hsncode = data.values.assignedTo
+              console.log(obj)
+              this.props
+                .addhsncodetax(obj)
+                .then(res => {
+                  cb({
+                    status: true,
+                    message: "HSN assigned"
+                  })
                 })
-              })
-              .catch(err => {
-                console.log(err)
-                cb({ status: true, message: "ERROR! HSN already assigned" })
-              })
-          },
-          assignedhsnCode: taxID => this.props.getHsnTax(taxID),
-          hsnData: this.createSelectHsnData(
-            this.props.hsncodes.response.data
-          ),
-          taxID: item.taxID
-        })
+                .catch(err => {
+                  console.log(err)
+                  cb({ status: true, message: "ERROR! HSN already assigned" })
+                })
+            },
+            assignedhsnCode: taxID => this.props.getHsnTax(taxID),
+            hsnData: this.createSelectHsnData(
+              this.props.hsncodes.response.data
+            ),
+            taxID: item.taxID
+          })
         temp.push(object)
       })
     }
@@ -187,7 +188,7 @@ const mapStateToProps = state => ({
   business: state.businesses,
   taxes: state.taxes,
   taxCategories: state.taxCategories,
-  hsncodes: state.hsncodes,
+  hsncodes: state.hsncodes
 })
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
@@ -196,8 +197,8 @@ const mapDispatchToProps = dispatch => ({
   deleteTax: taxID => dispatch(deleteTax.action(taxID)),
   getTaxCategories: businessID => dispatch(getTaxCategories.action(businessID)),
   updateTax: (taxID, object) => dispatch(updateTax.action(taxID, object)),
-  addhsncodetax: (object) => dispatch(addhsncodetax.action(object)),
-  getHsnTax: (taxID) => dispatch(taxHsn.action(taxID))
+  addhsncodetax: object => dispatch(addhsncodetax.action(object)),
+  getHsnTax: taxID => dispatch(taxHsn.action(taxID))
 })
 export default wrapper(
   connect(

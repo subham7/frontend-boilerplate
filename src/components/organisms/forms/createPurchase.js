@@ -6,6 +6,7 @@ import { Field, FieldArray, reduxForm } from "redux-form"
 import { Row, Col, Button } from "antd"
 import Input from "./../../atoms/input"
 import RSelect from "./../../atoms/select"
+import Paragraph from "antd/lib/skeleton/Paragraph"
 
 class createPurchase extends Component {
   constructor(props) {
@@ -63,7 +64,8 @@ class createPurchase extends Component {
   render() {
     const style = {
       margin: { marginBottom: "10px" },
-      dynamicForm: { marginTop: "20px", marginBottom: "20px" }
+      dynamicForm: { marginTop: "20px", marginBottom: "20px" },
+      paragraph: { margin: "0" }
     }
 
     console.log(this.props.form.response, "this.props.form.response")
@@ -72,9 +74,41 @@ class createPurchase extends Component {
       return (
         <div className="App">
           {/* Example */}
-          <p>{this.props.form.response.vendor}</p>
+          {console.log(this.props.reduxForm.itemsForm, "sdfgsdfsdfgsdfgsgssd")}
           <div>
-            <h1>review</h1>
+            <h1>Review</h1>
+            <Row gutter={4}>
+              <Col span={12}>
+                <p style={style.paragraph}>Vendor</p>
+                <h2>{this.props.form.response.vendor}</h2>
+              </Col>
+              <Col span={12}>
+                <p style={style.paragraph}>Vendor</p>
+                <h2>{this.props.form.response.vendor}</h2>
+              </Col>
+              <Col span={24}>
+                {this.props.reduxForm.itemsForm.values.items.map(item => (
+                  <Row gutter={4}>
+                    <Col span={6}>
+                      <p style={style.paragraph}>Cost Price</p>
+                      <h2>{item.cp}</h2>
+                    </Col>
+                    <Col span={6}>
+                      <p style={style.paragraph}>Cost Price</p>
+                      <h2>{item.cp}</h2>
+                    </Col>
+                    <Col span={6}>
+                      <p style={style.paragraph}>Cost Price</p>
+                      <h2>{item.cp}</h2>
+                    </Col>
+                    <Col span={6}>
+                      <p style={style.paragraph}>Cost Price</p>
+                      <h2>{item.cp}</h2>
+                    </Col>
+                  </Row>
+                ))}
+              </Col>
+            </Row>
             <p />
             <Button
               style={{ float: "left", width: 192, marginLeft: 15 }}
@@ -134,7 +168,8 @@ class createPurchase extends Component {
 }
 
 const mapStateToProps = state => ({
-  form: state.formData
+  form: state.formData,
+  reduxForm: state.form
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -13,6 +13,7 @@ import Products from "../../../../src/components/organisms/items"
 import ButtonIcon from "../../../../src/components/atoms/tableButton"
 import wrapper from "./wrapper"
 import { itemData } from "./product.data"
+import Loader from "../../../../src/components/atoms/loading"
 import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
@@ -29,8 +30,7 @@ class App extends React.Component {
     let businessID = this.props.business.response.data[0].businessID
     this.loadproductsData()
     this.props.getInventoryStock(businessID).then(res => {
-      console.log(res)
-      this.setState({cardData: res})
+      this.setState({ cardData: res })
     })
   }
 
@@ -82,7 +82,7 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <h1>Loading</h1>
+      return <Loader />
     }
   }
 
@@ -95,7 +95,7 @@ class App extends React.Component {
         ;(object.productID = item.productID), (object.code = item.code)
         object.barcode = item.barcode
         object.category = item.productcategory
-        object.location = item.location//map location here
+        object.location = item.location //map location here
         object.price = item.price
         object.prefilledValues = item
         object.selectData = this.createSelectData(
@@ -214,7 +214,7 @@ const mapDispatchToProps = dispatch => ({
   updateProduct: (productID, object) =>
     dispatch(updateProduct.action(productID, object)),
   reviewPurchase: () => dispatch(reviewPurchase.action()),
-  getInventoryStock: (businessID) => dispatch(inventoryStock.action(businessID))
+  getInventoryStock: businessID => dispatch(inventoryStock.action(businessID))
 })
 
 export default wrapper(

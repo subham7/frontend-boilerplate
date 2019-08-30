@@ -15,6 +15,7 @@ import {
 
 import { itemPurchaseData } from "./purchase.data"
 import wrapper from "./wrapper"
+import Loader from "./../../../src/components/atoms/loading"
 import uuidv4 from "uuid/v4"
 
 class App extends Component {
@@ -97,7 +98,7 @@ class App extends Component {
           />
         </div>
       )
-    else return <h1>Loading....</h1>
+    else return <Loader />
   }
 
   createpurchasecolumns = data =>

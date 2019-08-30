@@ -4,8 +4,8 @@ import { Spin } from "antd"
 const Loading = () => {
   const style = {
     loaderContainer: {
-      height: "100%",
-      width: "100%"
+      height: "100vh",
+      width: "100vw"
     },
     loader: {
       position: "absolute",

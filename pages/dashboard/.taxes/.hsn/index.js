@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import HSN from "../../../../src/components/organisms/hsn"
+import Loader from "../../../../src/components/atoms/loading"
 
 import { hsnColumns } from "./hsn.data"
 import { itemData } from "../../../../pagesData/item.data"
@@ -79,7 +80,7 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <h1>Loading</h1>
+      return <Loader />
     }
   }
 

@@ -52,19 +52,11 @@ export class F2 extends Component {
         <Form getApi={this.setFormApi}>
           <div style={{ display: "inline-block", marginBottom: 15 }}>
             <div style={{ float: "left", marginRight: 8 }}>
-              <Text style={{ width: 195 }} field="name" placeholder="Name" defaultValue={values.name} />
+              <Text style={{ width: 195 }} field="name" placeholder="Name*" defaultValue={values.name} />
             </div>
             <div style={{ float: "left", marginRight: 8 }}>
-              <Text style={{ width: 195 }} field="code" placeholder="Code" defaultValue={values.code} />
+              <Text style={{ width: 195 }} field="code" placeholder="Code*" defaultValue={values.code} />
             </div>
-            {/* <div style={{float:"left"}}>
-              <Select defaultValue="Category" style={{ width: 195 }}>
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="disabled" disabled>Disabled</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-              </Select>
-          </div>  */}
             <div style={{ float: "left", marginRight: 8 }}>
               {/*<Text
                 style={{ width: 195 }}
@@ -79,24 +71,13 @@ export class F2 extends Component {
               />
             </div>
           </div>
-          {/* <div style={{display:"inline-block",marginBottom:15}}>
-            <div style={{float:"left",marginRight:8}}><Text style={{width:195}} field="p2"  placeholder=" Manufacturer Name" /></div>
-            <div style={{float:"left"}}> 
-              <Select defaultValue="Sub-Category" style={{ width: 195 }} onChange={handleChange}>
-                <Option value="O">One</Option>
-                <Option value="Tw">Two</Option>
-                <Option value="disabled" disabled>Disabled</Option>
-                <Option value="TH">Three</Option>
-              </Select>
-            </div> 
-          </div> */}
 
           <div style={{ display: "inline-block", marginBottom: 15 }}>
             <div style={{ float: "left", marginRight: 8 }}>
               <Text
                 style={{ width: 195 }}
                 field="barcode"
-                placeholder=" Barcode"
+                placeholder=" Barcode*"
                 defaultValue={values.barcode}
               />
             </div>
@@ -106,21 +87,14 @@ export class F2 extends Component {
               <Text
                 style={{ width: 195 }}
                 field="hsncode"
-                placeholder="Hsn Code"
+                placeholder="Hsn Code*"
                 defaultValue={values.hsncode}
               />
             </div>
-            {/* <div style={{float:"left"}}>
-              <Select defaultValue="Taxes" style={{ width: 195 }}>
-                <Option value="G">Gst</Option>
-                <Option value="I">Ist</Option>
-                <Option value="disabled" disabled>Disabled</Option>
-                <Option value="A">Amnesty</Option>
-              </Select></div>  */}
           </div>
           <div style={{ display: "inline-block", marginBottom: 15 }}>
             <div style={{ float: "left", marginRight: 8 }}>
-              <Text style={{ width: 195 }} field="price" placeholder="Price" defaultValue={values.price} />
+              <Text style={{ width: 195 }} field="price" placeholder="Price*" defaultValue={values.price} />
             </div>
             <div style={{ float: "left", marginRight: 8 }}>
               <RadioGroup defaultValue={values.isMRP == 1 ? true : false}>
@@ -129,14 +103,46 @@ export class F2 extends Component {
                 <Radio value={false} field='isMRP'>No</Radio>
               </RadioGroup>
             </div>
-            {/* <div style={{float:"left"}}> 
-              <Select defaultValue="Units" style={{ width: 195 }}>
-                <Option value="T">Ten</Option>
-                <Option value="H">Hundred</Option>
-                <Option value="disabled" disabled>Disabled</Option>
-                <Option value="Th">Thousand</Option>
-              </Select></div>  */}
           </div>
+
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text
+                style={{ width: 195 }}
+                field="manufacturer"
+                placeholder=" Manufacturer"
+                defaultValue={values.manufacturer}
+              />
+            </div>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text
+                style={{ width: 195 }}
+                field="brand"
+                placeholder=" Brand"
+                defaultValue={values.brand}
+              />
+            </div>
+          </div>
+
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text
+                style={{ width: 195 }}
+                field="cost"
+                placeholder=" Cost"
+                defaultValue={values.cost}
+              />
+            </div>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <Text
+                style={{ width: 195 }}
+                field="mrp"
+                placeholder=" MRP"
+                defaultValue={values.mrp}
+              />
+            </div>
+          </div>
+
           <TextArea
             field="description"
             rows="3"

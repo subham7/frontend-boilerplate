@@ -1,4 +1,5 @@
 import React from "react"
+import { connect } from "react-redux"
 
 import Template from "../../src/components/templates/dashboard"
 import Modifiers from "./.modifiers"
@@ -22,7 +23,6 @@ import Router from "next/router"
 import init from "../../src/utils/wrappers"
 import Auth from "./../../src/utils/auth"
 import NotAuthorized from "./../../src/components/templates/notAuthorized"
-import logout from "../../src/utils/auth/logout";
 
 const TabPane = Tabs.TabPane
 
@@ -192,9 +192,10 @@ class App extends React.Component {
     if(!this.props.router.query.page){
       Router.push("/dashboard?page=home")
     }
+    let userName = this.props.user.response.data[0].firstName
     return (
       <div>
-        <Template sidebarTab={this.props.router.query.page} handleLogout={logout} >
+        <Template sidebarTab={this.props.router.query.page} user={userName} >
           <SwitchHandler
             switchItem={this.props.router.query.page}
             tab={this.props.router.query.tab}

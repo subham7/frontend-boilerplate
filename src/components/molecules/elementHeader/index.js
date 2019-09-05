@@ -14,7 +14,7 @@ const ElemHeader = ({ logo, title }) => {
   if (logo === "enabled") {
     return (
       <div style={ElemHeaderStyle}>
-        <div style={{ float: "left", width: "8%" }}>
+        <div style={{ float: "left" }}>
           <Logo color="#CCCCCC" />
         </div>
         <div style={{ textAlign: "center" }}>

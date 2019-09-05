@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { destroy } from "redux-form"
+import { Message } from "antd"
 
 import Purchase from "../../../src/components/organisms/ItemPurchase"
 import {
@@ -42,8 +43,9 @@ class App extends Component {
       .addPurchase(data)
       .then(res => {
         this.props.destroyReduxForm("itemsForm")
+        Message.success("Item added successfully!")
       })
-      .catch(err => console.log(err))
+      .catch(err => Message.error(err))
   }
 
   handleSearch(e) {

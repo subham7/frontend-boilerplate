@@ -54,26 +54,17 @@ let SidePanel = props => {
             </Link>
           </Menu.Item>
           <Menu.Item key="modifiers">
-            <Link
-
-              href={`/dashboard?page=modifiers`}
-            >
+            <Link href={`/dashboard?page=modifiers`}>
               <p className="sidebar-option">MODIFIERS</p>
             </Link>
           </Menu.Item>
           <Menu.Item key="attributes">
-            <Link
-
-              href={`/dashboard?page=attributes`}
-            >
+            <Link href={`/dashboard?page=attributes`}>
               <p className="sidebar-option">ATTRIBUTES</p>
             </Link>
           </Menu.Item>
           <Menu.Item key="discounts">
-            <Link
-
-              href={`/dashboard?page=discounts`}
-            >
+            <Link href={`/dashboard?page=discounts`}>
               <p className="sidebar-option">DISCOUNTS</p>
             </Link>
           </Menu.Item>
@@ -131,10 +122,7 @@ let SidePanel = props => {
           }
         >
           <Menu.Item key="locations">
-            <Link
-
-              href={`/dashboard?page=locations`}
-            >
+            <Link href={`/dashboard?page=locations`}>
               <p className="sidebar-option">LOCATIONS</p>
             </Link>
           </Menu.Item>
@@ -150,18 +138,12 @@ let SidePanel = props => {
             }
           >
             <Menu.Item key="permissions-web">
-              <Link
-
-                href={`/dashboard?page=permissions-web`}
-              >
+              <Link href={`/dashboard?page=permissions-web`}>
                 <p className="sidebar-option"> WEB PERMISSIONS</p>
               </Link>
             </Menu.Item>
             <Menu.Item key="permissions-app">
-              <Link
-
-                href={`/dashboard?page=permissions-app`}
-              >
+              <Link href={`/dashboard?page=permissions-app`}>
                 <p className="sidebar-option">APP PERMISSIONS</p>
               </Link>
             </Menu.Item>
@@ -184,8 +166,8 @@ let SidePanel = props => {
         <Menu.Item key="settings">
           <p className="sidebar-option">SUPPORT</p>
         </Menu.Item>
-        <Menu.Item key="logout" >
-          <Link href={'/logout'} >
+        <Menu.Item key="logout">
+          <Link href={"/logout"}>
             <p className="sidebar-option">LOGOUT</p>
           </Link>
         </Menu.Item>

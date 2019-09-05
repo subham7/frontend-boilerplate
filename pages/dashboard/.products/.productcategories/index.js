@@ -85,6 +85,7 @@ class App extends React.Component {
       return <Loader />
     }
   }
+
   _createProductCategory = data => {
     let temp = []
     if (Array.isArray(data)) {

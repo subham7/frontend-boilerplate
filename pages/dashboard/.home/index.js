@@ -6,7 +6,8 @@ import {
   topCategories,
   paymentTypes,
   topSalesman,
-  locationSales
+  locationSales,
+  salesDatewise
 } from "../../../src/reduxHelper"
 
 const ReactHighcharts = require('react-highcharts');
@@ -21,16 +22,19 @@ class App extends Component {
       topCategoryData: [],
       paymentTypeData: [],
       topSalesmanData: [],
-      loacationSalesData: []
+      loacationSalesData: [],
+      grossSalesData: []
     }
   }
 
   componentDidMount() {
+    console.log(this.props.business.response.data[0].businessID, "busuuu")
     this.loadTopItems()
     this.loadTopCategory()
     this.loadTransactionType()
     this.loadTopSalesman()
     this.loadLocationSales()
+    this.loadSalesWithinDates()
   }
 
 
@@ -53,13 +57,13 @@ class App extends Component {
 
     const columnstopselling = [
       {
-        title: 'Name',
+        title: 'Date',
         dataIndex: 'name',
         key: 'name',
         render: text => <a href="javascript:;">{text}</a>,
       },
       {
-        title: 'Tags',
+        title: 'Sales',
         key: 'tags',
         dataIndex: 'tags',
         render: tags => (
@@ -71,7 +75,7 @@ class App extends Component {
               }
               return (
                 <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
+                  ₹ {tag}
                 </Tag>
               );
             })}
@@ -80,31 +84,10 @@ class App extends Component {
       },
 
     ]
-
-
-    const datatopselling = [
-      {
-        key: '1',
-        name: 'Today',
-
-
-        tags: ['+₹20k'],
-      },
-      {
-        key: '2',
-        name: 'Yesterday',
-
-
-        tags: ['+₹15k'],
-      },
-      {
-        key: '3',
-        name: 'Last Week',
-
-
-        tags: ['-₹10k'],
-      },
-    ]
+    // "totalSale": 832.62,
+    // "day": 18,
+    // "month": 7,
+    // "year": 2019
 
     const columnstopcat = [
       {
@@ -233,9 +216,7 @@ class App extends Component {
       <div style={{ padding: '30px' }}>
         <Row gutter={16}>
           <Col span={8}>
-            {/* <Card title="GROSS SALES" bordered={true}> */}
-            <Table pagination={{ position: "none" }} columns={columnstopselling} dataSource={datatopselling} size="small" showHeader={false} title={() => <strong>GROSS SALES</strong>} />
-            {/* </Card> */}
+            <Table pagination={{ position: "none" }} columns={columnstopselling} dataSource={this.state.grossSalesData} size="small" />
           </Col>
           <Col span={8}>
 
@@ -243,7 +224,7 @@ class App extends Component {
             <Table pagination={{ position: "none" }} columns={columnstopcat} dataSource={this.state.topCategoryData} size="small" />
           </Col>
           <Col span={8}>
-            <Table pagination={{ position: "none" }} columns={columns} dataSource={this.state.topProductsData} size="small"  />
+            <Table pagination={{ position: "none" }} columns={columns} dataSource={this.state.topProductsData} size="small" />
           </Col>
 
         </Row>
@@ -326,7 +307,7 @@ class App extends Component {
           salesValue.push(data[index].totalSalesAmount)
           salesmanName.push(data[index].name)
         }
-        this.setState({ topSalesmanData: {salesValue: salesValue, salesmanName: salesmanName} })
+        this.setState({ topSalesmanData: { salesValue: salesValue, salesmanName: salesmanName } })
       })
       .catch(err => {
         console.log(err)
@@ -348,10 +329,32 @@ class App extends Component {
         console.log(err)
       })
   }
+
+  loadSalesWithinDates = () => {
+    this.props.getSalesDate(this.props.business.response.data[0].businessID)
+      .then(data => {
+        let salesData = []
+        for (let index = 0; index < data.length; index++) {
+          salesData.push({
+            key: index,
+            name: '' + data[index].day + '-' + data[index].month + '-' + data[index].year,
+            tags: [data[index].totalSale]
+          })
+        }
+        this.setState({ grossSalesData: salesData.splice(0, 3) })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
+
+
+
 // this.props.locations.response.data[2]
 const mapStateToProps = state => ({
-  locations: state.locations
+  locations: state.locations,
+  business: state.businesses
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -359,7 +362,8 @@ const mapDispatchToProps = dispatch => ({
   topCategories: (location, from, to) => dispatch(topCategories.action(location, from, to)),
   paymentTypes: (location, from, to) => dispatch(paymentTypes.action(location, from, to)),
   getTopSalesman: (business) => dispatch(topSalesman.action(business)),
-  getLocationSales: (business) => dispatch(locationSales.action(business))
+  getLocationSales: (business) => dispatch(locationSales.action(business)),
+  getSalesDate: (business) => dispatch(salesDatewise.action(business))
 })
 
 export default connect(

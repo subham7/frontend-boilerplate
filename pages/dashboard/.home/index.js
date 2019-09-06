@@ -4,11 +4,14 @@ import { connect } from "react-redux"
 import {
   topItems,
   topCategories,
-  paymentTypes
+  paymentTypes,
+  topSalesman,
+  locationSales
 } from "../../../src/reduxHelper"
 
 const ReactHighcharts = require('react-highcharts');
 import { Row, Col, Card, Table, Divider, Tag, Descriptions } from 'antd';
+import { businesses } from "../../../src/api/business";
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +19,9 @@ class App extends Component {
     this.state = {
       topProductsData: [],
       topCategoryData: [],
-      paymentTypeData: []
+      paymentTypeData: [],
+      topSalesmanData: [],
+      loacationSalesData: []
     }
   }
 
@@ -24,6 +29,8 @@ class App extends Component {
     this.loadTopItems()
     this.loadTopCategory()
     this.loadTransactionType()
+    this.loadTopSalesman()
+    this.loadLocationSales()
   }
 
 
@@ -179,13 +186,13 @@ class App extends Component {
       },
 
       xAxis: {
-        categories: ['Ron', 'Joe', 'Bajo', 'Apr', 'Jean', 'Modi']
+        categories: this.state.topSalesmanData.salesmanName
       },
 
       series: [{
         type: 'column',
         colorByPoint: true,
-        data: [500, 325, 800, 400, 550, 750],
+        data: this.state.topSalesmanData.salesValue,
         showInLegend: false
       }]
     }
@@ -219,16 +226,7 @@ class App extends Component {
       series: [{
         name: 'Store Wise Division',
         colorByPoint: true,
-        data: [{
-          name: 'Hydrabad',
-          y: 44.9,
-
-        }, {
-          name: 'Bangalore',
-          y: 55.1,
-          sliced: true,
-          selected: true
-        }]
+        data: this.state.loacationSalesData
       }]
     }
     return (
@@ -283,7 +281,7 @@ class App extends Component {
   }
 
   loadTopItems = () => {
-    this.props.getTopProducts('6e4a829b-b32d-487c-800f-d80a6d185a92', '2021-07-04', '2021-07-06')
+    this.props.getTopProducts('6e4a829b-b32d-487c-800f-d80a6d185a92', '2018-07-04', '2021-07-06')
       .then(data => {
         this.setState({ topProductsData: data.splice(0, 3) })
       })
@@ -292,15 +290,6 @@ class App extends Component {
       })
   }
 
-  loadTopCategory = () => {
-    this.props.topCategories('6e4a829b-b32d-487c-800f-d80a6d185a92', '2021-07-04', '2021-07-06')
-      .then(data => {
-        this.setState({ topCategoryData: data.splice(0, 3) })
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  }
   loadTopCategory = () => {
     this.props.topCategories('6e4a829b-b32d-487c-800f-d80a6d185a92', '2018-07-04', '2021-07-06')
       .then(data => {
@@ -321,7 +310,39 @@ class App extends Component {
           }
         })
         this.setState({ paymentTypeData: dataArray.splice(0, 3) })
-        console.log(this.state.paymentTypeData, "state")
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadTopSalesman = () => {
+    //send businessID
+    this.props.getTopSalesman('e96c8b21-4773-407c-a440-4d4c9d67aa79')
+      .then(data => {
+        let salesValue = []
+        let salesmanName = []
+        for (let index = 0; index < data.length; index++) {
+          salesValue.push(data[index].totalSalesAmount)
+          salesmanName.push(data[index].name)
+        }
+        this.setState({ topSalesmanData: {salesValue: salesValue, salesmanName: salesmanName} })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadLocationSales = () => {
+    this.props.getLocationSales('bdf26304-0a68-48d9-a20f-8fb60ca6e4c0')
+      .then(data => {
+        let dataArray = data.map((item, i) => {
+          return {
+            name: item.name,
+            y: item.units
+          }
+        })
+        this.setState({ loacationSalesData: dataArray })
       })
       .catch(err => {
         console.log(err)
@@ -336,7 +357,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getTopProducts: (location, from, to) => dispatch(topItems.action(location, from, to)),
   topCategories: (location, from, to) => dispatch(topCategories.action(location, from, to)),
-  paymentTypes: (location, from, to) => dispatch(paymentTypes.action(location, from, to))
+  paymentTypes: (location, from, to) => dispatch(paymentTypes.action(location, from, to)),
+  getTopSalesman: (business) => dispatch(topSalesman.action(business)),
+  getLocationSales: (business) => dispatch(locationSales.action(business))
 })
 
 export default connect(

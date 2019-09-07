@@ -7,7 +7,8 @@ import {
   paymentTypes,
   topSalesman,
   locationSales,
-  salesDatewise
+  salesDatewise,
+  locations
 } from "../../../src/reduxHelper"
 
 const ReactHighcharts = require('react-highcharts');
@@ -28,17 +29,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.business.response.data[0].businessID, "busuuu")
-    this.loadTopItems()
-    this.loadTopCategory()
-    this.loadTransactionType()
-    this.loadTopSalesman()
-    this.loadLocationSales()
-    this.loadSalesWithinDates()
+    let businessID = this.props.business.response.data[0].businessID
+    this.props
+      .getLocations(businessID)
+      .then(data => {
+        this.loadTopItems()
+        this.loadTopCategory()
+        this.loadTransactionType()
+        this.loadTopSalesman()
+        this.loadLocationSales()
+        this.loadSalesWithinDates()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
   }
-
-
-
 
   render() {
     const columns = [
@@ -262,7 +268,7 @@ class App extends Component {
   }
 
   loadTopItems = () => {
-    this.props.getTopProducts('6e4a829b-b32d-487c-800f-d80a6d185a92', '2018-07-04', '2021-07-06')
+    this.props.getTopProducts(this.props.locations.response.data[0].blocationID, '2018-07-04', '2021-07-06')
       .then(data => {
         this.setState({ topProductsData: data.splice(0, 3) })
       })
@@ -272,7 +278,7 @@ class App extends Component {
   }
 
   loadTopCategory = () => {
-    this.props.topCategories('6e4a829b-b32d-487c-800f-d80a6d185a92', '2018-07-04', '2021-07-06')
+    this.props.topCategories(this.props.locations.response.data[0].blocationID, '2018-07-04', '2021-07-06')
       .then(data => {
         this.setState({ topCategoryData: data.splice(0, 3) })
       })
@@ -282,7 +288,7 @@ class App extends Component {
   }
 
   loadTransactionType = () => {
-    this.props.paymentTypes('6e4a829b-b32d-487c-800f-d80a6d185a92', '2018-07-04', '2021-07-06')
+    this.props.paymentTypes(this.props.locations.response.data[0].blocationID, '2018-07-04', '2021-07-06')
       .then(data => {
         let dataArray = data.map((item, i) => {
           return {
@@ -299,7 +305,7 @@ class App extends Component {
 
   loadTopSalesman = () => {
     //send businessID
-    this.props.getTopSalesman('e96c8b21-4773-407c-a440-4d4c9d67aa79')
+    this.props.getTopSalesman(this.props.business.response.data[0].businessID)
       .then(data => {
         let salesValue = []
         let salesmanName = []
@@ -315,7 +321,7 @@ class App extends Component {
   }
 
   loadLocationSales = () => {
-    this.props.getLocationSales('bdf26304-0a68-48d9-a20f-8fb60ca6e4c0')
+    this.props.getLocationSales(this.props.business.response.data[0].businessID)
       .then(data => {
         let dataArray = data.map((item, i) => {
           return {
@@ -363,7 +369,8 @@ const mapDispatchToProps = dispatch => ({
   paymentTypes: (location, from, to) => dispatch(paymentTypes.action(location, from, to)),
   getTopSalesman: (business) => dispatch(topSalesman.action(business)),
   getLocationSales: (business) => dispatch(locationSales.action(business)),
-  getSalesDate: (business) => dispatch(salesDatewise.action(business))
+  getSalesDate: (business) => dispatch(salesDatewise.action(business)),
+  getLocations: businessID => dispatch(locations.action(businessID))
 })
 
 export default connect(

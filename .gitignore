@@ -59,7 +59,7 @@ typings/
 .env
 
 # next.js build output
-.next
+# .next
 
 #package.json
 package-lock.json

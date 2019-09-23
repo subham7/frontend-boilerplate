@@ -1,90 +1,74 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+
+import {
+  topItems,
+  topCategories,
+  paymentTypes,
+  topSalesman,
+  locationSales,
+  salesDatewise,
+  locations
+} from "../../../src/reduxHelper"
+
 const ReactHighcharts = require("react-highcharts")
 import { Row, Col, Card, Table, Divider, Tag, Descriptions } from "antd"
+import { businesses } from "../../../src/api/business"
 
 class App extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      topProductsData: [],
+      topCategoryData: [],
+      paymentTypeData: [],
+      topSalesmanData: [],
+      loacationSalesData: [],
+      grossSalesData: []
+    }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    let businessID = this.props.business.response.data[0].businessID
+    this.props
+      .getLocations(businessID)
+      .then(data => {
+        this.loadTopItems()
+        this.loadTopCategory()
+        this.loadTransactionType()
+        this.loadTopSalesman()
+        this.loadLocationSales()
+        this.loadSalesWithinDates()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   render() {
     const columns = [
       {
-        title: "Name",
-        dataIndex: "name",
+        title: "Top Selling Items",
+        dataIndex: "productName",
         key: "name",
         render: text => <a href="javascript:;">{text}</a>
       },
-      // {
-      //     title: 'Tags',
-      //     key: 'tags',
-      //     dataIndex: 'tags',
-      //     render: tags => (
-      //       <span>
-      //         {tags.map(tag => {
-      //           let color = tag.length > 5 ? 'geekblue' : 'green';
-      //           if (tag === 'loser') {
-      //             color = 'volcano';
-      //           }
-      //           return (
-      //             <Tag color={color} key={tag}>
-      //               {tag.toUpperCase()}
-      //             </Tag>
-      //           );
-      //         })}
-      //       </span>
-      //     ),
-      //   },
       {
-        title: "Address",
-        dataIndex: "address",
+        title: "Units",
+        dataIndex: "productUnits",
         key: "address"
-      }
-    ]
-
-    const data = [
-      {
-        key: "1",
-        name: "Today",
-
-        address: "₹5,0000"
-        // tags: ['nice', 'developer'],
-      },
-      {
-        key: "2",
-        name: "Yesterday",
-
-        address: "₹7,0000"
-        // tags: ['loser'],
-      },
-      {
-        key: "3",
-        name: "Last Week",
-
-        address: "₹50,0000"
-        // tags: ['loser'],
-      },
-      {
-        key: "2",
-        name: "Last 30 Days",
-
-        address: "₹100,0000"
-        // tags: ['loser'],
       }
     ]
 
     const columnstopselling = [
       {
-        title: "Name",
+        title: "Date",
         dataIndex: "name",
         key: "name",
         render: text => <a href="javascript:;">{text}</a>
       },
       {
-        title: "Tags",
+        title: "Sales",
         key: "tags",
         dataIndex: "tags",
         render: tags => (
@@ -96,7 +80,7 @@ class App extends Component {
               }
               return (
                 <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
+                  ₹ {tag}
                 </Tag>
               )
             })}
@@ -104,39 +88,22 @@ class App extends Component {
         )
       }
     ]
-
-    const datatopselling = [
-      {
-        key: "1",
-        name: "K F Premium",
-
-        tags: ["+₹20k"]
-      },
-      {
-        key: "2",
-        name: "Blenders Pride",
-
-        tags: ["+₹15k"]
-      },
-      {
-        key: "3",
-        name: "Smirnoff",
-
-        tags: ["-₹10k"]
-      }
-    ]
+    // "totalSale": 832.62,
+    // "day": 18,
+    // "month": 7,
+    // "year": 2019
 
     const columnstopcat = [
       {
-        title: "Name",
+        title: "Top Categories",
         dataIndex: "name",
         key: "name",
         render: text => <a href="javascript:;">{text}</a>
       },
       {
-        title: "Address",
-        dataIndex: "address",
-        key: "address"
+        title: "Units",
+        dataIndex: "productCategoryCount",
+        key: "productCategoryCount"
       }
       // {
       //     title: 'Tags',
@@ -158,27 +125,6 @@ class App extends Component {
       //         </span>
       //     ),
       //     },
-    ]
-
-    const datatopcat = [
-      {
-        key: "1",
-        name: "Beer",
-
-        address: "2 lakh"
-      },
-      {
-        key: "2",
-        name: "Whiskey",
-
-        address: " 1.5 lakh"
-      },
-      {
-        key: "3",
-        name: "vodka",
-
-        address: "1 lakh"
-      }
     ]
 
     let configpayment = {
@@ -211,26 +157,7 @@ class App extends Component {
         {
           name: "Payment Methods",
           colorByPoint: true,
-          data: [
-            {
-              name: "Cash",
-              y: 25
-            },
-            {
-              name: "Paytm",
-              y: 20
-            },
-            {
-              name: "Card",
-              y: 35,
-              sliced: true,
-              selected: true
-            },
-            {
-              name: "Other",
-              y: 20
-            }
-          ]
+          data: this.state.paymentTypeData
         }
       ]
     }
@@ -245,14 +172,14 @@ class App extends Component {
       },
 
       xAxis: {
-        categories: ["Ron", "Joe", "Bajo", "Apr", "Jean", "Modi"]
+        categories: this.state.topSalesmanData.salesmanName
       },
 
       series: [
         {
           type: "column",
           colorByPoint: true,
-          data: [500, 325, 800, 400, 550, 750],
+          data: this.state.topSalesmanData.salesValue,
           showInLegend: false
         }
       ]
@@ -288,18 +215,7 @@ class App extends Component {
         {
           name: "Store Wise Division",
           colorByPoint: true,
-          data: [
-            {
-              name: "Hydrabad",
-              y: 44.9
-            },
-            {
-              name: "Bangalore",
-              y: 55.1,
-              sliced: true,
-              selected: true
-            }
-          ]
+          data: this.state.loacationSalesData
         }
       ]
     }
@@ -307,48 +223,46 @@ class App extends Component {
       <div style={{ padding: "30px" }}>
         <Row gutter={16}>
           <Col span={8}>
-            {/* <Card title="GROSS SALES" bordered={true}> */}
             <Table
               pagination={{ position: "none" }}
-              columns={columns}
-              dataSource={data}
+              columns={columnstopselling}
+              dataSource={this.state.grossSalesData}
               size="small"
-              showHeader={false}
-              title={() => <strong>GROSS SALES</strong>}
             />
-            {/* </Card> */}
           </Col>
           <Col span={8}>
             <Table
               pagination={{ position: "none" }}
               columns={columnstopcat}
-              dataSource={datatopcat}
+              dataSource={this.state.topCategoryData}
               size="small"
-              showHeader={false}
-              title={() => <strong>Top Categories</strong>}
             />
           </Col>
           <Col span={8}>
             <Table
               pagination={{ position: "none" }}
-              columns={columnstopselling}
-              dataSource={datatopselling}
+              columns={columns}
+              dataSource={this.state.topProductsData}
               size="small"
-              showHeader={false}
-              title={() => <strong>Top Selling Items</strong>}
             />
           </Col>
         </Row>
-        <br />
+        <br></br>
         <Row gutter={16}>
           <Col span={12}>
             <Card bordered={true}>
-              <ReactHighcharts config={configpayment} ref="chart" />
+              <ReactHighcharts
+                config={configpayment}
+                ref="chart"
+              ></ReactHighcharts>
             </Card>
           </Col>
           <Col span={12}>
             <Card bordered={true}>
-              <ReactHighcharts config={configTopSalePerson} ref="chart" />
+              <ReactHighcharts
+                config={configTopSalePerson}
+                ref="chart"
+              ></ReactHighcharts>
             </Card>
           </Col>
         </Row>
@@ -356,18 +270,152 @@ class App extends Component {
         <Row gutter={16}>
           <Col span={22}>
             <Card bordered={true}>
-              <ReactHighcharts config={configStoreDivison} ref="chart" />
+              <ReactHighcharts
+                config={configStoreDivison}
+                ref="chart"
+              ></ReactHighcharts>
             </Card>
           </Col>
         </Row>
       </div>
     )
   }
+
+  loadTopItems = () => {
+    this.props
+      .getTopProducts(
+        this.props.locations.response.data[0].blocationID,
+        "2018-07-04",
+        "2021-07-06"
+      )
+      .then(data => {
+        this.setState({ topProductsData: data.splice(0, 3) })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadTopCategory = () => {
+    this.props
+      .topCategories(
+        this.props.locations.response.data[0].blocationID,
+        "2018-07-04",
+        "2021-07-06"
+      )
+      .then(data => {
+        this.setState({ topCategoryData: data.splice(0, 3) })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadTransactionType = () => {
+    this.props
+      .paymentTypes(
+        this.props.locations.response.data[0].blocationID,
+        "2018-07-04",
+        "2021-07-06"
+      )
+      .then(data => {
+        let dataArray = data.map((item, i) => {
+          return {
+            name: item.name,
+            y: item.paymentTypeCount
+          }
+        })
+        this.setState({ paymentTypeData: dataArray.splice(0, 3) })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadTopSalesman = () => {
+    //send businessID
+    this.props
+      .getTopSalesman(this.props.business.response.data[0].businessID)
+      .then(data => {
+        let salesValue = []
+        let salesmanName = []
+        for (let index = 0; index < data.length; index++) {
+          salesValue.push(data[index].totalSalesAmount)
+          salesmanName.push(data[index].name)
+        }
+        this.setState({
+          topSalesmanData: {
+            salesValue: salesValue,
+            salesmanName: salesmanName
+          }
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadLocationSales = () => {
+    this.props
+      .getLocationSales(this.props.business.response.data[0].businessID)
+      .then(data => {
+        let dataArray = data.map((item, i) => {
+          return {
+            name: item.name,
+            y: item.units
+          }
+        })
+        this.setState({ loacationSalesData: dataArray })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  loadSalesWithinDates = () => {
+    this.props
+      .getSalesDate(this.props.business.response.data[0].businessID)
+      .then(data => {
+        let salesData = []
+        for (let index = 0; index < data.length; index++) {
+          salesData.push({
+            key: index,
+            name:
+              "" +
+              data[index].day +
+              "-" +
+              data[index].month +
+              "-" +
+              data[index].year,
+            tags: [data[index].totalSale]
+          })
+        }
+        this.setState({ grossSalesData: salesData.splice(0, 3) })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
-const mapStateToProps = state => ({})
+// this.props.locations.response.data[2]
+const mapStateToProps = state => ({
+  locations: state.locations,
+  business: state.businesses
+})
 
-const mapDispatchToProps = dispatch => ({})
+const mapDispatchToProps = dispatch => ({
+  getTopProducts: (location, from, to) =>
+    dispatch(topItems.action(location, from, to)),
+  topCategories: (location, from, to) =>
+    dispatch(topCategories.action(location, from, to)),
+  paymentTypes: (location, from, to) =>
+    dispatch(paymentTypes.action(location, from, to)),
+  getTopSalesman: business => dispatch(topSalesman.action(business)),
+  getLocationSales: business => dispatch(locationSales.action(business)),
+  getSalesDate: business => dispatch(salesDatewise.action(business)),
+  getLocations: businessID => dispatch(locations.action(businessID))
+})
 
 export default connect(
   mapStateToProps,

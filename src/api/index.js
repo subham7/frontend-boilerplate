@@ -19,6 +19,7 @@ import * as attributesets from './attributeset'
 import * as attributes from './attributes'
 import * as attributevalues from './attributevalues'
 import * as receipts from './receipts'
+import * as reports from './reports'
 
 
 module.exports = {
@@ -42,5 +43,6 @@ module.exports = {
   attributesets,
   attributes,
   attributevalues,
-  receipts
+  receipts,
+  reports
 }

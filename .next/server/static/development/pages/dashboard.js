@@ -14621,6 +14621,22 @@ function (_Component) {
           display: "inline-block",
           marginBottom: 15
         }
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("h4", null, "Is quantity floatable?"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        style: {
+          float: "left",
+          marginRight: 8
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_utils_xinformed__WEBPACK_IMPORTED_MODULE_10__["RadioGroup"], null, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_utils_xinformed__WEBPACK_IMPORTED_MODULE_10__["Radio"], {
+        value: true,
+        field: "isQuantityFloatable"
+      }, "Yes"), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_utils_xinformed__WEBPACK_IMPORTED_MODULE_10__["Radio"], {
+        value: false,
+        field: "isQuantityFloatable"
+      }, "No")))), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
+        style: {
+          display: "inline-block",
+          marginBottom: 15
+        }
       }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
         style: {
           float: "left",

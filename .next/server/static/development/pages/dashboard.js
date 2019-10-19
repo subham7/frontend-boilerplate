@@ -4403,6 +4403,186 @@ function init(WrappedComponent) {
 
 /***/ }),
 
+/***/ "./pages/dashboard/.home/home.data.js":
+/*!********************************************!*\
+  !*** ./pages/dashboard/.home/home.data.js ***!
+  \********************************************/
+/*! exports provided: columns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns", function() { return columns; });
+/* harmony import */ var antd_lib_tag_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! antd/lib/tag/style */ "antd/lib/tag/style");
+/* harmony import */ var antd_lib_tag_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_tag_style__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var antd_lib_tag__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/lib/tag */ "antd/lib/tag");
+/* harmony import */ var antd_lib_tag__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd_lib_tag__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var topProductColumns = [{
+  title: 'Top Selling Items',
+  dataIndex: 'productName',
+  key: 'name',
+  render: function render(text) {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
+      href: "javascript:;"
+    }, text);
+  }
+}, {
+  title: 'Units',
+  dataIndex: 'productUnits',
+  key: 'address'
+}];
+var columnstopselling = [{
+  title: 'Date',
+  dataIndex: 'name',
+  key: 'name',
+  render: function render(text) {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
+      href: "javascript:;"
+    }, text);
+  }
+}, {
+  title: 'Sales',
+  key: 'tags',
+  dataIndex: 'tags',
+  render: function render(tags) {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, tags.map(function (tag) {
+      var color = tag[0] == "-" ? 'volcano' : 'green';
+
+      if (tag === 'loser') {
+        color = 'volcano';
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(antd_lib_tag__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        color: color,
+        key: tag
+      }, "\u20B9 ", tag);
+    }));
+  }
+}];
+var columnstopcat = [{
+  title: 'Top Categories',
+  dataIndex: 'name',
+  key: 'name',
+  render: function render(text) {
+    return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("a", {
+      href: "javascript:;"
+    }, text);
+  }
+}, {
+  title: 'Units',
+  dataIndex: 'productCategoryCount',
+  key: 'productCategoryCount'
+}];
+
+var getConfigPaymentObject = function getConfigPaymentObject(paymentTypeData) {
+  var configpayment = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Payment Methods'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          style: {
+            color: 'black'
+          }
+        }
+      }
+    },
+    series: [{
+      name: 'Payment Methods',
+      colorByPoint: true,
+      data: paymentTypeData
+    }]
+  };
+  return configpayment;
+};
+
+var getConfigTopSalePersonObject = function getConfigTopSalePersonObject(salesmanName, salesValue) {
+  var configTopSalePerson = {
+    title: {
+      text: 'Top Sales person'
+    },
+    subtitle: {
+      text: 'Sales'
+    },
+    xAxis: {
+      categories: salesmanName
+    },
+    series: [{
+      type: 'column',
+      colorByPoint: true,
+      data: salesValue,
+      showInLegend: false
+    }]
+  };
+  return configTopSalePerson;
+};
+
+var getConfigStoreDivisonObject = function getConfigStoreDivisonObject(loacationSalesData) {
+  var configStoreDivison = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Store Wise Divison'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          style: {
+            color: 'black'
+          }
+        }
+      }
+    },
+    series: [{
+      name: 'Store Wise Division',
+      colorByPoint: true,
+      data: loacationSalesData
+    }]
+  };
+  return configStoreDivison;
+};
+
+var columns = {
+  topProductColumns: topProductColumns,
+  columnstopselling: columnstopselling,
+  columnstopcat: columnstopcat,
+  getConfigPaymentObject: getConfigPaymentObject,
+  getConfigTopSalePersonObject: getConfigTopSalePersonObject,
+  getConfigStoreDivisonObject: getConfigStoreDivisonObject
+};
+
+/***/ }),
+
 /***/ "./pages/dashboard/.home/index.js":
 /*!****************************************!*\
   !*** ./pages/dashboard/.home/index.js ***!
@@ -4416,35 +4596,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd_lib_card_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(antd_lib_card_style__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var antd_lib_card__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! antd/lib/card */ "antd/lib/card");
 /* harmony import */ var antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(antd_lib_card__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var antd_lib_row_style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd/lib/row/style */ "antd/lib/row/style");
-/* harmony import */ var antd_lib_row_style__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(antd_lib_row_style__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var antd_lib_row__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd/lib/row */ "antd/lib/row");
-/* harmony import */ var antd_lib_row__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd_lib_row__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var antd_lib_col_style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd/lib/col/style */ "antd/lib/col/style");
-/* harmony import */ var antd_lib_col_style__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(antd_lib_col_style__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var antd_lib_col__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd/lib/col */ "antd/lib/col");
-/* harmony import */ var antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(antd_lib_col__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var antd_lib_table_style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd/lib/table/style */ "antd/lib/table/style");
-/* harmony import */ var antd_lib_table_style__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(antd_lib_table_style__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var antd_lib_table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd/lib/table */ "antd/lib/table");
-/* harmony import */ var antd_lib_table__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(antd_lib_table__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var antd_lib_tag_style__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! antd/lib/tag/style */ "antd/lib/tag/style");
-/* harmony import */ var antd_lib_tag_style__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(antd_lib_tag_style__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var antd_lib_tag__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! antd/lib/tag */ "antd/lib/tag");
-/* harmony import */ var antd_lib_tag__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(antd_lib_tag__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! react-redux */ "react-redux");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../../src/reduxHelper */ "./src/reduxHelper/index.js");
-/* harmony import */ var _src_reduxHelper__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__);
+/* harmony import */ var antd_lib_table_style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! antd/lib/table/style */ "antd/lib/table/style");
+/* harmony import */ var antd_lib_table_style__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(antd_lib_table_style__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var antd_lib_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! antd/lib/table */ "antd/lib/table");
+/* harmony import */ var antd_lib_table__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(antd_lib_table__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var antd_lib_row_style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! antd/lib/row/style */ "antd/lib/row/style");
+/* harmony import */ var antd_lib_row_style__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(antd_lib_row_style__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var antd_lib_row__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! antd/lib/row */ "antd/lib/row");
+/* harmony import */ var antd_lib_row__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(antd_lib_row__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var antd_lib_col_style__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! antd/lib/col/style */ "antd/lib/col/style");
+/* harmony import */ var antd_lib_col_style__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(antd_lib_col_style__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var antd_lib_col__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! antd/lib/col */ "antd/lib/col");
+/* harmony import */ var antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(antd_lib_col__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/classCallCheck */ "./node_modules/@babel/runtime-corejs2/helpers/esm/classCallCheck.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/createClass */ "./node_modules/@babel/runtime-corejs2/helpers/esm/createClass.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/possibleConstructorReturn */ "./node_modules/@babel/runtime-corejs2/helpers/esm/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/getPrototypeOf */ "./node_modules/@babel/runtime-corejs2/helpers/esm/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/assertThisInitialized */ "./node_modules/@babel/runtime-corejs2/helpers/esm/assertThisInitialized.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/inherits */ "./node_modules/@babel/runtime-corejs2/helpers/esm/inherits.js");
+/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-redux */ "react-redux");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_16__);
+/* harmony import */ var _src_components_molecules_cascader__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../../src/components/molecules/cascader */ "./src/components/molecules/cascader/index.js");
+/* harmony import */ var _src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../src/reduxHelper */ "./src/reduxHelper/index.js");
+/* harmony import */ var _src_reduxHelper__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__);
+/* harmony import */ var _home_data__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./home.data */ "./pages/dashboard/.home/home.data.js");
 /* harmony import */ var _src_api_business__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../../../src/api/business */ "./src/api/business/index.js");
 
 
@@ -4474,17 +4652,39 @@ var ReactHighcharts = __webpack_require__(/*! react-highcharts */ "react-highcha
 var App =
 /*#__PURE__*/
 function (_Component) {
-  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_15__["default"])(App, _Component);
+  Object(_babel_runtime_corejs2_helpers_esm_inherits__WEBPACK_IMPORTED_MODULE_13__["default"])(App, _Component);
 
   function App(props) {
     var _this;
 
-    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_10__["default"])(this, App);
+    Object(_babel_runtime_corejs2_helpers_esm_classCallCheck__WEBPACK_IMPORTED_MODULE_8__["default"])(this, App);
 
-    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_12__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_13__["default"])(App).call(this, props));
+    _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_10__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_11__["default"])(App).call(this, props));
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__["default"])(_this), "loadTopItems", function () {
-      _this.props.getTopProducts(_this.props.locations.response.data[0].blocationID, '2018-07-04', '2021-07-06').then(function (data) {
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadAllReports", function (locationID) {
+      _this.loadTopItems(locationID);
+
+      _this.loadTopCategory(locationID);
+
+      _this.loadTransactionType(locationID);
+
+      _this.loadTopSalesman();
+
+      _this.loadLocationSales();
+
+      _this.loadSalesWithinDates();
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "handleChange", function (value) {
+      _this.setState({
+        initialBlocation: value
+      });
+
+      _this.loadAllReports(value);
+    });
+
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadTopItems", function (locationID) {
+      _this.props.getTopProducts(locationID, '2018-07-04', '2021-07-06').then(function (data) {
         _this.setState({
           topProductsData: data.splice(0, 3)
         });
@@ -4493,8 +4693,8 @@ function (_Component) {
       });
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__["default"])(_this), "loadTopCategory", function () {
-      _this.props.topCategories(_this.props.locations.response.data[0].blocationID, '2018-07-04', '2021-07-06').then(function (data) {
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadTopCategory", function (locationID) {
+      _this.props.topCategories(locationID, '2018-07-04', '2021-07-06').then(function (data) {
         _this.setState({
           topCategoryData: data.splice(0, 3)
         });
@@ -4503,8 +4703,8 @@ function (_Component) {
       });
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__["default"])(_this), "loadTransactionType", function () {
-      _this.props.paymentTypes(_this.props.locations.response.data[0].blocationID, '2018-07-04', '2021-07-06').then(function (data) {
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadTransactionType", function (locationID) {
+      _this.props.paymentTypes(locationID, '2018-07-04', '2021-07-06').then(function (data) {
         var dataArray = data.map(function (item, i) {
           return {
             name: item.name,
@@ -4520,7 +4720,7 @@ function (_Component) {
       });
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__["default"])(_this), "loadTopSalesman", function () {
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadTopSalesman", function () {
       //send businessID
       _this.props.getTopSalesman(_this.props.business.response.data[0].businessID).then(function (data) {
         var salesValue = [];
@@ -4542,7 +4742,7 @@ function (_Component) {
       });
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__["default"])(_this), "loadLocationSales", function () {
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadLocationSales", function () {
       _this.props.getLocationSales(_this.props.business.response.data[0].businessID).then(function (data) {
         var dataArray = data.map(function (item, i) {
           return {
@@ -4559,7 +4759,7 @@ function (_Component) {
       });
     });
 
-    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_16__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_14__["default"])(_this), "loadSalesWithinDates", function () {
+    Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_14__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_12__["default"])(_this), "loadSalesWithinDates", function () {
       _this.props.getSalesDate(_this.props.business.response.data[0].businessID).then(function (data) {
         var salesData = [];
 
@@ -4580,6 +4780,8 @@ function (_Component) {
     });
 
     _this.state = {
+      initialBlocation: null,
+      blocations: [],
       topProductsData: [],
       topCategoryData: [],
       paymentTypeData: [],
@@ -4590,236 +4792,108 @@ function (_Component) {
     return _this;
   }
 
-  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_11__["default"])(App, [{
+  Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_9__["default"])(App, [{
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
 
-      var businessID = this.props.business.response.data[0].businessID;
-      this.props.getLocations(businessID).then(function (data) {
-        _this2.loadTopItems();
+      this.props.getBlocations(this.props.business.response.data[0].businessID).then(function (data) {
+        _this2.setState({
+          blocations: data
+        });
 
-        _this2.loadTopCategory();
+        _this2.setState({
+          initialBlocation: _this2.createSelectData(_this2.state.blocations)[0].value
+        });
 
-        _this2.loadTransactionType();
-
-        _this2.loadTopSalesman();
-
-        _this2.loadLocationSales();
-
-        _this2.loadSalesWithinDates();
-      }).catch(function (err) {
-        console.log(err);
+        _this2.loadAllReports(_this2.state.initialBlocation);
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var columns = [{
-        title: 'Top Selling Items',
-        dataIndex: 'productName',
-        key: 'name',
-        render: function render(text) {
-          return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("a", {
-            href: "javascript:;"
-          }, text);
-        }
-      }, {
-        title: 'Units',
-        dataIndex: 'productUnits',
-        key: 'address'
-      }];
-      var columnstopselling = [{
-        title: 'Date',
-        dataIndex: 'name',
-        key: 'name',
-        render: function render(text) {
-          return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("a", {
-            href: "javascript:;"
-          }, text);
-        }
-      }, {
-        title: 'Sales',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: function render(tags) {
-          return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("span", null, tags.map(function (tag) {
-            var color = tag[0] == "-" ? 'volcano' : 'green';
-
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
-
-            return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_tag__WEBPACK_IMPORTED_MODULE_9___default.a, {
-              color: color,
-              key: tag
-            }, "\u20B9 ", tag);
-          }));
-        }
-      }]; // "totalSale": 832.62,
-      // "day": 18,
-      // "month": 7,
-      // "year": 2019
-
-      var columnstopcat = [{
-        title: 'Top Categories',
-        dataIndex: 'name',
-        key: 'name',
-        render: function render(text) {
-          return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("a", {
-            href: "javascript:;"
-          }, text);
-        }
-      }, {
-        title: 'Units',
-        dataIndex: 'productCategoryCount',
-        key: 'productCategoryCount'
-      }];
-      var configpayment = {
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie'
-        },
-        title: {
-          text: 'Payment Methods'
-        },
-        tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-              style: {
-                color: 'black'
-              }
-            }
-          }
-        },
-        series: [{
-          name: 'Payment Methods',
-          colorByPoint: true,
-          data: this.state.paymentTypeData
-        }]
-      };
-      var configTopSalePerson = {
-        title: {
-          text: 'Top Sales person'
-        },
-        subtitle: {
-          text: 'Sales'
-        },
-        xAxis: {
-          categories: this.state.topSalesmanData.salesmanName
-        },
-        series: [{
-          type: 'column',
-          colorByPoint: true,
-          data: this.state.topSalesmanData.salesValue,
-          showInLegend: false
-        }]
-      };
-      var configStoreDivison = {
-        chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie'
-        },
-        title: {
-          text: 'Store Wise Divison'
-        },
-        tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: {
-          pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-              enabled: true,
-              format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-              style: {
-                color: 'black'
-              }
-            }
-          }
-        },
-        series: [{
-          name: 'Store Wise Division',
-          colorByPoint: true,
-          data: this.state.loacationSalesData
-        }]
-      };
-      return react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("div", {
         style: {
           padding: '30px'
         }
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_5___default.a, null, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
+        span: 24
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_src_components_molecules_cascader__WEBPACK_IMPORTED_MODULE_17__["default"], {
+        placeholder: "Select Location",
+        optionArray: this.createSelectData(this.state.blocations),
+        handleChange: this.handleChange // defaultValue={intialValue}
+
+      }))), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_5___default.a, {
         gutter: 16
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
         span: 8
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_table__WEBPACK_IMPORTED_MODULE_7___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_table__WEBPACK_IMPORTED_MODULE_3___default.a, {
         pagination: {
           position: "none"
         },
-        columns: columnstopselling,
+        columns: _home_data__WEBPACK_IMPORTED_MODULE_19__["columns"].columnstopselling,
         dataSource: this.state.grossSalesData,
         size: "small"
-      })), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      })), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
         span: 8
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_table__WEBPACK_IMPORTED_MODULE_7___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_table__WEBPACK_IMPORTED_MODULE_3___default.a, {
         pagination: {
           position: "none"
         },
-        columns: columnstopcat,
+        columns: _home_data__WEBPACK_IMPORTED_MODULE_19__["columns"].columnstopcat,
         dataSource: this.state.topCategoryData,
         size: "small"
-      })), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      })), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
         span: 8
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_table__WEBPACK_IMPORTED_MODULE_7___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_table__WEBPACK_IMPORTED_MODULE_3___default.a, {
         pagination: {
           position: "none"
         },
-        columns: columns,
+        columns: _home_data__WEBPACK_IMPORTED_MODULE_19__["columns"].topProductColumns,
         dataSource: this.state.topProductsData,
         size: "small"
-      }))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      }))), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_5___default.a, {
         gutter: 16
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
         span: 12
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default.a, {
         bordered: true
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(ReactHighcharts, {
-        config: configpayment,
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ReactHighcharts, {
+        config: _home_data__WEBPACK_IMPORTED_MODULE_19__["columns"].getConfigPaymentObject(this.state.paymentTypeData),
         ref: "chart"
-      }))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      }))), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
         span: 12
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default.a, {
         bordered: true
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(ReactHighcharts, {
-        config: configTopSalePerson,
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ReactHighcharts, {
+        config: _home_data__WEBPACK_IMPORTED_MODULE_19__["columns"].getConfigTopSalePersonObject(this.state.topSalesmanData.salesmanName, this.state.topSalesmanData.salesValue),
         ref: "chart"
-      })))), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_3___default.a, {
+      })))), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_row__WEBPACK_IMPORTED_MODULE_5___default.a, {
         gutter: 16
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_5___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_col__WEBPACK_IMPORTED_MODULE_7___default.a, {
         span: 22
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default.a, {
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(antd_lib_card__WEBPACK_IMPORTED_MODULE_1___default.a, {
         bordered: true
-      }, react__WEBPACK_IMPORTED_MODULE_17___default.a.createElement(ReactHighcharts, {
-        config: configStoreDivison,
+      }, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(ReactHighcharts, {
+        config: _home_data__WEBPACK_IMPORTED_MODULE_19__["columns"].getConfigStoreDivisonObject(this.state.loacationSalesData),
         ref: "chart"
       })))));
+    }
+  }, {
+    key: "createSelectData",
+    value: function createSelectData(data) {
+      var selectData = data.map(function (item) {
+        return {
+          name: item.name,
+          value: item.blocationID
+        };
+      });
+      return selectData;
     }
   }]);
 
   return App;
-}(react__WEBPACK_IMPORTED_MODULE_17__["Component"]); // this.props.locations.response.data[2]
+}(react__WEBPACK_IMPORTED_MODULE_15__["Component"]); // this.props.locations.response.data[2]
 
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -4831,31 +4905,34 @@ var mapStateToProps = function mapStateToProps(state) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
+    getBlocations: function getBlocations(businessID) {
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["locations"].action(businessID));
+    },
     getTopProducts: function getTopProducts(location, from, to) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["topItems"].action(location, from, to));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["topItems"].action(location, from, to));
     },
     topCategories: function topCategories(location, from, to) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["topCategories"].action(location, from, to));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["topCategories"].action(location, from, to));
     },
     paymentTypes: function paymentTypes(location, from, to) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["paymentTypes"].action(location, from, to));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["paymentTypes"].action(location, from, to));
     },
     getTopSalesman: function getTopSalesman(business) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["topSalesman"].action(business));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["topSalesman"].action(business));
     },
     getLocationSales: function getLocationSales(business) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["locationSales"].action(business));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["locationSales"].action(business));
     },
     getSalesDate: function getSalesDate(business) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["salesDatewise"].action(business));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["salesDatewise"].action(business));
     },
     getLocations: function getLocations(businessID) {
-      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_19__["locations"].action(businessID));
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_18__["locations"].action(businessID));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_18__["connect"])(mapStateToProps, mapDispatchToProps)(App));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_16__["connect"])(mapStateToProps, mapDispatchToProps)(App));
 
 /***/ }),
 
@@ -6486,7 +6563,9 @@ function (_React$Component) {
       var _this2 = this;
 
       var businessID = this.props.business.response.data[0].businessID;
-      this.loadproductsData();
+      this.props.getTaxes(businessID).then(function (_) {
+        _this2.loadproductsData();
+      });
       this.props.getInventoryStock(businessID).then(function (res) {
         console.log(res);
 
@@ -6569,7 +6648,8 @@ function (_React$Component) {
         data.map(function (item) {
           var object = {};
           object.name = item.name;
-          object.productID = item.productID, object.code = item.code;
+          object.productID = item.productID;
+          object.code = item.code;
           object.barcode = item.barcode;
           object.category = item.productcategory;
           object.location = item.location; //map location here
@@ -6589,8 +6669,6 @@ function (_React$Component) {
               });
             },
             editProduct: function editProduct(data, id, cb) {
-              console.log("clicked", data, id, cb);
-
               _this5.props.updateProduct(id, data.values).then(function (res) {
                 _this5.loadproductsData();
 
@@ -6606,47 +6684,32 @@ function (_React$Component) {
                 });
               });
             }
+          }, object.assign = {
+            handleAssign: function handleAssign(data, id, cb) {
+              console.log(data, id, "received data");
+              var obj = {};
+              obj.product = id;
+              obj.tax = data.values.assignedTo;
+
+              _this5.props.addTaxProduct(obj).then(function (res) {
+                cb({
+                  status: true,
+                  message: "Product tax assigned"
+                });
+              }).catch(function (err) {
+                console.log(err);
+                cb({
+                  status: true,
+                  message: "ERROR!"
+                });
+              });
+            },
+            // assignedTaxes: attributesetID => this.props.assignedTaxes(attributesetID),
+            taxesData: _this5.createSelectTaxData(_this5.props.taxes.response.data),
+            productID: item.productID
           };
           temp.push(object);
         });
-      } else {
-        var object = {};
-        object.name = data.name;
-        object.productID = item.productID, object.code = data.code;
-        object.barcode = data.barcode;
-        object.category = data.productcategory;
-        object.price = data.price;
-        object.handleFeatures = {
-          handleDelete: function handleDelete(urlParams) {
-            urlParams.businessID = _this5.props.business.response.data[0].businessID;
-            console.log("here", urlParams);
-
-            _this5.props.deleteProduct(urlParams).then(function (res) {
-              _this5.loadproductsData();
-            }).catch(function (err) {
-              console.log(err);
-            });
-          },
-          editProduct: function editProduct(data, id, cb) {
-            console.log("clicked", data, id, cb);
-
-            _this5.props.updateProduct(id, data.values).then(function (res) {
-              _this5.loadproductsData();
-
-              cb({
-                status: true,
-                message: "Product updated"
-              });
-            }).catch(function (err) {
-              console.log(err);
-              cb({
-                status: false,
-                message: "Some Error while updating"
-              });
-            });
-          }
-        };
-        temp.push(object);
       }
 
       return temp;
@@ -6681,6 +6744,17 @@ function (_React$Component) {
       });
       return selectData;
     }
+  }, {
+    key: "createSelectTaxData",
+    value: function createSelectTaxData(data) {
+      var selectData = data.map(function (item) {
+        return {
+          name: item.name,
+          value: item.taxID
+        };
+      });
+      return selectData;
+    }
   }]);
 
   return App;
@@ -6692,7 +6766,8 @@ var mapStateToProps = function mapStateToProps(state) {
     business: state.businesses,
     products: state.products,
     taxcategories: state.taxcategories,
-    inventoryStock: state.inventoryStock
+    inventoryStock: state.inventoryStock,
+    taxes: state.taxes
   };
 }; // Example Syntax for writing dispatch
 
@@ -6701,6 +6776,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     getproducts: function getproducts(businessID) {
       return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_8__["products"].action(businessID));
+    },
+    getTaxes: function getTaxes(businessID) {
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_8__["taxes"].action(businessID));
     },
     addProduct: function addProduct(businessID, object) {
       return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_8__["addProduct"].action(businessID, object));
@@ -6737,6 +6815,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     updateProduct: function updateProduct(productID, object) {
       return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_8__["updateProduct"].action(productID, object));
     },
+    addTaxProduct: function addTaxProduct(object) {
+      return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_8__["addProductsTax"].action(object));
+    },
     reviewPurchase: function reviewPurchase() {
       return dispatch(_src_reduxHelper__WEBPACK_IMPORTED_MODULE_8__["reviewPurchase"].action());
     },
@@ -6766,6 +6847,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_components_atoms_tableButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../src/components/atoms/tableButton */ "./src/components/atoms/tableButton/index.js");
 /* harmony import */ var _src_components_molecules_modelButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../src/components/molecules/modelButton */ "./src/components/molecules/modelButton/index.js");
 /* harmony import */ var _src_components_organisms_forms_createItem__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../src/components/organisms/forms/createItem */ "./src/components/organisms/forms/createItem.js");
+/* harmony import */ var _src_components_organisms_forms_assignHsn__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../src/components/organisms/forms/assignHsn */ "./src/components/organisms/forms/assignHsn.js");
+
 
 
 
@@ -6828,20 +6911,20 @@ var productColumns = [{
   title: 'BARCODE',
   dataIndex: 'barcode',
   key: 'barcode'
-}, {
-  title: 'CATEGORY',
-  dataIndex: '',
-  render: function render(object) {
-    var categoryIndex = object.selectData.findIndex(function (id) {
-      return id.value == object.category;
-    });
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_src_components_atoms_stockTag__WEBPACK_IMPORTED_MODULE_1__["default"])(object.selectData[categoryIndex].name));
-  }
-}, {
-  title: 'LOCATION',
-  dataIndex: 'location',
-  key: 'location'
 }, // {
+//     title: 'CATEGORY',
+//     dataIndex: '',
+//     render: object => {
+//         var categoryIndex = object.selectData.findIndex(id => id.value == object.category)
+//         return <p>{stockTag(object.selectData[categoryIndex].name)}</p>
+//     }
+// },
+// {
+//     title: 'LOCATION',
+//     dataIndex: 'location',
+//     key: 'location'
+// },
+// {
 //     title: 'INVENTORY',
 //     dataIndex: 'inventory',
 //     key: 'inventory',
@@ -6853,6 +6936,23 @@ var productColumns = [{
   dataIndex: 'price',
   render: function render(price) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, "INR ", price));
+  }
+}, {
+  title: "Assign Tax",
+  dataIndex: "",
+  key: "assign",
+  render: function render(object) {
+    // console.log(object.assign.taxCategoryData)
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_components_molecules_modelButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      form: _src_components_organisms_forms_assignHsn__WEBPACK_IMPORTED_MODULE_5__["default"],
+      title: "Assign Tax",
+      buttonValue: "Assign",
+      formData: object.assign,
+      assignedData: {},
+      onSubmit: function onSubmit(data, cb) {
+        return object.assign.handleAssign(data, object.productID, cb);
+      }
+    });
   }
 }, {
   title: 'Rename',
@@ -8654,24 +8754,27 @@ var taxesColumns = [{
   render: function render(percentage) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("b", null, percentage, "%");
   }
-}, {
-  title: "Assign",
-  dataIndex: "",
-  key: "assign",
-  render: function render(object) {
-    // console.log(object.assign.taxCategoryData)
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_src_components_molecules_modelButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      form: _src_components_organisms_forms_assignHsn__WEBPACK_IMPORTED_MODULE_6__["default"],
-      title: "Assign Items",
-      buttonValue: "Assign",
-      formData: object.assign,
-      assignedData: {},
-      onSubmit: function onSubmit(data, cb) {
-        return object.assign.handleAssign(data, object.taxID, cb);
-      }
-    });
-  }
-}, {
+}, // {
+//     title: "Assign",
+//     dataIndex: "",
+//     key: "assign",
+//     render: object => {
+//       // console.log(object.assign.taxCategoryData)
+//       return (
+//         <Model
+//           form={AssignItem}
+//           title="Assign Items"
+//           buttonValue="Assign"
+//           formData={object.assign}
+//           assignedData={{}}
+//           onSubmit={(data, cb) =>
+//             object.assign.handleAssign(data, object.taxID, cb)
+//           }
+//         />
+//       )
+//     }
+//   },
+{
   title: 'Edit',
   key: 'edit',
   dataIndex: '',
@@ -10239,6 +10342,8 @@ var receipts = _interopRequireWildcard(__webpack_require__(/*! ./receipts */ "./
 
 var reports = _interopRequireWildcard(__webpack_require__(/*! ./reports */ "./src/api/reports/index.js"));
 
+var productstax = _interopRequireWildcard(__webpack_require__(/*! ./producttax */ "./src/api/producttax/index.js"));
+
 module.exports = {
   taxes: taxes,
   locations: locations,
@@ -10261,7 +10366,8 @@ module.exports = {
   attributes: attributes,
   attributevalues: attributevalues,
   receipts: receipts,
-  reports: reports
+  reports: reports,
+  productstax: productstax
 };
 
 /***/ }),
@@ -10536,6 +10642,27 @@ var deleteProductCategory = function deleteProductCategory(productcategoryID) {
 };
 var updateProductCategory = function updateProductCategory(productcategoryID, object) {
   return axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/productcategories/").concat(productcategoryID), object);
+};
+
+/***/ }),
+
+/***/ "./src/api/producttax/index.js":
+/*!*************************************!*\
+  !*** ./src/api/producttax/index.js ***!
+  \*************************************/
+/*! exports provided: addProductsTax */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProductsTax", function() { return addProductsTax; });
+/* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var addProductsTax = function addProductsTax(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/productstaxes"), object);
 };
 
 /***/ }),
@@ -11370,11 +11497,12 @@ var Cascader = function Cascader(props) {
     onChange: props.handleChange,
     onFocus: props.handleFocus,
     onBlur: props.handleBlur,
-    filterOption: props.filterOptions
+    filterOption: props.filterOptions,
+    defaultValue: props.defaultValue
   }, props.optionArray ? props.optionArray.map(function (data, index) {
     return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
-      value: data
-    }, data);
+      value: data.value
+    }, data.name);
   }) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(Option, {
     value: "noData",
     disabled: true
@@ -12749,6 +12877,7 @@ function (_Component) {
           return _this.props.formData.handleFocus("location");
         },
         handleChange: function handleChange(value) {
+          console.log(value, "vallllllllll");
           return _this.props.formData.handleValue(value, "location");
         },
         value: this.props.formData.value.location
@@ -13389,19 +13518,19 @@ function (_Component) {
     _this = Object(_babel_runtime_corejs2_helpers_esm_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__["default"])(this, Object(_babel_runtime_corejs2_helpers_esm_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__["default"])(F3).call(this, props));
 
     Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_8__["default"])(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this), "loadTaxCategories", function () {
-      _this.props.formData.assignedhsnCode(_this.props.formData.taxID).then(function (res) {
+      _this.props.formData.assignedtaxes(_this.props.formData.taxID).then(function (res) {
         console.log(res);
-        var hsnCode = [];
+        var taxes = [];
         res.map(function (item) {
-          hsnCode.push(item.hsncodeunfold);
+          taxes.push(item.taxesunfold);
         });
 
         _this.setState({
-          hsnCode: hsnCode
+          taxes: taxes
         });
 
-        console.log(_this.state.hsnCode);
-        return hsnCode;
+        console.log(_this.state.taxes);
+        return taxes;
       }).then(function (_) {
         _this.setState({
           isLoaded: true
@@ -13412,7 +13541,7 @@ function (_Component) {
     });
 
     _this.state = {
-      hsnCode: [],
+      taxes: [],
       isLoaded: false
     };
     _this.handleClick = _this.handleClick.bind(Object(_babel_runtime_corejs2_helpers_esm_assertThisInitialized__WEBPACK_IMPORTED_MODULE_6__["default"])(_this));
@@ -13422,8 +13551,7 @@ function (_Component) {
 
   Object(_babel_runtime_corejs2_helpers_esm_createClass__WEBPACK_IMPORTED_MODULE_3__["default"])(F3, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      this.loadTaxCategories();
+    value: function componentDidMount() {// this.loadTaxCategories()
     }
   }, {
     key: "handleClick",
@@ -13433,8 +13561,7 @@ function (_Component) {
   }, {
     key: "setFormApi",
     value: function setFormApi(formAPi) {
-      this.formAPi = formAPi;
-      this.loadTaxCategories();
+      this.formAPi = formAPi; // this.loadTaxCategories()
     }
   }, {
     key: "render",
@@ -13454,23 +13581,11 @@ function (_Component) {
           height: "16px",
           width: "28px",
           marginRight: "10px"
-        } // console.log(this.props.formData.hsnData)
-
+        }
       };
       return react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
         className: "App"
-      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
-        style: style.container
-      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("h2", {
-        style: style.heading
-      }, "HSN Assigned"), this.state.isLoaded ? react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", null, this.state.hsnCode.map(function (item) {
-        return react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("p", {
-          style: style.text
-        }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_atoms_tableButton__WEBPACK_IMPORTED_MODULE_12__["default"], {
-          icon: "close",
-          style: style.removeBtn
-        }), "     ", item.hsnname);
-      })) : null), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_utils_xinformed__WEBPACK_IMPORTED_MODULE_11__["Form"], {
+      }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_utils_xinformed__WEBPACK_IMPORTED_MODULE_11__["Form"], {
         getApi: this.setFormApi
       }, react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
         style: {
@@ -13481,7 +13596,7 @@ function (_Component) {
         style: {
           width: 250
         },
-        option: this.props.formData.hsnData
+        option: this.props.formData.taxesData
       }))), react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
         style: {
           display: "inline-block"

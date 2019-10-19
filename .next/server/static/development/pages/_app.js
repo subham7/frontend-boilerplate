@@ -1503,6 +1503,8 @@ var receipts = _interopRequireWildcard(__webpack_require__(/*! ./receipts */ "./
 
 var reports = _interopRequireWildcard(__webpack_require__(/*! ./reports */ "./src/api/reports/index.js"));
 
+var productstax = _interopRequireWildcard(__webpack_require__(/*! ./producttax */ "./src/api/producttax/index.js"));
+
 module.exports = {
   taxes: taxes,
   locations: locations,
@@ -1525,7 +1527,8 @@ module.exports = {
   attributes: attributes,
   attributevalues: attributevalues,
   receipts: receipts,
-  reports: reports
+  reports: reports,
+  productstax: productstax
 };
 
 /***/ }),
@@ -1800,6 +1803,27 @@ var deleteProductCategory = function deleteProductCategory(productcategoryID) {
 };
 var updateProductCategory = function updateProductCategory(productcategoryID, object) {
   return axios__WEBPACK_IMPORTED_MODULE_1___default.a.patch("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/productcategories/").concat(productcategoryID), object);
+};
+
+/***/ }),
+
+/***/ "./src/api/producttax/index.js":
+/*!*************************************!*\
+  !*** ./src/api/producttax/index.js ***!
+  \*************************************/
+/*! exports provided: addProductsTax */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addProductsTax", function() { return addProductsTax; });
+/* harmony import */ var _ROOTURL__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../ROOTURL */ "./src/api/ROOTURL.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "axios");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var addProductsTax = function addProductsTax(object) {
+  return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("".concat(_ROOTURL__WEBPACK_IMPORTED_MODULE_0__["default"], "/productstaxes"), object);
 };
 
 /***/ }),

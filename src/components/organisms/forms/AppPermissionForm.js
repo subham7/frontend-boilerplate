@@ -16,12 +16,14 @@ class PermissionForm extends Component {
     return (
       <Row type="flex" gutter={4}>
         <Col span={10}>
-          <Cascader
+          <Cascader 
             label="Location"
             optionArray={this.props.formData.location}
             handleFocus={_ => this.props.formData.handleFocus("location")}
-            handleChange={value =>
-              this.props.formData.handleValue(value, "location")
+            handleChange={value => {
+              console.log(value, "vallllllllll")
+              return this.props.formData.handleValue(value, "location")
+            }
             }
             value={this.props.formData.value.location}
           />

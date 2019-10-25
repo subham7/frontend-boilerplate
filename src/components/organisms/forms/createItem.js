@@ -104,7 +104,15 @@ export class F2 extends Component {
               </RadioGroup>
             </div>
           </div>
-
+          <div style={{ display: "inline-block", marginBottom: 15 }}>
+            <h4>Is quantity floatable?</h4>
+            <div style={{ float: "left", marginRight: 8 }}>
+              <RadioGroup>
+                <Radio value={true} field='isQuantityFloatable'>Yes</Radio>
+                <Radio value={false} field='isQuantityFloatable'>No</Radio>
+              </RadioGroup>
+            </div>
+          </div>
           <div style={{ display: "inline-block", marginBottom: 15 }}>
             <div style={{ float: "left", marginRight: 8 }}>
               <Text

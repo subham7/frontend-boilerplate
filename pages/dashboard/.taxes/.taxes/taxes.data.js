@@ -25,26 +25,26 @@ var taxesColumns = [
         dataIndex: 'percentage',
         render: percentage => (<b>{percentage}%</b>)
     },
-    {
-        title: "Assign",
-        dataIndex: "",
-        key: "assign",
-        render: object => {
-          // console.log(object.assign.taxCategoryData)
-          return (
-            <Model
-              form={AssignItem}
-              title="Assign Items"
-              buttonValue="Assign"
-              formData={object.assign}
-              assignedData={{}}
-              onSubmit={(data, cb) =>
-                object.assign.handleAssign(data, object.taxID, cb)
-              }
-            />
-          )
-        }
-      },
+    // {
+    //     title: "Assign",
+    //     dataIndex: "",
+    //     key: "assign",
+    //     render: object => {
+    //       // console.log(object.assign.taxCategoryData)
+    //       return (
+    //         <Model
+    //           form={AssignItem}
+    //           title="Assign Items"
+    //           buttonValue="Assign"
+    //           formData={object.assign}
+    //           assignedData={{}}
+    //           onSubmit={(data, cb) =>
+    //             object.assign.handleAssign(data, object.taxID, cb)
+    //           }
+    //         />
+    //       )
+    //     }
+    //   },
     {
         title:'Edit',
         key: 'edit',

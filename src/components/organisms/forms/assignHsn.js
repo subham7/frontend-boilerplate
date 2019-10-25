@@ -13,13 +13,13 @@ const validate = value => {
 export class F3 extends Component {
   constructor(props) {
     super(props)
-    this.state = { hsnCode: [], isLoaded: false }
+    this.state = { taxes: [], isLoaded: false }
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
   }
 
   componentDidMount() {
-    this.loadTaxCategories()
+    // this.loadTaxCategories()
   }
 
   handleClick() {
@@ -30,21 +30,21 @@ export class F3 extends Component {
 
   setFormApi(formAPi) {
     this.formAPi = formAPi
-    this.loadTaxCategories()
+    // this.loadTaxCategories()
   }
 
   loadTaxCategories = () => {
     this.props.formData
-      .assignedhsnCode(this.props.formData.taxID)
+      .assignedtaxes(this.props.formData.taxID)
       .then(res => {
         console.log(res)
-        let hsnCode = []
+        let taxes = []
         res.map(item => {
-          hsnCode.push( (item.hsncodeunfold))
+          taxes.push( (item.taxesunfold))
         })
-        this.setState({ hsnCode: hsnCode })
-        console.log(this.state.hsnCode)
-        return hsnCode
+        this.setState({ taxes: taxes })
+        console.log(this.state.taxes)
+        return taxes
       })
       .then(_ => {
         this.setState({ isLoaded: true })
@@ -66,14 +66,14 @@ export class F3 extends Component {
         marginRight: "10px"
       }
     }
-    // console.log(this.props.formData.hsnData)
+    
     return (
       <div className="App">
-        <div style={style.container}>
+        {/* <div style={style.container}>
           <h2 style={style.heading}>HSN Assigned</h2>
           {this.state.isLoaded ? (
             <div>
-              {this.state.hsnCode.map(item => (
+              {this.state.taxes.map(item => (
                 <p style={style.text}>
                   <ButtonIcon icon="close" style={style.removeBtn} />
                   {"     "}
@@ -82,14 +82,14 @@ export class F3 extends Component {
               ))}
             </div>
           ) : null}
-        </div>
+        </div> */}
 
         <Form getApi={this.setFormApi}>
           <div style={{ marginBottom: 15 }}>
             <Select
               field="assignedTo"
               style={{ width: 250 }}
-              option={this.props.formData.hsnData}
+              option={this.props.formData.taxesData}
             />
           </div>
         </Form>

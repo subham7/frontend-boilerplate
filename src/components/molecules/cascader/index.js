@@ -18,10 +18,11 @@ const Cascader = props => {
         onFocus={props.handleFocus}
         onBlur={props.handleBlur}
         filterOption={props.filterOptions}
+        defaultValue={props.defaultValue}
       >
         {props.optionArray ? (
           props.optionArray.map((data, index) => {
-            return <Option value={data}>{data}</Option>
+            return <Option value={data.value}>{data.name}</Option>
           })
         ) : (
           <Option value="noData" disabled>

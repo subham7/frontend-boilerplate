@@ -42,6 +42,7 @@ class App extends Component {
     this.props
       .addPurchase(data)
       .then(res => {
+        this.loadPurchaseData()
         this.props.destroyReduxForm("itemsForm")
         Message.success("Item added successfully!")
       })

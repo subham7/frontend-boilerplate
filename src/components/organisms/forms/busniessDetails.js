@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Form, Checkbox, Text, TextArea, Select } from "../../../utils/xinformed"
+import { Form, Checkbox, Text, TextArea, Select, RadioGroup, Radio } from "../../../utils/xinformed"
 import { Button } from "antd"
 
 export class BusinessDetails extends Component {
@@ -78,15 +78,20 @@ export class BusinessDetails extends Component {
           />
           <h5>Do you accept cards?</h5>
           <div style={{ display: "inline-block" }}>
-            <div style={{ float: "left" }}>
+            {/* <div style={{ float: "left" }}>
               <Checkbox style={{ margin: 10 }} field="Yes" />
               <label>Yes</label>
             </div>
             <div style={{ float: "left" }}>
               <Checkbox style={{ margin: 10 }} field="No" />
               <label>No</label>
-            </div>
+            </div> */}
+            <RadioGroup>
+                <Radio value={true} field='cardAccepted'>Yes</Radio>
+                <Radio value={false} field='cardAccepted'>No</Radio>
+            </RadioGroup>
           </div>
+          <br/><br/>
           <h3>Branding</h3>
           <p>
             Your brand infomration applie to the look and feel of

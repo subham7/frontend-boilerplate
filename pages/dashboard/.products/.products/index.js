@@ -7,7 +7,9 @@ import {
   deleteProduct,
   updateProduct,
   reviewPurchase,
-  inventoryStock
+  inventoryStock,
+  taxes,
+  addProductsTax
 } from "../../../../src/reduxHelper"
 import Products from "../../../../src/components/organisms/items"
 import Loading from "../../../../src/components/atoms/loading"
@@ -27,8 +29,11 @@ class App extends React.Component {
 
   componentDidMount() {
     let businessID = this.props.business.response.data[0].businessID
-    this.loadproductsData()
+    this.props.getTaxes(businessID).then(_ => {
+      this.loadproductsData()
+    })
     this.props.getInventoryStock(businessID).then(res => {
+      console.log(res)
       this.setState({ cardData: res })
     })
   }
@@ -49,7 +54,7 @@ class App extends React.Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.productsTableData.filter(function(data) {
+    const filteredEvents = this.state.productsTableData.filter(function (data) {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -81,7 +86,7 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <Loading/>
+      return <Loading />
     }
   }
 
@@ -91,7 +96,8 @@ class App extends React.Component {
       data.map(item => {
         let object = {}
         object.name = item.name
-        ;(object.productID = item.productID), (object.code = item.code)
+        object.productID = item.productID
+        object.code = item.code
         object.barcode = item.barcode
         object.category = item.productcategory
         object.location = item.location //map location here
@@ -114,7 +120,6 @@ class App extends React.Component {
               })
           },
           editProduct: (data, id, cb) => {
-            console.log("clicked", data, id, cb)
             this.props
               .updateProduct(id, data.values)
               .then(res => {
@@ -126,44 +131,31 @@ class App extends React.Component {
                 cb({ status: false, message: "Some Error while updating" })
               })
           }
-        }
+        },
+          object.assign = {
+            handleAssign: (data, id, cb) => {
+              console.log(data, id, "received data")
+              let obj = {}
+              obj.product = id
+              obj.tax = data.values.assignedTo
+              this.props.addTaxProduct(obj)
+                .then(res => {
+                  cb({
+                    status: true,
+                    message: "Product tax assigned"
+                  })
+                })
+                .catch(err => {
+                  console.log(err)
+                  cb({ status: true, message: "ERROR!" })
+                })
+            },
+            // assignedTaxes: attributesetID => this.props.assignedTaxes(attributesetID),
+            taxesData: this.createSelectTaxData(this.props.taxes.response.data),
+            productID: item.productID
+          }
         temp.push(object)
       })
-    } else {
-      let object = {}
-      object.name = data.name
-      ;(object.productID = item.productID), (object.code = data.code)
-      object.barcode = data.barcode
-      object.category = data.productcategory
-      object.price = data.price
-      object.handleFeatures = {
-        handleDelete: urlParams => {
-          urlParams.businessID = this.props.business.response.data[0].businessID
-          console.log("here", urlParams)
-          this.props
-            .deleteProduct(urlParams)
-            .then(res => {
-              this.loadproductsData()
-            })
-            .catch(err => {
-              console.log(err)
-            })
-        },
-        editProduct: (data, id, cb) => {
-          console.log("clicked", data, id, cb)
-          this.props
-            .updateProduct(id, data.values)
-            .then(res => {
-              this.loadproductsData()
-              cb({ status: true, message: "Product updated" })
-            })
-            .catch(err => {
-              console.log(err)
-              cb({ status: false, message: "Some Error while updating" })
-            })
-        }
-      }
-      temp.push(object)
     }
     return temp
   }
@@ -188,6 +180,14 @@ class App extends React.Component {
     }))
     return selectData
   }
+
+  createSelectTaxData(data) {
+    let selectData = data.map(item => ({
+      name: item.name,
+      value: item.taxID
+    }))
+    return selectData
+  }
 }
 
 const mapStateToProps = state => {
@@ -196,13 +196,15 @@ const mapStateToProps = state => {
     business: state.businesses,
     products: state.products,
     taxcategories: state.taxcategories,
-    inventoryStock: state.inventoryStock
+    inventoryStock: state.inventoryStock,
+    taxes: state.taxes
   }
 }
 
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getproducts: businessID => dispatch(products.action(businessID)),
+  getTaxes: (businessID) => dispatch(taxes.action(businessID)),
   addProduct: (businessID, object) =>
     dispatch(addProduct.action(businessID, object)),
   getTaxeCategories: businessID =>
@@ -212,6 +214,7 @@ const mapDispatchToProps = dispatch => ({
   deleteProduct: urlParams => dispatch(deleteProduct.action(urlParams)),
   updateProduct: (productID, object) =>
     dispatch(updateProduct.action(productID, object)),
+  addTaxProduct: (object) => dispatch(addProductsTax.action(object)),
   reviewPurchase: () => dispatch(reviewPurchase.action()),
   getInventoryStock: businessID => dispatch(inventoryStock.action(businessID))
 })

@@ -3,6 +3,8 @@ import stockTag from "../../../../src/components/atoms/stockTag";
 import ButtonIcon from '../../../../src/components/atoms/tableButton';
 import Model from "../../../../src/components/molecules/modelButton"
 import createProduct from "../../../../src/components/organisms/forms/createItem"
+import AssignItem from "../../../../src/components/organisms/forms/assignHsn"
+
 var cardData = [
     {
         iconType: 'bank',
@@ -62,19 +64,19 @@ var productColumns = [
         dataIndex: 'barcode',
         key: 'barcode'
     },
-    {
-        title: 'CATEGORY',
-        dataIndex: '',
-        render: object => {
-            var categoryIndex = object.selectData.findIndex(id => id.value == object.category)
-            return <p>{stockTag(object.selectData[categoryIndex].name)}</p>
-        }
-    },
-    {
-        title: 'LOCATION',
-        dataIndex: 'location',
-        key: 'location'
-    },
+    // {
+    //     title: 'CATEGORY',
+    //     dataIndex: '',
+    //     render: object => {
+    //         var categoryIndex = object.selectData.findIndex(id => id.value == object.category)
+    //         return <p>{stockTag(object.selectData[categoryIndex].name)}</p>
+    //     }
+    // },
+    // {
+    //     title: 'LOCATION',
+    //     dataIndex: 'location',
+    //     key: 'location'
+    // },
     // {
     //     title: 'INVENTORY',
     //     dataIndex: 'inventory',
@@ -87,6 +89,26 @@ var productColumns = [
         dataIndex: 'price',
         render: price => <span><b>INR {price}</b></span>
     },
+    {
+        title: "Assign Tax",
+        dataIndex: "",
+        key: "assign",
+        render: object => {
+          // console.log(object.assign.taxCategoryData)
+          return (
+            <Model
+              form={AssignItem}
+              title="Assign Tax"
+              buttonValue="Assign"
+              formData={object.assign}
+              assignedData={{}}
+              onSubmit={(data, cb) =>
+                object.assign.handleAssign(data, object.productID, cb)
+              }
+            />
+          )
+        }
+      },
     {
         title: 'Rename',
         dataIndex: '',

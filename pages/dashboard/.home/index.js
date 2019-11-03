@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-
+import Cascader from '../../../src/components/molecules/cascader'
 import {
   topItems,
   topCategories,
@@ -11,14 +11,17 @@ import {
   locations
 } from "../../../src/reduxHelper"
 
-const ReactHighcharts = require("react-highcharts")
-import { Row, Col, Card, Table, Divider, Tag, Descriptions } from "antd"
-import { businesses } from "../../../src/api/business"
+import { columns } from './home.data'
+const ReactHighcharts = require('react-highcharts');
+import { Row, Col, Card, Table, Divider, Tag, Select } from 'antd';
+import { businesses } from "../../../src/api/business";
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      initialBlocation: null,
+      blocations: [],
       topProductsData: [],
       topCategoryData: [],
       paymentTypeData: [],
@@ -29,240 +32,63 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let businessID = this.props.business.response.data[0].businessID
-    this.props
-      .getLocations(businessID)
+    this.props.getBlocations(this.props.business.response.data[0].businessID)
       .then(data => {
-        this.loadTopItems()
-        this.loadTopCategory()
-        this.loadTransactionType()
-        this.loadTopSalesman()
-        this.loadLocationSales()
-        this.loadSalesWithinDates()
-      })
-      .catch(err => {
-        console.log(err)
+        this.setState({ blocations: data })
+        this.setState({ initialBlocation: this.createSelectData(this.state.blocations)[0].value })
+        this.loadAllReports(this.state.initialBlocation)
       })
   }
 
+  loadAllReports = (locationID) => {
+    this.loadTopItems(locationID)
+    this.loadTopCategory(locationID)
+    this.loadTransactionType(locationID)
+    this.loadTopSalesman()
+    this.loadLocationSales()
+    this.loadSalesWithinDates()
+  }
+
+  handleChange = (value) => {
+    this.setState({ initialBlocation: value })
+    this.loadAllReports(value)
+  }
+
   render() {
-    const columns = [
-      {
-        title: "Top Selling Items",
-        dataIndex: "productName",
-        key: "name",
-        render: text => <a href="javascript:;">{text}</a>
-      },
-      {
-        title: "Units",
-        dataIndex: "productUnits",
-        key: "address"
-      }
-    ]
-
-    const columnstopselling = [
-      {
-        title: "Date",
-        dataIndex: "name",
-        key: "name",
-        render: text => <a href="javascript:;">{text}</a>
-      },
-      {
-        title: "Sales",
-        key: "tags",
-        dataIndex: "tags",
-        render: tags => (
-          <span>
-            {tags.map(tag => {
-              let color = tag[0] == "-" ? "volcano" : "green"
-              if (tag === "loser") {
-                color = "volcano"
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  ₹ {tag}
-                </Tag>
-              )
-            })}
-          </span>
-        )
-      }
-    ]
-    // "totalSale": 832.62,
-    // "day": 18,
-    // "month": 7,
-    // "year": 2019
-
-    const columnstopcat = [
-      {
-        title: "Top Categories",
-        dataIndex: "name",
-        key: "name",
-        render: text => <a href="javascript:;">{text}</a>
-      },
-      {
-        title: "Units",
-        dataIndex: "productCategoryCount",
-        key: "productCategoryCount"
-      }
-      // {
-      //     title: 'Tags',
-      //     key: 'tags',
-      //     dataIndex: 'tags',
-      //     render: tags => (
-      //         <span>
-      //         {tags.map(tag => {
-      //             let color = tag[0] == "-" ? 'volcano' : 'green';
-      //             if (tag === 'loser') {
-      //             color = 'volcano';
-      //             }
-      //             return (
-      //             <Tag color={color} key={tag}>
-      //                 {tag.toUpperCase()}
-      //             </Tag>
-      //             );
-      //         })}
-      //         </span>
-      //     ),
-      //     },
-    ]
-
-    let configpayment = {
-      chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: "pie"
-      },
-      title: {
-        text: "Payment Methods"
-      },
-      tooltip: {
-        pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-      },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: "pointer",
-          dataLabels: {
-            enabled: true,
-            format: "<b>{point.name}</b>: {point.percentage:.1f} %",
-            style: {
-              color: "black"
-            }
-          }
-        }
-      },
-      series: [
-        {
-          name: "Payment Methods",
-          colorByPoint: true,
-          data: this.state.paymentTypeData
-        }
-      ]
-    }
-
-    let configTopSalePerson = {
-      title: {
-        text: "Top Sales person"
-      },
-
-      subtitle: {
-        text: "Sales"
-      },
-
-      xAxis: {
-        categories: this.state.topSalesmanData.salesmanName
-      },
-
-      series: [
-        {
-          type: "column",
-          colorByPoint: true,
-          data: this.state.topSalesmanData.salesValue,
-          showInLegend: false
-        }
-      ]
-    }
-
-    let configStoreDivison = {
-      chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: "pie"
-      },
-      title: {
-        text: "Store Wise Divison"
-      },
-      tooltip: {
-        pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>"
-      },
-      plotOptions: {
-        pie: {
-          allowPointSelect: true,
-          cursor: "pointer",
-          dataLabels: {
-            enabled: true,
-            format: "<b>{point.name}</b>: {point.percentage:.1f} %",
-            style: {
-              color: "black"
-            }
-          }
-        }
-      },
-      series: [
-        {
-          name: "Store Wise Division",
-          colorByPoint: true,
-          data: this.state.loacationSalesData
-        }
-      ]
-    }
     return (
-      <div style={{ padding: "30px" }}>
+      <div style={{ padding: '30px' }}>
+        <Row>
+          <Col span={24}>
+            <Cascader
+              placeholder="Select Location"
+              optionArray={this.createSelectData(this.state.blocations)}
+              handleChange={this.handleChange}
+              // defaultValue={intialValue}
+            />
+          </Col>
+        </Row>
+        <br></br>
         <Row gutter={16}>
           <Col span={8}>
-            <Table
-              pagination={{ position: "none" }}
-              columns={columnstopselling}
-              dataSource={this.state.grossSalesData}
-              size="small"
-            />
+            <Table pagination={{ position: "none" }} columns={columns.columnstopselling} dataSource={this.state.grossSalesData} size="small" />
           </Col>
           <Col span={8}>
-            <Table
-              pagination={{ position: "none" }}
-              columns={columnstopcat}
-              dataSource={this.state.topCategoryData}
-              size="small"
-            />
+            <Table pagination={{ position: "none" }} columns={columns.columnstopcat} dataSource={this.state.topCategoryData} size="small" />
           </Col>
           <Col span={8}>
-            <Table
-              pagination={{ position: "none" }}
-              columns={columns}
-              dataSource={this.state.topProductsData}
-              size="small"
-            />
+            <Table pagination={{ position: "none" }} columns={columns.topProductColumns} dataSource={this.state.topProductsData} size="small" />
           </Col>
         </Row>
         <br></br>
         <Row gutter={16}>
           <Col span={12}>
             <Card bordered={true}>
-              <ReactHighcharts
-                config={configpayment}
-                ref="chart"
-              ></ReactHighcharts>
+              <ReactHighcharts config={columns.getConfigPaymentObject(this.state.paymentTypeData)} ref="chart"></ReactHighcharts>
             </Card>
           </Col>
           <Col span={12}>
             <Card bordered={true}>
-              <ReactHighcharts
-                config={configTopSalePerson}
-                ref="chart"
-              ></ReactHighcharts>
+              <ReactHighcharts config={columns.getConfigTopSalePersonObject(this.state.topSalesmanData.salesmanName, this.state.topSalesmanData.salesValue)} ref="chart"></ReactHighcharts>
             </Card>
           </Col>
         </Row>
@@ -270,10 +96,7 @@ class App extends Component {
         <Row gutter={16}>
           <Col span={22}>
             <Card bordered={true}>
-              <ReactHighcharts
-                config={configStoreDivison}
-                ref="chart"
-              ></ReactHighcharts>
+              <ReactHighcharts config={columns.getConfigStoreDivisonObject(this.state.loacationSalesData)} ref="chart"></ReactHighcharts>
             </Card>
           </Col>
         </Row>
@@ -281,13 +104,16 @@ class App extends Component {
     )
   }
 
-  loadTopItems = () => {
-    this.props
-      .getTopProducts(
-        this.props.locations.response.data[0].blocationID,
-        "2018-07-04",
-        "2021-07-06"
-      )
+  createSelectData(data) {
+    let selectData = data.map(item => ({
+      name: item.name,
+      value: item.blocationID
+    }))
+    return selectData
+  }
+
+  loadTopItems = (locationID) => {
+    this.props.getTopProducts(locationID, '2018-07-04', '2021-07-06')
       .then(data => {
         this.setState({ topProductsData: data.splice(0, 3) })
       })
@@ -296,13 +122,8 @@ class App extends Component {
       })
   }
 
-  loadTopCategory = () => {
-    this.props
-      .topCategories(
-        this.props.locations.response.data[0].blocationID,
-        "2018-07-04",
-        "2021-07-06"
-      )
+  loadTopCategory = (locationID) => {
+    this.props.topCategories(locationID, '2018-07-04', '2021-07-06')
       .then(data => {
         this.setState({ topCategoryData: data.splice(0, 3) })
       })
@@ -311,13 +132,8 @@ class App extends Component {
       })
   }
 
-  loadTransactionType = () => {
-    this.props
-      .paymentTypes(
-        this.props.locations.response.data[0].blocationID,
-        "2018-07-04",
-        "2021-07-06"
-      )
+  loadTransactionType = (locationID) => {
+    this.props.paymentTypes(locationID, '2018-07-04', '2021-07-06')
       .then(data => {
         let dataArray = data.map((item, i) => {
           return {
@@ -405,15 +221,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getTopProducts: (location, from, to) =>
-    dispatch(topItems.action(location, from, to)),
-  topCategories: (location, from, to) =>
-    dispatch(topCategories.action(location, from, to)),
-  paymentTypes: (location, from, to) =>
-    dispatch(paymentTypes.action(location, from, to)),
-  getTopSalesman: business => dispatch(topSalesman.action(business)),
-  getLocationSales: business => dispatch(locationSales.action(business)),
-  getSalesDate: business => dispatch(salesDatewise.action(business)),
+  getBlocations: (businessID) => dispatch(locations.action(businessID)),
+  getTopProducts: (location, from, to) => dispatch(topItems.action(location, from, to)),
+  topCategories: (location, from, to) => dispatch(topCategories.action(location, from, to)),
+  paymentTypes: (location, from, to) => dispatch(paymentTypes.action(location, from, to)),
+  getTopSalesman: (business) => dispatch(topSalesman.action(business)),
+  getLocationSales: (business) => dispatch(locationSales.action(business)),
+  getSalesDate: (business) => dispatch(salesDatewise.action(business)),
   getLocations: businessID => dispatch(locations.action(businessID))
 })
 

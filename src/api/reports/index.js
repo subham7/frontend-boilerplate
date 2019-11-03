@@ -12,3 +12,5 @@ export const topSalesman = (business) => axios.get(`${ROOTURL}/topsalesman?busin
 export const locationSales = (business) => axios.get(`${ROOTURL}/locationsales?business=${business}`)
 
 export const salesDatewise = (business) => axios.get(`${ROOTURL}/datewisetotalsale?business=${business}`)
+
+export const allTransactions = (business, from, to) => axios.get(`${ROOTURL}/alltransactions?business=${business}&from=${from}&to=${to}`)

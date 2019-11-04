@@ -155,6 +155,12 @@ let SidePanel = props => {
             </Link>
           </Menu.Item>
 
+          <Menu.Item key="cash-reconcillation">
+            <Link href={`/dashboard?page=cash-reconcillation`}>
+              <p className="sidebar-option">CASH RECONCILLATION</p>
+            </Link>
+          </Menu.Item>
+
           <Menu.Item key="receipts">
             <p className="sidebar-option">RECEIPTS</p>
           </Menu.Item>

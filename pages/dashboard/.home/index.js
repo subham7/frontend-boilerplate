@@ -36,7 +36,8 @@ class App extends Component {
       grossSalesData: [],
       allTransactionsData: [],
       fromDate: moment().subtract(1, 'months').format(dateFormat),
-      toDate: moment().format(dateFormat)
+      toDate: moment().format(dateFormat),
+      avgCostTableData: []
     }
   }
 
@@ -72,7 +73,7 @@ class App extends Component {
     let bID = this.props.business.response.data[0].businessID
     this.setState({ fromDate: fromDate, toDate: toDate })
     // this.loadAlltransactions(bID, fromDate, toDate)
-    console.log(this.state.fromDate, "initailllll dateeee") 
+    console.log(this.state.fromDate, "initailllll dateeee")
   }
 
   handleSubmit = () => {
@@ -94,23 +95,37 @@ class App extends Component {
           </Col>
           <Col span={8}>
             <RangePicker
-              style={{"width": "100%"}}
+              style={{ "width": "100%" }}
               defaultValue={[moment(moment().subtract(1, 'months'), dateFormat), moment(moment(), dateFormat)]}
               format={dateFormat}
               onChange={(range) => this.handleDatePickerChange(range)}
             />
           </Col>
           <Col span={4}>
-            <Button style={{"width": "100%"}} onClick={this.handleSubmit} value="Get Reports" ></Button>
+            <Button style={{ "width": "100%" }} onClick={this.handleSubmit} value="Get Reports" ></Button>
           </Col>
-        </Row> 
+        </Row>
         <br></br>
-      <Row>
-        <Col span={16}>
-          <Table pagination={{ position: "none" }} columns={columns.allTransactionsColumns} dataSource={this.state.allTransactionsData} size="small" />
-        </Col>
-      </Row>
+        <Row gutter={16}>
+          <Col span={18}>
+            <Table pagination={{ position: "none" }} columns={columns.allTransactionsColumns} dataSource={this.state.allTransactionsData} size="small" />
+          </Col>
+          {/* <Col span={8}>
+            <Table pagination={{ position: "none" }} columns={columns.avgCostColumns} dataSource={this.state.avgCostTableData} size="small" />
+          </Col> */}
+        </Row>
         <br></br>
+        <Row gutter={16}>
+        <Col span={12}>
+            <Table pagination={{ position: "none" }} columns={columns.avgCostColumns} dataSource={this.state.avgCostTableData} size="small" />
+          </Col>
+          <Col span={12}>
+            <Card bordered={true}>
+              <ReactHighcharts config={columns.getDeviceTypeSalesObject(this.state.avgCostTableData)} ref="chart"></ReactHighcharts>
+            </Card>
+          </Col>
+        </Row>
+        <br/><br/>
         <Row gutter={16}>
           <Col span={8}>
             <Table pagination={{ position: "none" }} columns={columns.columnstopselling} dataSource={this.state.grossSalesData} size="small" />
@@ -143,7 +158,7 @@ class App extends Component {
             </Card>
           </Col>
         </Row>
-       
+
       </div>
     )
   }
@@ -258,10 +273,55 @@ class App extends Component {
   }
 
   loadAlltransactions = (businessID, from, to) => {
+    // let bID = 'e96c8b21-4773-407c-a440-4d4c9d67aa79'
     this.props.allTransactions(businessID, from, to)
+    // this.props.allTransactions(bID, from, to)
       .then(data => {
-        console.log(data)
-        this.setState({ allTransactionsData: data })
+        let GrossSales = 0, NetSales = 0, Taxes = 0, TotalOrders = 0;
+        for (let index = 0; index < data.length; index++) {
+          GrossSales += data[index].GrossSales
+          NetSales += data[index].NetSales
+          Taxes += data[index].Taxes
+          TotalOrders += data[index].TotalOrders
+        }
+        let arrayData = [
+          {
+            field: "Total Orders",
+            value: TotalOrders
+          },
+          {
+            field: "Gross Sales",
+            value: GrossSales
+          },
+          {
+            field: "Net Sales",
+            value: NetSales
+          },
+          {
+            field: "Taxes",
+            value: Taxes
+          },
+          {
+            field: "Total",
+            value: GrossSales + NetSales + Taxes
+          },
+        ]
+        this.setState({ allTransactionsData: arrayData })
+        return data
+      })
+      .then(d2 => {
+        let avgCostDataArray = d2.map((item, i) => {
+          return {
+            name: item.devicetype,
+            y: item.avgTicketSize
+          }
+        })
+        console.table(avgCostDataArray)
+        this.setState({ avgCostTableData: avgCostDataArray })
+        return d2
+      })
+      .then(d3 => {
+
       })
       .catch(err => {
         console.log(err)

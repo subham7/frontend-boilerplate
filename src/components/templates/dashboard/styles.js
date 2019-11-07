@@ -39,6 +39,8 @@ export default css`
     overflow-y: scroll;
     overflow-x: hidden;
     box-shadow: 3px 3px 8px #ddd;
+    z-index: 10;
+    background-color: #fff;
   }
 
   /* width */

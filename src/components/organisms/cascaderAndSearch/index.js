@@ -4,8 +4,7 @@ import Cascader from "../../molecules/cascader"
 import Search from "../../molecules/searchBar"
 import { Row, Col } from "antd"
 
-const 
-CascaderAndSearch = props => {
+const CascaderAndSearch = props => {
   return (
     <Row gutter="8">
       {props.dataArray.map((data, index) => (
@@ -21,7 +20,11 @@ CascaderAndSearch = props => {
         </Col>
       ))}
       <Col span={5}>
-        <Search handleSearch={props.onSearch} value={props.placeholder} type="search" />
+        <Search
+          handleSearch={props.onSearch}
+          value={props.placeholder}
+          type="search"
+        />
       </Col>
       <Col span={3} key={6}>
         <ButtonOne value={props.buttonValue} color="#2699FB" />

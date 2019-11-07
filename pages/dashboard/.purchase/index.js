@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import { destroy } from "redux-form"
+import { Message } from "antd"
 
 import Purchase from "../../../src/components/organisms/ItemPurchase"
 import {
@@ -15,6 +16,7 @@ import {
 
 import { itemPurchaseData } from "./purchase.data"
 import wrapper from "./wrapper"
+import Loader from "./../../../src/components/atoms/loading"
 import uuidv4 from "uuid/v4"
 
 class App extends Component {
@@ -40,9 +42,11 @@ class App extends Component {
     this.props
       .addPurchase(data)
       .then(res => {
+        this.loadPurchaseData()
         this.props.destroyReduxForm("itemsForm")
+        Message.success("Item added successfully!")
       })
-      .catch(err => console.log(err))
+      .catch(err => Message.error(err))
   }
 
   handleSearch(e) {
@@ -97,7 +101,7 @@ class App extends Component {
           />
         </div>
       )
-    else return <h1>Loading....</h1>
+    else return <Loader />
   }
 
   createpurchasecolumns = data =>

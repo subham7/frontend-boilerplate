@@ -11,6 +11,7 @@ import TaxCategory from "../../../../src/components/organisms/taxCategory"
 import createTaxCategory from "../../../../src/components/organisms/forms/createTaxCategory"
 import { taxCategoryColumns } from "./taxCategory.data"
 import { taxCategoryData } from "./../../../../pagesData/taxCategory"
+import Loader from "../../../../src/components/atoms/loading"
 
 import uuid from "uuid/v4"
 
@@ -50,7 +51,7 @@ class App extends Component {
   }
 
   render() {
-    if (true)
+    if (this.props.taxCategories.isLoaded)
       return (
         <TaxCategory
           form={createTaxCategory}
@@ -69,7 +70,7 @@ class App extends Component {
           onSearch={value => this.handleSearch(value)}
         />
       )
-    else return <h1>Loading...</h1>
+    else return <Loader />
   }
 
   _createTaxCategoryColoumns(data) {

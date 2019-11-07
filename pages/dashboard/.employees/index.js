@@ -13,6 +13,7 @@ import {
 import Employees from "./../../../src/components/templates/employee"
 import { employeeColumns, employeeColumnData } from "./employees.data"
 import wrapper from "./wrapper"
+import Loader from "../../../src/components/atoms/loading"
 import uuid from "uuid/v4"
 
 class App extends Component {
@@ -56,7 +57,7 @@ class App extends Component {
 
   // 8a0930f9-5aab-11e9-9666-f8cab8258ec4
   render() {
-    if (true)
+    if (this.props.employees.isLoaded)
       return (
         <Employees
           formData={this.createSelectData(this.props.locations.response.data)}
@@ -72,7 +73,7 @@ class App extends Component {
           onCreate={(data, cb) => this.handleCreateLocation(data, cb)}
         />
       )
-    else return <h1>Loading...</h1>
+    else return <Loader />
   }
 
   _createEmployeeColumns(data) {
@@ -93,14 +94,14 @@ class App extends Component {
           },
           onRemove: (id, cb) => {
             console.log(id)
-            this.props.deleteEmployeeLocation(id)
-            .then(res => {
-              cb("Location removed successfully.")
-            })
-            .catch(err => {
-              cb(err, "Error occured while removing.")
-            })
-            
+            this.props
+              .deleteEmployeeLocation(id)
+              .then(res => {
+                cb("Location removed successfully.")
+              })
+              .catch(err => {
+                cb(err, "Error occured while removing.")
+              })
           },
           employeeLocation: object => this.props.employeelocations(object),
           employeeID: item.userID,
@@ -189,7 +190,7 @@ const mapDispatchToProps = dispatch => ({
   updateEmployee: (employeeID, object) =>
     dispatch(updateEmployee.action(employeeID, object)),
   employeelocations: object => dispatch(employeelocations.action(object)),
-  deleteEmployeeLocation: (id) => dispatch(deleteEmployeeLocation.action(id))
+  deleteEmployeeLocation: id => dispatch(deleteEmployeeLocation.action(id))
 })
 
 export default wrapper(

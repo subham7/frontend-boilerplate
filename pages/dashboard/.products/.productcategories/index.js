@@ -15,6 +15,7 @@ import createCategory from "../../../../src/components/organisms/forms/createCat
 
 import { categoryData, categoryColumns } from "./category.data"
 import { Button } from "antd"
+import Loader from "../../../../src/components/atoms/loading"
 import uuidv4 from "uuid/v4"
 
 class App extends React.Component {
@@ -31,7 +32,7 @@ class App extends React.Component {
     let businessID = this.props.business.response.data[0].businessID
     this.loadProductCategoryData()
     this.props.getInventoryStock(businessID).then(res => {
-      this.setState({cardData: res})
+      this.setState({ cardData: res })
     })
   }
 
@@ -61,7 +62,7 @@ class App extends React.Component {
 
   render() {
     // console.log(this.state.cardData, "avvvvai")
-    if (true) {
+    if (this.props.productCategories.isLoaded) {
       return (
         <div>
           <Categories
@@ -81,9 +82,10 @@ class App extends React.Component {
         </div>
       )
     } else {
-      return <h1>Loading</h1>
+      return <Loader />
     }
   }
+
   _createProductCategory = data => {
     let temp = []
     if (Array.isArray(data)) {
@@ -91,7 +93,7 @@ class App extends React.Component {
         let object = {}
         ;(object.name = item.name),
           (object.productcategoryID = item.productcategoryID),
-          object.inventory = item.inventory, //map inventory details here
+          (object.inventory = item.inventory), //map inventory details here
           (object.handleFeatures = {
             handleDelete: id => {
               // let businessID = this.props.business.response.data[0].businessID;
@@ -190,7 +192,7 @@ const mapDispatchToProps = dispatch => ({
   updateProductCategory: (productcategoryID, object) => {
     return dispatch(updateProductCategory.action(productcategoryID, object))
   },
-  getInventoryStock: (businessID) => dispatch(inventoryStock.action(businessID))
+  getInventoryStock: businessID => dispatch(inventoryStock.action(businessID))
 })
 export default connect(
   mapStateToProps,

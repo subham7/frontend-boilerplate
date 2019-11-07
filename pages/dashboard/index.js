@@ -15,6 +15,7 @@ import AppPermissions from "./.appPermisions"
 import Attributes from "./.attributes"
 import Transactions from "./.transactions"
 import Discount from "./.discount"
+import CashReconcillation from "./.cashReconcillation"
 import Home from "./.home"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
@@ -179,6 +180,9 @@ class SwitchHandler extends React.Component {
                 />
               )
 
+            case "cash-reconcillation":
+              return <CashReconcillation />
+
             default:
               return <h1>Error: 404</h1>
           }
@@ -189,13 +193,13 @@ class SwitchHandler extends React.Component {
 }
 class App extends React.Component {
   render() {
-    if(!this.props.router.query.page){
+    if (!this.props.router.query.page) {
       Router.push("/dashboard?page=home")
     }
     let userName = this.props.user.response.data[0].firstName
     return (
       <div>
-        <Template sidebarTab={this.props.router.query.page} user={userName} >
+        <Template sidebarTab={this.props.router.query.page} user={userName}>
           <SwitchHandler
             switchItem={this.props.router.query.page}
             tab={this.props.router.query.tab}

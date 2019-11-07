@@ -1,6 +1,7 @@
 import React from "react"
 import { connect } from "react-redux"
 import { taxCategories, hsncodes } from "../../../../src/reduxHelper"
+import Loader from "../../../../src/components/atoms/loading"
 
 export default function init(WrappedComponent) {
   class App extends React.Component {
@@ -33,7 +34,7 @@ export default function init(WrappedComponent) {
         return <WrappedComponent {...this.props} />
       } else {
         // taxCategoreis cannot be loaded
-        return <h1>Loading</h1>
+        return <Loader />
       }
     }
   }
@@ -45,7 +46,7 @@ export default function init(WrappedComponent) {
 
   const mapDispatchToProps = dispatch => ({
     getTaxCategories: businessID => dispatch(taxCategories.action(businessID)),
-    getHsnCodes: () => dispatch(hsncodes.action()),
+    getHsnCodes: () => dispatch(hsncodes.action())
   })
 
   return connect(

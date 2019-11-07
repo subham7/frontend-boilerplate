@@ -27,7 +27,11 @@ let ItemTemplate = props => {
       </div>
 
       <div className="row-container">
-        <ProductTable columns={props.columns} data={props.columnData} pagination={{...props.pagination}} />
+        <ProductTable
+          columns={props.columns}
+          data={props.columnData}
+          pagination={{ ...props.pagination }}
+        />
       </div>
 
       <div className="row-container">

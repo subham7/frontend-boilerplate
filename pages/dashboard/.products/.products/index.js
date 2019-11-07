@@ -54,7 +54,7 @@ class App extends React.Component {
   }
 
   handleSearch(e) {
-    const filteredEvents = this.state.productsTableData.filter(function (data) {
+    const filteredEvents = this.state.productsTableData.filter(function(data) {
       var pattern = new RegExp(e.target.value, "i")
       return data.name.match(pattern)
     })
@@ -63,6 +63,7 @@ class App extends React.Component {
 
   render() {
     if (this.props.products.isLoaded) {
+      console.log(this.state.filteredTableData)
       return (
         <div>
           <Products
@@ -100,13 +101,13 @@ class App extends React.Component {
         object.code = item.code
         object.barcode = item.barcode
         object.category = item.productcategory
-        object.location = item.location//map location here
+        object.location = item.location //map location here
         object.price = item.price
         object.prefilledValues = item
         object.selectData = this.createSelectData(
           this.props.productCategories.response.data
         )
-        object.handleFeatures = {
+        ;(object.handleFeatures = {
           handleDelete: urlParams => {
             urlParams.businessID = this.props.business.response.data[0][0].businessID
             console.log("here", urlParams)
@@ -131,14 +132,15 @@ class App extends React.Component {
                 cb({ status: false, message: "Some Error while updating" })
               })
           }
-        },
-          object.assign = {
+        }),
+          (object.assign = {
             handleAssign: (data, id, cb) => {
               console.log(data, id, "received data")
               let obj = {}
               obj.product = id
               obj.tax = data.values.assignedTo
-              this.props.addTaxProduct(obj)
+              this.props
+                .addTaxProduct(obj)
                 .then(res => {
                   cb({
                     status: true,
@@ -153,7 +155,7 @@ class App extends React.Component {
             // assignedTaxes: attributesetID => this.props.assignedTaxes(attributesetID),
             taxesData: this.createSelectTaxData(this.props.taxes.response.data),
             productID: item.productID
-          }
+          })
         temp.push(object)
       })
     }
@@ -204,7 +206,7 @@ const mapStateToProps = state => {
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
   getproducts: businessID => dispatch(products.action(businessID)),
-  getTaxes: (businessID) => dispatch(taxes.action(businessID)),
+  getTaxes: businessID => dispatch(taxes.action(businessID)),
   addProduct: (businessID, object) =>
     dispatch(addProduct.action(businessID, object)),
   getTaxeCategories: businessID =>
@@ -214,9 +216,9 @@ const mapDispatchToProps = dispatch => ({
   deleteProduct: urlParams => dispatch(deleteProduct.action(urlParams)),
   updateProduct: (productID, object) =>
     dispatch(updateProduct.action(productID, object)),
-  addTaxProduct: (object) => dispatch(addProductsTax.action(object)),
+  addTaxProduct: object => dispatch(addProductsTax.action(object)),
   reviewPurchase: () => dispatch(reviewPurchase.action()),
-  getInventoryStock: (businessID) => dispatch(inventoryStock.action(businessID))
+  getInventoryStock: businessID => dispatch(inventoryStock.action(businessID))
 })
 
 export default wrapper(

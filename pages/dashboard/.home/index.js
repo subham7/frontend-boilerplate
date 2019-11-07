@@ -134,9 +134,8 @@ class App extends Component {
               <ReactHighcharts config={columns.getConfigTopSalePersonObject(this.state.topSalesmanData.salesmanName, this.state.topSalesmanData.salesValue)} ref="chart"></ReactHighcharts>
             </Card>
           </Col>
-
         </Row>
-        <br></br>
+        <br />
         <Row gutter={16}>
           <Col span={22}>
             <Card bordered={true}>
@@ -195,7 +194,8 @@ class App extends Component {
 
   loadTopSalesman = () => {
     //send businessID
-    this.props.getTopSalesman(this.props.business.response.data[0].businessID)
+    this.props
+      .getTopSalesman(this.props.business.response.data[0].businessID)
       .then(data => {
         let salesValue = []
         let salesmanName = []
@@ -203,7 +203,12 @@ class App extends Component {
           salesValue.push(data[index].totalSalesAmount)
           salesmanName.push(data[index].name)
         }
-        this.setState({ topSalesmanData: { salesValue: salesValue, salesmanName: salesmanName } })
+        this.setState({
+          topSalesmanData: {
+            salesValue: salesValue,
+            salesmanName: salesmanName
+          }
+        })
       })
       .catch(err => {
         console.log(err)
@@ -211,7 +216,8 @@ class App extends Component {
   }
 
   loadLocationSales = () => {
-    this.props.getLocationSales(this.props.business.response.data[0].businessID)
+    this.props
+      .getLocationSales(this.props.business.response.data[0].businessID)
       .then(data => {
         let dataArray = data.map((item, i) => {
           return {
@@ -227,13 +233,20 @@ class App extends Component {
   }
 
   loadSalesWithinDates = () => {
-    this.props.getSalesDate(this.props.business.response.data[0].businessID)
+    this.props
+      .getSalesDate(this.props.business.response.data[0].businessID)
       .then(data => {
         let salesData = []
         for (let index = 0; index < data.length; index++) {
           salesData.push({
             key: index,
-            name: '' + data[index].day + '-' + data[index].month + '-' + data[index].year,
+            name:
+              "" +
+              data[index].day +
+              "-" +
+              data[index].month +
+              "-" +
+              data[index].year,
             tags: [data[index].totalSale]
           })
         }
@@ -255,8 +268,6 @@ class App extends Component {
       })
   }
 }
-
-
 
 // this.props.locations.response.data[2]
 const mapStateToProps = state => ({

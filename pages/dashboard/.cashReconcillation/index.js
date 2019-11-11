@@ -10,12 +10,17 @@ import { cashReconData } from "./cashReconcillation.data"
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { employeeCascaderData: [], locationCascaderData: [] }
+    this.state = {
+      employeeCascaderData: [],
+      locationCascaderData: [],
+      cashReconData: []
+    }
   }
 
   componentDidMount() {
     this.loadEmployeeData()
     this.createLocationCascaderData()
+    this.setDataToState()
   }
 
   render() {
@@ -23,7 +28,7 @@ class App extends React.Component {
       return (
         <CashReconcillation
           columns={cashReconData.columns}
-          columnData={cashReconData.dummyData}
+          columnData={this.state.cashReconData}
           pagination={{
             pageSize: 10,
             showLessItems: true,
@@ -31,11 +36,14 @@ class App extends React.Component {
             pageSizeOptions: ["5", "10", "15", "20"]
           }}
           cascaderData={this.createCascaderDataArray()}
+          reset={() => this.setDataToState()}
+          applyFilter={() => this.applyFilter()}
         />
       )
     } else return <Loader />
   }
 
+  // Loads employee data from api call
   loadEmployeeData() {
     let urlParams = {}
     urlParams.businessID = this.props.business.response.data[0].businessID
@@ -47,6 +55,7 @@ class App extends React.Component {
       .catch(err => console.log(err))
   }
 
+  // Converts employee data from api to cascader format
   createEmployeeCascaderData() {
     let employeeData = this.props.employees.response.data
     this.setState({
@@ -57,6 +66,7 @@ class App extends React.Component {
     })
   }
 
+  // Converts location data from api to cascader format
   createLocationCascaderData() {
     let locationData = this.props.locations.response.data
     this.setState({
@@ -67,19 +77,63 @@ class App extends React.Component {
     })
   }
 
+  // Returns array prop for cascader data with all the required fields
   createCascaderDataArray() {
     return [
       {
         placeholder: "Employee",
         optionArray: this.state.employeeCascaderData,
-        onChange: () => {}
+        onChange: value => this.handleSearchByStaffId(value)
       },
       {
         placeholder: "Location",
         optionArray: this.state.locationCascaderData,
-        onChange: () => {}
+        onChange: value => this.handleSearchByLocationId(value)
       }
     ]
+  }
+
+  handleCascaderValue(name, value) {
+    this.setState({ [name]: value })
+  }
+
+  applyFilter() {
+    for (let i = 0; i < this.createCascaderDataArray().length; i++)
+    this.handleSearch
+  }
+
+  handleSearch() {
+    const filteredEvents = this.state.cashReconData.filter(function(data) {
+      var pattern = new RegExp(value, "i")
+      // Here staffId is compared to value
+      return data.staffId.match(pattern)
+    })
+    this.setState({ cashReconData: filteredEvents })
+  }
+
+  // Compares value from employee cascader to employeeId and change state wrt to the employeeId
+  handleSearchByStaffId(value) {
+    const filteredEvents = this.state.cashReconData.filter(function(data) {
+      var pattern = new RegExp(value, "i")
+      // Here staffId is compared to value
+      return data.staffId.match(pattern)
+    })
+    this.setState({ cashReconData: filteredEvents })
+  }
+
+  // Compares value from location cascader to locationId and change state wrt to the locationId
+  handleSearchByLocationId(value) {
+    const filteredEvents = this.state.cashReconData.filter(function(data) {
+      var pattern = new RegExp(value, "i")
+      // Here locationId is compared to value
+      return data.locationId.match(pattern)
+    })
+    this.setState({ cashReconData: filteredEvents })
+  }
+
+  // Sets api data to local state or reset all the filters
+  setDataToState() {
+    this.setState({ cashReconData: cashReconData.dummyData })
   }
 }
 

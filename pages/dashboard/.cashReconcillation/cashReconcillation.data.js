@@ -5,7 +5,8 @@ import cashReconSubmit from "./../../../src/components/organisms/forms/cashRecon
 let dummyData = [
   {
     key: 1,
-    staffId: "asdf34545er34",
+    staffId: "48c3ea31-2af5-4327-b286-96d313e40855",
+    locationId: "658bbcd2-be59-44c1-b867-0176290000ae",
     name: "test",
     location: "loca",
     phone: "1234567890",
@@ -17,6 +18,7 @@ let dummyData = [
   {
     key: 2,
     staffId: "asdf345erer34",
+    locationId: "658bbcd2-be59-44c1-b867-0176290000ae",
     name: "test",
     location: "loca",
     phone: "1234567890",
@@ -28,6 +30,7 @@ let dummyData = [
   {
     key: 3,
     staffId: "asdf345fger34",
+    locationId: "658bbcd2-be59-44c1-b867-0176290000df",
     name: "test",
     location: "loca",
     phone: "1234567890",

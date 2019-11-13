@@ -11,6 +11,7 @@ const Cascader = props => {
       <Select
         showArrow
         allowClear
+        mode={props.mode}
         style={props.style}
         placeholder={props.placeholder}
         optionFilterProp="children"
@@ -37,7 +38,8 @@ const Cascader = props => {
 Cascader.defaultProps = {
   optionArrray: [],
   placeholder: "Select One",
-  style: { width: "100%" }
+  style: { width: "100%" },
+  mode: "default"
 }
 
 export default Cascader

@@ -10,8 +10,9 @@ const CascaderAndSearch = props => {
       {props.dataArray.map((data, index) => (
         <Col span={4}>
           <Cascader
+            mode={data.mode}
             placeholder={data.placeholder}
-            onChange={data.onChange}
+            handleChange={value => data.onChange(value)}
             onFocus={data.onFocus}
             onBlur={data.onBlur}
             optionArray={data.optionArray}
@@ -19,6 +20,9 @@ const CascaderAndSearch = props => {
           />
         </Col>
       ))}
+      <Col span={3} key={6}>
+        <ButtonOne value="Apply" onClick={props.applyFilter} color="#2699FB" />
+      </Col>
       <Col span={5}>
         <Search
           handleSearch={props.onSearch}

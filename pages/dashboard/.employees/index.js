@@ -43,7 +43,6 @@ class App extends Component {
   }
 
   handleAssignUserLocation(data, cb) {
-    console.log(data.values)
     this.props
       .addEmployeeLocation(data.values)
       .then(res => {

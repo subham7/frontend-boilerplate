@@ -4,7 +4,7 @@ import CustomerDirectory from "../../../../src/components/templates/CustomerDire
 import Loading from "./../../../../src/components/atoms/loading"
 
 import {
-  businessUsers,
+  uniqueCustomers,
   customerReceipts,
   receiptById,
   receiptTransactionType
@@ -29,6 +29,7 @@ class App extends Component {
     let businessID = this.props.business.response.data[0].businessID
     console.log(businessID)
     this.props.getUsers(businessID).then(res => {
+      // console.log()
       this.setState({ filteredTableData: res, usersTableData: res })
     })
   }
@@ -73,8 +74,8 @@ class App extends Component {
   }
 
   render() {
-    if (this.props.businessUsers.response)
-      return (
+    if (this.props.uniqueCustomers.response)
+      return ( 
         <CustomerDirectory
           listData={this.state.filteredTableData}
           customerData={this.state.customerDetails}
@@ -93,11 +94,11 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  businessUsers: state.businessUsers
+  uniqueCustomers: state.uniqueCustomers
 })
 
 const mapDispatchToProps = dispatch => ({
-  getUsers: (businessID) => dispatch(businessUsers.action(businessID)),
+  getUsers: (businessID) => dispatch(uniqueCustomers.action(businessID)),
   getReceipts: (customerID) => dispatch(customerReceipts.action(customerID)),
   getReceiptById: (rid) => dispatch(receiptById.action(rid)),
   getReceiptTransactionType: (rid) => dispatch(receiptTransactionType.action(rid)),

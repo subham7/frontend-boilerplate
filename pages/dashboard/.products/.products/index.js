@@ -104,6 +104,7 @@ class App extends React.Component {
         object.location = item.location //map location here
         object.price = item.price
         object.prefilledValues = item
+        object.isActive = item.isActive
         object.selectData = this.createSelectData(
           this.props.productCategories.response.data
         )
@@ -168,6 +169,7 @@ class App extends React.Component {
     this.props
       .getproducts(businessID)
       .then(res => {
+        console.log(res)
         this.setState({ productsTableData: this._createproductsColumns(res) })
         this.setState({ filteredTableData: this.state.productsTableData })
       })

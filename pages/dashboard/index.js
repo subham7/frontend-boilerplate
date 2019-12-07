@@ -16,6 +16,7 @@ import Attributes from "./.attributes"
 import Transactions from "./.transactions"
 import Discount from "./.discount"
 import CashReconcillation from "./.cashReconcillation"
+import PaymentModes from "./.paymentModes"
 import PaymentReport from "./.paymentReport"
 import Home from "./.home"
 import { Tabs } from "antd"
@@ -186,6 +187,9 @@ class SwitchHandler extends React.Component {
 
             case "payment-report":
               return <PaymentReport />
+
+            case "payment-modes":
+              return <PaymentModes />
 
             default:
               return <h1>Error: 404</h1>

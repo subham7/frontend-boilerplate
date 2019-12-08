@@ -7,10 +7,14 @@ export const addBusiness = data => axios.post(url, data)
 export const businesses = businessID =>
   axios.get(`${ROOTURL}/businesses/${businessID}`)
 
+export const allBusinesses = businessID =>
+  axios.get(`${ROOTURL}/businesses`)
+
 export const getBusinessById = businessID =>
   axios.get(`${ROOTURL}/businesses/${businessID}`)
 
 export const businessTransactions = businessID => axios.get(`${ROOTURL}/businesses/${businessID}/transactions?_unfold={"transactiontype":["name"]}`)
 
-
 export const businessType = () => axios.get(`${ROOTURL}/businesstype`)
+
+export const updateBusinesses = (businessID, object) => axios.patch(`${ROOTURL}/businesses/${businessID}`, object)

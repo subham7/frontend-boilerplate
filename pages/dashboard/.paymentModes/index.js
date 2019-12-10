@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import axios from 'axios'
 import {
-  allBusinesses,
+  businesses,
   updateBusinesses
 } from "../../../src/reduxHelper"
 import PaymentModes from "../../../src/components/templates/paymentModes"
@@ -33,7 +33,7 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.allBusinesses.isLoaded) {
+    if (this.props.businesses.isLoaded) {
       return (
         <div>
           <PaymentModes
@@ -88,7 +88,7 @@ class App extends React.Component {
   loadBusinessData() {
     let businessID = this.props.business.response.data[0].businessID
     this.props
-      .getAllBusinesses(businessID)
+      .getbusinesses(businessID)
       .then(res => {
         this.setState({ businessTableData: this._createPaymentModeColumns(res) })
         this.setState({ filteredTableData: this.state.businessTableData })
@@ -101,12 +101,12 @@ class App extends React.Component {
 
 const mapStateToProps = state => ({
   business: state.businesses,
-  allBusinesses: state.allBusinesses
+  businesses: state.businesses
 })
 
 // Example Syntax for writing dispatch
 const mapDispatchToProps = dispatch => ({
-  getAllBusinesses: businessID => dispatch(allBusinesses.action(businessID)),
+  getbusinesses: businessID => dispatch(businesses.action(businessID)),
   updateBusinesses: (businessID, object) => dispatch(updateBusinesses.action(businessID, object))
 })
 

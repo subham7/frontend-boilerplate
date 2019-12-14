@@ -164,6 +164,16 @@ let SidePanel = props => {
                 <p className="sidebar-option">PAYMENT REPORT</p>
               </Link>
             </Menu.Item>
+            <Menu.Item key="itemsales-report">
+              <Link href={`/dashboard?page=itemsales-report`}>
+                <p className="sidebar-option">ITEM SALES REPORT</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item key="inventory-report">
+              <Link href={`/dashboard?page=inventory-report`}>
+                <p className="sidebar-option">INVENTORY REPORT</p>
+              </Link>
+            </Menu.Item>
           </SubMenu>
 
           <Menu.Item key="purchase">

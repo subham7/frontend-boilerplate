@@ -1,6 +1,7 @@
 import React from "react"
 import Model from "./../../../src/components/molecules/modelButton"
 import cashReconSubmit from "./../../../src/components/organisms/forms/cashReconSubmit"
+import { Button } from "antd"
 
 let dummyData = [
   {
@@ -13,7 +14,8 @@ let dummyData = [
     cashCollected: "1243",
     cashSubmitted: "234",
     difference: "23",
-    reason: "asdfasdf"
+    reason: "asdfasdf",
+    action: {name:"Start Day"}
   },
   {
     key: 2,
@@ -25,7 +27,8 @@ let dummyData = [
     cashCollected: "1243",
     cashSubmitted: "234",
     difference: "23",
-    reason: "asdfasdf"
+    reason: "asdfasdf",
+    action: {name:"Start Day"}
   },
   {
     key: 3,
@@ -37,43 +40,56 @@ let dummyData = [
     cashCollected: "1243",
     cashSubmitted: "234",
     difference: "23",
-    reason: "asdfasdf"
+    reason: "asdfasdf",
+    action: {name:"Start Day"}
   }
 ]
 
 let columns = [
-  { title: "Staff ID", dataIndex: "staffId", key: "staffId" },
+  { title: "Staff ID", dataIndex: "user", key: "staffId" },
   { title: "Name", dataIndex: "name", key: "name" },
   { title: "Location", dataIndex: "location", key: "location" },
   { title: "Phone", dataIndex: "phone", key: "phone" },
   { title: "Cash Collected", dataIndex: "cashCollected", key: "cashCollected" },
   { title: "Cash Submitted", dataIndex: "cashSubmitted", key: "cashSubmitted" },
+  { title: "Start Date", dataIndex: "date", key: "date" },
   { title: "Difference", dataIndex: "difference", key: "difference" },
   { title: "Reason", dataIndex: "reason", key: "reason" },
   {
-    title: "Cash Submitted",
-    dataIndex: "",
-    key: "enterCashSubmitted",
+    title: "Collected Cash",
+    dataIndex: "refresh",
+    key: "refresh",
     render: object => {
       return (
-        <Model
-          form={cashReconSubmit}
-          buttonValue="Enter Cash"
-          onSubit={() => {}}
-        />
+        <Button type="primary" onClick={() => object.onRefresh()}>Refresh</Button>
       )
     }
   },
   {
-    title: "Reason",
-    dataIndex: "",
-    key: "reason",
+    title: "Action",
+    dataIndex: "action",
+    key: "action",
     render: object => {
+      let x = {status:true}
       return (
-        <Model form={cashReconSubmit} buttonValue="Submit" onSubit={() => {}} />
+        <Model
+          form={cashReconSubmit}
+          buttonValue={object.name}
+          onSubmit={(data, x) => object.onSubmit(data)}
+        />
       )
     }
-  }
+  },
+  // {
+  //   title: "Reason",
+  //   dataIndex: "",
+  //   key: "reason",
+  //   render: object => {
+  //     return (
+  //       <Model form={cashReconSubmit} buttonValue="Submit" onSubit={() => {}} />
+  //     )
+  //   }
+  // }
 ]
 
 export const cashReconData = {

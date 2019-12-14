@@ -6,6 +6,13 @@ import wrapper from "./wrapper"
 import CashReconcillation from "./../../../src/components/templates/cashReconcillation"
 import Loader from "./../../../src/components/atoms/loading"
 import { cashReconData } from "./cashReconcillation.data"
+import cashReconSubmit from "./../../../src/components/organisms/forms/cashReconSubmit"
+import{
+  cashReconciliationStatus,
+  cashReconciliationStartDay,
+  cashReconciliationEndDay,
+  cashReconciliationUpdateCashCollected
+} from "../../../src/reduxHelper"
 
 class App extends React.Component {
   constructor(props) {
@@ -16,13 +23,53 @@ class App extends React.Component {
       cashReconData: []
     }
   }
+  
+  onSubmit(formData, employee, location, id, startDay){
+    console.log(formData)
+    if(startDay){
+      let data = {
+        employeeID: employee,
+        blocation: location,
+        startCash: formData.startCash
+      }
+      this.props.cashReconciliationStartDay(data).then(x => {
+        this.loadData();
+      }).catch(err=>{
+
+      })
+    }else{
+      //EndDay
+      let data = {
+        id: id,
+        cashSubmitted:formData.cashSubmitted,
+        difference:formData.difference,
+        reason:formData.reason
+      }
+      this.props.cashReconciliationEndDay(data).then(x => {
+        this.loadData();
+      }).catch(err=>{
+
+      })
+    }
+  }
+
+  onRefresh(employee,location){
+    this.props.cashReconciliationUpdateCashCollected(employee,location).then(x=>{
+      this.loadData();
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
   componentDidMount() {
     this.loadEmployeeData()
     this.createLocationCascaderData()
     this.setDataToState()
+    this.loadData()
   }
 
+
+  
   render() {
     if (this.props.employees.isLoaded) {
       return (
@@ -41,6 +88,25 @@ class App extends React.Component {
         />
       )
     } else return <Loader />
+  }
+
+  loadData(){
+    this.props.cashReconciliationStatus(this.props.business.response.data[0].businessID).then(data => {
+      data.map(x => {
+        x.cashCollected = x.cashCollected == null? 0: x.cashCollected
+        x.refresh = {
+          onRefresh: () => this.onRefresh(x.user,x.locationID)
+        }
+        x.action = {
+          cashReconSubmit: cashReconSubmit,
+          onSubmit: (data) => this.onSubmit(data.values, x.user, x.locationID, x.id, x.dayEnded == null ? true : x.dayEnded == 0 ? false: true),
+          name: x.dayEnded == null ? "Start Day" : x.dayEnded == 0 ? "End Day": "Start Day Again"
+        }
+      })
+      this.setState({cashReconData: data})
+    }).catch(err => {
+      console.log(err)
+    })
   }
 
   // Loads employee data from api call
@@ -140,11 +206,16 @@ class App extends React.Component {
 const mapStateToProps = state => ({
   business: state.businesses,
   employees: state.employees,
-  locations: state.locations
+  locations: state.locations,
+  cr: state.cashReconciliationStatus
 })
 
 const mapDispatchToProps = dispatch => ({
-  getEmployees: object => dispatch(employees.action(object))
+  getEmployees: object => dispatch(employees.action(object)),
+  cashReconciliationStatus: businessID => dispatch(cashReconciliationStatus.action(businessID)),
+  cashReconciliationStartDay: object => dispatch(cashReconciliationStartDay.action(object)),
+  cashReconciliationEndDay: object => dispatch(cashReconciliationEndDay.action(object)),
+  cashReconciliationUpdateCashCollected: (employee,location) => dispatch(cashReconciliationUpdateCashCollected.action(employee,location))
 })
 
 export default wrapper(

@@ -28,10 +28,39 @@ export class cashReconSubmit extends Component {
     return (
       <div className="App">
         <Form getApi={this.setFormApi}>
+        {/* <Text
+            style={{ width: 195,display:'none' }}
+            field="employee"
+            value={this.props.employee}
+          />
           <Text
-            style={{ width: 195 }}
-            field="cashSubmit"
+            style={{ width: 195 ,display:'none'}}
+            field="location"
+            value={this.props.location}
+          /> */}
+          <Text
+            style={{ width: 195 }}  
+            field="startCash"
+            placeholder="Start Cash"
+          />
+
+          <Text
+            style={{ width: 195 }}  
+            field="cashSubmitted"
             placeholder="Cash Submitted"
+          />
+
+          <Text
+            style={{ width: 195 }}  
+            field="difference"
+            placeholder="Difference"
+            
+          />
+
+          <Text
+            // style={{ width: 195 }}  
+            field="reason"
+            placeholder="Reason"
           />
 
           <br />

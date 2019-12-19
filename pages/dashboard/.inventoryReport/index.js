@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 
 import wrapper from "./wrapper"
-import PaymentReport from "./../../../src/components/templates/paymentReport"
+import PaymentReport from "./../../../src/components/templates/itemSalesReport"
 import { inventoryReportData } from "./inventoryReport.data"
 import Loader from "./../../../src/components/atoms/loading"
 
@@ -42,13 +42,13 @@ class App extends React.Component {
   createCascaderDataArray = () => {
     return [
       {
-        placeholder: "Location",
+        placeholder: "Select Location",
         optionArray: this.state.locationCascaderData,
         mode: "multiple",
         onChange: value => this.handleSearchByLocationId(value)
       },
       {
-        placeholder: "Category",
+        placeholder: "Select Category",
         optionArray: this.state.categoryCascaderData,
         mode: "multiple",
         onChange: value => this.handleSearchByLocationId(value)

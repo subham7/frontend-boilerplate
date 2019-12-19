@@ -2,14 +2,9 @@ import React from "react"
 
 let columns = [
   { 
-    title: "Item Name", 
-    dataIndex: "itemName", 
-    key: "itemName" 
-  },
-  { 
-    title: "Barcode", 
-    dataIndex: "barcode", 
-    key: "barcode" 
+    title: "Product Name", 
+    dataIndex: "productName", 
+    key: "productName"
   },
   {
     title: "Category", 
@@ -17,20 +12,25 @@ let columns = [
     key: "category" 
   },
   {
-    title: "Unit", 
-    dataIndex: "unit", 
-    key: "unit" 
+    title: "Product Unit", 
+    dataIndex: "productUnits", 
+    key: "productUnits" 
   },
   {
-    title: "Item Sold", 
-    dataIndex: "itemSold", 
-    key: "itemSold" 
+    title: "Unit", 
+    dataIndex: "units", 
+    key: "units" 
   },
   {
     title: "Gross sales", 
     dataIndex: "grossSales", 
     key: "grossSales" 
-  }
+  },
+  { 
+    title: "Location", 
+    dataIndex: "location", 
+    key: "location" 
+  },
 ]
 
 export const itemSalesReportData = {

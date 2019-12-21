@@ -10,6 +10,7 @@ const { RangePicker } = DatePicker
 const dateFormat = "YYYY/MM/DD"
 
 const PaymentReport = props => {
+  console.log(props.cascaderData,"casco")
   return (
     <div>
       {/* <CascaderAndSearch
@@ -24,7 +25,7 @@ const PaymentReport = props => {
       <Row gutter={16}>
           <Col span={8}>
             <Cascader
-              placeholder="Select Location"
+              placeholder={props.placeholder}
               optionArray={props.cascaderData}
               mode= "multiple"
               handleChange={props.handeLocationChange}

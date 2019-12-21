@@ -18,6 +18,8 @@ import Discount from "./.discount"
 import CashReconcillation from "./.cashReconcillation"
 import PaymentModes from "./.paymentModes"
 import PaymentReport from "./.paymentReport"
+import ItemSalesReport from "./.itemSalesReport"
+import InventoryReport from "./.inventoryReport"
 import Home from "./.home"
 import { Tabs } from "antd"
 import { withRouter } from "next/router"
@@ -187,6 +189,12 @@ class SwitchHandler extends React.Component {
 
             case "payment-report":
               return <PaymentReport />
+
+            case "itemsales-report":
+              return <ItemSalesReport />
+
+            case "inventory-report":
+              return <InventoryReport />
 
             case "payment-modes":
               return <PaymentModes />

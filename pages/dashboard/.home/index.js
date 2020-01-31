@@ -52,9 +52,9 @@ class App extends Component {
   }
 
   loadAllReports = (locationID, businessID, from, to) => {
-    this.loadTopItems(locationID)
-    this.loadTopCategory(locationID)
-    this.loadTransactionType(locationID)
+    this.loadTopItems(locationID, from, to)
+    this.loadTopCategory(locationID, from, to)
+    this.loadTransactionType(locationID, from, to)
     this.loadTopSalesman()
     this.loadLocationSales()
     this.loadSalesWithinDates()
@@ -72,8 +72,8 @@ class App extends Component {
     let toDate = moment(dateRange[1]).format(dateFormat)
     let bID = this.props.business.response.data[0].businessID
     this.setState({ fromDate: fromDate, toDate: toDate })
-    // this.loadAlltransactions(bID, fromDate, toDate)
-    console.log(this.state.fromDate, "initailllll dateeee")
+    this.loadAlltransactions(bID, fromDate, toDate)
+    console.log(this.state.fromDate, "initial date")
   }
 
   handleSubmit = () => {
@@ -171,8 +171,8 @@ class App extends Component {
     return selectData
   }
 
-  loadTopItems = (locationID) => {
-    this.props.getTopProducts(locationID, '2018-07-04', '2021-07-06')
+  loadTopItems = (locationID, from, to) => {
+    this.props.getTopProducts(locationID, from, to)
       .then(data => {
         this.setState({ topProductsData: data.splice(0, 3) })
       })
@@ -181,8 +181,8 @@ class App extends Component {
       })
   }
 
-  loadTopCategory = (locationID) => {
-    this.props.topCategories(locationID, '2018-07-04', '2021-07-06')
+  loadTopCategory = (locationID, from, to) => {
+    this.props.topCategories(locationID, from, to)
       .then(data => {
         this.setState({ topCategoryData: data.splice(0, 3) })
       })
@@ -191,8 +191,8 @@ class App extends Component {
       })
   }
 
-  loadTransactionType = (locationID) => {
-    this.props.paymentTypes(locationID, '2018-07-04', '2021-07-06')
+  loadTransactionType = (locationID, from, to) => {
+    this.props.paymentTypes(locationID, from, to)
       .then(data => {
         let dataArray = data.map((item, i) => {
           return {
@@ -291,29 +291,30 @@ class App extends Component {
           },
           {
             field: "Gross Sales",
-            value: GrossSales
-          },
-          {
-            field: "Net Sales",
-            value: NetSales
+            value: "₹ " + GrossSales.toString()
           },
           {
             field: "Taxes",
-            value: Taxes
+            value: "₹ " + Taxes.toString()
           },
           {
-            field: "Total",
-            value: GrossSales + NetSales + Taxes
+            field: "Net Sales",
+            value: "₹ " + NetSales.toString()
           },
+          // {
+          //   field: "Total",
+          //   value: GrossSales + NetSales + Taxes
+          // },
         ]
         this.setState({ allTransactionsData: arrayData })
         return data
       })
       .then(d2 => {
         let avgCostDataArray = d2.map((item, i) => {
+          // console.log(item)
           return {
             name: item.devicetype,
-            y: item.avgTicketSize
+            y: item.GrossSales
           }
         })
         console.table(avgCostDataArray)

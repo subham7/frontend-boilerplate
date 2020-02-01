@@ -251,6 +251,7 @@ class App extends Component {
     this.props
       .getSalesDate(this.props.business.response.data[0].businessID)
       .then(data => {
+        data = data.reverse()
         let salesData = []
         for (let index = 0; index < data.length; index++) {
           salesData.push({

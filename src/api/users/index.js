@@ -10,17 +10,10 @@ export const uniqueCustomers = (businessID) => axios.get(`${ROOTURL}/uniquecusto
 
 export const customerReceipts = (customerID) => axios.get(`${ROOTURL}/users/${customerID}/receipts`)
 
-
 export const cashReconciliationStatus = (businessID) => axios.get(`${ROOTURL}/cr/status?business=${businessID}`)
-
-export const cashReconciliationStartDay = (object) => axios.post(`${ROOTURL}/cr/startDay`, object)
-
-export const cashReconciliationEndDay = (object) => axios.post(`${ROOTURL}/cr/endDay`, object)
 
 export const cashReconciliationUpdateCashCollected = (employee,location) => axios.get(`${ROOTURL}/cr/updateCashCollected?employee=${employee}&location=${location}`)
 
+export const cashAllocation = (object) => axios.post(`${ROOTURL}/cr/cashAllocation`, object)
 
-
-
-
-
+export const cashSubmission = (object) => axios.post(`${ROOTURL}/cr/cashSubmission`, object)

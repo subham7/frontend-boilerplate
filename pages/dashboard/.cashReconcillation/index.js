@@ -9,9 +9,9 @@ import { cashReconData } from "./cashReconcillation.data"
 import cashReconSubmit from "./../../../src/components/organisms/forms/cashReconSubmit"
 import{
   cashReconciliationStatus,
-  cashReconciliationStartDay,
-  cashReconciliationEndDay,
-  cashReconciliationUpdateCashCollected
+  cashAllocation,
+  cashSubmission,
+  cashReconciliationUpdateCashCollected,
 } from "../../../src/reduxHelper"
 
 class App extends React.Component {
@@ -20,32 +20,30 @@ class App extends React.Component {
     this.state = {
       employeeCascaderData: [],
       locationCascaderData: [],
-      cashReconData: []
+      cashReconData: [],
+      fullList : []
     }
   }
   
-  onSubmit(formData, employee, location, id, startDay){
+  onSubmit(formData, id, isAllocation){
     console.log(formData)
-    if(startDay){
+    if(isAllocation){
       let data = {
-        employeeID: employee,
-        blocation: location,
-        startCash: formData.startCash
+        id: id,
+        cashAllocated: formData.startCash
       }
-      this.props.cashReconciliationStartDay(data).then(x => {
+      this.props.cashAllocation(data).then(x => {
         this.loadData();
       }).catch(err=>{
-
       })
     }else{
-      //EndDay
+      // Cash submitted
       let data = {
         id: id,
         cashSubmitted:formData.cashSubmitted,
-        difference:formData.difference,
         reason:formData.reason
       }
-      this.props.cashReconciliationEndDay(data).then(x => {
+      this.props.cashSubmission(data).then(x => {
         this.loadData();
       }).catch(err=>{
 
@@ -84,7 +82,8 @@ class App extends React.Component {
           }}
           cascaderData={this.createCascaderDataArray()}
           reset={() => this.setDataToState()}
-          applyFilter={() => this.applyFilter()}
+          applyFilter={(value) => this.applyFilter(value)}
+          onSearch={(value)=>this.handleSearch(value)}
         />
       )
     } else return <Loader />
@@ -93,17 +92,26 @@ class App extends React.Component {
   loadData(){
     this.props.cashReconciliationStatus(this.props.business.response.data[0].businessID).then(data => {
       data.map(x => {
+        x.date =  new Date(Date.parse(x.date))
+        x.date = x.date.toLocaleDateString()
         x.cashCollected = x.cashCollected == null? 0: x.cashCollected
         x.refresh = {
           onRefresh: () => this.onRefresh(x.user,x.locationID)
         }
         x.action = {
           cashReconSubmit: cashReconSubmit,
-          onSubmit: (data) => this.onSubmit(data.values, x.user, x.locationID, x.id, x.dayEnded == null ? true : x.dayEnded == 0 ? false: true),
-          name: x.dayEnded == null ? "Start Day" : x.dayEnded == 0 ? "End Day": "Start Day Again"
+          onSubmit: (data) => this.onSubmit(data.values, x.id, false),
+          name: "Submit"
+        }
+        x.action2 = {
+          cashReconSubmit: cashReconSubmit,
+          onSubmit: (data) => this.onSubmit(data.values, x.id, true),
+          name: "Float"
         }
       })
+      console.log(data)
       this.setState({cashReconData: data})
+      this.setState({fullList: data})
     }).catch(err => {
       console.log(err)
     })
@@ -163,43 +171,48 @@ class App extends React.Component {
     this.setState({ [name]: value })
   }
 
-  applyFilter() {
-    for (let i = 0; i < this.createCascaderDataArray().length; i++)
-    this.handleSearch
+  applyFilter(value) {
+    // for (let i = 0; i < this.createCascaderDataArray().length; i++)
+    this.handleSearch(value)
   }
 
-  handleSearch() {
-    const filteredEvents = this.state.cashReconData.filter(function(data) {
+  handleSearch(value) {
+    const filteredEvents = this.state.fullList.filter(function(data) {
+      console.log("###################")
+      console.log(data)
+      console.log(value)
+      console.log("###################")
       var pattern = new RegExp(value, "i")
       // Here staffId is compared to value
-      return data.staffId.match(pattern)
+      // console.log(data)
+      return data.name.match(pattern)
     })
     this.setState({ cashReconData: filteredEvents })
   }
 
   // Compares value from employee cascader to employeeId and change state wrt to the employeeId
   handleSearchByStaffId(value) {
-    const filteredEvents = this.state.cashReconData.filter(function(data) {
+    const filteredEvents = this.state.fullList.filter(function(data) {
       var pattern = new RegExp(value, "i")
       // Here staffId is compared to value
-      return data.staffId.match(pattern)
+      return data.user.match(pattern)
     })
     this.setState({ cashReconData: filteredEvents })
   }
 
   // Compares value from location cascader to locationId and change state wrt to the locationId
   handleSearchByLocationId(value) {
-    const filteredEvents = this.state.cashReconData.filter(function(data) {
+    const filteredEvents = this.state.fullList.filter(function(data) {
       var pattern = new RegExp(value, "i")
       // Here locationId is compared to value
-      return data.locationId.match(pattern)
+      return data.locationID.match(pattern)
     })
     this.setState({ cashReconData: filteredEvents })
   }
 
   // Sets api data to local state or reset all the filters
   setDataToState() {
-    this.setState({ cashReconData: cashReconData.dummyData })
+    this.setState({ cashReconData: this.state.fullList })
   }
 }
 
@@ -213,8 +226,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getEmployees: object => dispatch(employees.action(object)),
   cashReconciliationStatus: businessID => dispatch(cashReconciliationStatus.action(businessID)),
-  cashReconciliationStartDay: object => dispatch(cashReconciliationStartDay.action(object)),
-  cashReconciliationEndDay: object => dispatch(cashReconciliationEndDay.action(object)),
+  cashAllocation : object => dispatch(cashAllocation.action(object)),
+  cashSubmission : object => dispatch(cashSubmission.action(object)),
   cashReconciliationUpdateCashCollected: (employee,location) => dispatch(cashReconciliationUpdateCashCollected.action(employee,location))
 })
 

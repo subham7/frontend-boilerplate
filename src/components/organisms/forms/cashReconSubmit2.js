@@ -8,7 +8,7 @@ const validate = value => {
     : undefined
 }
 
-export class cashReconSubmit extends Component {
+export class cashReconSubmit2 extends Component {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -41,8 +41,8 @@ export class cashReconSubmit extends Component {
           
           <Text
             style={{ width: 195 }}  
-            field="cashSubmitted"
-            placeholder="Cash Submitted"
+            field="startCash"
+            placeholder="Float cash allocated"
           />
 
           {/* <Text
@@ -51,11 +51,11 @@ export class cashReconSubmit extends Component {
             placeholder="Difference"
           /> */}
 
-          <Text
+          {/* <Text
             // style={{ width: 195 }}  
             field="reason"
             placeholder="Remarks"
-          />
+          /> */}
 
           <br />
           <Button
@@ -71,4 +71,4 @@ export class cashReconSubmit extends Component {
   }
 }
 
-export default cashReconSubmit
+export default cashReconSubmit2

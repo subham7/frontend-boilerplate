@@ -25,7 +25,9 @@ const allTransactionsColumns = [
     title: 'Amount',
     dataIndex: 'value',
     key: 'totalorders',
-    render: text => <p>₹ {text}</p>
+    render: text => {
+      return <p> {text}</p>
+    }
   }
 ]
 

@@ -4,7 +4,7 @@ import moment from 'moment';
 import Cascader from '../../../src/components/molecules/cascader'
 import Button from '../../../src/components/atoms/button'
 import {
-  topItems,
+  topItems, 
   topCategories,
   paymentTypes,
   topSalesman,
@@ -90,7 +90,7 @@ class App extends Component {
               placeholder="Select Location"
               optionArray={this.createSelectData(this.state.blocations)}
               handleChange={this.handleChange}
-            // defaultValue={intialValue}
+              mode="multiple"
             />
           </Col>
           <Col span={8}>

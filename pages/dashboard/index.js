@@ -1,35 +1,35 @@
-import React from "react"
-import { connect } from "react-redux"
+import React from "react";
+import { connect } from "react-redux";
 
-import Template from "../../src/components/templates/dashboard"
-import Modifiers from "./.modifiers"
-import Categories from "../../src/components/organisms/categories"
-import Employees from "./.employees"
-import Locations from "./.locations"
-import Taxes from "./.taxes"
-import Products from "./.products"
-import Customers from "./.customers"
-import Purchase from "./.purchase"
-import WebPermissions from "./.webPermissions"
-import AppPermissions from "./.appPermisions"
-import Attributes from "./.attributes"
-import Transactions from "./.transactions"
-import Discount from "./.discount"
-import CashReconcillation from "./.cashReconcillation"
-import PaymentModes from "./.paymentModes"
-import PaymentReport from "./.paymentReport"
-import ItemSalesReport from "./.itemSalesReport"
-import InventoryReport from "./.inventoryReport"
-import Home from "./.home"
-import { Tabs } from "antd"
-import { withRouter } from "next/router"
-import wrapper from "./wrapper"
-import Router from "next/router"
-import init from "../../src/utils/wrappers"
-import Auth from "./../../src/utils/auth"
-import NotAuthorized from "./../../src/components/templates/notAuthorized"
+import Template from "../../src/components/templates/dashboard";
+import Modifiers from "./.modifiers";
+import Categories from "../../src/components/organisms/categories";
+import Employees from "./.employees";
+import Locations from "./.locations";
+import Taxes from "./.taxes";
+import Products from "./.products";
+import Customers from "./.customers";
+import Purchase from "./.purchase";
+import WebPermissions from "./.webPermissions";
+import AppPermissions from "./.appPermisions";
+import Attributes from "./.attributes";
+import Transactions from "./.transactions";
+import Discount from "./.discount";
+import CashReconcillation from "./.cashReconcillation";
+import PaymentModes from "./.paymentModes";
+import PaymentReport from "./.paymentReport";
+import ItemSalesReport from "./.itemSalesReport";
+import InventoryReport from "./.inventoryReport";
+import Home from "./.home";
+import { Tabs } from "antd";
+import { withRouter } from "next/router";
+import wrapper from "./wrapper";
+import Router from "next/router";
+import init from "../../src/utils/wrappers";
+import Auth from "./../../src/utils/auth";
+import NotAuthorized from "./../../src/components/templates/notAuthorized";
 
-const TabPane = Tabs.TabPane
+const TabPane = Tabs.TabPane;
 
 // refactor code
 const ItemsContent = props => {
@@ -58,8 +58,8 @@ const ItemsContent = props => {
         <TabPane tab="Taxes" key="6" />
       </Tabs>
     </div>
-  )
-}
+  );
+};
 
 class SwitchHandler extends React.Component {
   render() {
@@ -74,7 +74,7 @@ class SwitchHandler extends React.Component {
                   yes={<Home />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "employees":
               return (
@@ -83,7 +83,7 @@ class SwitchHandler extends React.Component {
                   yes={<Employees />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "locations":
               return (
@@ -92,7 +92,7 @@ class SwitchHandler extends React.Component {
                   yes={<Locations />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "purchase":
               return (
@@ -101,7 +101,7 @@ class SwitchHandler extends React.Component {
                   yes={<Purchase />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "taxes":
               return (
@@ -110,7 +110,7 @@ class SwitchHandler extends React.Component {
                   yes={<Taxes />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "products":
               return (
@@ -119,7 +119,7 @@ class SwitchHandler extends React.Component {
                   yes={<Products />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "discounts":
               return (
@@ -128,7 +128,7 @@ class SwitchHandler extends React.Component {
                   yes={<Discount />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "customers":
               return (
@@ -137,7 +137,7 @@ class SwitchHandler extends React.Component {
                   yes={<Customers />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "modifiers":
               return (
@@ -146,7 +146,7 @@ class SwitchHandler extends React.Component {
                   yes={<Modifiers />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "attributes":
               return (
@@ -155,7 +155,7 @@ class SwitchHandler extends React.Component {
                   yes={<Attributes />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "transactions":
               return (
@@ -164,7 +164,7 @@ class SwitchHandler extends React.Component {
                   yes={<Transactions />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "permissions-web":
               return (
@@ -173,7 +173,7 @@ class SwitchHandler extends React.Component {
                   yes={<WebPermissions />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "permissions-app":
               return (
@@ -182,37 +182,67 @@ class SwitchHandler extends React.Component {
                   yes={<AppPermissions />}
                   no={<NotAuthorized />}
                 />
-              )
+              );
 
             case "cash-reconcillation":
-              return <CashReconcillation />
+              return (
+                <Auth
+                  param="permissions"
+                  yes={<CashReconcillation />}
+                  no={<NotAuthorized />}
+                />
+              );
 
             case "payment-report":
-              return <PaymentReport />
+              return (
+                <Auth
+                  param="permissions"
+                  yes={<PaymentReport />}
+                  no={<NotAuthorized />}
+                />
+              );
 
             case "itemsales-report":
-              return <ItemSalesReport />
+              return (
+                <Auth
+                  param="permissions"
+                  yes={<ItemSalesReport />}
+                  no={<NotAuthorized />}
+                />
+              );
 
             case "inventory-report":
-              return <InventoryReport />
+              return (
+                <Auth
+                  param="permissions"
+                  yes={<InventoryReport />}
+                  no={<NotAuthorized />}
+                />
+              );
 
             case "payment-modes":
-              return <PaymentModes />
+              return (
+                <Auth
+                  param="permissions"
+                  yes={<PaymentModes />}
+                  no={<NotAuthorized />}
+                />
+              );
 
             default:
-              return <h1>Error: 404</h1>
+              return <h1>Error: 404</h1>;
           }
         })()}
       </div>
-    )
+    );
   }
 }
 class App extends React.Component {
   render() {
     if (!this.props.router.query.page) {
-      Router.push("/dashboard?page=home")
+      Router.push("/dashboard?page=home");
     }
-    let userName = this.props.user.response.data[0].firstName
+    let userName = this.props.user.response.data[0].firstName;
     return (
       <div>
         <Template sidebarTab={this.props.router.query.page} user={userName}>
@@ -222,7 +252,7 @@ class App extends React.Component {
           />
         </Template>
       </div>
-    )
+    );
   }
 }
-export default wrapper(withRouter(init(App)))
+export default wrapper(withRouter(init(App)));

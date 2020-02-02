@@ -10,6 +10,16 @@ const transactionColumns = [
         key: "transactionID"
     },
     {
+        title: "Customer Name",
+        dataIndex: "customername",
+        key: "customername"
+    },
+    {
+        title: "Usertype",
+        dataIndex: "usertype",
+        key: "usertype"
+    },
+    {
         title: "Transaction Type",
         dataIndex: "type",
         key: "type",

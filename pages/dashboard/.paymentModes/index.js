@@ -57,13 +57,12 @@ class App extends React.Component {
   }
 
   _createPaymentModeColumns(data) {
-    // console.log
     let temp = []
     if (Array.isArray(data)) {
       data.map(item => {
         let object = {}
         object.businessID = item.businessID
-        object.name = item.name
+        object.name = "Admin app"
         object.paymentmodes = item.paymentmodes
         object.handleFeatures = {
           handleCheckbox: (objId, checkedValues) => {
@@ -80,9 +79,29 @@ class App extends React.Component {
           }
         }
         temp.push(object)
+        let object2 = {}
+        object2.businessID = item.businessID
+        object2.name = "User app"
+        object2.paymentmodes = item.paymentModesUsers
+        object2.handleFeatures = {
+          handleCheckbox: (objId, checkedValues) => {
+            let object = {}
+            object.paymentModesUsers = JSON.stringify(checkedValues)
+            this.props.updateBusinesses(objId, object)
+            .then(res =>{ 
+              message.success("Payment Mode changed")
+            })
+            .catch(err => {
+              console.log(err)
+              message.error("Some error occured")
+            })
+          }
+        }
+        temp.push(object2)
       })
     }
     return temp
+  
   }
 
   loadBusinessData() {

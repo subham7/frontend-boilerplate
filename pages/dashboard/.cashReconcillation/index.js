@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-
+import Button from "../../../src/components/atoms/button"
 import { employees } from "./../../../src/reduxHelper"
 import wrapper from "./wrapper"
 import CashReconcillation from "./../../../src/components/templates/cashReconcillation"
@@ -12,7 +12,13 @@ import{
   cashAllocation,
   cashSubmission,
   cashReconciliationUpdateCashCollected,
-} from "../../../src/reduxHelper"
+  locations,
+} from "../../../src/reduxHelper";
+import moment, { localeData } from 'moment';
+import { Row, Col, Card, Table, Divider, Tag, Select, DatePicker } from 'antd';
+import Cascader from '../../../src/components/molecules/cascader'
+
+const dateFormat = "YYYY/MM/DD"
 
 class App extends React.Component {
   constructor(props) {
@@ -21,10 +27,13 @@ class App extends React.Component {
       employeeCascaderData: [],
       locationCascaderData: [],
       cashReconData: [],
-      fullList : []
+      fullList : [],
+      initialBlocation: null,
+      locations: [],
+      date :moment().format(dateFormat),
     }
   }
-  
+
   onSubmit(formData, id, isAllocation){
     console.log(formData)
     if(isAllocation){
@@ -60,17 +69,44 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this.loadLocation()
     this.loadEmployeeData()
     this.createLocationCascaderData()
     this.setDataToState()
     this.loadData()
   }
 
-
-  
   render() {
     if (this.props.employees.isLoaded) {
       return (
+      <div>
+         <Row gutter={16}>
+        <Col span={8}>
+        <Col span={4}>
+            <Cascader
+            mode="multiple"
+            style={{ width: 180 }} 
+            // label="Location"
+             placeholder="Select Location"
+             optionArray={this.createSelectData(this.state.locations)}
+             handleChange={this.handleChangeLocations}
+            />
+          </Col>
+        </Col>
+        <Col span={8}>
+          <DatePicker
+            style={{ "width": "100%" }}
+            format={dateFormat}
+            onChange={(date) => this.handleDateChange(date)}
+          />
+        </Col>
+        <Col span={4}>
+          <Button style={{ "width": "100%" }} 
+          onClick={this.loadData} 
+          value="Get Reports" ></Button>
+        </Col>
+      </Row>
+
         <CashReconcillation
           columns={cashReconData.columns}
           columnData={this.state.cashReconData}
@@ -84,13 +120,14 @@ class App extends React.Component {
           reset={() => this.setDataToState()}
           applyFilter={(value) => this.applyFilter(value)}
           onSearch={(value)=>this.handleSearch(value)}
-        />
+        /> 
+        </div>
       )
     } else return <Loader />
   }
 
   loadData(){
-    this.props.cashReconciliationStatus(this.props.business.response.data[0].businessID).then(data => {
+    this.props.cashReconciliationStatus(this.props.business.response.data[0].businessID, this.state.date).then(data => {
       data.map(x => {
         x.date =  new Date(Date.parse(x.date))
         x.date = x.date.toLocaleDateString()
@@ -115,6 +152,32 @@ class App extends React.Component {
     }).catch(err => {
       console.log(err)
     })
+  }
+
+  handleDateChange = date => {
+    // let date = moment(dateRange[0]).format(dateFormat)
+    this.setState({ date: date })
+  }
+
+  loadLocation(){
+    this.props.getBlocations(this.props.business.response.data[0].businessID)
+      .then(data => {
+        this.setState({ locations: data })
+      })
+  }
+
+  createSelectData(data) {
+    let selectData = data.map(item => ({
+      name: item.name,
+      value: item.blocationID
+    }))
+    return selectData
+  }
+
+  handleChangeLocations = (value) => {
+    this.setState({ initialBlocation: value })
+    // console.log(value)
+    this.handleSearchByLocationId(value)
   }
 
   // Loads employee data from api call
@@ -142,7 +205,7 @@ class App extends React.Component {
 
   // Converts location data from api to cascader format
   createLocationCascaderData() {
-    let locationData = this.props.locations.response.data
+    let locationData = this.state.locations
     this.setState({
       locationCascaderData: locationData.map(item => ({
         value: item.blocationID,
@@ -172,7 +235,6 @@ class App extends React.Component {
   }
 
   applyFilter(value) {
-    // for (let i = 0; i < this.createCascaderDataArray().length; i++)
     this.handleSearch(value)
   }
 
@@ -225,7 +287,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getEmployees: object => dispatch(employees.action(object)),
-  cashReconciliationStatus: businessID => dispatch(cashReconciliationStatus.action(businessID)),
+  getBlocations: (businessID) => dispatch(locations.action(businessID)),
+  cashReconciliationStatus: (businessID, date) => dispatch(cashReconciliationStatus.action(businessID, date)),
   cashAllocation : object => dispatch(cashAllocation.action(object)),
   cashSubmission : object => dispatch(cashSubmission.action(object)),
   cashReconciliationUpdateCashCollected: (employee,location) => dispatch(cashReconciliationUpdateCashCollected.action(employee,location))

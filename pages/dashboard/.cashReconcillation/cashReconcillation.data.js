@@ -9,7 +9,7 @@ let columns = [
   // { title: "Staff ID", dataIndex: "user", key: "staffId" },
   { title: "Date", dataIndex: "date", key: "date" },
   { title: "Name", dataIndex: "name", key: "name" },
-  // { title: "Location", dataIndex: "location", key: "location" },
+  { title: "Location", dataIndex: "locationName", key: "location" },
   { title: "Phone", dataIndex: "phone", key: "phone" },
   { title: "Start cash", dataIndex: "startCash", key: "startCash" },
   { title: "Cash Collected", dataIndex: "cashCollected", key: "cashCollected" },

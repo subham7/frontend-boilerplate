@@ -13,7 +13,7 @@ export const allBusinesses = businessID =>
 export const getBusinessById = businessID =>
   axios.get(`${ROOTURL}/businesses/${businessID}`)
 
-export const businessTransactions = businessID => axios.get(`${ROOTURL}/businesses/${businessID}/transactions?_unfold={"transactiontype":["name"]}`)
+export const businessTransactions = businessID => axios.get(`${ROOTURL}/businesses/${businessID}/transactions?_unfold={"transactiontype":["name"]}&_sortColumn=date&_order=desc`)
 
 export const businessType = () => axios.get(`${ROOTURL}/businesstype`)
 

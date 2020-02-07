@@ -5,14 +5,14 @@ import CascaderAndSearch from "./../../organisms/cascaderAndSearch"
 
 let CashReconcillation = props => (
   <div>
-    <CascaderAndSearch
+    {/* <CascaderAndSearch
       dataArray={props.cascaderData}
       buttonValue="Quick Upload"
       onSearch={props.onSearch}
       placeholder="Search Name"
       applyFilter={props.applyFilter}
     />
-    <Button value="Reset" onClick={props.reset} />
+    <Button value="Reset" onClick={props.reset} /> */}
     <CashReconTable
       columns={props.columns}
       data={props.columnData}

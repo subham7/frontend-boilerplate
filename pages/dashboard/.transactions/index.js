@@ -58,6 +58,9 @@ class App extends Component {
         object.amount = item.amount
         object.date = item.date.split('T')[0]
         object.time = item.date.split('T')[1].substr(0, 8)
+        object.createdby = item.employeeunfold && item.employeeunfold.firstName
+        object.customername = item.customerunfold && item.customerunfold.firstName
+        object.method = item.device == 1? "M-POS" : item.device == 2?  "Selfcheckout" : "Kiosk"
         object.handleModalClick = (receiptID, modalData) => {
           console.log(receiptID, "rid")
           this.props.getReceiptById(receiptID).then(res => {

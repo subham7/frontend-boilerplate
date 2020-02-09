@@ -102,7 +102,7 @@ class App extends React.Component {
         </Col>
         <Col span={4}>
           <Button style={{ "width": "100%" }} 
-          onClick={this.loadData} 
+          onClick={() => this.loadData()} 
           value="Get Reports" ></Button>
         </Col>
       </Row>
@@ -156,7 +156,7 @@ class App extends React.Component {
 
   handleDateChange = date => {
     // let date = moment(dateRange[0]).format(dateFormat)
-    this.setState({ date: date })
+    this.setState({ date: moment(date).format(dateFormat) })
   }
 
   loadLocation(){

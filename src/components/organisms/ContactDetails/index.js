@@ -21,10 +21,10 @@ const ContactDeatil = props => {
           <h3 style={{ color: "#2699FB" }}>{props.customerData[0].phone}</h3>
         </Col>
         <Col span={2} offset={4}>
-          <ButtonIcon icon="form" shape="square" type="primary" />
+          {/* <ButtonIcon icon="form" shape="square" type="primary" /> */}
         </Col>
         <Col span={4}>
-          <Cascader optionArray={props.actionData} placeholder="Action" />
+          {/* <Cascader optionArray={props.actionData} placeholder="Action" /> */}
         </Col>
       </Row>
       <h3>ACTIVITY</h3>
@@ -37,13 +37,15 @@ const ContactDeatil = props => {
       <Row>
         {Object.keys(props.receiptCardData).length !== 0 ? (
           props.receiptCardData.map(data => {
+            console.log("23456789###########")
+            console.log(data)
             return (
               <div>
                 <h4>{data.time}</h4>
                 {/* <div onClick={() => props.handleModalClick(data.receiptID)}> */}
                 <Modal
                   receiptCard={
-                    <ReceiptCard iconType="stock" price={data.amount} receiptNo={data.receiptID.slice(0, 8)} />
+                    <ReceiptCard iconType="stock" price={data.netAmount} receiptNo={data.receiptID.slice(0, 8)} />
                   }
                   receiptNo={data.receiptID}
                   receiptDetails={props.receiptDetails}

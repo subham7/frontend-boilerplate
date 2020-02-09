@@ -19,7 +19,7 @@ const CustomerDirectory = props => {
         />
       </Col>
       <Col span={16}>
-        <Row gutter={4}>
+        {/* <Row gutter={4}> 
           <Col span={8}>
             <SearchBar handleSearch={props.onSearch} value="Search Name" />
           </Col>
@@ -32,7 +32,7 @@ const CustomerDirectory = props => {
           <Col span={6}>
             <ButtonOne value="Create" width="100%" />
           </Col>
-        </Row>
+        </Row> */ }
         <br />
         {Object.keys(props.customerData).length !== 0 ? (
           <ContactDetails

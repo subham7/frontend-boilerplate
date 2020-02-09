@@ -44,6 +44,7 @@ class App extends React.Component {
       this.props.cashAllocation(data).then(x => {
         this.loadData();
       }).catch(err=>{
+        
       })
     }else{
       // Cash submitted
@@ -108,7 +109,7 @@ class App extends React.Component {
       </Row>
 
         <CashReconcillation
-          columns={cashReconData.columns}
+          columns={cashReconData.columns(this.state.date)}
           columnData={this.state.cashReconData}
           pagination={{
             pageSize: 10,
@@ -240,10 +241,6 @@ class App extends React.Component {
 
   handleSearch(value) {
     const filteredEvents = this.state.fullList.filter(function(data) {
-      console.log("###################")
-      console.log(data)
-      console.log(value)
-      console.log("###################")
       var pattern = new RegExp(value, "i")
       // Here staffId is compared to value
       // console.log(data)

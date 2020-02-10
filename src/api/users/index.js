@@ -8,7 +8,7 @@ export const allUsers = () => axios.get(`${ROOTURL}/users`)
 
 export const uniqueCustomers = (businessID) => axios.get(`${ROOTURL}/uniquecustomers?business=${businessID}`)
 
-export const customerReceipts = (customerID) => axios.get(`${ROOTURL}/users/${customerID}/receipts`)
+export const customerReceipts = (customerID) => axios.get(`${ROOTURL}/users/${customerID}/receipts?_endColumn=customer`)
 
 export const cashReconciliationStatus = (businessID, date) => axios.get(`${ROOTURL}/cr/status?business=${businessID}&date=${date}`)
 

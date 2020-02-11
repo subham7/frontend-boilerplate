@@ -58,7 +58,8 @@ class App extends Component {
     this.loadTopSalesman()
     this.loadLocationSales()
     this.loadSalesWithinDates()
-    this.loadAlltransactions(businessID, from, to)
+    this.loadAlltransactions(businessID, from, to, this.state.initialBlocation)
+    // this.loadAlltransactionsByLocation(locationID)
   }
 
   handleChange = (value) => {
@@ -72,7 +73,7 @@ class App extends Component {
     let toDate = moment(dateRange[1]).format(dateFormat)
     let bID = this.props.business.response.data[0].businessID
     this.setState({ fromDate: fromDate, toDate: toDate })
-    this.loadAlltransactions(bID, fromDate, toDate)
+    this.loadAlltransactions(bID, fromDate, toDate, this.state.initialBlocation)
     console.log(this.state.fromDate, "initial date")
   }
 
@@ -273,17 +274,23 @@ class App extends Component {
       })
   }
 
-  loadAlltransactions = (businessID, from, to) => {
+  loadAlltransactions = (businessID, from, to, blocationID = null) => {
     // let bID = 'e96c8b21-4773-407c-a440-4d4c9d67aa79'
+    let locations;
+    if(typeof blocationID == "string")  locations = [blocationID]
+    else locations = [...blocationID]
     this.props.allTransactions(businessID, from, to)
-    // this.props.allTransactions(bID, from, to)
       .then(data => {
         let GrossSales = 0, NetSales = 0, Taxes = 0, TotalOrders = 0;
+        
         for (let index = 0; index < data.length; index++) {
-          GrossSales += data[index].GrossSales
-          NetSales += data[index].NetSales
-          Taxes += data[index].Taxes
-          TotalOrders += data[index].TotalOrders
+          
+          if(locations.includes(data[index].location)) {
+            GrossSales += data[index].GrossSales
+            NetSales += data[index].NetSales
+            Taxes += data[index].Taxes
+            TotalOrders += data[index].TotalOrders
+          }
         }
         let arrayData = [
           {
@@ -311,13 +318,26 @@ class App extends Component {
         return data
       })
       .then(d2 => {
-        let avgCostDataArray = d2.map((item, i) => {
-          // console.log(item)
-          return {
-            name: item.devicetype,
-            y: item.GrossSales
+        let avgCostDataArray = []
+        let d = []
+        for (let index = 0; index < d2.length; index++) {
+          if(locations.includes(d2[index].location)) {
+            if(d.includes(d2[index].devicetype)) {
+              d.map(item => {
+                if(item.devicetype == d2[index].devicetype)
+                item.y += d2[index].GrossSales
+              })               
+            } else {
+                d.push(d2[index].devicetype)
+                avgCostDataArray.push({
+                  name: d2[index].devicetype,
+                  y: d2[index].GrossSales
+                })
+            }
           }
-        })
+        }
+
+        console.log("#####################")
         console.table(avgCostDataArray)
         this.setState({ avgCostTableData: avgCostDataArray })
         return d2

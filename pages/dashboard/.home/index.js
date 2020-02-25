@@ -36,7 +36,7 @@ class App extends Component {
       grossSalesData: [],
       allTransactionsData: [],
       fromDate: moment().subtract(1, 'months').format(dateFormat),
-      toDate: moment().format(dateFormat),
+      toDate: moment().add(1, 'days').format(dateFormat),
       avgCostTableData: []
     }
   }

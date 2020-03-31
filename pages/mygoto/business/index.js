@@ -38,7 +38,7 @@ class App extends Component {
     let cart = this.state.cart
     let paymentFunc = this.props.createPaymentMyGoto
     let options = {
-      key: "rzp_test_IWXggiN4CqBvCo",
+      key: "rzp_live_MlgUcfBEMLoLme",
       amount: amount * 100,
       currency: "INR",
       name: "MyGoto",

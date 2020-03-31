@@ -66,7 +66,7 @@ const myGotoCard = props => {
         </Col>
       </Row>
       <br />
-      <Button href={`/mygoto/${props.bId}`}>BUY THE GIFT CARD</Button>
+      <Button href={`/${props.bId}`}>BUY THE GIFT CARD</Button>
     </Card>
   )
 }

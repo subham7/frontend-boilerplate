@@ -13,7 +13,7 @@ const csrTemplate = props => {
       <Affix>
         <header style={style.header}>
           <div style={style.logoContainer}>
-            <a href="/mygoto">
+            <a href="/">
               <img
                 src="/static/images/icons/mygotowhite.png"
                 style={style.logo}
@@ -28,7 +28,7 @@ const csrTemplate = props => {
               handleSubmitOk={() => {}}
               form={addBusinessMyGoto}
             /> */}
-            <Button href="/mygoto/create">Add a Place</Button>
+            <Button href="/create">Add a Place</Button>
           </div>
         </header>
       </Affix>

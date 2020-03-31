@@ -10,20 +10,20 @@ app
   .then(() => {
     const server = express()
 
-    server.get("/dashboard/:page", (req, res) => {
-      const actualPage = "/dashboard"
-      const queryParams = { page: req.params.page }
-      app.render(req, res, actualPage, queryParams)
-    })
+    // server.get("/dashboard/:page", (req, res) => {
+    //   const actualPage = "/dashboard"
+    //   const queryParams = { page: req.params.page }
+    //   app.render(req, res, actualPage, queryParams)
+    // })
 
-    server.get("/dashboard/:page/tabs/:tabid", (req, res) => {
-      const actualPage = "/dashboard"
-      const queryParams = {
-        page: req.params.page,
-        tab: req.params.tabid
-      }
-      app.render(req, res, actualPage, queryParams)
-    })
+    // server.get("/dashboard/:page/tabs/:tabid", (req, res) => {
+    //   const actualPage = "/dashboard"
+    //   const queryParams = {
+    //     page: req.params.page,
+    //     tab: req.params.tabid
+    //   }
+    //   app.render(req, res, actualPage, queryParams)
+    // })
 
     // server.get("/mygoto/:page", (req, res) => {
     //   const actualPage = "/mygoto"
@@ -31,19 +31,19 @@ app
     //   app.render(req, res, actualPage, queryParams)
     // })
 
-    server.get("/mygoto", (req, res) => {
+    server.get("/", (req, res) => {
       const actualPage = "/mygoto"
       const queryParams = {}
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get("/mygoto/create", (req, res) => {
+    server.get("/create", (req, res) => {
       const actualPage = "/mygoto/create"
       const queryParams = {}
       app.render(req, res, actualPage, queryParams)
     })
 
-    server.get("/mygoto/:id", (req, res) => {
+    server.get("/:id", (req, res) => {
       const actualPage = "/mygoto/business"
       const queryParams = { id: req.params.id }
       app.render(req, res, actualPage, queryParams)

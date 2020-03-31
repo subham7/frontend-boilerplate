@@ -16,35 +16,39 @@ const topProductColumns = [
 
 const allTransactionsColumns = [
   {
-    title: 'Device Type',
-    dataIndex: 'devicetype',
-    key: 'devicetype'
+    title: 'Transaction Type',
+    dataIndex: 'field',
+    key: 'devicetype',
+    render: text => <a href="javascript:;">{text}</a>,
   },
   {
-    title: 'Total Orders',
-    dataIndex: 'TotalOrders',
+    title: 'Amount',
+    dataIndex: 'value',
     key: 'totalorders',
+    render: text => {
+      return <p> {text}</p>
+    }
+  }
+]
+
+const avgCostColumns = [
+  {
+    title: 'Device Type',
+    dataIndex: 'name',
+    key: 'devicetype',
+    render: text => {
+      if(text == null){
+        return <a href="javascript:;">Others</a>
+      }
+      return <a href="javascript:;">{text}</a>
+    },
   },
   {
-    title: 'Gross Sales',
-    dataIndex: 'GrossSales',
-    key: 'grossSales',
-  },
-  {
-    title: 'Net Sales',
-    dataIndex: 'NetSales',
-    key: 'netSales',
-  },
-  {
-    title: 'Taxes',
-    dataIndex: 'Taxes',
-    key: 'taxes',
-  },
-  {
-    title: 'Ticket Size',
-    dataIndex: 'avgTicketSize',
-    key: 'avgTicketSize',
-  },
+    title: 'Amount',
+    dataIndex: 'y',
+    key: 'totalorders',
+    render: text => <p>₹ {text}</p>
+  }
 ]
 
 const columnstopselling = [
@@ -209,6 +213,42 @@ const getConfigStoreDivisonObject = (loacationSalesData) => {
   return configStoreDivison
 }
 
+const getDeviceTypeSalesObject = (allLoacationSalesData) => {
+  let configStoreDivison = {
+    chart: {
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: false,
+      type: 'pie'
+    },
+    title: {
+      text: 'Device Type Sales'
+    },
+    tooltip: {
+      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          style: {
+            color: 'black'
+          }
+        }
+      }
+    },
+    series: [{
+      name: 'Device Type Sales',
+      colorByPoint: true,
+      data: allLoacationSalesData
+    }]
+  }
+  return configStoreDivison
+}
+
 export const columns = {
   topProductColumns,
   columnstopselling,
@@ -216,5 +256,7 @@ export const columns = {
   getConfigPaymentObject,
   getConfigTopSalePersonObject,
   getConfigStoreDivisonObject,
-  allTransactionsColumns
+  allTransactionsColumns,
+  getDeviceTypeSalesObject,
+  avgCostColumns
 }

@@ -1,82 +1,90 @@
 import React from "react"
 import Model from "./../../../src/components/molecules/modelButton"
 import cashReconSubmit from "./../../../src/components/organisms/forms/cashReconSubmit"
+import cashReconSubmit2 from "./../../../src/components/organisms/forms/cashReconSubmit2"
+import { Button } from "antd"
+import moment, { localeData } from 'moment';
 
-let dummyData = [
-  {
-    key: 1,
-    staffId: "48c3ea31-2af5-4327-b286-96d313e40855",
-    locationId: "658bbcd2-be59-44c1-b867-0176290000ae",
-    name: "test",
-    location: "loca",
-    phone: "1234567890",
-    cashCollected: "1243",
-    cashSubmitted: "234",
-    difference: "23",
-    reason: "asdfasdf"
-  },
-  {
-    key: 2,
-    staffId: "asdf345erer34",
-    locationId: "658bbcd2-be59-44c1-b867-0176290000ae",
-    name: "test",
-    location: "loca",
-    phone: "1234567890",
-    cashCollected: "1243",
-    cashSubmitted: "234",
-    difference: "23",
-    reason: "asdfasdf"
-  },
-  {
-    key: 3,
-    staffId: "asdf345fger34",
-    locationId: "658bbcd2-be59-44c1-b867-0176290000df",
-    name: "test",
-    location: "loca",
-    phone: "1234567890",
-    cashCollected: "1243",
-    cashSubmitted: "234",
-    difference: "23",
-    reason: "asdfasdf"
-  }
-]
+const dateFormat = "YYYY/MM/DD"
 
-let columns = [
-  { title: "Staff ID", dataIndex: "staffId", key: "staffId" },
-  { title: "Name", dataIndex: "name", key: "name" },
-  { title: "Location", dataIndex: "location", key: "location" },
-  { title: "Phone", dataIndex: "phone", key: "phone" },
-  { title: "Cash Collected", dataIndex: "cashCollected", key: "cashCollected" },
-  { title: "Cash Submitted", dataIndex: "cashSubmitted", key: "cashSubmitted" },
-  { title: "Difference", dataIndex: "difference", key: "difference" },
-  { title: "Reason", dataIndex: "reason", key: "reason" },
-  {
-    title: "Cash Submitted",
-    dataIndex: "",
-    key: "enterCashSubmitted",
-    render: object => {
-      return (
-        <Model
-          form={cashReconSubmit}
-          buttonValue="Enter Cash"
-          onSubit={() => {}}
-        />
-      )
-    }
-  },
-  {
-    title: "Reason",
-    dataIndex: "",
-    key: "reason",
-    render: object => {
-      return (
-        <Model form={cashReconSubmit} buttonValue="Submit" onSubit={() => {}} />
-      )
-    }
-  }
-]
+// date : moment().format(dateFormat),
 
+let columns = (date) => {
+  // console.log("date :" , date)
+  // console.log("today :" , moment().format(dateFormat))
+  let isToday = date == moment().format(dateFormat) ? true : false;
+  return [
+    // { title: "Staff ID", dataIndex: "user", key: "staffId" },
+    { title: "Date", dataIndex: "date", key: "date" },
+    { title: "Name", dataIndex: "name", key: "name" },
+    { title: "Location", dataIndex: "locationName", key: "location" },
+    { title: "Phone", dataIndex: "phone", key: "phone" },
+    { title: "Start cash", dataIndex: "startCash", key: "startCash" },
+    { title: "Cash Collected", dataIndex: "cashCollected", key: "cashCollected" },
+    { title: "Cash Submitted", dataIndex: "cashSubmitted", key: "cashSubmitted" },
+    { title: "Difference", dataIndex: "difference", key: "difference" },
+    { title: "Remarks", dataIndex: "reason", key: "reason" }, 
+    {
+      title: "Allocate",
+      dataIndex: "action2",
+      key: "action2",
+      render: object => {
+        let x = {status:false}
+        if (isToday) { 
+        return (
+          <Model
+            form={cashReconSubmit2}
+            buttonValue={object.name}
+            onSubmit={(data, x) => object.onSubmit(data)}
+          />
+        )
+        } else { 
+          return  <Button type="primary" disabled> Float </Button>
+        } 
+      }
+    },
+    {
+      title: "Collect",
+      dataIndex: "action",
+      key: "action",
+      render: object => {
+        let x = {status:false}
+        if (isToday) { 
+          return (
+            <Model
+            form={cashReconSubmit}
+            buttonValue={object.name}
+            onSubmit={(data, x) => object.onSubmit(data)}
+            />
+          )
+          } else { 
+            return  <Button type="primary" disabled> Submit </Button>
+          }
+      }
+    },
+    {
+      title: "Refresh",
+      dataIndex: "refresh",
+      key: "refresh",
+      render: object => {
+        return (
+          <Button type="primary" onClick={() => object.onRefresh()}>Refresh</Button>
+        )
+      }
+    },
+    // {
+    //   title: "Reason",
+    //   dataIndex: "",
+    //   key: "reason",
+    //   render: object => {
+    //     return (
+    //       <Model form={cashReconSubmit} buttonValue="Submit" onSubit={() => {}} />
+    //     )
+    //   }
+    // }
+  ]  
+}
+ 
 export const cashReconData = {
-  columns,
-  dummyData
+  columns
 }

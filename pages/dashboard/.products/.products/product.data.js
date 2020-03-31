@@ -1,30 +1,12 @@
 import React from "react"
+import {message} from 'antd'
 import stockTag from "../../../../src/components/atoms/stockTag"
 import ButtonIcon from "../../../../src/components/atoms/tableButton"
 import Model from "../../../../src/components/molecules/modelButton"
 import createProduct from "../../../../src/components/organisms/forms/createItem"
 import AssignItem from "../../../../src/components/organisms/forms/assignHsn"
+import Switch from '../../../../src/components/atoms/switch'
 
-var cardData = [
-  {
-    iconType: "bank",
-    iconStyle: { fontSize: "30px", marginTop: "30%", color: "#F88998" },
-    title: "25",
-    description: "Items Out of Stock"
-  },
-  {
-    iconType: "shopping-cart",
-    iconStyle: { fontSize: "30px", marginTop: "30%", color: "#FFB353" },
-    title: "25",
-    description: "Items Out of Stock"
-  },
-  {
-    iconType: "rise",
-    iconStyle: { fontSize: "30px", marginTop: "30%", color: "#69E4A6" },
-    title: "25",
-    description: "Items Out of Stock"
-  }
-]
 var cascaderData = [
   {
     placeholder: "All Categories",
@@ -47,6 +29,15 @@ var cascaderData = [
     // style: { width: 162 }
   }
 ]
+
+const onChangeSwitch = (checked => {
+  console.log(`switch to ${checked}`, "onclick")
+  if(checked){
+    console.log("trueeee")
+  } else {
+    console.log("falseee")
+  }
+})
 
 var productColumns = [
   {
@@ -114,6 +105,19 @@ var productColumns = [
     }
   },
   {
+    title: "Product Active",
+    dataIndex: "",
+    key: "isActive",
+    render: object => {
+      return (
+        <Switch
+          defaultChecked={object.isActive} 
+          onChange={(checked, cb) => object.handleFeatures.editProduct({values: {isActive: checked}}, object.productID, cb)} 
+        />
+      )
+    }
+  },
+  {
     title: "Rename",
     dataIndex: "",
     render: object => {
@@ -151,60 +155,9 @@ var productColumns = [
   }
 ]
 
-const productColumnData = [
-  {
-    product: "Parle G",
-    code: "1X2X3X4X5",
-    category: "Biscuits",
-    location: "BBSR",
-    inventory: [20],
-    price: 10
-  },
-  {
-    product: "Hide & Seek",
-    code: "1X2X3X4X5",
-    category: "Biscuits",
-    location: "BBSR",
-    inventory: [200],
-    price: 30
-  },
-  {
-    product: "Parle G",
-    code: "1X2X3X4X5",
-    category: "Biscuits",
-    location: "BBSR",
-    inventory: [2],
-    price: 10
-  },
-  {
-    product: "Parle G",
-    code: "1X2X3X4X5",
-    category: "Biscuits",
-    location: "BBSR",
-    inventory: [20],
-    price: 10
-  },
-  {
-    product: "Hide & Seek",
-    code: "1X2X3X4X5",
-    category: "Biscuits",
-    location: "BBSR",
-    inventory: [200],
-    price: 30
-  },
-  {
-    product: "Parle G",
-    code: "1X2X3X4X5",
-    category: "Biscuits",
-    location: "BBSR",
-    inventory: [2],
-    price: 10
-  }
-]
-
 export const itemData = {
-  cardData,
+  // cardData,
   cascaderData,
   productColumns,
-  productColumnData
+  // productColumnData
 }

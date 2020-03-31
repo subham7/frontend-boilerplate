@@ -4,7 +4,7 @@ import moment from 'moment';
 import Cascader from '../../../src/components/molecules/cascader'
 import Button from '../../../src/components/atoms/button'
 import {
-  topItems,
+  topItems, 
   topCategories,
   paymentTypes,
   topSalesman,
@@ -36,7 +36,8 @@ class App extends Component {
       grossSalesData: [],
       allTransactionsData: [],
       fromDate: moment().subtract(1, 'months').format(dateFormat),
-      toDate: moment().format(dateFormat)
+      toDate: moment().add(1, 'days').format(dateFormat),
+      avgCostTableData: []
     }
   }
 
@@ -51,13 +52,14 @@ class App extends Component {
   }
 
   loadAllReports = (locationID, businessID, from, to) => {
-    this.loadTopItems(locationID)
-    this.loadTopCategory(locationID)
-    this.loadTransactionType(locationID)
+    this.loadTopItems(locationID, from, to)
+    this.loadTopCategory(locationID, from, to)
+    this.loadTransactionType(locationID, from, to)
     this.loadTopSalesman()
     this.loadLocationSales()
     this.loadSalesWithinDates()
-    this.loadAlltransactions(businessID, from, to)
+    this.loadAlltransactions(businessID, from, to, this.state.initialBlocation)
+    // this.loadAlltransactionsByLocation(locationID)
   }
 
   handleChange = (value) => {
@@ -71,8 +73,8 @@ class App extends Component {
     let toDate = moment(dateRange[1]).format(dateFormat)
     let bID = this.props.business.response.data[0].businessID
     this.setState({ fromDate: fromDate, toDate: toDate })
-    // this.loadAlltransactions(bID, fromDate, toDate)
-    console.log(this.state.fromDate, "initailllll dateeee") 
+    this.loadAlltransactions(bID, fromDate, toDate, this.state.initialBlocation)
+    console.log(this.state.fromDate, "initial date")
   }
 
   handleSubmit = () => {
@@ -89,28 +91,42 @@ class App extends Component {
               placeholder="Select Location"
               optionArray={this.createSelectData(this.state.blocations)}
               handleChange={this.handleChange}
-            // defaultValue={intialValue}
+              mode="multiple"
             />
           </Col>
           <Col span={8}>
             <RangePicker
-              style={{"width": "100%"}}
+              style={{ "width": "100%" }}
               defaultValue={[moment(moment().subtract(1, 'months'), dateFormat), moment(moment(), dateFormat)]}
               format={dateFormat}
               onChange={(range) => this.handleDatePickerChange(range)}
             />
           </Col>
           <Col span={4}>
-            <Button style={{"width": "100%"}} onClick={this.handleSubmit} value="Get Reports" ></Button>
+            <Button style={{ "width": "100%" }} onClick={this.handleSubmit} value="Get Reports" ></Button>
           </Col>
-        </Row> 
+        </Row>
         <br></br>
-      <Row>
-        <Col span={16}>
-          <Table pagination={{ position: "none" }} columns={columns.allTransactionsColumns} dataSource={this.state.allTransactionsData} size="small" />
-        </Col>
-      </Row>
+        <Row gutter={16}>
+          <Col span={18}>
+            <Table pagination={{ position: "none" }} columns={columns.allTransactionsColumns} dataSource={this.state.allTransactionsData} size="small" />
+          </Col>
+          {/* <Col span={8}>
+            <Table pagination={{ position: "none" }} columns={columns.avgCostColumns} dataSource={this.state.avgCostTableData} size="small" />
+          </Col> */}
+        </Row>
         <br></br>
+        <Row gutter={16}>
+        <Col span={12}>
+            <Table pagination={{ position: "none" }} columns={columns.avgCostColumns} dataSource={this.state.avgCostTableData} size="small" />
+          </Col>
+          <Col span={12}>
+            <Card bordered={true}>
+              <ReactHighcharts config={columns.getDeviceTypeSalesObject(this.state.avgCostTableData)} ref="chart"></ReactHighcharts>
+            </Card>
+          </Col>
+        </Row>
+        <br/><br/>
         <Row gutter={16}>
           <Col span={8}>
             <Table pagination={{ position: "none" }} columns={columns.columnstopselling} dataSource={this.state.grossSalesData} size="small" />
@@ -143,7 +159,7 @@ class App extends Component {
             </Card>
           </Col>
         </Row>
-       
+
       </div>
     )
   }
@@ -156,8 +172,8 @@ class App extends Component {
     return selectData
   }
 
-  loadTopItems = (locationID) => {
-    this.props.getTopProducts(locationID, '2018-07-04', '2021-07-06')
+  loadTopItems = (locationID, from, to) => {
+    this.props.getTopProducts(locationID, from, to)
       .then(data => {
         this.setState({ topProductsData: data.splice(0, 3) })
       })
@@ -166,8 +182,8 @@ class App extends Component {
       })
   }
 
-  loadTopCategory = (locationID) => {
-    this.props.topCategories(locationID, '2018-07-04', '2021-07-06')
+  loadTopCategory = (locationID, from, to) => {
+    this.props.topCategories(locationID, from, to)
       .then(data => {
         this.setState({ topCategoryData: data.splice(0, 3) })
       })
@@ -176,8 +192,8 @@ class App extends Component {
       })
   }
 
-  loadTransactionType = (locationID) => {
-    this.props.paymentTypes(locationID, '2018-07-04', '2021-07-06')
+  loadTransactionType = (locationID, from, to) => {
+    this.props.paymentTypes(locationID, from, to)
       .then(data => {
         let dataArray = data.map((item, i) => {
           return {
@@ -236,6 +252,7 @@ class App extends Component {
     this.props
       .getSalesDate(this.props.business.response.data[0].businessID)
       .then(data => {
+        data = data.reverse()
         let salesData = []
         for (let index = 0; index < data.length; index++) {
           salesData.push({
@@ -257,11 +274,76 @@ class App extends Component {
       })
   }
 
-  loadAlltransactions = (businessID, from, to) => {
+  loadAlltransactions = (businessID, from, to, blocationID = null) => {
+    // let bID = 'e96c8b21-4773-407c-a440-4d4c9d67aa79'
+    let locations;
+    if(typeof blocationID == "string")  locations = [blocationID]
+    else locations = [...blocationID]
     this.props.allTransactions(businessID, from, to)
       .then(data => {
-        console.log(data)
-        this.setState({ allTransactionsData: data })
+        let GrossSales = 0, NetSales = 0, Taxes = 0, TotalOrders = 0;
+        
+        for (let index = 0; index < data.length; index++) {
+          
+          if(locations.includes(data[index].location)) {
+            GrossSales += data[index].GrossSales
+            NetSales += data[index].NetSales
+            Taxes += data[index].Taxes
+            TotalOrders += data[index].TotalOrders
+          }
+        }
+        let arrayData = [
+          {
+            field: "Total Orders",
+            value: TotalOrders
+          },
+          {
+            field: "Gross Sales",
+            value: "₹ " + GrossSales.toString()
+          },
+          {
+            field: "Taxes",
+            value: "₹ " + Taxes.toString()
+          },
+          {
+            field: "Net Sales",
+            value: "₹ " + NetSales.toString()
+          },
+          // {
+          //   field: "Total",
+          //   value: GrossSales + NetSales + Taxes
+          // },
+        ]
+        this.setState({ allTransactionsData: arrayData })
+        return data
+      })
+      .then(d2 => {
+        let avgCostDataArray = []
+        let d = []
+        for (let index = 0; index < d2.length; index++) {
+          if(locations.includes(d2[index].location)) {
+            if(d.includes(d2[index].devicetype)) {
+              d.map(item => {
+                if(item.devicetype == d2[index].devicetype)
+                item.y += d2[index].GrossSales
+              })               
+            } else {
+                d.push(d2[index].devicetype)
+                avgCostDataArray.push({
+                  name: d2[index].devicetype,
+                  y: d2[index].GrossSales
+                })
+            }
+          }
+        }
+
+        console.log("#####################")
+        console.table(avgCostDataArray)
+        this.setState({ avgCostTableData: avgCostDataArray })
+        return d2
+      })
+      .then(d3 => {
+
       })
       .catch(err => {
         console.log(err)

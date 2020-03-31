@@ -10,6 +10,17 @@ const transactionColumns = [
         key: "transactionID"
     },
     {
+        title: "Customer Name",
+        dataIndex: "customername",
+        key: "customername"
+    },
+    {
+        title: "Method",
+        dataIndex: "method",
+        key: "method",
+        render: (method) => <p>{stockTag(method)}</p>
+    },
+    {
         title: "Transaction Type",
         dataIndex: "type",
         key: "type",
@@ -30,6 +41,11 @@ const transactionColumns = [
         title: "Time",
         dataIndex: "time",
         key: "time",
+    },
+    {
+        title: "Created By",
+        dataIndex: "createdby",
+        key: "createdby",
     },
     {
         title: '',

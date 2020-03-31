@@ -18,9 +18,38 @@ app
 
     server.get("/dashboard/:page/tabs/:tabid", (req, res) => {
       const actualPage = "/dashboard"
-      const queryParams = { page: req.params.page, tab: req.params.tabid }
+      const queryParams = {
+        page: req.params.page,
+        tab: req.params.tabid
+      }
       app.render(req, res, actualPage, queryParams)
     })
+
+    // server.get("/mygoto/:page", (req, res) => {
+    //   const actualPage = "/mygoto"
+    //   const queryParams = { page: req.params.page }
+    //   app.render(req, res, actualPage, queryParams)
+    // })
+
+    server.get("/mygoto", (req, res) => {
+      const actualPage = "/mygoto"
+      const queryParams = {}
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get("/mygoto/create", (req, res) => {
+      const actualPage = "/mygoto/create"
+      const queryParams = {}
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get("/mygoto/:id", (req, res) => {
+      const actualPage = "/mygoto/business"
+      const queryParams = { id: req.params.id }
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    server.get
 
     server.get("*", (req, res) => {
       return handle(req, res)

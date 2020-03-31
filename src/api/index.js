@@ -14,14 +14,14 @@ import * as form from "./form"
 import * as auth from "./auth"
 import * as permissions from "./permissions"
 import * as inventory from "./inventory"
-import * as mitems from './mitems'
-import * as attributesets from './attributeset'
-import * as attributes from './attributes'
-import * as attributevalues from './attributevalues'
-import * as receipts from './receipts'
-import * as reports from './reports'
-import * as productstax from './producttax'
-
+import * as mitems from "./mitems"
+import * as attributesets from "./attributeset"
+import * as attributes from "./attributes"
+import * as attributevalues from "./attributevalues"
+import * as receipts from "./receipts"
+import * as reports from "./reports"
+import * as productstax from "./producttax"
+import * as myGoto from "./myGoto"
 
 module.exports = {
   taxes,
@@ -46,5 +46,6 @@ module.exports = {
   attributevalues,
   receipts,
   reports,
-  productstax
+  productstax,
+  myGoto
 }

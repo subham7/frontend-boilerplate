@@ -4,12 +4,12 @@ import { connect } from "react-redux"
 import {
   getMyGotoBusinessById,
   createPaymentMyGoto
-} from "./../../../src/reduxHelper"
+} from "../../src/reduxHelper"
 
 import { Row, Col, Card, notification } from "antd"
-import Loader from "./../../../src/components/atoms/loading"
-import CsrTemplate from "./../../../src/components/templates/csrTemplate"
-import MyGotoPayment from "./../../../src/components/organisms/forms/myGotoPayment"
+import Loader from "../../src/components/atoms/loading"
+import CsrTemplate from "../../src/components/templates/csrTemplate"
+import MyGotoPayment from "../../src/components/organisms/forms/myGotoPayment"
 
 class App extends Component {
   constructor(props) {

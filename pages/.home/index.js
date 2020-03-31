@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import { Row, Col, Card, Button } from "antd"
 const { Meta } = Card
 
-import CsrTemplate from "../../../src/components/templates/csrTemplate"
+import CsrTemplate from "../../src/components/templates/csrTemplate"
 
 class App extends Component {
   render() {

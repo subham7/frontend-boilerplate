@@ -47,7 +47,8 @@
     "redux-thunk": "^2.3.0",
     "styled-jsx": "^3.2.1",
     "uuid": "^3.3.2",
-    "vanilla-sharing": "^6.0.3"
+    "vanilla-sharing": "^6.0.3",
+    "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

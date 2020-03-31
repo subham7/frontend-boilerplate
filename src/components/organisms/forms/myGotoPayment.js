@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import NumericInput from "react-numeric-input"
-import { Input, InputNumber, Row, Col, Button } from "antd"
+import { Input, InputNumber, Row, Col, Button, Radio } from "antd"
 
 class myGotoPayment extends Component {
   render() {
@@ -26,25 +26,39 @@ class myGotoPayment extends Component {
 
     return (
       <div style={style.container}>
-        <label>Full Name</label>
+        <label>Full Name *</label>
         <Input
           style={style.field}
           name="name"
           onChange={this.props.handleValue}
         />
-        <label>Phone</label>
+        <label>Phone *</label>
         <Input
           style={style.field}
           name="phone"
           onChange={this.props.handleValue}
         />
-        <label>Email</label>
+        <label>Email *</label>
         <Input
           style={style.field}
           name="email"
           onChange={this.props.handleValue}
         />
-        <label>Bronze Card</label>
+        <label>Choose Gift Card*</label>
+        <Radio.Group
+          defaultValue="a"
+          buttonStyle="solid"
+          style={style.field}
+          onChange={this.props.handleAmount}
+        >
+          <Radio.Button value="100">₹100</Radio.Button>
+          <Radio.Button value="500">₹500</Radio.Button>
+          <Radio.Button value="1000">₹1000</Radio.Button>
+          <Radio.Button value="1500">₹1500</Radio.Button>
+          <Radio.Button value="2500">₹2500</Radio.Button>
+          <Radio.Button value="5000">₹5000</Radio.Button>
+        </Radio.Group>
+        {/* <label>Bronze Card</label>
         <Row>
           <Col xs={18}>
             <Input
@@ -99,12 +113,9 @@ class myGotoPayment extends Component {
           <Col xs={6}>
             <h3 style={style.amount}>x ₹1000</h3>
           </Col>
-          {/* <Col xs={5}>
-            <h3 style={style.amount}>₹500</h3>
-          </Col> */}
-        </Row>
+        </Row> */}
         <Button style={style.btn} onClick={this.props.handlePayment}>
-          Pay ₹{this.props.amount}
+          Pay
         </Button>
       </div>
     )

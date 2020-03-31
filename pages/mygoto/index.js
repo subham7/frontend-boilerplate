@@ -77,7 +77,7 @@ class App extends Component {
 
   handleFilter = city => {
     let data = []
-    this.state.filterData.map(item => {
+    this.props.myGotoBusiness.response.data.data.map(item => {
       if (item.city === city) data.push(item)
     })
     this.setState({ filterData: data })

@@ -5,8 +5,9 @@ import {
   getMyGotoBusinessById,
   createPaymentMyGoto
 } from "./../../../src/reduxHelper"
+import { validatePayment } from "./validate"
 
-import { Row, Col, Card, notification } from "antd"
+import { Row, Col, Card, notification, message } from "antd"
 import Loader from "./../../../src/components/atoms/loading"
 import CsrTemplate from "./../../../src/components/templates/csrTemplate"
 import MyGotoPayment from "./../../../src/components/organisms/forms/myGotoPayment"
@@ -37,58 +38,81 @@ class App extends Component {
     let businessId = this.props.router.query.id
     let cart = this.state.cart
     let paymentFunc = this.props.createPaymentMyGoto
-    let options = {
-      key: "rzp_live_MlgUcfBEMLoLme",
-      amount: amount * 100,
-      currency: "INR",
-      name: "MyGoto",
-      description: "Pay for your gift card.",
-      payment_capture: "1",
-      image:
-        "https://file-upload-123.s3.ap-south-1.amazonaws.com/brandImages/1585596282121-mygoto.jpeg",
-      prefill: {
-        name: formData.name,
-        email: formData.email
-      },
-      notes: {
-        address: "Hello World"
-      },
-      theme: {
-        color: "#1E4ED6"
-      },
-      handler: function(response) {
-        let data = {
-          ...formData,
-          amount: amount,
-          fk_business_id: businessId,
-          pk_payment_id: response.razorpay_payment_id,
-          cart: cart
-        }
-        paymentFunc(data)
-          .then(res => {
-            notification["success"]({
-              message: "Success",
-              description:
-                "The gift cards has been sent to your email and mobile number, please check in spam if not received"
-            })
-          })
-          .catch(err => {
-            notification["error"]({
-              message: "Error",
-              description: "Some problem occured. Please try again."
-            })
-          })
-      }
+    let data = {
+      ...formData,
+      amount: amount,
+      fk_business_id: businessId,
+      //pk_payment_id: response.razorpay_payment_id,
+      cart: cart
     }
 
-    let rzp = new window.Razorpay(options)
-    rzp.open()
+    validatePayment(data)
+      .then(validate => {
+        if (validate === "validate") {
+          let options = {
+            key: "rzp_live_MlgUcfBEMLoLme",
+            //key: "rzp_test_IWXggiN4CqBvCo",
+            amount: amount * 100,
+            currency: "INR",
+            name: "MyGoto",
+            description: "Pay for your gift card.",
+            payment_capture: "1",
+            image:
+              "https://file-upload-123.s3.ap-south-1.amazonaws.com/brandImages/1585596282121-mygoto.jpeg",
+            prefill: {
+              name: formData.name,
+              email: formData.email
+            },
+            notes: {
+              address: "Hello World"
+            },
+            theme: {
+              color: "#1E4ED6"
+            },
+            handler: function(response) {
+              data["pk_payment_id"] = response.razorpay_payment_id
+              paymentFunc(data)
+                .then(res => {
+                  notification["success"]({
+                    message: "Success",
+                    description:
+                      "The gift cards has been sent to your email and mobile number, please check in spam if not received"
+                  })
+                })
+                .catch(err => {
+                  notification["error"]({
+                    message: "Error",
+                    description: "Some problem occured. Please try again."
+                  })
+                })
+            }
+          }
+
+          let rzp = new window.Razorpay(options)
+          rzp.open()
+        }
+      })
+      .catch(err => {
+        message.error("" + err)
+        //this.setState({ apiRequestLoading: false })
+      })
   }
 
   handleValue = e => {
     let obj = {}
     obj[e.target.name] = e.target.value
     this.setState({ formData: { ...this.state.formData, ...obj } })
+  }
+
+  handleGiftCard = amount => {
+    console.log(amount.target.value)
+    let cart = this.state.cart
+    cart.push({
+      amount: amount.target.value,
+      quantity: 1
+    })
+    this.setState({ cart: cart })
+    this.setState({ totalAmount: amount.target.value })
   }
 
   handleAmount = e => {
@@ -161,7 +185,7 @@ class App extends Component {
               <Card hoverable style={{ width: "100%" }}>
                 <MyGotoPayment
                   amount={this.state.totalAmount}
-                  handleAmount={this.handleAmount}
+                  handleAmount={this.handleGiftCard}
                   handlePayment={this.handlePayment}
                   handleValue={this.handleValue}
                 />

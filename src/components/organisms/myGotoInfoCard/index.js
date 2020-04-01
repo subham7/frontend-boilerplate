@@ -25,7 +25,7 @@ const myGotoInfoCard = props => {
   return (
     <Card hoverable style={{ width: "100%", marginTop: "80px" }}>
       <Row gutter={[16, 16]}>
-        <Col sm={12}>
+        <Col xl={12}>
           <Media
             queries={{
               small: "(max-width: 599px)",
@@ -45,7 +45,7 @@ const myGotoInfoCard = props => {
             )}
           </Media>
         </Col>
-        <Col sm={12}>
+        <Col xl={12}>
           <h1 style={style.infoHeading}>Our mission</h1>
           <p style={style.textBlue}>
             Gift cards help businesses of today "flatten the curve" of lost

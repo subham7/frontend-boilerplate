@@ -7,7 +7,7 @@ import {
 } from "./../../../reduxHelper"
 import { Form, Checkbox, Text, Date, TextArea } from "../../../utils/xinformed"
 import { ArrayField } from "informed"
-import { Button, Row, Col, Select } from "antd"
+import { Button, Row, Col, Select, message } from "antd"
 import Loader from "./../../atoms/loading"
 const { Option } = Select
 
@@ -80,9 +80,12 @@ class addBusinessMyGoto extends Component {
       .createMyGotoBusiness(formData)
       .then(data => {
         console.log(data)
-        this.props.onSubmit()
+        message.success("Your business is successfully added.")
+        //this.props.onSubmit()
       })
       .catch(err => {
+        console.log(err)
+        message.error("Some problem occured. Please try again.")
         console.log(err)
       })
   }
@@ -175,7 +178,7 @@ class addBusinessMyGoto extends Component {
           <Col sm={24}>
             {" "}
             <label>Description</label>
-            <TextArea field="bio" rows="3" style={style.field} />
+            <TextArea field="description" rows="3" style={style.field} />
           </Col>
         </Row>
 

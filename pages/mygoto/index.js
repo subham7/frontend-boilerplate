@@ -4,13 +4,13 @@ import {
   getMyGotoBusiness,
   getCityByBusinessMyGoto,
   cityMyGoto
-} from "./../../src/reduxHelper"
+} from "../src/reduxHelper"
 import { tw, whatsapp, linkedin, fbButton } from "vanilla-sharing"
-import CsrTemplate from "../../src/components/templates/csrTemplate"
-import MyGotoCard from "./../../src/components/organisms/myGotoCard"
-import MyGotoInfoCard from "./../../src/components/organisms/myGotoInfoCard"
-import MyGotoFaq from "./../../src/components/organisms/myGotoFaq"
-import Loader from "./../../src/components/atoms/loading"
+import CsrTemplate from "../src/components/templates/csrTemplate"
+import MyGotoCard from "../src/components/organisms/myGotoCard"
+import MyGotoInfoCard from "../src/components/organisms/myGotoInfoCard"
+import MyGotoFaq from "../src/components/organisms/myGotoFaq"
+import Loader from "../src/components/atoms/loading"
 import { Row, Col, Card, Button } from "antd"
 
 class App extends Component {
@@ -77,7 +77,7 @@ class App extends Component {
 
   handleFilter = city => {
     let data = []
-    this.props.myGotoBusiness.response.data.data.map(item => {
+    this.state.filterData.map(item => {
       if (item.city === city) data.push(item)
     })
     this.setState({ filterData: data })

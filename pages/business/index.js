@@ -6,7 +6,7 @@ import {
   createPaymentMyGoto
 } from "../../src/reduxHelper"
 import { validatePayment } from "./validate"
-
+import wrapper from "../wrapper"
 import { Row, Col, Card, notification, message } from "antd"
 import Loader from "../../src/components/atoms/loading"
 import CsrTemplate from "../../src/components/templates/csrTemplate"
@@ -212,4 +212,6 @@ const mapDispatchToProps = dispatch => ({
   createPaymentMyGoto: data => dispatch(createPaymentMyGoto.action(data))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App))
+export default wrapper(
+  connect(mapStateToProps, mapDispatchToProps)(withRouter(App))
+)

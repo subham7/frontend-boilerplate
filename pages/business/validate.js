@@ -8,8 +8,6 @@ export const validatePayment = formData => {
       reject("Full name is required!")
     } else if (formData.phone === undefined) {
       reject("Phone number is required!")
-    } else if (formData.phone === undefined) {
-      reject("Phone number is required!")
     } else if (formData.phone.length != 10) {
       reject("Invalid phone number!")
     } else if (formData.email === undefined) {

@@ -58,12 +58,12 @@ const myGotoInfoCard = props => {
           </p>
 
           <p>
-            Businesses have tons of fixed costs: rent, labor, loan repayments,
-            insurance, supplies, repairs – the list goes on. Even successful
-            many successful ones have razor thin margins of 3-5%, and a third
-            have struggled to pay employees at least once. We’re aiming at
-            improving cash-flow for these businesses so they don’t die, at the
-            same time protect their employees.
+            Businesses have tons of fixed costs: rent, labour, loan repayments,
+            insurance, supplies, repairs - the list goes on. Even many
+            successful ones have razor-thin margins of 3-5%, and a third have
+            struggled to pay their employees at least once. We're aiming at
+            improving cash-flow for these businesses so they don't die and at
+            the same time protect their employees.
           </p>
         </Col>
       </Row>

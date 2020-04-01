@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import wrapper from "./wrapper"
 import { getMyGotoBusiness, getCityByBusinessMyGoto } from "../src/reduxHelper"
 import { tw, whatsapp, linkedin, fbButton } from "vanilla-sharing"
 import CsrTemplate from "../src/components/templates/csrTemplate"
@@ -84,37 +85,25 @@ class App extends Component {
       this.props.cityByBusinessMyGoto.isLoaded
     )
       return (
-        <CsrTemplate
-          diplaySearch={true}
-          background="#1e4ed6"
-          displayFilter={true}
-          cityFilter={this.props.cityByBusinessMyGoto.response.data.data}
-          handleFilter={this.handleFilter}
-          handleSearch={this.handleSearch}
-          reset={this.loadBusiness}
-          reloadBusiness={this.loadBusiness}
-        >
-          {this.state.filterData.length != 0 ? (
-            <Row>
-              {this.state.filterData.map(item => (
-                <Col xl={6} sm={12}>
-                  <div style={{ padding: "10px" }}>
-                    <MyGotoCard
-                      bId={item.pk_business_id}
-                      title={item.name}
-                      city={item.city}
-                      image={item.image}
-                      socialSharing={this.socialSharing}
-                    />
-                  </div>
-                </Col>
-              ))}
-              <br />
-            </Row>
-          ) : null}
-          <MyGotoInfoCard />
-          <MyGotoFaq />
-        </CsrTemplate>
+        <div>
+          <CsrTemplate
+            diplaySearch={true}
+            background="#1e4ed6"
+            displayFilter={true}
+            cityFilter={this.props.cityByBusinessMyGoto.response.data.data}
+            handleFilter={this.handleFilter}
+            handleSearch={this.handleSearch}
+            reset={this.loadBusiness}
+            reloadBusiness={this.loadBusiness}
+          >
+            <MyGotoCard
+              data={this.state.filterData}
+              socialSharing={this.socialSharing}
+            />
+            <MyGotoInfoCard />
+            <MyGotoFaq />
+          </CsrTemplate>
+        </div>
       )
     else return <Loader />
   }
@@ -130,4 +119,4 @@ const mapDispatchToProps = dispatch => ({
   getCityByBusinessMyGoto: () => dispatch(getCityByBusinessMyGoto.action())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default wrapper(connect(mapStateToProps, mapDispatchToProps)(App))

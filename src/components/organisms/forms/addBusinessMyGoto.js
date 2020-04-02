@@ -18,6 +18,7 @@ class addBusinessMyGoto extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.setFormApi = this.setFormApi.bind(this)
     this.state = {
+      loading: false,
       file: null,
       state: "",
       city: "",
@@ -65,6 +66,8 @@ class addBusinessMyGoto extends Component {
   }
 
   handleClick() {
+    this.setState({ loading: true })
+
     let data = this.formAPi.getState().values
     data["city"] = this.state.city
     data["state"] = this.state.state
@@ -86,18 +89,18 @@ class addBusinessMyGoto extends Component {
           this.props
             .createMyGotoBusiness(formData)
             .then(data => {
-              console.log(data)
               message.success("Your business is successfully added.")
               //this.props.onSubmit()
+              this.setState({ loading: false })
             })
             .catch(err => {
-              console.log(err)
               message.error("Some problem occured. Please try again.")
-              console.log(err)
+              this.setState({ loading: false })
             })
         }
       })
       .catch(err => {
+        this.setState({ loading: false })
         message.error("" + err)
         //this.setState({ apiRequestLoading: false })
       })
@@ -241,6 +244,7 @@ class addBusinessMyGoto extends Component {
               marginBottom: "20px"
             }}
             onClick={this.handleClick}
+            loading={this.state.loading}
           >
             Create
           </Button>

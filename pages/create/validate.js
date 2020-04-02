@@ -30,6 +30,15 @@ export const validateBusiness = (formData, image) => {
     } else if (image === null) {
       reject("Add an image!")
     } else {
+      if (formData.description != undefined) {
+        if (formData.description.length > 200) {
+          reject("Description has to be below 200 characters.")
+        }
+      } else if (formData.address != undefined) {
+        if (formData.address.length > 150) {
+          reject("Address has to be below 150 characters.")
+        }
+      }
       resolve("validate")
     }
   })

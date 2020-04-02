@@ -1,5 +1,5 @@
 import axios from "axios"
-const ROOTURL = "http://139.59.74.221:3000"
+const ROOTURL = "https://mygoto.in/api"
 
 export const getMyGotoBusiness = () => axios.get(`${ROOTURL}/business`)
 

@@ -9,44 +9,17 @@ if (typeof require !== "undefined") {
   //  require.extensions['.css'] = file => {}
 }
 
-const nextConfig = {
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      const antStyles = /antd\/.*?\/style\/css.*?/
-      const origExternals = [...config.externals]
-      config.externals = [
-        // eslint-disable-line
-        (context, request, callback) => {
-          // eslint-disable-line
-          if (request.match(antStyles)) return callback()
-          if (typeof origExternals[0] === "function") {
-            origExternals[0](context, request, callback)
-          } else {
-            callback()
-          }
-        },
-        ...(typeof origExternals[0] === "function" ? [] : origExternals)
-      ]
-
-      config.module.rules.unshift({
-        test: antStyles,
-        use: "null-loader"
-      })
-    }
-    return config
-  }
-}
-
 /* Without CSS Modules, with PostCSS */
 module.exports = withCSS(
   antdLessLoader({
-    // exportPathMap: function() {
-    //   return {
-    //     '/': { page: '/' },
-    //     '/dashboard'
+    // exportPathMap: async function() {
+    //   const paths = {
+    //     "/": { page: "/" },
+    //     "/create": { page: "/create" }
     //   }
+    //   return paths
     // },
-    // transpileModules: ['antd'],
+    // transpileModules: ["antd"],
     cssModules: true,
     cssLoaderOptions: {
       importLoaders: 1,

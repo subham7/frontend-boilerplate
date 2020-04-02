@@ -1,4 +1,5 @@
 import React from "react"
+import Link from "next/link"
 import { Row, Col, Card, Button, List } from "antd"
 const { Meta } = Card
 
@@ -98,9 +99,19 @@ const myGotoCard = props => {
               </Col>
             </Row>
             <br />
-            <Button style={style.link} href={`/${item.pk_business_id}`}>
-              BUY THE GIFT CARD
-            </Button>
+            <Link
+              href={{
+                pathname: "business",
+                query: { bid: item.pk_business_id }
+              }}
+            >
+              <Button
+                style={style.link}
+                //href={`/${item.pk_business_id}`}
+              >
+                BUY THE GIFT CARD
+              </Button>
+            </Link>
           </Card>
         </List.Item>
       )}

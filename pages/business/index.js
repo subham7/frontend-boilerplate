@@ -23,7 +23,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.props.getMyGotoBusinessById(this.props.router.query.id)
+    this.props.getMyGotoBusinessById(this.props.router.query.bid)
 
     let aScript = document.createElement("script")
     aScript.type = "text/javascript"
@@ -35,7 +35,7 @@ class App extends Component {
   handlePayment = () => {
     let formData = this.state.formData
     let amount = this.state.totalAmount
-    let businessId = this.props.router.query.id
+    let businessId = this.props.router.query.bid
     let cart = this.state.cart
     let paymentFunc = this.props.createPaymentMyGoto
     let data = {

@@ -30,13 +30,14 @@ class App extends Component {
   }
 
   socialSharing = (bId, type) => {
+    console.log(bId)
     const msg =
       "Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
 
     switch (type) {
       case "twitter":
         tw({
-          url: `http://mygoto.in/${bId}`,
+          url: `https://mygoto.in/business?bid=${bId}`,
           title: msg,
           hashtags: ["mygoto"]
         })
@@ -44,19 +45,19 @@ class App extends Component {
 
       case "whatsapp":
         whatsapp({
-          url: `http://mygoto.in/${bId}`,
+          url: `https://mygoto.in/business?bid=${bId}`,
           title: msg
         })
         break
       case "linkedin":
         linkedin({
-          url: `http://mygoto.in/${bId}`,
+          url: `https://mygoto.in/business?bid=${bId}`,
           title: "MyGoto",
           description: msg
         })
       case "facebook":
         fbButton({
-          url: `http://mygoto.in/${bId}`
+          url: `https://mygoto.in/business?bid=${bId}`
         })
     }
   }

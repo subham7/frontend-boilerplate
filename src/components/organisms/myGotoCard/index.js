@@ -48,12 +48,15 @@ const myGotoCard = props => {
           >
             <Meta title={item.name} description={item.city} />
             <br />
+            {console.log(item.pk_business_id)}
             <Row>
               <Col xs={6}>
                 <Button
                   type="link"
                   style={style.btn}
-                  onClick={() => props.socialSharing(props.bId, "facebook")}
+                  onClick={() =>
+                    props.socialSharing(item.pk_business_id, "facebook")
+                  }
                 >
                   <img
                     src="/static/images/icons/facebook.png"
@@ -65,7 +68,9 @@ const myGotoCard = props => {
                 <Button
                   type="link"
                   style={style.btn}
-                  onClick={() => props.socialSharing(props.bId, "linkedin")}
+                  onClick={() =>
+                    props.socialSharing(item.pk_business_id, "linkedin")
+                  }
                 >
                   <img
                     src="/static/images/icons/linkedin.png"
@@ -77,7 +82,9 @@ const myGotoCard = props => {
                 <Button
                   type="link"
                   style={style.btn}
-                  onClick={() => props.socialSharing(props.bId, "twitter")}
+                  onClick={() =>
+                    props.socialSharing(item.pk_business_id, "twitter")
+                  }
                 >
                   <img
                     src="/static/images/icons/twitter.png"
@@ -89,7 +96,9 @@ const myGotoCard = props => {
                 <Button
                   type="link"
                   style={style.btn}
-                  onClick={() => props.socialSharing(props.bId, "whatsapp")}
+                  onClick={() =>
+                    props.socialSharing(item.pk_business_id, "whatsapp")
+                  }
                 >
                   <img
                     src="/static/images/icons/whatsapp.png"

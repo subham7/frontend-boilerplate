@@ -61,7 +61,8 @@ class App extends Component {
               "https://file-upload-123.s3.ap-south-1.amazonaws.com/brandImages/1585596282121-mygoto.jpeg",
             prefill: {
               name: formData.name,
-              email: formData.email
+              email: formData.email,
+              contact: formData.phone
             },
             notes: {
               address: "Hello World"

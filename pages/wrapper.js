@@ -77,14 +77,18 @@ export default function init(WrappedComponent) {
               type="image/x-icon"
             ></link>
             <meta property="og:title" content="My Goto" />
-            {/* <meta property="og:type" content="video.movie" />
+            {/* <meta property="og:type" content="video.movie" />*/}
             <meta
               property="og:url"
               content="http://www.imdb.com/title/tt0117500/"
-            /> */}
+            />
             <meta
               property="og:image"
               content="https://file-upload-123.s3.ap-south-1.amazonaws.com/brandImages/1585596282121-mygoto.jpeg"
+            />
+            <meta
+              property="og:description"
+              content="Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
             />
           </Head>
           <WrappedComponent {...this.props} />

@@ -84,7 +84,7 @@ export default function init(WrappedComponent) {
             /> */}
             <meta
               property="og:image"
-              content="/static/images/icons/mygoto.png"
+              content="https://file-upload-123.s3.ap-south-1.amazonaws.com/brandImages/1585596282121-mygoto.jpeg"
             />
           </Head>
           <WrappedComponent {...this.props} />

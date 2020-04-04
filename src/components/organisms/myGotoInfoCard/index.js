@@ -53,8 +53,8 @@ const myGotoInfoCard = props => {
           </p>
 
           <p style={style.textBlue}>
-            Just 45 days of lockdown can kill a business, also resulting in loss
-            of many jobs.
+            Extended lockdown can kill a business, also resulting in loss of
+            many jobs.
           </p>
 
           <p>

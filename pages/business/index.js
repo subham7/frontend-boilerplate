@@ -51,7 +51,7 @@ class App extends Component {
         if (validate === "validate") {
           let options = {
             key: "rzp_live_MlgUcfBEMLoLme",
-            //key: "rzp_test_IWXggiN4CqBvCo",
+            // key: "rzp_test_IWXggiN4CqBvCo",
             amount: amount * 100,
             currency: "INR",
             name: "MyGoto",

@@ -40,7 +40,7 @@ const myGotoCard = props => {
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  height: "200px",
+                  height: "80px",
                   width: "100%"
                 }}
               ></div>

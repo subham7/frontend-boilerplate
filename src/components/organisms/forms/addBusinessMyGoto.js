@@ -20,8 +20,8 @@ class addBusinessMyGoto extends Component {
     this.state = {
       loading: false,
       file: null,
-      state: "",
-      city: "",
+      state: undefined,
+      city: undefined,
       is_owner: "",
       cityArr: [{ City: "", State: "", District: "" }],
       stateArr: [
@@ -44,7 +44,7 @@ class addBusinessMyGoto extends Component {
         "Meghalaya",
         "Mizoram",
         "Nagaland",
-        "Orissa",
+        "Odisha",
         "Punjab",
         "Rajasthan",
         "Sikkim",
@@ -74,7 +74,7 @@ class addBusinessMyGoto extends Component {
     data["is_owner"] = this.state.is_owner
 
     this.props
-      .validate(data, this.state.file)
+      .validate(data)
       .then(validate => {
         if (validate === "validate") {
           data["phone"] = data["phone"].toString()
@@ -82,12 +82,12 @@ class addBusinessMyGoto extends Component {
           let formData = new FormData()
           let details = JSON.stringify(data)
 
-          formData.append("file", this.state.file)
+          // formData.append("file", this.state.file)
           formData.append("data", details)
-          console.log(...formData)
+          // console.log(...formData)
 
           this.props
-            .createMyGotoBusiness(formData)
+            .createMyGotoBusiness(data)
             .then(data => {
               message.success("Your business is successfully added.")
               //this.props.onSubmit()
@@ -181,19 +181,19 @@ class addBusinessMyGoto extends Component {
             </Col>
             <Col sm={8}>
               {" "}
-              <label>Locality *</label>
+              <label>Locality</label>
               <Text field="locality" style={style.field} />
             </Col>
             <Col sm={8}>
               {" "}
-              <label>Address of Business *</label>
+              <label>Address of Business</label>
               <Text field="address" style={style.field} />
             </Col>
-            <Col sm={8}>
+            {/* <Col sm={8}>
               <label>Pic *</label>
               <br />
               <input type="file" onChange={this.handleFileUpload} />
-            </Col>
+            </Col> */}
             <Col sm={8}></Col>
             <Col sm={24}>
               {" "}

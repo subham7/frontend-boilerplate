@@ -9,6 +9,7 @@ import { Form, Checkbox, Text, Date, TextArea } from "../../../utils/xinformed"
 import { ArrayField } from "informed"
 import { Button, Row, Col, Select, message } from "antd"
 import Loader from "./../../atoms/loading"
+import Router from "next/router"
 const { Option } = Select
 
 class addBusinessMyGoto extends Component {
@@ -88,10 +89,12 @@ class addBusinessMyGoto extends Component {
 
           this.props
             .createMyGotoBusiness(data)
-            .then(data => {
+            .then(res => {
               message.success("Your business is successfully added.")
               //this.props.onSubmit()
               this.setState({ loading: false })
+              console.log(res.data.businessID)
+              Router.push(`/business?bid=${res.data.businessID}`)
             })
             .catch(err => {
               message.error("Some problem occured. Please try again.")
@@ -203,9 +206,7 @@ class addBusinessMyGoto extends Component {
           </Row>
 
           <br />
-          <br />
-          <hr />
-          <br />
+
           <br />
           <h1>Personal Details</h1>
           <Row gutter={[16, 16]}>

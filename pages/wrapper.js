@@ -1,5 +1,6 @@
 import React from "react"
 import Head from "next/head"
+import styles from "./styles"
 
 export default function init(WrappedComponent) {
   class App extends React.Component {
@@ -87,6 +88,7 @@ export default function init(WrappedComponent) {
             />
           </Head>
           <WrappedComponent {...this.props} />
+          <style jsx>{styles}</style>
         </div>
       )
     }

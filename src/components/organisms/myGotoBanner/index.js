@@ -7,7 +7,7 @@ import styles from "./styles.js"
 const banner = props => {
   const style = {
     banner: {
-      height: "350px",
+      height: "150px",
       background: props.background,
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",

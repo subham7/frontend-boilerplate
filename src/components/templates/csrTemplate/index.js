@@ -1,9 +1,10 @@
 import React from "react"
 import Media from "react-media"
 import { Affix, Button, Input, Select } from "antd"
+const { Search } = Input
 import ModelButton from "./../../molecules/modelButton"
 import MyGotoBanner from "./../../organisms/myGotoBanner"
-import addBusinessMyGoto from "./../../organisms/forms/addBusinessMyGoto"
+import HomeBanner from "./../../organisms/homeBanner"
 
 const { Option } = Select
 
@@ -32,13 +33,17 @@ const csrTemplate = props => {
           </div>
         </header>
       </Affix>
-      <MyGotoBanner
-        diplaySearch={props.diplaySearch}
-        diplayBusinessDetails={props.diplayBusinessDetails}
-        background={props.background}
-        handleSearch={props.handleSearch}
-        businessName={props.businessName}
-      />
+      {props.displayFilter ? (
+        <HomeBanner />
+      ) : (
+        <MyGotoBanner
+          diplaySearch={props.diplaySearch}
+          diplayBusinessDetails={props.diplayBusinessDetails}
+          background={props.background}
+          handleSearch={props.handleSearch}
+          businessName={props.businessName}
+        />
+      )}
 
       <Media
         queries={{
@@ -55,9 +60,14 @@ const csrTemplate = props => {
           >
             {props.displayFilter ? (
               <div>
+                <Search
+                  placeholder="Enter your goto place"
+                  onSearch={value => props.handleSearch(value)}
+                  style={{ width: "250px", margin: "0 10px 20px 0" }}
+                />
                 <Select
                   showSearch
-                  style={{ width: "250px", margin: "0 10px 20px 10px" }}
+                  style={{ width: "250px", margin: "0 10px 20px 0" }}
                   placeholder="Select a City"
                   onChange={props.handleFilter}
                 >

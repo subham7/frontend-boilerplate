@@ -1,5 +1,6 @@
 import axios from "axios"
 const ROOTURL = "https://mygoto.in/api"
+const testROOTURL = "https://mygoto.in/api-test"
 const config = { headers: { "Accept-Encoding": "multipart/form-data" } }
 
 export const getMyGotoBusiness = () => axios.get(`${ROOTURL}/business`)

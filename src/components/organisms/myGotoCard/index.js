@@ -7,7 +7,7 @@ const myGotoCard = props => {
   const style = {
     social: { height: "20px", width: "auto" },
     btn: { padding: "0" },
-    link: { width: "100%" }
+    link: { width: "100%", background: "#1E4ED6", color: "#fff" }
   }
 
   return (
@@ -48,7 +48,7 @@ const myGotoCard = props => {
           >
             <Meta title={item.name} description={item.city} />
             <br />
-            {console.log(item.pk_business_id)}
+
             <Row>
               <Col xs={6}>
                 <Button
@@ -116,9 +116,10 @@ const myGotoCard = props => {
             >
               <Button
                 style={style.link}
-                //href={`/${item.pk_business_id}`}
+                shape="round"
+                // href={`/${item.pk_business_id}`}
               >
-                BUY THE GIFT CARD
+                Buy the gift card
               </Button>
             </Link>
           </Card>

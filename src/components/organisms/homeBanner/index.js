@@ -1,6 +1,6 @@
 import React from "react"
 import Media from "react-media"
-import { Row, Col } from "antd"
+import { Row, Col, Button } from "antd"
 
 const homeBanner = props => {
   const style = {
@@ -10,7 +10,7 @@ const homeBanner = props => {
       color: "#1E4ED6",
       fontSize: "3em",
       marginBottom: 0,
-      lineHeight: "40px"
+      lineHeight: "50px"
     },
     content: {
       paddingTop: "50px",
@@ -21,7 +21,15 @@ const homeBanner = props => {
     },
     textBlue: {
       color: "#1E4ED6",
-      fontSize: "1.2em"
+      fontSize: "1.2em",
+      marginBottom: 0
+    },
+    placeBtn: {
+      background: "#1E4ED6",
+      color: "#fff"
+    },
+    bold: {
+      fontWeight: "700"
     }
   }
 
@@ -39,18 +47,29 @@ const homeBanner = props => {
             {matches => (
               <div style={matches.small ? style.contentPhone : style.content}>
                 <h1 style={style.bannerh1}>
-                  Support your <br /> favourite Go-to places!
+                  Support your <br /> favourite{" "}
+                  <span style={style.bold}>Go-to</span> places!
                 </h1>
                 <br />
                 <p style={style.textBlue}>
-                  Buy gift cards now and "flatten the curve" for them.
+                  Buy gift cards now and{" "}
+                  <span style={style.bold}>"flatten the curve"</span> for them.
                 </p>
                 <br />
                 <p style={style.textBlue}>
-                  Even though we can't leave home, we can still support local
-                  business by buying gift cards. Times are definitely tough
-                  during the lockdown, but together we win!
+                  Even though we can't leave home, we can still support our
+                  favourite go-to places by buying gift cards. Times are
+                  definitely tough during the lockdown, but together we win!
                 </p>
+                <br />
+                <Button
+                  style={style.placeBtn}
+                  shape="round"
+                  size="large"
+                  href="/create"
+                >
+                  Add a Place
+                </Button>
               </div>
             )}
           </Media>

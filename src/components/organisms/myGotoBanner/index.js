@@ -1,13 +1,13 @@
 import React from "react"
 import Media from "react-media"
-import { Affix, Button, Input, Select } from "antd"
+import { Affix, Button, Input, Select, Card } from "antd"
 const { Search } = Input
 import styles from "./styles.js"
 
 const banner = props => {
   const style = {
     banner: {
-      height: "150px",
+      height: "250px",
       background: props.background,
       backgroundRepeat: "no-repeat",
       backgroundSize: "cover",
@@ -39,21 +39,40 @@ const banner = props => {
       width: "100%"
     },
     businessDetail: {
-      padding: "30px"
+      padding: "20px"
     },
     bussHeading: {
-      color: "#fff",
+      color: "#1E4ED6",
       fontSize: "3em",
       marginBottom: "0",
-      background: "#000",
       display: "inline-block",
-      padding: "0 10px"
+      fontWeight: "700"
+    },
+    hiText: {
+      color: "#1E4ED6",
+      fontSize: "3em",
+      marginBottom: "0",
+      display: "inline-block"
+    },
+    cardStyle: {
+      padding: "10px",
+      background: "#fff",
+      border: "1px solid #e8e8e8",
+      borderRadius: "2px",
+      display: "inline-block",
+      lineHeight: "40px"
     },
     bussCity: {
       color: "#fff"
     },
     yellowText: {
       color: "#FFC600"
+    },
+    location: {
+      background: "#1E4ED6",
+      color: "#fff",
+      padding: "10px",
+      display: "table"
     }
   }
 
@@ -65,6 +84,7 @@ const banner = props => {
             Support your favourite <span style={style.yellowText}>Go-to</span>{" "}
             places.
           </h1>
+
           <p className="bannerP">
             Buy gift card now and{" "}
             <span style={style.yellowText}>"flatten the curve"</span> for them.
@@ -101,7 +121,14 @@ const banner = props => {
       ) : null}
       {props.diplayBusinessDetails ? (
         <div style={style.businessDetail}>
-          <h1 style={style.bussHeading}>{props.businessName}</h1>
+          <div style={style.cardStyle}>
+            {props.isBusinessPage ? (
+              <h1 style={style.hiText}>Hi! You've reached</h1>
+            ) : null}
+            <br />
+            <h1 style={style.bussHeading}>{props.businessName}</h1>
+          </div>
+          <div style={style.location}>{props.location}</div>
           {/* <h3 style={style.bussCity}>Delhi</h3> */}
         </div>
       ) : null}

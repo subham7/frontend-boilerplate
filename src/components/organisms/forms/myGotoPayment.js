@@ -19,32 +19,41 @@ class myGotoPayment extends Component {
         marginLeft: "8px"
       },
       btn: {
-        color: "#fff",
-        background: "#1E4ED6"
+        background: "#fff",
+        color: "#1E4ED6"
+      },
+      label: {
+        color: "#fff"
+      },
+      bold: {
+        fontWeight: "700"
       }
     }
 
     return (
       <div style={style.container}>
-        <label>Full Name *</label>
+        <h2 style={style.label}>
+          Get your <span style={style.bold}>gift card!</span>
+        </h2>
+        <label style={style.label}>Full Name *</label>
         <Input
           style={style.field}
           name="name"
           onChange={this.props.handleValue}
         />
-        <label>Phone *</label>
+        <label style={style.label}>Phone *</label>
         <Input
           style={style.field}
           name="phone"
           onChange={this.props.handleValue}
         />
-        <label>Email *</label>
+        <label style={style.label}>Email *</label>
         <Input
           style={style.field}
           name="email"
           onChange={this.props.handleValue}
         />
-        <label>Choose Gift Card*</label>
+        <label style={style.label}>Choose Gift Card*</label>
         <Radio.Group
           defaultValue="a"
           buttonStyle="solid"
@@ -114,7 +123,11 @@ class myGotoPayment extends Component {
             <h3 style={style.amount}>x ₹1000</h3>
           </Col>
         </Row> */}
-        <Button style={style.btn} onClick={this.props.handlePayment}>
+        <Button
+          style={style.btn}
+          onClick={this.props.handlePayment}
+          shape="round"
+        >
           Pay
         </Button>
       </div>

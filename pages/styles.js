@@ -1,16 +1,15 @@
 import css from "styled-jsx/css"
 
 export default css`
-  @font-face {
-    font-family: Montserrat;
-    src: url(/static/font/Montserrat-Regular.ttf);
+  body {
+    font-family: "Montserrat", sans-serif !important;
   }
 
   p {
-    font-family: Montserrat;
+    font-family: "Montserrat", sans-serif;
   }
 
   h1 {
-    font-family: Montserrat !important;
+    font-family: "Montserrat", sans-serif;
   }
 `

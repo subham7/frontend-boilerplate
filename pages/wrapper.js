@@ -86,8 +86,15 @@ export default function init(WrappedComponent) {
               property="og:description"
               content="Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
             />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
+              rel="stylesheet"
+            />
           </Head>
-          <WrappedComponent {...this.props} />
+          <body>
+            <WrappedComponent {...this.props} />
+          </body>
+
           <style jsx>{styles}</style>
         </div>
       )

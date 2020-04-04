@@ -20,6 +20,7 @@ class App extends Component {
         background="#1e4ed6"
         displayFilter={false}
         businessName="Create a Business"
+        isBusinessPage={false}
       >
         <AddBusinessMyGoto validate={validateBusiness} />
       </CsrTemplate>

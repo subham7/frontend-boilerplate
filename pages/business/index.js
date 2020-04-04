@@ -7,7 +7,8 @@ import {
 } from "../../src/reduxHelper"
 import { validatePayment } from "./validate"
 import wrapper from "../wrapper"
-import { Row, Col, Card, notification, message } from "antd"
+import { Row, Col, Card, notification, message, Button } from "antd"
+import { tw, whatsapp, linkedin, fbButton } from "vanilla-sharing"
 import Loader from "../../src/components/atoms/loading"
 import CsrTemplate from "../../src/components/templates/csrTemplate"
 import MyGotoPayment from "../../src/components/organisms/forms/myGotoPayment"
@@ -142,7 +143,46 @@ class App extends Component {
     this.setState({ totalAmount: totalAmount })
   }
 
+  socialSharing = (bId, type) => {
+    const msg =
+      "Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
+
+    switch (type) {
+      case "twitter":
+        tw({
+          url: `https://mygoto.in/business?bid=${bId}`,
+          title: msg,
+          hashtags: ["mygoto"]
+        })
+        break
+
+      case "whatsapp":
+        whatsapp({
+          url: `https://mygoto.in/business?bid=${bId}`,
+          title: msg
+        })
+        break
+      case "linkedin":
+        linkedin({
+          url: `https://mygoto.in/business?bid=${bId}`,
+          title: "MyGoto",
+          description: msg
+        })
+      case "facebook":
+        fbButton({
+          url: `https://mygoto.in/business?bid=${bId}`
+        })
+    }
+  }
+
   render() {
+    const style = {
+      social: { height: "28px", width: "auto" },
+      btn: { paddingLeft: "0", paddingRight: "20px" },
+      container: { padding: "20px" },
+      shareText: { color: "#1E4ED6" }
+    }
+
     if (this.props.myGotoBusinessById.isLoaded)
       return (
         <CsrTemplate
@@ -152,51 +192,111 @@ class App extends Component {
           background={`url(${this.props.myGotoBusinessById.response.data.data.image})`}
           displayFilter={false}
           businessName={this.props.myGotoBusinessById.response.data.data.name}
+          isBusinessPage={true}
+          location={`${this.props.myGotoBusinessById.response.data.data.city}, ${this.props.myGotoBusinessById.response.data.data.state}`}
         >
           <Row>
             <Col sm={16}>
-              <Row gutter={[16, 16]}>
-                <Col xs={8}>
-                  <h3>Locality</h3>
-                  <p>
-                    {this.props.myGotoBusinessById.response.data.data.locality}
-                  </p>
-                </Col>
-                <Col xs={8}>
-                  <h3>City</h3>
-                  <p>{this.props.myGotoBusinessById.response.data.data.city}</p>
-                </Col>
-                <Col xs={8}>
-                  <h3>State</h3>
-                  <p>
-                    {this.props.myGotoBusinessById.response.data.data.state}
-                  </p>
-                </Col>
-              </Row>
-              <br />
-              <h3>About</h3>
-              <p>
-                {this.props.myGotoBusinessById.response.data.data.description}
-              </p>
-              <br />
-              <h3>Address</h3>
-              <p>{this.props.myGotoBusinessById.response.data.data.address}</p>
+              <div style={style.container}>
+                <div>
+                  <h3 style={style.shareText}>Let your friends know</h3>
+                  <Button
+                    type="link"
+                    style={style.btn}
+                    onClick={() =>
+                      this.socialSharing(
+                        this.props.myGotoBusinessById.response.data.data
+                          .pk_business_id,
+                        "facebook"
+                      )
+                    }
+                  >
+                    <img
+                      src="/static/images/icons/facebook.png"
+                      style={style.social}
+                    />
+                  </Button>
+
+                  <Button
+                    type="link"
+                    style={style.btn}
+                    onClick={() =>
+                      this.socialSharing(
+                        this.props.myGotoBusinessById.response.data.data
+                          .pk_business_id,
+                        "linkedin"
+                      )
+                    }
+                  >
+                    <img
+                      src="/static/images/icons/linkedin.png"
+                      style={style.social}
+                    />
+                  </Button>
+
+                  <Button
+                    type="link"
+                    style={style.btn}
+                    onClick={() =>
+                      this.socialSharing(
+                        this.props.myGotoBusinessById.response.data.data
+                          .pk_business_id,
+                        "twitter"
+                      )
+                    }
+                  >
+                    <img
+                      src="/static/images/icons/twitter.png"
+                      style={style.social}
+                    />
+                  </Button>
+
+                  <Button
+                    type="link"
+                    style={style.btn}
+                    onClick={() =>
+                      this.socialSharing(
+                        this.props.myGotoBusinessById.response.data.data
+                          .pk_business_id,
+                        "whatsapp"
+                      )
+                    }
+                  >
+                    <img
+                      src="/static/images/icons/whatsapp.png"
+                      style={style.social}
+                    />
+                  </Button>
+                </div>
+                <br />
+                <p>
+                  {this.props.myGotoBusinessById.response.data.data.description}
+                </p>
+                <p>
+                  {this.props.myGotoBusinessById.response.data.data.address}
+                </p>
+              </div>
             </Col>
             <Col sm={8}>
-              <Card hoverable style={{ width: "100%" }}>
+              <div
+                style={{
+                  width: "100%",
+                  background: "#1E4ED6",
+                  minHeight: "calc(100vh - 305px)",
+                  padding: "20px"
+                }}
+              >
                 <MyGotoPayment
                   amount={this.state.totalAmount}
                   handleAmount={this.handleGiftCard}
                   handlePayment={this.handlePayment}
                   handleValue={this.handleValue}
                 />
-              </Card>
+              </div>
             </Col>
           </Row>
           {/* Business {this.props.router.query.id} */}
 
-          <br />
-          <br />
           {/* <script src="https://checkout.razorpay.com/v1/checkout.js"></script> */}
         </CsrTemplate>
       )

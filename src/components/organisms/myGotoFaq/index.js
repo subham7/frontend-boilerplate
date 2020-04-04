@@ -14,7 +14,7 @@ const myGotofaq = props => {
   }
 
   return (
-    <div style={style.container}>
+    <div style={style.container} id="faq">
       <h1 style={style.infoHeading}>FAQs</h1>
       <Collapse>
         <Panel header="What is MyGoto?">

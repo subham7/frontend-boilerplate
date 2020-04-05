@@ -19,7 +19,9 @@ class App extends Component {
     this.state = {
       formData: {},
       cart: [],
-      totalAmount: 0
+      totalAmount: 0,
+      discountedPrice: 0,
+      disc: 0
     }
   }
 
@@ -35,7 +37,7 @@ class App extends Component {
 
   handlePayment = () => {
     let formData = this.state.formData
-    let amount = this.state.totalAmount
+    let amount = this.state.discountedPrice
     let businessId = this.props.router.query.bid
     let cart = this.state.cart
     let paymentFunc = this.props.createPaymentMyGoto
@@ -107,7 +109,6 @@ class App extends Component {
   }
 
   handleGiftCard = amount => {
-    console.log(amount.target.value)
     let cart = this.state.cart
     cart.push({
       amount: amount.target.value,
@@ -115,6 +116,14 @@ class App extends Component {
     })
     this.setState({ cart: cart })
     this.setState({ totalAmount: amount.target.value })
+    let discount = this.props.myGotoBusinessById.response.data.data.discount
+
+    let discountAmount = amount.target.value * (discount / 100)
+
+    this.setState({ discountedPrice: amount.target.value - discountAmount })
+    this.setState({
+      disc: this.props.myGotoBusinessById.response.data.data.discount
+    })
   }
 
   handleAmount = e => {
@@ -143,9 +152,8 @@ class App extends Component {
     this.setState({ totalAmount: totalAmount })
   }
 
-  socialSharing = (bId, type) => {
-    const msg =
-      "Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
+  socialSharing = (bId, name, type) => {
+    const msg = `Love ${name}? Be their #SuperCustomer! Buy MyGoto vouchers of your favorite brands today at BIG discounts and redeem once they reopen. Let's #WinTogether`
 
     switch (type) {
       case "twitter":
@@ -180,7 +188,16 @@ class App extends Component {
       social: { height: "28px", width: "auto" },
       btn: { paddingLeft: "0", paddingRight: "20px" },
       container: { padding: "20px" },
-      shareText: { color: "#1E4ED6" }
+      shareText: { color: "#1E4ED6" },
+      discount: {
+        display: "inline",
+        background: "#1E4ED6",
+        padding: "10px 20px",
+        color: "#fff",
+        fontWeight: "700",
+        fontSize: "1.2em"
+      },
+      discountImg: { width: "20px", height: "auto", marginRight: "5px" }
     }
 
     if (this.props.myGotoBusinessById.isLoaded)
@@ -198,6 +215,25 @@ class App extends Component {
           <Row>
             <Col sm={16}>
               <div style={style.container}>
+                {this.props.myGotoBusinessById.response.data.data.discount >
+                0 ? (
+                  <div>
+                    <div style={style.discount}>
+                      <img
+                        src="/static/icons/ico.png"
+                        style={style.discountImg}
+                      />
+                      {"   "}
+                      {
+                        this.props.myGotoBusinessById.response.data.data
+                          .discount
+                      }
+                      % discount on all the gift cards.
+                    </div>
+                    <br /> <br />
+                  </div>
+                ) : null}
+
                 <div>
                   <h3 style={style.shareText}>Let your friends know</h3>
                   <Button
@@ -207,6 +243,7 @@ class App extends Component {
                       this.socialSharing(
                         this.props.myGotoBusinessById.response.data.data
                           .pk_business_id,
+                        this.props.myGotoBusinessById.response.data.data.name,
                         "facebook"
                       )
                     }
@@ -224,6 +261,7 @@ class App extends Component {
                       this.socialSharing(
                         this.props.myGotoBusinessById.response.data.data
                           .pk_business_id,
+                        this.props.myGotoBusinessById.response.data.data.name,
                         "linkedin"
                       )
                     }
@@ -241,6 +279,7 @@ class App extends Component {
                       this.socialSharing(
                         this.props.myGotoBusinessById.response.data.data
                           .pk_business_id,
+                        this.props.myGotoBusinessById.response.data.data.name,
                         "twitter"
                       )
                     }
@@ -258,6 +297,7 @@ class App extends Component {
                       this.socialSharing(
                         this.props.myGotoBusinessById.response.data.data
                           .pk_business_id,
+                        this.props.myGotoBusinessById.response.data.data.name,
                         "whatsapp"
                       )
                     }
@@ -287,7 +327,8 @@ class App extends Component {
                 }}
               >
                 <MyGotoPayment
-                  amount={this.state.totalAmount}
+                  amount={this.state.discountedPrice}
+                  disc={this.state.disc}
                   handleAmount={this.handleGiftCard}
                   handlePayment={this.handlePayment}
                   handleValue={this.handleValue}

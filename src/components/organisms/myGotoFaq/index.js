@@ -9,7 +9,8 @@ const myGotofaq = props => {
     infoHeading: {
       fontSize: "3em",
       color: "#1E4ED6",
-      textAlign: "center"
+      textAlign: "center",
+      fontWeight: "700"
     }
   }
 

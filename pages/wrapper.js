@@ -80,7 +80,7 @@ export default function init(WrappedComponent) {
             <meta property="og:title" content="My Goto" />
             <meta
               property="og:image"
-              content="https://file-upload-123.s3.ap-south-1.amazonaws.com/brandImages/1585596282121-mygoto.jpeg"
+              content="https://koyofea.s3.ap-south-1.amazonaws.com/icon.jpg"
             />
             <meta
               property="og:description"

@@ -38,6 +38,23 @@ export const validateBusiness = formData => {
         if (formData.phone.toString().length != 10) {
           reject("Invalid phone number!")
         }
+      } else if (formData.discount != undefined) {
+        switch (formData.discount) {
+          case "15":
+            reject("validate")
+          case "20":
+            resolve("validate")
+          case "25":
+            resolve("validate")
+          case "30":
+            resolve("validate")
+          case "40":
+            resolve("validate")
+          case "50":
+            resolve("validate")
+          default:
+            reject("Invalid discount amount.")
+        }
       }
       resolve("validate")
     }

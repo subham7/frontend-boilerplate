@@ -40,10 +40,23 @@ const myGotoCard = props => {
                   backgroundRepeat: "no-repeat",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
-                  height: "80px",
+                  height: "120px",
                   width: "100%"
                 }}
-              ></div>
+              >
+                {item.discount > 0 ? (
+                  <div
+                    style={{
+                      background: "#1f4ed6",
+                      padding: "0 10px",
+                      color: "#fff",
+                      display: "inline-block"
+                    }}
+                  >
+                    Discount {item.discount}%
+                  </div>
+                ) : null}
+              </div>
             }
           >
             <Meta title={item.name} description={item.city} />
@@ -55,7 +68,11 @@ const myGotoCard = props => {
                   type="link"
                   style={style.btn}
                   onClick={() =>
-                    props.socialSharing(item.pk_business_id, "facebook")
+                    props.socialSharing(
+                      item.pk_business_id,
+                      item.name,
+                      "facebook"
+                    )
                   }
                 >
                   <img
@@ -69,7 +86,11 @@ const myGotoCard = props => {
                   type="link"
                   style={style.btn}
                   onClick={() =>
-                    props.socialSharing(item.pk_business_id, "linkedin")
+                    props.socialSharing(
+                      item.pk_business_id,
+                      item.name,
+                      "linkedin"
+                    )
                   }
                 >
                   <img
@@ -83,7 +104,11 @@ const myGotoCard = props => {
                   type="link"
                   style={style.btn}
                   onClick={() =>
-                    props.socialSharing(item.pk_business_id, "twitter")
+                    props.socialSharing(
+                      item.pk_business_id,
+                      item.name,
+                      "twitter"
+                    )
                   }
                 >
                   <img
@@ -97,7 +122,11 @@ const myGotoCard = props => {
                   type="link"
                   style={style.btn}
                   onClick={() =>
-                    props.socialSharing(item.pk_business_id, "whatsapp")
+                    props.socialSharing(
+                      item.pk_business_id,
+                      item.name,
+                      "whatsapp"
+                    )
                   }
                 >
                   <img

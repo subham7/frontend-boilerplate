@@ -29,10 +29,8 @@ class App extends Component {
     })
   }
 
-  socialSharing = (bId, type) => {
-    console.log(bId)
-    const msg =
-      "Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
+  socialSharing = (bId, name, type) => {
+    const msg = `Love ${name}? Be their #SuperCustomer! Buy MyGoto vouchers of your favorite brands today at BIG discounts and redeem once they reopen. Let's #WinTogether`
 
     switch (type) {
       case "twitter":

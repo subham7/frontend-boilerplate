@@ -128,7 +128,9 @@ class myGotoPayment extends Component {
           onClick={this.props.handlePayment}
           shape="round"
         >
-          Pay
+          {this.props.disc > 0
+            ? `Pay ₹${this.props.amount} after discount`
+            : "Pay"}
         </Button>
       </div>
     )

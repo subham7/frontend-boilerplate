@@ -47,19 +47,21 @@ const homeBanner = props => {
             {matches => (
               <div style={matches.small ? style.contentPhone : style.content}>
                 <h1 style={style.bannerh1}>
-                  Support your <br /> favourite{" "}
-                  <span style={style.bold}>Go-to</span> places!
+                  Love your <br /> favourite{" "}
+                  <span style={style.bold}>Go-to</span> places?
                 </h1>
                 <br />
                 <p style={style.textBlue}>
-                  Buy gift cards now and{" "}
-                  <span style={style.bold}>"flatten the curve"</span> for them.
+                  Buy MyGoto vouchers now and be a{" "}
+                  <span style={style.bold}>#SuperCustomer</span> for them.
                 </p>
                 <br />
                 <p style={style.textBlue}>
                   Even though we can't leave home, we can still support our
-                  favourite go-to places by buying gift cards. Times are
-                  definitely tough during the lockdown, but together we win!
+                  favourite go-to places by buying MyGoto vouchers at{" "}
+                  <span style={style.bold}>BIG</span> discounts and redeem once
+                  they reopen! Times are tough, but we can{" "}
+                  <span style={style.bold}>#WinTogether</span>
                 </p>
                 <br />
                 <Button

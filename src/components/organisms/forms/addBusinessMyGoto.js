@@ -7,7 +7,7 @@ import {
 } from "./../../../reduxHelper"
 import { Form, Checkbox, Text, Date, TextArea } from "../../../utils/xinformed"
 import { ArrayField } from "informed"
-import { Button, Row, Col, Select, message } from "antd"
+import { Button, Row, Col, Select, message, Radio } from "antd"
 import Loader from "./../../atoms/loading"
 import Router from "next/router"
 const { Option } = Select
@@ -23,7 +23,8 @@ class addBusinessMyGoto extends Component {
       file: null,
       state: undefined,
       city: undefined,
-      is_owner: "",
+      is_owner: false,
+      discount: undefined,
       cityArr: [{ City: "", State: "", District: "" }],
       stateArr: [
         "Andhra Pradesh",
@@ -73,12 +74,14 @@ class addBusinessMyGoto extends Component {
     data["city"] = this.state.city
     data["state"] = this.state.state
     data["is_owner"] = this.state.is_owner
+    data["discount"] = this.state.discount
 
     this.props
       .validate(data)
       .then(validate => {
         if (validate === "validate") {
           data["phone"] = data["phone"].toString()
+
           //data["creator_phone"] = data["creator_phone"].toString()
           let formData = new FormData()
           let details = JSON.stringify(data)
@@ -122,12 +125,15 @@ class addBusinessMyGoto extends Component {
     if (name === "state")
       this.props.cityMyGoto(value).then(_ => {
         this.setState({ cityArr: this.props.cityMyGotoData.response.data })
-        console.log(this.props.cityMyGotoData.response.data)
       })
   }
 
   cityFocus = () => {
     this.props.cityMyGoto(this.state.state)
+  }
+
+  handleDiscount = discount => {
+    this.setState({ discount: discount.target.value })
   }
 
   render() {
@@ -235,6 +241,29 @@ class addBusinessMyGoto extends Component {
                 <Option value={false}>No</Option>
               </Select>
             </Col>
+            <Col sm={24}>
+              {this.state.is_owner ? (
+                <div>
+                  <label>
+                    Would you like to offer discount to your customers?
+                    (Optional)
+                  </label>
+                  <Radio.Group
+                    defaultValue="a"
+                    buttonStyle="solid"
+                    style={style.field}
+                    onChange={this.handleDiscount}
+                  >
+                    <Radio.Button value="15">15%</Radio.Button>
+                    <Radio.Button value="20">20%</Radio.Button>
+                    <Radio.Button value="25">25%</Radio.Button>
+                    <Radio.Button value="30">30%</Radio.Button>
+                    <Radio.Button value="40">40%</Radio.Button>
+                    <Radio.Button value="50">50%</Radio.Button>
+                  </Radio.Group>
+                </div>
+              ) : null}
+            </Col>
           </Row>
 
           <br />
@@ -242,8 +271,11 @@ class addBusinessMyGoto extends Component {
             style={{
               float: "left",
               width: 192,
-              marginBottom: "20px"
+              marginBottom: "20px",
+              background: "#1E4ED6",
+              color: "#fff"
             }}
+            shape="round"
             onClick={this.handleClick}
             loading={this.state.loading}
           >

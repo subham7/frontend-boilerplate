@@ -6,7 +6,8 @@ const myGotoInfoCard = props => {
   const style = {
     infoHeading: {
       fontSize: "3em",
-      color: "#1E4ED6"
+      color: "#1E4ED6",
+      fontWeight: "700"
     },
     textBlue: {
       color: "#1E4ED6",
@@ -48,21 +49,19 @@ const myGotoInfoCard = props => {
         <Col xl={12}>
           <h1 style={style.infoHeading}>Our mission</h1>
           <p style={style.textBlue}>
-            Gift cards help businesses of today "flatten the curve" of lost
+            MyGoto vouchers help businesses of today "flatten the curve" of lost
             income from COVID-19.
           </p>
 
           <p style={style.textBlue}>
-            Extended lockdown can kill a business, also resulting in loss of
+            Extended lockdown can affect a business, also resulting in loss of
             many jobs.
           </p>
 
           <p>
-            Businesses have tons of fixed costs: rent, labour, loan repayments,
-            insurance, supplies, repairs - the list goes on. Even many
-            successful ones have razor-thin margins of 3-5%, and a third have
-            struggled to pay their employees at least once. We're aiming at
-            improving cash-flow for these businesses so they don't die and at
+            Businesses have tons of fixed costs: rent, labor, loan repayments,
+            insurance, supplies, repairs – the list goes on. We’re aiming at
+            improving cash-flow for businesses so they don’t get affected, at
             the same time protect their employees.
           </p>
         </Col>

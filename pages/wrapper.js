@@ -77,14 +77,14 @@ export default function init(WrappedComponent) {
               href="/static/icons/Fevicon.png"
               type="image/x-icon"
             ></link>
-            <meta property="og:title" content="My Goto" />
+            <meta property="og:title" content="MyGoto Vouchers" />
             <meta
               property="og:image"
               content="https://mygoto.in/static/icons/social.jpg"
             />
             <meta
               property="og:description"
-              content="Support your favorite Goto Places. They might need your help. Help them by getting their gift cards as a small gesture."
+              content="Buy MyGoto vouchers now and be a #SuperCustomer for them."
             />
             <link
               href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"

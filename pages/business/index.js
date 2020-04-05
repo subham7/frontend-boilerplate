@@ -153,7 +153,7 @@ class App extends Component {
   }
 
   socialSharing = (bId, name, type) => {
-    const msg = `We know that you love ${name}? Be their #SuperCustomer! Buy MyGoto vouchers of your favorite brands today at BIG discounts and redeem once they reopen. Let's #WinTogether`
+    const msg = `We know that you love ${name}. Be their #SuperCustomer! Buy MyGoto vouchers of your favorite brands today at BIG discounts and redeem once they reopen. Let's #WinTogether`
 
     switch (type) {
       case "twitter":

@@ -80,7 +80,7 @@ export default function init(WrappedComponent) {
             <meta property="og:title" content="My Goto" />
             <meta
               property="og:image"
-              content="https://mygoto.in/static/icons/icon.jpg"
+              content="https://mygoto.in/static/icons/social.jpg"
             />
             <meta
               property="og:description"

@@ -74,7 +74,7 @@ export default function init(WrappedComponent) {
             />
             <link
               rel="icon"
-              href="/static/images/icons/mygotoIcon.png"
+              href="/static/icons/Fevicon.png"
               type="image/x-icon"
             ></link>
             <meta property="og:title" content="My Goto" />

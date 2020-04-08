@@ -1,5 +1,8 @@
 import React from "react"
 import Head from "next/head"
+import ReactGA from "react-ga"
+import ReactPixel from "react-facebook-pixel"
+
 import styles from "./styles"
 
 export default function init(WrappedComponent) {
@@ -10,10 +13,29 @@ export default function init(WrappedComponent) {
 
     componentDidMount() {
       this.drift()
+      this.gAnalytics()
+      this.fbPexel()
+    }
+
+    fbPexel = () => {
+      const options = {
+        autoConfig: true, // set pixel's autoConfig
+        debug: false, // enable logs
+      }
+      ReactPixel.init("551809379026362", options)
+
+      ReactPixel.pageView() // For tracking page view
+      // ReactPixel.track(event, data) // For tracking default events, more info about events and data https://developers.facebook.com/docs/ads-for-websites/pixel-events/v2.9
+      // ReactPixel.trackCustom(event, data)
+    }
+
+    gAnalytics = () => {
+      ReactGA.initialize("GTM-TZ4424P")
+      ReactGA.pageview(window.location.pathname + window.location.search)
     }
 
     drift = () => {
-      !(function() {
+      !(function () {
         var t = (window.driftt = window.drift = window.driftt || [])
         if (!t.init) {
           if (t.invoked)
@@ -34,18 +56,18 @@ export default function init(WrappedComponent) {
               "page",
               "hide",
               "off",
-              "on"
+              "on",
             ]),
-            (t.factory = function(e) {
-              return function() {
+            (t.factory = function (e) {
+              return function () {
                 var n = Array.prototype.slice.call(arguments)
                 return n.unshift(e), t.push(n), t
               }
             }),
-            t.methods.forEach(function(e) {
+            t.methods.forEach(function (e) {
               t[e] = t.factory(e)
             }),
-            (t.load = function(t) {
+            (t.load = function (t) {
               var e = 3e5,
                 n = Math.ceil(new Date() / e) * e,
                 o = document.createElement("script")

@@ -1,9 +1,10 @@
 import React, { Component } from "react"
 import { withRouter } from "next/router"
+import Router from "next/router"
 import { connect } from "react-redux"
 import {
   getMyGotoBusinessById,
-  createPaymentMyGoto
+  createPaymentMyGoto,
 } from "../../src/reduxHelper"
 import { validatePayment } from "./validate"
 import wrapper from "../wrapper"
@@ -21,7 +22,7 @@ class App extends Component {
       cart: [],
       totalAmount: 0,
       discountedPrice: 0,
-      disc: 0
+      disc: 0,
     }
   }
 
@@ -46,15 +47,15 @@ class App extends Component {
       amount: amount,
       fk_business_id: businessId,
       //pk_payment_id: response.razorpay_payment_id,
-      cart: cart
+      cart: cart,
     }
 
     validatePayment(data)
-      .then(validate => {
+      .then((validate) => {
         if (validate === "validate") {
           let options = {
             key: "rzp_live_MlgUcfBEMLoLme",
-            // key: "rzp_test_IWXggiN4CqBvCo",
+            //key: "rzp_test_IWXggiN4CqBvCo",
             amount: amount * 100,
             currency: "INR",
             name: "MyGoto",
@@ -65,54 +66,55 @@ class App extends Component {
             prefill: {
               name: formData.name,
               email: formData.email,
-              contact: formData.phone
+              contact: formData.phone,
             },
             notes: {
-              address: "Hello World"
+              address: "Hello World",
             },
             theme: {
-              color: "#1E4ED6"
+              color: "#1E4ED6",
             },
-            handler: function(response) {
+            handler: function (response) {
               data["pk_payment_id"] = response.razorpay_payment_id
               paymentFunc(data)
-                .then(res => {
+                .then((res) => {
                   notification["success"]({
                     message: "Success",
                     description:
-                      "The gift cards has been sent to your email and mobile number, please check in spam if not received"
+                      "The gift cards has been sent to your email and mobile number, please check in spam if not received",
                   })
+                  Router.push("/success")
                 })
-                .catch(err => {
+                .catch((err) => {
                   notification["error"]({
                     message: "Error",
-                    description: "Some problem occured. Please try again."
+                    description: "Some problem occured. Please try again.",
                   })
                 })
-            }
+            },
           }
 
           let rzp = new window.Razorpay(options)
           rzp.open()
         }
       })
-      .catch(err => {
+      .catch((err) => {
         message.error("" + err)
         //this.setState({ apiRequestLoading: false })
       })
   }
 
-  handleValue = e => {
+  handleValue = (e) => {
     let obj = {}
     obj[e.target.name] = e.target.value
     this.setState({ formData: { ...this.state.formData, ...obj } })
   }
 
-  handleGiftCard = amount => {
+  handleGiftCard = (amount) => {
     let cart = this.state.cart
     cart.push({
       amount: amount.target.value,
-      quantity: 1
+      quantity: 1,
     })
     this.setState({ cart: cart })
     this.setState({ totalAmount: amount.target.value })
@@ -122,11 +124,11 @@ class App extends Component {
 
     this.setState({ discountedPrice: amount.target.value - discountAmount })
     this.setState({
-      disc: this.props.myGotoBusinessById.response.data.data.discount
+      disc: this.props.myGotoBusinessById.response.data.data.discount,
     })
   }
 
-  handleAmount = e => {
+  handleAmount = (e) => {
     let totalAmount = 0
     let cart = this.state.cart
 
@@ -139,14 +141,14 @@ class App extends Component {
     if (e.target.value != "") {
       cart.push({
         amount: e.target.name,
-        quantity: e.target.value
+        quantity: e.target.value,
       })
       this.setState({
-        cart: cart
+        cart: cart,
       })
     }
 
-    this.state.cart.map(item => {
+    this.state.cart.map((item) => {
       totalAmount = totalAmount + item.amount * item.quantity
     })
     this.setState({ totalAmount: totalAmount })
@@ -160,25 +162,25 @@ class App extends Component {
         tw({
           url: `https://mygoto.in/business?bid=${bId}`,
           title: msg,
-          hashtags: ["mygoto"]
+          hashtags: ["mygoto"],
         })
         break
 
       case "whatsapp":
         whatsapp({
           url: `https://mygoto.in/business?bid=${bId}`,
-          title: msg
+          title: msg,
         })
         break
       case "linkedin":
         linkedin({
           url: `https://mygoto.in/business?bid=${bId}`,
           title: "MyGoto",
-          description: msg
+          description: msg,
         })
       case "facebook":
         fbButton({
-          url: `https://mygoto.in/business?bid=${bId}`
+          url: `https://mygoto.in/business?bid=${bId}`,
         })
     }
   }
@@ -195,9 +197,9 @@ class App extends Component {
         padding: "10px 20px",
         color: "#fff",
         fontWeight: "700",
-        fontSize: "1.2em"
+        fontSize: "1.2em",
       },
-      discountImg: { width: "20px", height: "auto", marginRight: "5px" }
+      discountImg: { width: "20px", height: "auto", marginRight: "5px" },
     }
 
     if (this.props.myGotoBusinessById.isLoaded)
@@ -323,7 +325,7 @@ class App extends Component {
                   width: "100%",
                   background: "#1E4ED6",
                   minHeight: "calc(100vh - 305px)",
-                  padding: "20px"
+                  padding: "20px",
                 }}
               >
                 <MyGotoPayment
@@ -345,13 +347,13 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  myGotoBusinessById: state.getMyGotoBusinessById
+const mapStateToProps = (state) => ({
+  myGotoBusinessById: state.getMyGotoBusinessById,
 })
 
-const mapDispatchToProps = dispatch => ({
-  getMyGotoBusinessById: bId => dispatch(getMyGotoBusinessById.action(bId)),
-  createPaymentMyGoto: data => dispatch(createPaymentMyGoto.action(data))
+const mapDispatchToProps = (dispatch) => ({
+  getMyGotoBusinessById: (bId) => dispatch(getMyGotoBusinessById.action(bId)),
+  createPaymentMyGoto: (data) => dispatch(createPaymentMyGoto.action(data)),
 })
 
 export default wrapper(

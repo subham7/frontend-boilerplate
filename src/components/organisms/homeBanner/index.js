@@ -2,7 +2,7 @@ import React from "react"
 import Media from "react-media"
 import { Row, Col, Button } from "antd"
 
-const homeBanner = props => {
+const homeBanner = (props) => {
   const style = {
     container: { padding: "20px 50px" },
     img: { height: "auto", width: "100%" },
@@ -10,27 +10,27 @@ const homeBanner = props => {
       color: "#1E4ED6",
       fontSize: "3em",
       marginBottom: 0,
-      lineHeight: "50px"
+      lineHeight: "50px",
     },
     content: {
       paddingTop: "50px",
-      paddingRight: "100px"
+      paddingRight: "100px",
     },
     contentPhone: {
-      paddingTop: "50px"
+      paddingTop: "50px",
     },
     textBlue: {
       color: "#1E4ED6",
       fontSize: "1.2em",
-      marginBottom: 0
+      marginBottom: 0,
     },
     placeBtn: {
       background: "#1E4ED6",
-      color: "#fff"
+      color: "#fff",
     },
     bold: {
-      fontWeight: "700"
-    }
+      fontWeight: "700",
+    },
   }
 
   return (
@@ -41,10 +41,10 @@ const homeBanner = props => {
             queries={{
               small: "(max-width: 599px)",
               medium: "(min-width: 600px) and (max-width: 1199px)",
-              large: "(min-width: 600px)"
+              large: "(min-width: 600px)",
             }}
           >
-            {matches => (
+            {(matches) => (
               <div style={matches.small ? style.contentPhone : style.content}>
                 <h1 style={style.bannerh1}>
                   Love your <br /> favourite{" "}

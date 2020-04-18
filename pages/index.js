@@ -1,121 +1,38 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import wrapper from "./wrapper"
-import { getMyGotoBusiness, getCityByBusinessMyGoto } from "../src/reduxHelper"
-import { tw, whatsapp, linkedin, fbButton } from "vanilla-sharing"
-import CsrTemplate from "../src/components/templates/csrTemplate"
-import MyGotoCard from "../src/components/organisms/myGotoCard"
-import MyGotoInfoCard from "../src/components/organisms/myGotoInfoCard"
-import MyGotoFaq from "../src/components/organisms/myGotoFaq"
-import Loader from "../src/components/atoms/loading"
-import { Row, Col, Card, Button } from "antd"
+
+// API import
+import { getAPI } from "./../src/reduxHelper"
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { filterData: [] }
+    this.state = {}
   }
 
   componentDidMount() {
-    this.loadBusiness()
-    this.props.getCityByBusinessMyGoto()
-  }
-
-  loadBusiness = () => {
-    this.props.getMyGotoBusiness().then(() => {
-      this.setState({
-        filterData: this.props.myGotoBusiness.response.data.data
-      })
-    })
-  }
-
-  socialSharing = (bId, name, type) => {
-    const msg = `We know that you love ${name}. Be their #SuperCustomer! Buy MyGoto vouchers of your favorite brands today at BIG discounts and redeem once they reopen. Let's #WinTogether`
-
-    switch (type) {
-      case "twitter":
-        tw({
-          url: `https://mygoto.in/business?bid=${bId}`,
-          title: msg,
-          hashtags: ["mygoto"]
-        })
-        break
-
-      case "whatsapp":
-        whatsapp({
-          url: `https://mygoto.in/business?bid=${bId}`,
-          title: msg
-        })
-        break
-      case "linkedin":
-        linkedin({
-          url: `https://mygoto.in/business?bid=${bId}`,
-          title: "MyGoto",
-          description: msg
-        })
-      case "facebook":
-        fbButton({
-          url: `https://mygoto.in/business?bid=${bId}`
-        })
-    }
-  }
-
-  handleSearch = value => {
-    const filteredEvents = this.props.myGotoBusiness.response.data.data.filter(
-      data => {
-        var pattern = new RegExp(value, "i")
-        return data.name.match(pattern)
-      }
-    )
-    this.setState({ filterData: filteredEvents })
-  }
-
-  handleFilter = city => {
-    let data = []
-    this.props.myGotoBusiness.response.data.data.map(item => {
-      if (item.city === city) data.push(item)
-    })
-    this.setState({ filterData: data })
+    this.props.getAPI()
   }
 
   render() {
-    if (
-      this.props.myGotoBusiness.isLoaded &&
-      this.props.cityByBusinessMyGoto.isLoaded
+    return (
+      <div>
+        Index page
+        <br />
+        <br />
+        <a href="/somepage">Some Page</a>
+      </div>
     )
-      return (
-        <div>
-          <CsrTemplate
-            diplaySearch={true}
-            background="#1e4ed6"
-            displayFilter={true}
-            cityFilter={this.props.cityByBusinessMyGoto.response.data.data}
-            handleFilter={this.handleFilter}
-            handleSearch={this.handleSearch}
-            reset={this.loadBusiness}
-            reloadBusiness={this.loadBusiness}
-          >
-            <MyGotoCard
-              data={this.state.filterData}
-              socialSharing={this.socialSharing}
-            />
-            <MyGotoInfoCard />
-            <MyGotoFaq />
-          </CsrTemplate>
-        </div>
-      )
-    else return <Loader />
   }
 }
 
-const mapStateToProps = state => ({
-  myGotoBusiness: state.getMyGotoBusiness,
-  cityByBusinessMyGoto: state.getCityByBusinessMyGoto
+const mapStateToProps = (state) => ({
+  getAPIData: state.getAPI,
 })
 
-const mapDispatchToProps = dispatch => ({
-  getMyGotoBusiness: () => dispatch(getMyGotoBusiness.action()),
-  getCityByBusinessMyGoto: () => dispatch(getCityByBusinessMyGoto.action())
+const mapDistatchToProps = (dispatch) => ({
+  getAPI: () => dispatch(getAPI.action()),
 })
 
-export default wrapper(connect(mapStateToProps, mapDispatchToProps)(App))
+export default wrapper(connect(mapStateToProps, mapDistatchToProps)(App))

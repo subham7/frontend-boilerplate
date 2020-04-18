@@ -12,9 +12,9 @@ export default function init(WrappedComponent) {
     }
 
     componentDidMount() {
-      this.drift()
-      this.gAnalytics()
-      this.fbPexel()
+      // this.drift()
+      // this.gAnalytics()
+      // this.fbPexel()
     }
 
     fbPexel = () => {

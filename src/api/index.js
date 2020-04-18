@@ -1,5 +1,5 @@
-import * as myGoto from "./myGoto"
+import * as someAPI from "./someAPI"
 
 module.exports = {
-  myGoto
+  someAPI,
 }

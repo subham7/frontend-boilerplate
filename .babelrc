@@ -1,0 +1,16 @@
+{
+    "presets": [
+        "next/babel"
+    ],
+    "ignore": ["node_modules"],
+    "plugins": [
+        [
+            "import",
+            {
+                "libraryName": "antd",
+                "libraryDirectory":"lib",
+                "style": true
+            }
+        ]
+    ]
+}
